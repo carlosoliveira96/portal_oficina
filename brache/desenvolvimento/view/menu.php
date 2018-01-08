@@ -8,51 +8,91 @@
         <link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon">
         <!-- Arquivos CSS -->
         <link rel="stylesheet" href="static/css/bootstrap.css">
+        <link rel="stylesheet" href="static/css/style4.css">
+        <link rel="stylesheet" href="static/css/customScrollbar.css">
         <!-- Arquivos JS -->
-        <script src="static/js/jquery-3.2.1.js"></script>
+        <script src="static/js/jquery.js"></script>
         <script src="static/js/bootstrap.js"></script>
-        <script defer src="static/js/fontawesome-all.js"></script>
+        <script src="static/js/customScrollbat.js"></script>
+        <script src="static/js/fontawesome-all.js"></script>
     </head>
     <body>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-3 col-xs-1 p-l-0 p-r-0 collapse in" id="sidebar">
-                    <div class="list-group panel">
-                        <a href="#" class="list-group-item collapsed" data-parent="#sidebar">
-                            <i class="fa fa-heart"></i> <span class="hidden-sm-down">Item 4</span>
-                        </a>
-                        <a href="#" class="list-group-item collapsed" data-parent="#sidebar">
-                            <i class="fa fa-list"></i> <span class="hidden-sm-down">Item 5</span>
-                        </a>
-                        <a href="#" class="list-group-item collapsed" data-parent="#sidebar">
-                            <i class="fa fa-clock-o"></i> <span class="hidden-sm-down">Link</span>
-                        </a>
-                        <a href="#" class="list-group-item collapsed" data-parent="#sidebar">
-                            <i class="fa fa-th"></i> <span class="hidden-sm-down">Link</span>
-                        </a>
-                        <a href="#" class="list-group-item collapsed" data-parent="#sidebar">
-                            <i class="fa fa-gear"></i> <span class="hidden-sm-down">Link</span>
-                        </a>
-                        <a href="#" class="list-group-item collapsed" data-parent="#sidebar">
-                            <i class="fa fa-calendar"></i> <span class="hidden-sm-down">Link</span>
-                        </a>
-                        <a href="#" class="list-group-item collapsed" data-parent="#sidebar">
-                            <i class="fa fa-envelope"></i> <span class="hidden-sm-down">Link</span>
-                        </a>
-                        <a href="#" class="list-group-item collapsed" data-parent="#sidebar">
-                            <i class="fa fa-bar-chart-o"></i> <span class="hidden-sm-down">Link</span>
-                        </a>
-                        <a href="#" class="list-group-item collapsed" data-parent="#sidebar">
-                            <i class="fa fa-star"></i> <span class="hidden-sm-down">Link</span>
-                        </a>
-                    </div>
+        <div class="wrapper">
+            <nav id="sidebar">
+                <div id="dismiss">
+                    <i class="fas fa-chevron-circle-left"></i>
                 </div>
-                <main class="col-md-9 col-xs-11 p-l-2 p-t-2">
-                    <a href="#sidebar" data-toggle="collapse"><i class="fas fa-bars"></i>Menu</a>
-                    <hr>
-                </main>
-            </div>
+                <div class="sidebar-header">
+                    <img src="static/img/user.png" class="rounded-circle" height="156" width="156">
+                    <p>Usuário logado</p>
+                    <p>Cargo</p>
+                </div>
+				<hr style="border-color: #5E636B">
+                <ul class="list-unstyled components">
+                    <li class="active">
+                        <a href="#">Início</a>
+                    </li>
+                    <li>
+                        <a href="#">Manter Cadastros</a>
+                    </li>
+                    <li>
+                        <a href="#">Visualizar</a>
+                    </li>
+                    <li>
+                        <a href="#">Ordem de Serviço</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Page Content Holder -->
+            
+                <div style="width: 100%; background: #343A40; height: 3.4rem; overflow-x: hidden;">
+                	<div class="row">
+                		<div class="col-1">
+		                    <button type="button" id="sidebarCollapse" class="btn btn-dark navbar-btn" style="margin-top: 0.5rem">
+		                        <i class="fas fa-bars"></i>
+		                        <span>Menu</span>
+		                    </button>
+	                	</div>
+	                	<div class="col-10"></div>
+	                	<div class="col-1">
+	                		<button type="" id="sidebarCollapse" class="btn btn-dark navbar-btn" style="margin-top: 0.5rem">
+		                        <i class="fas fa-sign-out-alt"></i>
+		                        <span>Sair</span>
+		                    </button>
+	                	</div>
+                	</div>
+				</div>                    
+           
         </div>
+        <div class="overlay"></div>
     </body>
+    <script>
+    	$(document).ready(function () {
+
+    $("#sidebar").mCustomScrollbar({
+        theme: "minimal"
+    });
+
+    // when opening the sidebar
+    $('#sidebarCollapse').on('click', function () {
+        // open sidebar
+        $('#sidebar').addClass('active');
+        // fade in the overlay
+        $('.overlay').fadeIn();
+        $('.collapse.in').toggleClass('in');
+        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+    });
+
+   
+    // if dismiss or overlay was clicked
+    $('#dismiss, .overlay').on('click', function () {
+      // hide the sidebar
+      $('#sidebar').removeClass('active');
+      // fade out the overlay
+      $('.overlay').fadeOut();
+    });
+});
+    </script>
 
 </html>

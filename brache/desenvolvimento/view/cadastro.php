@@ -1,3 +1,6 @@
+<?php
+include 'menu.php';
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,24 +8,22 @@
 	<title>Portal Oficina</title>
 
 	<!-- Arquivos CSS -->
-	<link href="static/css/bootstrap.css" rel="stylesheet">
 	<link href="static/css/jasny-bootstrap.css" rel="stylesheet">
 	<link href="static/css/bootstrap-datepicker.css" rel="stylesheet">
 	<link  href="static/css/fontawesome-all.min.css" rel="stylesheet">
 	<!-- Arquivos JS -->
-	<script type="text/javascript" src="static/js/jquery.js"></script>
 	<script type="text/javascript" src="static/js/jasny-bootstrap.js"></script>
 
 </head>
-<body style="background-color: #F8F9FA" onload="modelo_cadastro()">
-	<div class="container" style=" background-color: #fff;">
-		<div class="row" style="margin-top: 1rem">
+<body  style="background-color: #F8F9FA;" onload="modelo_cadastro()">
+	<div class="container" style=" background-color: #fff; margin-top: 1rem">
+		<div class="row">
 			<div class="col-1"></div>
 			<div class="col-7">
-				<h2 style="margin-top: 1rem"><i><b>Cadastro</b></i></h2>
+				<h2><i><b>Cadastro</b></i></h2>
 			</div>
 			<div class="col-4">
-				<button style="margin-top: 1rem" class="btn btn-dark col-12" onclick="salvar()"><span class="fa fa-check"></span> Salvar</button>
+				<button class="btn btn-dark col-12" onclick="salvar()"><span class="fa fa-check"></span> Salvar</button>
 			</div>
 		</div>
 		<hr>
@@ -264,8 +265,7 @@
 	</div>
 	</body>
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<script type="text/javascript" src="static/js/popper.js"></script>
-	<script type="text/javascript" src="static/js/bootstrap.js"></script>	
+	<script type="text/javascript" src="static/js/popper.js"></script>	
 	<script src="static/js/bootstrap-datepicker.js"></script>
 	<script src="static/js/bootstrap-datepicker.pt-BR.min.js"></script>	
 

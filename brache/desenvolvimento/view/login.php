@@ -24,7 +24,7 @@
             </p>
         </div>
         <hr style="border: 1px solid rgba(0, 0, 0, 0.5)">
-        <form>
+        <form onkeyup="salvar()">
             <div class="container col-6" style="margin-top: 5%;">
                 <div class="card" style="border: 1px solid rgba(0, 0, 0, 0.5)">
                     <div class="card-header text-center" style="border-bottom: 1px solid rgba(0, 0, 0, 0.5)">
