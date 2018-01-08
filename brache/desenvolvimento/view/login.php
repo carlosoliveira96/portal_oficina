@@ -28,7 +28,7 @@
             <div class="container col-6" style="margin-top: 5%;">
                 <div class="card" style="border: 1px solid rgba(0, 0, 0, 0.5)">
                     <div class="card-header text-center" style="border-bottom: 1px solid rgba(0, 0, 0, 0.5)">
-                        <b><i class="fas fa-sign-in-alt"></i> Login</b>
+                        <b> Acesso ao Portal da Oficina</b>
                     </div>
                     <div class="card-body">
                         <div class="row" style="margin-top: 2rem">
@@ -56,7 +56,7 @@
                         </div>
                         <div class="input-group mb-3">
                             <button type="button" class="btn btn-dark btn-lg btn-block" onclick="salvar()" style="margin-top: 1rem">
-                                Entrar 
+                                <i class="fas fa-sign-in-alt float-left" style="margin-top: 0.3rem;"></i> Entrar
                             </button>
                         </div>
                     </div>

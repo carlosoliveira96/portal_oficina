@@ -1550,7 +1550,7 @@ pre code {
 .form-control {
   display: block;
   width: 100%;
-  padding: 0.5rem 0.75rem;
+  padding: 0rem 0.75rem;
   font-size: 1rem;
   line-height: 1.25;
   color: #495057;

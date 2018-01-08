@@ -17,15 +17,10 @@ include 'menu.php';
 </head>
 <body  style="background-color: #F8F9FA;" onload="modelo_cadastro()">
 	<div class="container" style=" background-color: #fff; margin-top: 1rem">
-		<div class="row">
-			<div class="col-1"></div>
-			<div class="col-7">
-				<h2><i><b>Cadastro</b></i></h2>
-			</div>
-			<div class="col-4">
-				<button class="btn btn-dark col-12" onclick="salvar()"><span class="fa fa-check"></span> Salvar</button>
-			</div>
-		</div>
+		<h2>
+			<p class="text-center" style="color: #000"><i><b>Cadastro</b></i></p>
+		</h2>
+		
 		<hr>
 		<div class="row justify-content-md-center" >
 			<div class="col-6">
@@ -41,7 +36,7 @@ include 'menu.php';
 				</div>
 			</div>
 			<div class="col-6">
-				<h6  style="margin-top:1rem"><i>Física/Juridíca</i></h6>	
+				<h6  style="margin-top:1rem"><i>Tipo de Pessoa</i></h6>	
 				<div class="input-group ">
 					<span class="input-group-addon" id="sizing-addon1"><i class="fa fa-user"></i></span>
 					<select class="form-control" id="tipo_pessoa" onchange="modelo_cadastro()">
@@ -261,6 +256,11 @@ include 'menu.php';
 				<h6  style="margin-top:1rem"><i>Observações</i></h6>	
 				<textarea class="form-control" rows="5"></textarea>
 			</div>
+		<div class="col-12">
+			<button style="margin-top: 1rem" class="btn btn-dark btn-lg btn-block" onclick="salvar()">
+				<i class="fa fa-check float-left" style="margin-top: 0.3rem;"></i> Salvar
+			</button>
+		</div>
 		</div>
 	</div>
 	</body>
