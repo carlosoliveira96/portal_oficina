@@ -2,19 +2,19 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Click Libras</title>
-	<link href="estatico/css/bootstrap.css" rel="stylesheet">
-	<link href="estatico/css/jasny-bootstrap.css" rel="stylesheet">
-	<link rel="stylesheet" href="estatico/css/fontawesome-all.min.css">
+	<title>Portal Oficina</title>
 
-	<script type="text/javascript" src="estatico/js/jquery.js"></script>
-	<script type="text/javascript" src="estatico/js/jasny-bootstrap.js"></script>
-	<link href="estatico/css/bootstrap-datepicker.css" rel="stylesheet">
+	<!-- Arquivos CSS -->
+	<link href="static/css/bootstrap.css" rel="stylesheet">
+	<link href="static/css/jasny-bootstrap.css" rel="stylesheet">
+	<link href="static/css/bootstrap-datepicker.css" rel="stylesheet">
+	<link  href="static/css/fontawesome-all.min.css" rel="stylesheet">
+	<!-- Arquivos JS -->
+	<script type="text/javascript" src="static/js/jquery.js"></script>
+	<script type="text/javascript" src="static/js/jasny-bootstrap.js"></script>
+
 </head>
 <body style="background-color: #F8F9FA" onload="modelo_cadastro()">
-	<nav class="navbar navbar-expand-lg navbar-light bg-light " style="border-bottom: 10px solid #0062CC ;">
-		<a class="navbar-brand text-primary" href="#"><b><i>Portal oficina</i></b></a>
-	</nav>
 	<div class="container" style=" background-color: #fff;">
 		<div class="row" style="margin-top: 1rem">
 			<div class="col-1"></div>
@@ -262,11 +262,12 @@
 			</div>
 		</div>
 	</div>
+	</body>
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<script type="text/javascript" src="estatico/js/popper.js"></script>
-	<script type="text/javascript" src="estatico/js/bootstrap.js"></script>	
-	<script src="estatico/js/bootstrap-datepicker.js"></script>
-	<script src="estatico/js/bootstrap-datepicker.pt-BR.min.js"></script>	
+	<script type="text/javascript" src="static/js/popper.js"></script>
+	<script type="text/javascript" src="static/js/bootstrap.js"></script>	
+	<script src="static/js/bootstrap-datepicker.js"></script>
+	<script src="static/js/bootstrap-datepicker.pt-BR.min.js"></script>	
 
 	<script type="text/javascript">
 
@@ -486,7 +487,7 @@
 			($.isNumeric(cep.charAt(8))) ){
 
 			$.ajax({
-	                url : 'consultar_cep.php', /* URL que será chamada */ 
+	                url : '../controller/consultar_cep.php', /* URL que será chamada */ 
 	                type : 'POST', /* Tipo da requisição */ 
 	                data: 'cep=' + $('#cep').val(), /* dado que será enviado via POST */
 	                dataType: 'json', /* Tipo de transmissão */
@@ -602,5 +603,5 @@
 	}
 
 	</script>
-</body>
+
 </html>

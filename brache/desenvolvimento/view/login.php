@@ -5,13 +5,13 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Portal da Oficina</title>
-        <link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon">
+
         <!-- Arquivos CSS -->
-        <link rel="stylesheet" href="static/css/bootstrap.css">
+        <link href="static/css/bootstrap.css" rel="stylesheet">
+        <link  href="static/css/fontawesome-all.min.css" rel="stylesheet">
         <!-- Arquivos JS -->
-        <script src="static/js/jquery-3.2.1.js"></script>
-        <script src="static/js/bootstrap.js"></script>
-        <script defer src="static/js/fontawesome-all.js"></script>
+        <script type="text/javascript" src="static/js/jquery.js"></script>
+        <script type="text/javascript" src="static/js/jasny-bootstrap.js"></script>
     </head>
     <body>
         <div style="background-color: #343A40">
@@ -31,31 +31,31 @@
                         <b><i class="fas fa-sign-in-alt"></i> Login</b>
                     </div>
                     <div class="card-body">
-                        <div class="col-12">
-                            <div class="input-group mb-3">
+                        <div class="row" style="margin-top: 2rem">
+                            <div class="col-12">
                                 <div class="input-group">
-                                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-user-circle"></i></span>
+                                    <span class="input-group-addon" id="sizing-addon1"><i class="fas fa-user-circle"></i></span>
                                     <input type="text" id="usuario" class="form-control" placeholder="Usuário" aria-label="Username" aria-describedby="basic-addon1">
                                 </div>
                                 <div class="text-danger"></div>
                             </div>
                         </div>
-                        <div class="col-12">
-                            <div class="input-group mb-3">
+                        <div class="row"  style="margin-top: 2rem">
+                            <div class="col-12">
                                 <div class="input-group">
-                                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-unlock-alt"></i></span>
+                                    <span class="input-group-addon" id="sizing-addon1"><i class="fas fa-unlock-alt"></i></span>
                                     <input type="password" id="senha" class="form-control" placeholder="Senha" aria-label="Username" aria-describedby="basic-addon1">
                                 </div>
                                 <div class="text-danger"></div>
                             </div>
                         </div>
                         <div class="help-block text-right">
-                            <a href="recuperaSenha.php">
+                            <a href="recuperaSenha.php" style="margin-top: 1rem">
                                 Esqueci minha senha!
                             </a>
                         </div>
                         <div class="input-group mb-3">
-                            <button type="button" class="btn btn-dark btn-lg btn-block" onclick="salvar()">
+                            <button type="button" class="btn btn-dark btn-lg btn-block" onclick="salvar()" style="margin-top: 1rem">
                                 Entrar 
                             </button>
                         </div>
@@ -63,12 +63,11 @@
                 </div>
             </div>
         </form>
-        <footer>
-            <div style="position: fixed; left: -100px; top: 74%; height: 10%; bottom">
-                <img src="static/img/carro-login.png" width="769" height="254" class="rounded float-left" alt="Responsive image">
-            </div>
-        </footer>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script type="text/javascript" src="static/js/popper.js"></script>
+    <script type="text/javascript" src="static/js/bootstrap.js"></script>   
     </body>
+
     <script>
     function salvar(){
         var nomeUsuario = $('#usuario').val();
