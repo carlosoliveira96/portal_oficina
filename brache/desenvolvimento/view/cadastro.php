@@ -16,7 +16,7 @@ include 'menu.php';
 
 </head>
 <body  style="background-color: #F8F9FA;" onload="modelo_cadastro()">
-	<div class="container" style=" background-color: #fff; margin-top: 1rem">
+	<div class="container" style=" background-color: #fff;">
 		<h2>
 			<p class="text-center" style="color: #000"><i><b>Cadastro</b></i></p>
 		</h2>
