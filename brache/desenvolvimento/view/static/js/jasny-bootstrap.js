@@ -865,9 +865,9 @@ if (typeof jQuery === 'undefined') { throw new Error('Jasny Bootstrap\'s JavaScr
 
     this.$preview = this.$element.find('.fileinput-preview')
     var height = this.$preview.css('height')
-    if (this.$preview.css('display') !== 'inline' && height !== '0px' && height !== 'none') {
-      this.$preview.css('line-height', height)
-    }
+
+    this.$preview.css('height', "17.5rem")
+    this.$preview.css('width', "20rem")
         
     this.original = {
       exists: this.$element.hasClass('fileinput-exists'),
@@ -915,10 +915,15 @@ if (typeof jQuery === 'undefined') { throw new Error('Jasny Bootstrap\'s JavaScr
         element.find('.fileinput-filename').text(file.name)
         
         // if parent has max-height, using `(max-)height: 100%` on child doesn't take padding and border into account
-        if (preview.css('max-height') != 'none') $img.css('max-height', parseInt(preview.css('max-height'), 10) - parseInt(preview.css('padding-top'), 10) - parseInt(preview.css('padding-bottom'), 10)  - parseInt(preview.css('border-top'), 10) - parseInt(preview.css('border-bottom'), 10))
+        if (preview.css('max-height') != 'none') 
+
+          $img.css('max-height', parseInt(preview.css('max-height'), 10) - parseInt(preview.css('padding-top'), 10) - parseInt(preview.css('padding-bottom'), 10)  - parseInt(preview.css('border-top'), 10) - parseInt(preview.css('border-bottom'), 10)- parseInt(preview.css('width'), 10))
+          $img.css("height", "20rem")
+          $img.css("width", "19rem")
         
         preview.html($img)
         element.addClass('fileinput-exists').removeClass('fileinput-new')
+
 
         element.trigger('change.bs.fileinput', files)
       }
