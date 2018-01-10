@@ -161,9 +161,9 @@ include 'menu.php';
 			</div>
 			<div class="col-2">
 				<div class="form-check" style="margin-top: 3rem">
-					<input class="form-check-input" type="checkbox" value="" id="sem_cep" onchange="nao_sei_cep()">
+					<input class="form-check-input" type="checkbox" value="" id="sem_cep" onchange="nao_sei_cep()" style="margin-left: 0.1rem ">
 					<label class="form-check-label" for="defaultCheck1">
-						Não sei meu CEP
+						Não sei o CEP
 					</label>
 				</div>
 			</div>
@@ -471,6 +471,13 @@ include 'menu.php';
 			}else if(controle_cep){
 				validação_ok = false;
 				remove_erro_input($('#cep'));
+			}
+
+			if(complemento.length == 0 ){
+				add_erro_input($('#complemento') , "Por favor preencha o campo Complemento");
+			}else{
+				validação_ok = false;
+				remove_erro_input($('#complemento'));
 			}
 
 		}
