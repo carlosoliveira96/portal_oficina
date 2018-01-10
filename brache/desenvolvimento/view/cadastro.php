@@ -3,266 +3,265 @@ include 'menu.php';
 ?>
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="UTF-8">
-	<title>Portal Oficina</title>
+	<head>
+		<meta charset="UTF-8">
+		<title>Portal Oficina</title>
 
-	<!-- Arquivos CSS -->
-	<link href="static/css/jasny-bootstrap.css" rel="stylesheet">
-	<link href="static/css/bootstrap-datepicker.css" rel="stylesheet">
-	<link  href="static/css/fontawesome-all.min.css" rel="stylesheet">
-	<!-- Arquivos JS -->
-	<script type="text/javascript" src="static/js/jasny-bootstrap.js"></script>
+		<!-- Arquivos CSS -->
+		<link href="static/css/jasny-bootstrap.css" rel="stylesheet">
+		<link href="static/css/bootstrap-datepicker.css" rel="stylesheet">
+		<link  href="static/css/fontawesome-all.min.css" rel="stylesheet">
+		<!-- Arquivos JS -->
+		<script type="text/javascript" src="static/js/jasny-bootstrap.js"></script>
 
-</head>
-<body  style="background-color: #F8F9FA;" onload="modelo_cadastro()">
-	<div class="container" style=" background-color: #fff; margin-top: 1rem">
-		<h2>
-			<p class="text-center" style="color: #000"><i><b>Cadastro</b></i></p>
-		</h2>
-		
-		<hr>
-		<div class="row justify-content-md-center" >
-			<div class="col-6">
-				<h6 style="margin-top:1rem"><i>Tipo de Cadastro</i></h6>	
-				<div class="input-group ">
-					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
-					<select class="form-control" id="tipo_cadastro" onchange="modelo_cadastro()">
-						<option value="cliente">Cliente</option>
-						<option value="fornecedor">Fornecedor</option>
-						<option value="seguradora">Seguradora</option>
-						<option value="corretor">Corretor</option>
-					</select>
+	</head>
+	<body style="background-color: #F8F9FA;" onload="modelo_cadastro()">
+		<div class="container" style=" background-color: #fff;">
+			<h2>
+				<p class="text-center" style="color: #000"><i><b>Cadastro</b></i></p>
+			</h2>
+			<hr>
+			<div class="row justify-content-md-center" >
+				<div class="col-6">
+					<h6 style="margin-top:1rem"><i>Tipo de Cadastro</i></h6>	
+					<div class="input-group ">
+						<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
+						<select class="form-control" id="tipo_cadastro" onchange="modelo_cadastro()">
+							<option value="cliente">Cliente</option>
+							<option value="fornecedor">Fornecedor</option>
+							<option value="seguradora">Seguradora</option>
+							<option value="corretor">Corretor</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-6">
+					<h6  style="margin-top:1rem"><i>Tipo de Pessoa</i></h6>	
+					<div class="input-group ">
+						<span class="input-group-addon" id="sizing-addon1"><i class="fa fa-user"></i></span>
+						<select class="form-control" id="tipo_pessoa" onchange="modelo_cadastro()">
+							<option value="fisica">Pessoa Física</option>
+							<option value="juridica">Pessoa Juridíca</option>
+						</select>
+					</div>
 				</div>
 			</div>
-			<div class="col-6">
-				<h6  style="margin-top:1rem"><i>Tipo de Pessoa</i></h6>	
-				<div class="input-group ">
-					<span class="input-group-addon" id="sizing-addon1"><i class="fa fa-user"></i></span>
-					<select class="form-control" id="tipo_pessoa" onchange="modelo_cadastro()">
-						<option value="fisica">Pessoa Física</option>
-						<option value="juridica">Pessoa Juridíca</option>
-					</select>
+			<hr>
+			<div class="row" id="fisica">
+				<div class="col-9">
+					<h6  style="margin-top:1rem"><i>Nome</i></h6>	
+					<div class="input-group ">
+						<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
+						<input type="text" id="nome" class="form-control" placeholder="Ex.:  Exemplo exemplo " maxlength="200" name="">
+					</div>
+					<div class="text-danger"></div>
+				</div>
+				<div class="col-3">
+					<h6  style="margin-top:1rem"><i>Nascimento</i></h6>	
+					<div class="input-group ">
+						<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
+						<input class="form-control" placeholder="Ex.: 99/99/9999"  id="nascimento" name="event_date" id="event_date" type="text" >
+					</div>
+					<div class="text-danger"></div>
+				</div>
+				<div class="col-4">
+					<h6  style="margin-top:1rem"><i>CPF</i></h6>	
+					<div class="input-group ">
+						<span class="input-group-addon" id="sizing-addon1"><i class="fa fa-user"></i></span>
+						<input type="text" id="cpf" class="form-control" placeholder="Ex.: 999.999.999-99" data-mask="999.999.999-99" name="">
+					</div>
+					<div class="text-danger"></div>
+				</div>
+				<div class="col-4">
+					<h6  style="margin-top:1rem"><i>RG</i></h6>	
+					<div class="input-group ">
+						<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
+						<input type="text" id="rg" class="form-control" placeholder="Ex.: 9999999"  name="">
+					</div>
+					<div class="text-danger"></div>
+				</div>
+				<div class="col-4">
+					<h6  style="margin-top:1rem"><i>Orgão Emissor</i></h6>	
+					<div class="input-group ">
+						<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
+						<input type="text" id="orgao_emissor" class="form-control" placeholder="Ex.: SSP-DF" maxlength="50" name="">
+					</div>
+					<div class="text-danger"></div>
 				</div>
 			</div>
-		</div>
-		<hr>
-		<div class="row" id="fisica">
-			<div class="col-9">
-				<h6  style="margin-top:1rem"><i>Nome</i></h6>	
-				<div class="input-group ">
-					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
-					<input type="text" id="nome" class="form-control" placeholder="Ex.:  Exemplo exemplo " maxlength="200" name="">
+			<div class="row" id="juridica">
+				<div class="col-6">
+					<h6  style="margin-top:1rem"><i>CNPJ</i></h6>	
+					<div class="input-group ">
+						<span class="input-group-addon" id="sizing-addon1"><i class="fa fa-user"></i></span>
+						<input type="text" id="cnpj" class="form-control" placeholder="Ex.: 99.999.999/9999-99" data-mask="99.999.999/9999-99" name="">
+					</div>
+					<div class="text-danger"></div>
 				</div>
-				<div class="text-danger"></div>
-			</div>
-			<div class="col-3">
-				<h6  style="margin-top:1rem"><i>Nascimento</i></h6>	
-				<div class="input-group ">
-					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
-					<input class="form-control" placeholder="Ex.: 99/99/9999"  id="nascimento" name="event_date" id="event_date" type="text" >
+				<div class="col-6">
+					<h6  style="margin-top:1rem"><i>I.E</i></h6>	
+					<div class="input-group ">
+						<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
+						<input type="text" id="inscricao_estadual" class="form-control" placeholder="Ex.: 99999999999"  name="">
+					</div>
+					<div class="text-danger"></div>
 				</div>
-				<div class="text-danger"></div>
-			</div>
-			<div class="col-4">
-				<h6  style="margin-top:1rem"><i>CPF</i></h6>	
-				<div class="input-group ">
-					<span class="input-group-addon" id="sizing-addon1"><i class="fa fa-user"></i></span>
-					<input type="text" id="cpf" class="form-control" placeholder="Ex.: 999.999.999-99" data-mask="999.999.999-99" name="">
+				<div class="col-6">
+					<h6  style="margin-top:1rem"><i>Razão social</i></h6>	
+					<div class="input-group ">
+						<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
+						<input type="text" id="razao_social" class="form-control" placeholder="Ex.:  Exemplo exemplo LTDA" maxlength="200" name="">
+					</div>
+					<div class="text-danger"></div>
 				</div>
-				<div class="text-danger"></div>
-			</div>
-			<div class="col-4">
-				<h6  style="margin-top:1rem"><i>RG</i></h6>	
-				<div class="input-group ">
-					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
-					<input type="text" id="rg" class="form-control" placeholder="Ex.: 9999999"  name="">
-				</div>
-				<div class="text-danger"></div>
-			</div>
-			<div class="col-4">
-				<h6  style="margin-top:1rem"><i>Orgão Emissor</i></h6>	
-				<div class="input-group ">
-					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
-					<input type="text" id="orgao_emissor" class="form-control" placeholder="Ex.: SSP-DF" maxlength="50" name="">
-				</div>
-				<div class="text-danger"></div>
-			</div>
-		</div>
-		<div class="row" id="juridica">
-			<div class="col-6">
-				<h6  style="margin-top:1rem"><i>CNPJ</i></h6>	
-				<div class="input-group ">
-					<span class="input-group-addon" id="sizing-addon1"><i class="fa fa-user"></i></span>
-					<input type="text" id="cnpj" class="form-control" placeholder="Ex.: 99.999.999/9999-99" data-mask="99.999.999/9999-99" name="">
-				</div>
-				<div class="text-danger"></div>
-			</div>
-			<div class="col-6">
-				<h6  style="margin-top:1rem"><i>I.E</i></h6>	
-				<div class="input-group ">
-					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
-					<input type="text" id="inscricao_estadual" class="form-control" placeholder="Ex.: 99999999999"  name="">
-				</div>
-				<div class="text-danger"></div>
-			</div>
-			<div class="col-6">
-				<h6  style="margin-top:1rem"><i>Razão social</i></h6>	
-				<div class="input-group ">
-					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
-					<input type="text" id="razao_social" class="form-control" placeholder="Ex.:  Exemplo exemplo LTDA" maxlength="200" name="">
-				</div>
-				<div class="text-danger"></div>
-			</div>
-			<div class="col-6">
-				<h6  style="margin-top:1rem"><i>Nome fantasia</i></h6>	
-				<div class="input-group ">
-					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
-					<input type="text" id="nome_fantasia" class="form-control" placeholder="Ex.: Exemplo exemplo" maxlength="200" name="">
-				</div>
-				<div class="text-danger"></div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-6">
-				<h6  style="margin-top:1rem"><i>E-Mail</i></h6>	
-				<div class="input-group ">
-					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
-					<input type="email" id="email" class="form-control" placeholder="Ex.: exemplo@exemplo.com"  name="">
-				</div>
-				<div class="text-danger"></div>
-			</div>
-			<div class="col-3">
-				<h6  style="margin-top:1rem"><i>Telefone</i></h6>	
-				<div class="input-group ">
-					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-phone"></i></span>
-					<input type="text" id="telefone" class="form-control" placeholder="Ex.: (99) 9999-9999" data-mask="(99) 9999-9999" name="">
-				</div>
-				<div class="text-danger"></div>
-			</div>
-			<div class="col-3">
-				<h6  style="margin-top:1rem"><i>Celular</i></h6>	
-				<div class="input-group ">
-					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-mobile"></i></span>
-					<input type="text" id="celular" class="form-control" placeholder="Ex.: (99) 99999-9999" data-mask="(99) 99999-9999" name="">
-				</div>
-				<div class="text-danger"></div>
-			</div>
-		</div>
-		<hr>
-		<div class="row">
-			<div class="col-4">
-				<h6  style="margin-top:1rem"><i>CEP</i></h6>	
-				<div class="input-group ">
-					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
-					<input type="text" id="cep" class="form-control" placeholder="Ex.: 99999-999" data-mask="99999-999"  onkeyup="busca_cep()">
-				</div>
-				<div class="text-danger"></div>
-			</div>
-			<div class="col-2">
-				<div class="form-check" style="margin-top: 3rem">
-					<input class="form-check-input" type="checkbox" value="" id="sem_cep" onchange="nao_sei_cep()">
-					<label class="form-check-label" for="defaultCheck1">
-						Não sei meu CEP
-					</label>
+				<div class="col-6">
+					<h6  style="margin-top:1rem"><i>Nome fantasia</i></h6>	
+					<div class="input-group ">
+						<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
+						<input type="text" id="nome_fantasia" class="form-control" placeholder="Ex.: Exemplo exemplo" maxlength="200" name="">
+					</div>
+					<div class="text-danger"></div>
 				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-6">
-				<h6  style="margin-top:1rem"><i>Endereco</i></h6>	
-				<div class="input-group ">
-					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
-					<input type="text" id="endereco" class="form-control" placeholder="Ex.: Exemplo exemplo exemplo"  disabled>
+			<div class="row">
+				<div class="col-6">
+					<h6  style="margin-top:1rem"><i>E-Mail</i></h6>	
+					<div class="input-group ">
+						<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
+						<input type="email" id="email" class="form-control" placeholder="Ex.: exemplo@exemplo.com"  name="">
+					</div>
+					<div class="text-danger"></div>
 				</div>
-				<div class="text-danger"></div>
-			</div>
-			<div class="col-2">
-				<h6  style="margin-top:1rem"><i>Número</i></h6>	
-				<div class="input-group ">
-					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
-					<input type="text" id="numero" class="form-control" placeholder="Ex.: 99 "  disabled>
+				<div class="col-3">
+					<h6  style="margin-top:1rem"><i>Telefone</i></h6>	
+					<div class="input-group ">
+						<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-phone"></i></span>
+						<input type="text" id="telefone" class="form-control" placeholder="Ex.: (99) 9999-9999" data-mask="(99) 9999-9999" name="">
+					</div>
+					<div class="text-danger"></div>
 				</div>
-				<div class="text-danger"></div>
-			</div>
-			<div class="col-4">
-				<h6  style="margin-top:1rem"><i>Complemento</i></h6>	
-				<div class="input-group ">
-					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
-					<input type="text" id="complemento" class="form-control" placeholder="Ex.: Exemplo Exemplo " maxlength="50" disabled>
+				<div class="col-3">
+					<h6  style="margin-top:1rem"><i>Celular</i></h6>	
+					<div class="input-group ">
+						<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-mobile"></i></span>
+						<input type="text" id="celular" class="form-control" placeholder="Ex.: (99) 99999-9999" data-mask="(99) 99999-9999" name="">
+					</div>
+					<div class="text-danger"></div>
 				</div>
-				<div class="text-danger"></div>
 			</div>
-			<div class="col-6">
-				<h6  style="margin-top:1rem"><i>Bairro</i></h6>	
-				<div class="input-group ">
-					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
-					<input type="text" id="bairro" class="form-control" placeholder="Ex.: Exemplo Exemplo " maxlength="100" disabled>
+			<hr>
+			<div class="row">
+				<div class="col-4">
+					<h6  style="margin-top:1rem"><i>CEP</i></h6>	
+					<div class="input-group ">
+						<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
+						<input type="text" id="cep" class="form-control" placeholder="Ex.: 99999-999" data-mask="99999-999"  onkeyup="busca_cep()">
+					</div>
+					<div class="text-danger"></div>
 				</div>
-				<div class="text-danger"></div>
-			</div>
-			<div class="col-4">
-				<h6  style="margin-top:1rem"><i>Cidade</i></h6>	
-				<div class="input-group ">
-					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
-					<input type="text" id="cidade" class="form-control" placeholder="Ex.: Exemplo exemplo" maxlength="100" disabled>
+				<div class="col-2">
+					<div class="form-check" style="margin-top: 3rem">
+						<input class="form-check-input" type="checkbox" value="" id="sem_cep" onchange="nao_sei_cep()">
+						<label class="form-check-label" for="defaultCheck1">
+							Não sei meu CEP
+						</label>
+					</div>
 				</div>
-				<div class="text-danger"></div>
 			</div>
-			<div class="col-2">
-				<h6  style="margin-top:1rem"><i>UF</i></h6>	
-				<div class="input-group ">
-					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
-					<input type="text" id="uf" class="form-control" placeholder="Ex.: DF" maxlength="2" disabled>
+			<div class="row">
+				<div class="col-6">
+					<h6  style="margin-top:1rem"><i>Endereco</i></h6>	
+					<div class="input-group ">
+						<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
+						<input type="text" id="endereco" class="form-control" placeholder="Ex.: Exemplo exemplo exemplo"  disabled>
+					</div>
+					<div class="text-danger"></div>
 				</div>
-				<div class="text-danger"></div>
-			</div>
-		</div>
-		<hr>
-		<div class="row" id="cadastro_fornecedor">
-			<div class="col-6">
-				<h6  style="margin-top:1rem"><i>Fabricante</i></h6>	
-				<div class="input-group ">
-					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
-					<input type="text" id="fabricante" class="form-control" placeholder="Ex.: Exemplo exemplo" maxlength="200" name="">
+				<div class="col-2">
+					<h6  style="margin-top:1rem"><i>Número</i></h6>	
+					<div class="input-group ">
+						<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
+						<input type="text" id="numero" class="form-control" placeholder="Ex.: 99 "  disabled>
+					</div>
+					<div class="text-danger"></div>
 				</div>
-				<div class="text-danger"></div>
-			</div>
-		</div>
-		<div class="row " id="cadastro_cliente">
-			<div class="col-6">
-				<h6 style="margin-top:1rem"><i>Seguradora</i></h6>	
-				<div class="input-group ">
-					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
-					<select class="form-control" id="seguradora">
-						<option value="cliente">Selecione...</option>
-					</select>
+				<div class="col-4">
+					<h6  style="margin-top:1rem"><i>Complemento</i></h6>	
+					<div class="input-group ">
+						<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
+						<input type="text" id="complemento" class="form-control" placeholder="Ex.: Exemplo Exemplo " maxlength="50" disabled>
+					</div>
+					<div class="text-danger"></div>
 				</div>
-				<div class="text-danger"></div>
-			</div>
-			<div class="col-6">
-				<h6  style="margin-top:1rem"><i>Corretor</i></h6>	
-				<div class="input-group ">
-					<span class="input-group-addon" id="sizing-addon1"><i class="fa fa-user"></i></span>
-					<select class="form-control" id="corretor">
-						<option value="fisica">Selecione..</option>
-					</select>
+				<div class="col-6">
+					<h6  style="margin-top:1rem"><i>Bairro</i></h6>	
+					<div class="input-group ">
+						<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
+						<input type="text" id="bairro" class="form-control" placeholder="Ex.: Exemplo Exemplo " maxlength="100" disabled>
+					</div>
+					<div class="text-danger"></div>
 				</div>
-				<div class="text-danger"></div>
+				<div class="col-4">
+					<h6  style="margin-top:1rem"><i>Cidade</i></h6>	
+					<div class="input-group ">
+						<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
+						<input type="text" id="cidade" class="form-control" placeholder="Ex.: Exemplo exemplo" maxlength="100" disabled>
+					</div>
+					<div class="text-danger"></div>
+				</div>
+				<div class="col-2">
+					<h6  style="margin-top:1rem"><i>UF</i></h6>	
+					<div class="input-group ">
+						<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
+						<input type="text" id="uf" class="form-control" placeholder="Ex.: DF" maxlength="2" disabled>
+					</div>
+					<div class="text-danger"></div>
+				</div>
 			</div>
-		</div>
-		<div class="row" style="margin-bottom: 5rem">
+			<hr>
+			<div class="row" id="cadastro_fornecedor">
+				<div class="col-6">
+					<h6  style="margin-top:1rem"><i>Fabricante</i></h6>	
+					<div class="input-group ">
+						<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
+						<input type="text" id="fabricante" class="form-control" placeholder="Ex.: Exemplo exemplo" maxlength="200" name="">
+					</div>
+					<div class="text-danger"></div>
+				</div>
+			</div>
+			<div class="row " id="cadastro_cliente">
+				<div class="col-6">
+					<h6 style="margin-top:1rem"><i>Seguradora</i></h6>	
+					<div class="input-group ">
+						<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
+						<select class="form-control" id="seguradora">
+							<option value="cliente">Selecione...</option>
+						</select>
+					</div>
+					<div class="text-danger"></div>
+				</div>
+				<div class="col-6">
+					<h6  style="margin-top:1rem"><i>Corretor</i></h6>	
+					<div class="input-group ">
+						<span class="input-group-addon" id="sizing-addon1"><i class="fa fa-user"></i></span>
+						<select class="form-control" id="corretor">
+							<option value="fisica">Selecione..</option>
+						</select>
+					</div>
+					<div class="text-danger"></div>
+				</div>
+			</div>
+			<div class="row" style="margin-bottom: 5rem">
+				<div class="col-12">
+					<h6  style="margin-top:1rem"><i>Observações</i></h6>	
+					<textarea class="form-control" rows="5"></textarea>
+				</div>
 			<div class="col-12">
-				<h6  style="margin-top:1rem"><i>Observações</i></h6>	
-				<textarea class="form-control" rows="5"></textarea>
+				<button style="margin-top: 1rem" class="btn btn-dark btn-lg btn-block" onclick="salvar()">
+					<i class="fa fa-check float-left" style="margin-top: 0.3rem;"></i> Salvar
+				</button>
 			</div>
-		<div class="col-12">
-			<button style="margin-top: 1rem" class="btn btn-dark btn-lg btn-block" onclick="salvar()">
-				<i class="fa fa-check float-left" style="margin-top: 0.3rem;"></i> Salvar
-			</button>
+			</div>
 		</div>
-		</div>
-	</div>
 	</body>
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script type="text/javascript" src="static/js/popper.js"></script>	

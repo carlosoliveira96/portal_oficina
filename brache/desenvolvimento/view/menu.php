@@ -8,15 +8,15 @@
         <link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon">
         <!-- Arquivos CSS -->
         <link rel="stylesheet" href="static/css/bootstrap.css">
-        <link rel="stylesheet" href="static/css/style4.css">
+        <link rel="stylesheet" href="static/css/menu-custom.css">
         <link rel="stylesheet" href="static/css/customScrollbar.css">
         <!-- Arquivos JS -->
         <script src="static/js/jquery.js"></script>
-        <script src="static/js/bootstrap.js"></script>
         <script src="static/js/customScrollbat.js"></script>
         <script src="static/js/fontawesome-all.js"></script>
     </head>
     <body>
+    	<div class="overlay"></div>
         <div class="wrapper">
             <nav id="sidebar">
                 <div id="dismiss">
@@ -44,55 +44,48 @@
                 </ul>
             </nav>
 
-            <!-- Page Content Holder -->
-            
-                <div style="width: 100%; background: #343A40; height: 3.4rem; overflow-x: hidden;">
-                	<div class="row">
-                		<div class="col-1">
-		                    <button type="button" id="sidebarCollapse" class="btn btn-dark navbar-btn" style="margin-top: 0.5rem">
-		                        <i class="fas fa-bars"></i>
-		                        <span>Menu</span>
-		                    </button>
-	                	</div>
-	                	<div class="col-10"></div>
-	                	<div class="col-1">
-	                		<button type="" id="sidebarCollapse" class="btn btn-dark navbar-btn" style="margin-top: 0.5rem">
-		                        <i class="fas fa-sign-out-alt"></i>
-		                        <span>Sair</span>
-		                    </button>
-	                	</div>
-                	</div>
-				</div>                    
-           
+            <!-- Pagina do navbar -->
+            <div class="navbar navbar-dark">
+            	<div class="float-left">
+                    <button type="button" id="sidebarCollapse" class="btn btn-dark navbar-btn">
+                        <i class="fas fa-bars"></i>
+                        <span>Menu</span>
+                    </button>
+                </div>
+                <div class="float-right">
+            		<button type="" id="sidebarCollapse" class="btn btn-dark navbar-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Sair</span>
+                    </button>
+              	</div>
+            </div>
         </div>
-        <div class="overlay"></div>
     </body>
+    <script type="text/javascript" src="static/js/popper.js"></script>
+    <script type="text/javascript" src="static/js/bootstrap.js"></script> 
     <script>
-    	$(document).ready(function () {
+    $(document).ready(function () {
+		$("#sidebar").mCustomScrollbar({
+			theme: "minimal"
+	    });
 
-    $("#sidebar").mCustomScrollbar({
-        theme: "minimal"
-    });
+	    // Abrir o sidebar
+	    $('#sidebarCollapse').on('click', function () {
+	        // open sidebar
+	        $('#sidebar').addClass('active');
+	        // fade in the overlay
+	        $('.overlay').fadeIn();
+	        $('.collapse.in').toggleClass('in');
+	        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+	    });
 
-    // when opening the sidebar
-    $('#sidebarCollapse').on('click', function () {
-        // open sidebar
-        $('#sidebar').addClass('active');
-        // fade in the overlay
-        $('.overlay').fadeIn();
-        $('.collapse.in').toggleClass('in');
-        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
-    });
-
-   
-    // if dismiss or overlay was clicked
-    $('#dismiss, .overlay').on('click', function () {
-      // hide the sidebar
-      $('#sidebar').removeClass('active');
-      // fade out the overlay
-      $('.overlay').fadeOut();
-    });
-});
+	    // Click para abrir e fechar
+	    $('#dismiss, .overlay').on('click', function () {
+	      // hide the sidebar
+	      $('#sidebar').removeClass('active');
+	      // fade out the overlay
+	      $('.overlay').fadeOut();
+	    });
+	});
     </script>
-
 </html>
