@@ -41,10 +41,10 @@ include 'menu.php';
             <hr>
             <div class="row" style="overflow: auto; width: 100%; height: 25rem; max-height: 200rem;">
                 <div class="col-2" style="padding-right: 0; padding-left: 15px;">
-                    <table class="table table-dark table-bordered table-striped table-hover" class="col-2" style="padding-right: 0; padding-left: 15px;">
+                    <table class="table table-dark table-bordered table-striped table-hover" id="pendente_autorizacao">
                         <thead>
                             <tr>
-                                <th scope="col" class="text-center">Entrada</th>
+                                <th scope="col" class="text-center">Pendente de aut.</th>
                             </tr>
                         </thead>
                         <tbody data-link="row" class="rowlink">
@@ -55,7 +55,7 @@ include 'menu.php';
                     </table>
                 </div>
                 <div class="col-2" style="padding-right: 0; padding-left: 0;">
-                    <table class="table table-dark table-bordered table-striped table-hover">
+                    <table class="table table-dark table-bordered table-striped table-hover" id="desmontagem">
                         <thead>
                             <tr>
                                 <th scope="col" class="text-center">Desmontagem</th>
@@ -69,7 +69,7 @@ include 'menu.php';
                     </table>
                 </div>
                 <div class="col-2" style="padding-right: 0; padding-left: 0;">
-                    <table class="table table-dark table-bordered table-striped table-hover">
+                    <table class="table table-dark table-bordered table-striped table-hover" id="lanternagem">
                         <thead>
                             <tr>
                                 <th scope="col" class="text-center">Lanternagem</th>
@@ -83,7 +83,7 @@ include 'menu.php';
                     </table>
                 </div>
                 <div class="col-2" style="padding-right: 0; padding-left: 0;">
-                    <table class="table table-dark table-bordered table-striped table-hover">
+                    <table class="table table-dark table-bordered table-striped table-hover" id="pintura">
                         <thead>
                             <tr>
                                 <th scope="col" class="text-center">Pintura</th>
@@ -105,23 +105,11 @@ include 'menu.php';
                             <tr>
                                 <td scope="row" class="text-center"><a href="#"><b>ABC-1234</b></a></td>
                             </tr>
-                            <tr>
-                                <td scope="row" class="text-center"><a href="#"><b>ABC-1234</b></a></td>
-                            </tr>
-                            <tr>
-                                <td scope="row" class="text-center"><a href="#"><b>ABC-1234</b></a></td>
-                            </tr>
-                            <tr>
-                                <td scope="row" class="text-center"><a href="#"><b>ABC-1234</b></a></td>
-                            </tr>
-                            <tr>
-                                <td scope="row" class="text-center"><a href="#"><b>ABC-1234</b></a></td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
                 <div class="col-2" style="padding-right: 0; padding-left: 0;">
-                    <table class="table table-dark table-bordered table-striped table-hover">
+                    <table class="table table-dark table-bordered table-striped table-hover" id="finalizacao">
                         <thead>
                             <tr>
                                 <th scope="col" class="text-center">Finalizações</th>
@@ -138,7 +126,7 @@ include 'menu.php';
                     </table>
                 </div>
                 <div class="col-2" style="padding-right: 0; padding-left: 0;">
-                    <table class="table table-dark table-bordered table-striped table-hover">
+                    <table class="table table-dark table-bordered table-striped table-hover" id="entregue">
                         <thead>
                             <tr>
                                 <th scope="col" class="text-center">Entregue</th>
