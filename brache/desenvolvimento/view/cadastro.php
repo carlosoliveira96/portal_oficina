@@ -256,11 +256,11 @@ include 'menu.php';
 				<h6  style="margin-top:1rem"><i>Observações</i></h6>	
 				<textarea class="form-control" rows="5"></textarea>
 			</div>
-		<div class="col-12">
-			<button style="margin-top: 1rem" class="btn btn-dark btn-lg btn-block" onclick="salvar()">
-				<i class="fa fa-check float-left" style="margin-top: 0.3rem;"></i> Salvar
-			</button>
-		</div>
+			<div class="col-12">
+				<button style="margin-top: 1rem" class="btn btn-dark btn-lg btn-block" onclick="salvar()">
+					<i class="fa fa-check float-left" style="margin-top: 0.3rem;"></i> Salvar
+				</button>
+			</div>
 		</div>
 	</div>
 	</body>

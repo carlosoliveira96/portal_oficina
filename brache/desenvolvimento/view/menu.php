@@ -30,16 +30,16 @@
 				<hr style="border-color: #5E636B">
                 <ul class="list-unstyled components">
                     <li class="active">
-                        <a href="#">Início</a>
+                        <a href="inicio.php">Início</a>
                     </li>
                     <li>
-                        <a href="#">Manter Cadastros</a>
+                        <a href="cadastro.php">Cadastro</a>
                     </li>
                     <li>
-                        <a href="#">Visualizar</a>
+                        <a href="osCadastro.php">Cadastro de O.S</a>
                     </li>
                     <li>
-                        <a href="#">Ordem de Serviço</a>
+                        <a href="funcionarioCadastro.php">Cadastro de Funcionários</a>
                     </li>
                 </ul>
             </nav>
