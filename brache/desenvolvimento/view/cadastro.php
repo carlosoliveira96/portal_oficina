@@ -51,7 +51,7 @@ include 'menu.php';
 			<div class="col-9">
 				<h6  style="margin-top:1rem"><i>Nome</i></h6>	
 				<div class="input-group ">
-					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
+					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-address-book"></i></span>
 					<input type="text" id="nome" class="form-control" placeholder="Ex.:  Exemplo exemplo " maxlength="200" name="">
 				</div>
 				<div class="text-danger"></div>
@@ -59,7 +59,7 @@ include 'menu.php';
 			<div class="col-3">
 				<h6  style="margin-top:1rem"><i>Nascimento</i></h6>	
 				<div class="input-group ">
-					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
+					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-calendar"></i></span>
 					<input class="form-control" placeholder="Ex.: 99/99/9999"  id="nascimento" name="event_date" id="event_date" type="text" >
 				</div>
 				<div class="text-danger"></div>
@@ -67,7 +67,7 @@ include 'menu.php';
 			<div class="col-4">
 				<h6  style="margin-top:1rem"><i>CPF</i></h6>	
 				<div class="input-group ">
-					<span class="input-group-addon" id="sizing-addon1"><i class="fa fa-user"></i></span>
+					<span class="input-group-addon" id="sizing-addon1"><i class="fa fa-address-book"></i></span>
 					<input type="text" id="cpf" class="form-control" placeholder="Ex.: 999.999.999-99" data-mask="999.999.999-99" name="">
 				</div>
 				<div class="text-danger"></div>
@@ -75,7 +75,7 @@ include 'menu.php';
 			<div class="col-4">
 				<h6  style="margin-top:1rem"><i>RG</i></h6>	
 				<div class="input-group ">
-					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
+					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-address-book"></i></span>
 					<input type="text" id="rg" class="form-control" placeholder="Ex.: 9999999"  name="">
 				</div>
 				<div class="text-danger"></div>
@@ -83,7 +83,7 @@ include 'menu.php';
 			<div class="col-4">
 				<h6  style="margin-top:1rem"><i>Orgão Emissor</i></h6>	
 				<div class="input-group ">
-					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
+					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-building"></i></span>
 					<input type="text" id="orgao_emissor" class="form-control" placeholder="Ex.: SSP-DF" maxlength="50" name="">
 				</div>
 				<div class="text-danger"></div>
@@ -93,7 +93,7 @@ include 'menu.php';
 			<div class="col-6">
 				<h6  style="margin-top:1rem"><i>CNPJ</i></h6>	
 				<div class="input-group ">
-					<span class="input-group-addon" id="sizing-addon1"><i class="fa fa-user"></i></span>
+					<span class="input-group-addon" id="sizing-addon1"><i class="fa fa-address-book"></i></span>
 					<input type="text" id="cnpj" class="form-control" placeholder="Ex.: 99.999.999/9999-99" data-mask="99.999.999/9999-99" name="">
 				</div>
 				<div class="text-danger"></div>
@@ -101,7 +101,7 @@ include 'menu.php';
 			<div class="col-6">
 				<h6  style="margin-top:1rem"><i>I.E</i></h6>	
 				<div class="input-group ">
-					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
+					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-address-book"></i></span>
 					<input type="text" id="inscricao_estadual" class="form-control" placeholder="Ex.: 99999999999"  name="">
 				</div>
 				<div class="text-danger"></div>
@@ -109,7 +109,7 @@ include 'menu.php';
 			<div class="col-6">
 				<h6  style="margin-top:1rem"><i>Razão social</i></h6>	
 				<div class="input-group ">
-					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
+					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-address-book"></i></span>
 					<input type="text" id="razao_social" class="form-control" placeholder="Ex.:  Exemplo exemplo LTDA" maxlength="200" name="">
 				</div>
 				<div class="text-danger"></div>
@@ -117,7 +117,7 @@ include 'menu.php';
 			<div class="col-6">
 				<h6  style="margin-top:1rem"><i>Nome fantasia</i></h6>	
 				<div class="input-group ">
-					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
+					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-address-book"></i></span>
 					<input type="text" id="nome_fantasia" class="form-control" placeholder="Ex.: Exemplo exemplo" maxlength="200" name="">
 				</div>
 				<div class="text-danger"></div>
@@ -127,7 +127,7 @@ include 'menu.php';
 			<div class="col-6">
 				<h6  style="margin-top:1rem"><i>E-Mail</i></h6>	
 				<div class="input-group ">
-					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
+					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-envelope"></i></span>
 					<input type="email" id="email" class="form-control" placeholder="Ex.: exemplo@exemplo.com"  name="">
 				</div>
 				<div class="text-danger"></div>
@@ -154,7 +154,7 @@ include 'menu.php';
 			<div class="col-4">
 				<h6  style="margin-top:1rem"><i>CEP</i></h6>	
 				<div class="input-group ">
-					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
+					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-search"></i></span>
 					<input type="text" id="cep" class="form-control" placeholder="Ex.: 99999-999" data-mask="99999-999"  onkeyup="busca_cep()">
 				</div>
 				<div class="text-danger"></div>
@@ -172,7 +172,7 @@ include 'menu.php';
 			<div class="col-6">
 				<h6  style="margin-top:1rem"><i>Endereco</i></h6>	
 				<div class="input-group ">
-					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
+					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-home"></i></span>
 					<input type="text" id="endereco" class="form-control" placeholder="Ex.: Exemplo exemplo exemplo"  disabled>
 				</div>
 				<div class="text-danger"></div>
@@ -180,7 +180,7 @@ include 'menu.php';
 			<div class="col-2">
 				<h6  style="margin-top:1rem"><i>Número</i></h6>	
 				<div class="input-group ">
-					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
+					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-home"></i></span>
 					<input type="text" id="numero" class="form-control" placeholder="Ex.: 99 "  disabled>
 				</div>
 				<div class="text-danger"></div>
@@ -188,7 +188,7 @@ include 'menu.php';
 			<div class="col-4">
 				<h6  style="margin-top:1rem"><i>Complemento</i></h6>	
 				<div class="input-group ">
-					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
+					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-home"></i></span>
 					<input type="text" id="complemento" class="form-control" placeholder="Ex.: Exemplo Exemplo " maxlength="50" disabled>
 				</div>
 				<div class="text-danger"></div>
@@ -196,7 +196,7 @@ include 'menu.php';
 			<div class="col-6">
 				<h6  style="margin-top:1rem"><i>Bairro</i></h6>	
 				<div class="input-group ">
-					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
+					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-home"></i></span>
 					<input type="text" id="bairro" class="form-control" placeholder="Ex.: Exemplo Exemplo " maxlength="100" disabled>
 				</div>
 				<div class="text-danger"></div>
@@ -204,7 +204,7 @@ include 'menu.php';
 			<div class="col-4">
 				<h6  style="margin-top:1rem"><i>Cidade</i></h6>	
 				<div class="input-group ">
-					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
+					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-home"></i></span>
 					<input type="text" id="cidade" class="form-control" placeholder="Ex.: Exemplo exemplo" maxlength="100" disabled>
 				</div>
 				<div class="text-danger"></div>
@@ -212,7 +212,7 @@ include 'menu.php';
 			<div class="col-2">
 				<h6  style="margin-top:1rem"><i>UF</i></h6>	
 				<div class="input-group ">
-					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
+					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-home"></i></span>
 					<input type="text" id="uf" class="form-control" placeholder="Ex.: DF" maxlength="2" disabled>
 				</div>
 				<div class="text-danger"></div>
@@ -223,7 +223,7 @@ include 'menu.php';
 			<div class="col-6">
 				<h6  style="margin-top:1rem"><i>Fabricante</i></h6>	
 				<div class="input-group ">
-					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
+					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-product-hunt"></i></span>
 					<input type="text" id="fabricante" class="form-control" placeholder="Ex.: Exemplo exemplo" maxlength="200" name="">
 				</div>
 				<div class="text-danger"></div>
@@ -307,21 +307,26 @@ include 'menu.php';
 		if(tipo_pessoa == "fisica"){
 			$('#juridica').hide();
 			$('#fisica').show();
+			limpa_cadastro();
 		}else{
 			$('#fisica').hide();
 			$('#juridica').show();
+			limpa_cadastro();
 		}
 
 		//adiciona campos extras caso seja fornecedor ou cliene
 		if(tipo_cadastro == "fornecedor"){
 			$('#cadastro_cliente').hide();
 			$('#cadastro_fornecedor').show();
+			limpa_cadastro();
 		}else if(tipo_cadastro == "cliente"){
 			$('#cadastro_cliente').show();
 			$('#cadastro_fornecedor').hide();
+			limpa_cadastro();
 		}else{
 			$('#cadastro_cliente').hide();
 			$('#cadastro_fornecedor').hide();
+			limpa_cadastro();
 		}
 	}
 
@@ -355,30 +360,30 @@ include 'menu.php';
 
 			if(cpf.length == 0 ){
 				add_erro_input($('#cpf') , "Por favor preencha o campo CPF");
-			}else{
 				validação_ok = false;
+			}else{
 				remove_erro_input($('#cpf'));
 			}
 
 			if(nome.length == 0 ){
 				add_erro_input($('#nome') , "Por favor preencha o campo Nome");
-			}else{
 				validação_ok = false;
+			}else{
 				remove_erro_input($('#nome'));
 			}
 
 			if(nascimento.length == 0 ){
 				add_erro_input($('#nascimento') , "Por favor preencha o campo Nascimento");
-			}else{
 				validação_ok = false;
+			}else{
 				remove_erro_input($('#nascimento'));
 			}
 
 
 			if(email.length == 0 ){
 				add_erro_input($('#email') , "Por favor preencha o campo E-mail");
-			}else{
 				validação_ok = false;
+			}else{
 				remove_erro_input($('#email'));
 			}
 
@@ -390,15 +395,15 @@ include 'menu.php';
 
 			if(cnpj.length == 0 ){
 				add_erro_input($('#cnpj') , "Por favor preencha o campo CNPJ");
-			}else{
 				validação_ok = false;
+			}else{
 				remove_erro_input($('#cnpj'));
 			}
 
 			if(nome_fantasia.length == 0 ){
 				add_erro_input($('#nome_fantasia') , "Por favor preencha o campo Nome Fantasia");
-			}else{
 				validação_ok = false;
+			}else{
 				remove_erro_input($('#nome_fantasia'));
 			}
 
@@ -408,8 +413,8 @@ include 'menu.php';
 		if(celular.length == 0 && telefone.length == 0  ){
 			add_erro_input($('#telefone') , "Por favor preencha o campo Telefone e/ou o campo Celular");
 			add_erro_input($('#celular') , "Por favor preencha o campo Telefone e/ou o campo Celular");
-		}else{
 			validação_ok = false;
+		}else{
 			remove_erro_input($('#telefone'));
 			remove_erro_input($('#celular'));
 		}
@@ -420,8 +425,8 @@ include 'menu.php';
 
 			if(fabricante.length == 0 ){
 				add_erro_input($('#fabricante') , "Por favor preencha o campo Fabricante");
-			}else{
 				validação_ok = false;
+			}else{
 				remove_erro_input($('#fabricante'));
 			}
 
@@ -431,55 +436,61 @@ include 'menu.php';
 
 			if(endereco.length == 0 ){
 				add_erro_input($('#endereco') , "Por favor preencha o campo Endereco");
-			}else{
 				validação_ok = false;
+			}else{
 				remove_erro_input($('#endereco'));
 			}
 
 			if(numero.length == 0 ){
 				add_erro_input($('#numero') , "Por favor preencha o campo Número");
-			}else{
 				validação_ok = false;
+			}else{
 				remove_erro_input($('#numero'));
 			}
 
 			if(bairro.length == 0 ){
 				add_erro_input($('#bairro') , "Por favor preencha o campo Bairro");
-			}else{
 				validação_ok = false;
+			}else{
 				remove_erro_input($('#bairro'));
 			}
 
 			if(cidade.length == 0 ){
 				add_erro_input($('#cidade') , "Por favor preencha o campo Cidade");
-			}else{
 				validação_ok = false;
+			}else{
 				remove_erro_input($('#cidade'));
 			}
 
 			if(uf.length == 0 ){
 				add_erro_input($('#uf') , "Por favor preencha o campo UF");
-			}else{
 				validação_ok = false;
+			}else{
 				remove_erro_input($('#uf'));
+			}
+
+			if(complemento.length == 0 ){
+				add_erro_input($('#complemento') , "Por favor preencha o campo Complemento");
+				validação_ok = false;
+			}else{
+				remove_erro_input($('#complemento'));
 			}
 
 		}else{
 
 			if(cep.length == 0 ){
 				add_erro_input($('#cep') , "Por favor preencha o campo CEP");
+				validação_ok = false;
 			}else if(controle_cep){
-				validação_ok = false;
 				remove_erro_input($('#cep'));
-			}
 
-			if(complemento.length == 0 ){
-				add_erro_input($('#complemento') , "Por favor preencha o campo Complemento");
-			}else{
-				validação_ok = false;
-				remove_erro_input($('#complemento'));
+				if(complemento.length == 0 ){
+					add_erro_input($('#complemento') , "Por favor preencha o campo Complemento");
+					validação_ok = false;
+				}else{
+					remove_erro_input($('#complemento'));
+				}
 			}
-
 		}
 	}
 
@@ -607,6 +618,25 @@ include 'menu.php';
 	function remove_erro_input(input){
 		input.removeClass("is-invalid");
 		input.parent().next().html("");
+	}
+
+	function limpa_cadastro(){
+		remove_erro_input($('#complemento'));
+		remove_erro_input($('#cep'));
+		remove_erro_input($('#uf'));
+		remove_erro_input($('#cidade'));
+		remove_erro_input($('#bairro'));
+		remove_erro_input($('#numero'));
+		remove_erro_input($('#endereco'));
+		remove_erro_input($('#fabricante'));
+		remove_erro_input($('#telefone'));
+		remove_erro_input($('#celular'));
+		remove_erro_input($('#nome_fantasia'));
+		remove_erro_input($('#cnpj'));
+		remove_erro_input($('#email'));
+		remove_erro_input($('#nascimento'));
+		remove_erro_input($('#nome'));
+		remove_erro_input($('#cpf'));
 	}
 
 	</script>
