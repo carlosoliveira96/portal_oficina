@@ -223,7 +223,7 @@ include 'menu.php';
 			<div class="col-6">
 				<h6  style="margin-top:1rem"><i>Fabricante</i></h6>	
 				<div class="input-group ">
-					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-product-hunt"></i></span>
+					<span class="input-group-addon " id="sizing-addon1"><i class="fab fa-product-hunt"></i></span>
 					<input type="text" id="fabricante" class="form-control" placeholder="Ex.: Exemplo exemplo" maxlength="200" name="">
 				</div>
 				<div class="text-danger"></div>
