@@ -2,7 +2,7 @@
 include 'menu.php';
 ?>
 <!DOCTYPE html>
-<html lang="pt-br" style="min-height:100%; position: relative;">
+<html lang="pt-br" >
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,7 +15,7 @@ include 'menu.php';
         <!-- Arquivos JS -->
         <script type="text/javascript" src="static/js/jasny-bootstrap.js"></script>
     </head>
-    <body style="background-color: #F8F9FA;">
+    <body  id="body" style="background-color: #F8F9FA">
         <div class="container" id="container" style="background-color: #fff;">
             <h2>
                 <p class="text-center" style="color: #000"><i><b>Consulta de Veículos</b></i></p>
@@ -39,7 +39,7 @@ include 'menu.php';
                 </div>
             </div>
             <hr>
-            <div class="row" style="overflow: auto; width: 100%; height: 25rem; max-height: 200rem;">
+            <div class="row" style="overflow: auto; width: 100%; height: 25rem; ">
                 <div class="col-2" style="padding-right: 0; padding-left: 15px;">
                     <table class="table table-dark table-bordered table-striped table-hover" id="pendente_autorizacao">
                         <thead>
@@ -163,8 +163,17 @@ include 'menu.php';
         </div>
     </body>
     <script>
-    var tamanho = $(window).height();
-    tamanho -= 70;
-    $('#container').css("height", tamanho);
+        atualiza_tamanho();
+
+        function atualiza_tamanho(){
+            var tamanho = $(window).height();
+            tamanho -= 72;
+            $('#container').css("height", tamanho2);
+        }
+        
+        window.addEventListener('resize', function(){
+            atualiza_tamanho();
+        });
+
     </script>
 </html>
