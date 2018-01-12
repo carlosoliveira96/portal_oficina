@@ -16,7 +16,7 @@ include 'menu.php';
         <script type="text/javascript" src="static/js/jasny-bootstrap.js"></script>
     </head>
     <body style="background-color: #F8F9FA;">
-        <div class="container" style=" background-color: #fff;">
+        <div class="container" id="container" style="background-color: #fff;">
             <h2>
                 <p class="text-center" style="color: #000"><i><b>Consulta de Veículos</b></i></p>
             </h2>
@@ -49,7 +49,7 @@ include 'menu.php';
                         </thead>
                         <tbody data-link="row" class="rowlink">
                             <tr>
-                                <td scope="row" class="text-center"><a href="#"><b>ABC-1234</b></a></td>
+                                <td scope="row" class="text-center"><b><a href="#" data-toggle="modal" data-target="#verificaCarro">ABC-1234</a></b></td>
                             </tr>
                         </tbody>
                     </table>
@@ -141,5 +141,30 @@ include 'menu.php';
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" id="verificaCarro" tabindex="-1" role="dialog" aria-labelledby="adicionaServicos" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Informações do veículo</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Modal body text goes here.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-dark">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
+    <script>
+    var tamanho = $(window).height();
+    tamanho -= 70;
+    $('#container').css("height", tamanho);
+    </script>
 </html>
