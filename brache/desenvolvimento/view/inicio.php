@@ -15,7 +15,7 @@ include 'menu.php';
         <!-- Arquivos JS -->
         <script type="text/javascript" src="static/js/jasny-bootstrap.js"></script>
     </head>
-    <body style="background-color: #F8F9FA;">
+    <body style="background-color: #F8F9F1;">
         <div class="container" style=" background-color: #fff;">
             <h2>
                 <p class="text-center" style="color: #000"><i><b>Consulta de Veículos</b></i></p>
