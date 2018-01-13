@@ -17,8 +17,8 @@ include 'menu.php';
         <script type="text/javascript" src="static/js/jasny-bootstrap.js"></script>
 
     </head>
-    <body>
-        <div class="container" style=" background-color: #fff; margin-top: 1rem">
+    <body style="background-color: #F8F9FA">
+        <div class="container" style=" background-color: #fff;">
             <h2>
                 <p class="text-center" style="color: #000"><i><b>Cadastro de funcionários</b></i></p>
             </h2>
