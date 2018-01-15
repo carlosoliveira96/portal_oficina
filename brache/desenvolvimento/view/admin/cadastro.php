@@ -8,11 +8,11 @@ include 'menu.php';
 	<title>Portal Oficina</title>
 
 	<!-- Arquivos CSS -->
-	<link href="static/css/jasny-bootstrap.css" rel="stylesheet">
-	<link href="static/css/bootstrap-datepicker.css" rel="stylesheet">
-	<link  href="static/css/fontawesome-all.min.css" rel="stylesheet">
+	<link href="../static/css/jasny-bootstrap.css" rel="stylesheet">
+	<link href="../static/css/bootstrap-datepicker.css" rel="stylesheet">
+	<link  href="../static/css/fontawesome-all.min.css" rel="stylesheet">
 	<!-- Arquivos JS -->
-	<script type="text/javascript" src="static/js/jasny-bootstrap.js"></script>
+	<script type="text/javascript" src="../static/js/jasny-bootstrap.js"></script>
 
 </head>
 <body  style="background-color: #F8F9FA;" onload="modelo_cadastro()">
@@ -266,9 +266,9 @@ include 'menu.php';
 	</div>
 	</body>
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<script type="text/javascript" src="static/js/popper.js"></script>	
-	<script src="static/js/bootstrap-datepicker.js"></script>
-	<script src="static/js/bootstrap-datepicker.pt-BR.min.js"></script>	
+	<script type="text/javascript" src="../static/js/popper.js"></script>	
+	<script src="../static/js/bootstrap-datepicker.js"></script>
+	<script src="../static/js/bootstrap-datepicker.pt-BR.min.js"></script>	
 
 	<script type="text/javascript">
 
@@ -506,7 +506,7 @@ include 'menu.php';
 			($.isNumeric(cep.charAt(8))) ){
 
 			$.ajax({
-	                url : '../controller/consultar_cep.php', /* URL que será chamada */ 
+	                url : '../../controller/consultar_cep.php', /* URL que será chamada */ 
 	                type : 'POST', /* Tipo da requisição */ 
 	                data: 'cep=' + $('#cep').val(), /* dado que será enviado via POST */
 	                dataType: 'json', /* Tipo de transmissão */

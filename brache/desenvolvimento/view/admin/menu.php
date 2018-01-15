@@ -1,3 +1,6 @@
+<?php
+include "controle.php";
+?>
 <!DOCTYPE html>
 <html lang="pt-br" style="min-height:100%; position: relative;">
     <head>
@@ -5,15 +8,15 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Portal da Oficina</title>
-        <link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="../static/img/favicon.ico" type="image/x-icon">
         <!-- Arquivos CSS -->
-        <link rel="stylesheet" href="static/css/bootstrap.css">
-        <link rel="stylesheet" href="static/css/menu-custom.css">
-        <link rel="stylesheet" href="static/css/customScrollbar.css">
+        <link rel="stylesheet" href="../static/css/bootstrap.css">
+        <link rel="stylesheet" href="../static/css/menu-custom.css">
+        <link rel="stylesheet" href="../static/css/customScrollbar.css">
         <!-- Arquivos JS -->
-        <script src="static/js/jquery.js"></script>
-        <script src="static/js/customScrollbat.js"></script>
-        <script src="static/js/fontawesome-all.js"></script>
+        <script src="../static/js/jquery.js"></script>
+        <script src="../static/js/customScrollbat.js"></script>
+        <script src="../static/js/fontawesome-all.js"></script>
     </head>
     <body>
     	<div class="overlay"></div>
@@ -23,7 +26,7 @@
                     <i class="fas fa-chevron-circle-left"></i>
                 </div>
                 <div class="sidebar-header">
-                    <img src="static/img/user.png" class="rounded-circle" height="156" width="156">
+                    <img src="../static/img/user.png" class="rounded-circle" height="156" width="156">
                     <p>Usuário logado</p>
                     <p>Cargo</p>
                 </div>
@@ -41,6 +44,12 @@
                     <li>
                         <a href="funcionarioCadastro.php">Cadastro de Funcionários</a>
                     </li>
+                    <li>
+                        <a href="funcionarioCadastroServico.php">Cadastro de Serviços para Funcionários</a>
+                    </li>
+                    <li>
+                        <a href="servico.php">Serviços</a>
+                    </li>
                 </ul>
             </nav>
 
@@ -53,7 +62,7 @@
                     </button>
                 </div>
                 <div class="float-right">
-            		<button type="" id="sidebarCollapse" class="btn btn-dark navbar-btn">
+            		<button type="" id="sidebarCollapse" class="btn btn-dark navbar-btn" onClick="logout()">
                         <i class="fas fa-sign-out-alt"></i>
                         <span>Sair</span>
                     </button>
@@ -61,8 +70,8 @@
             </div>
         </div>
     </body>
-    <script type="text/javascript" src="static/js/popper.js"></script>
-    <script type="text/javascript" src="static/js/bootstrap.js"></script> 
+    <script type="text/javascript" src="../static/js/popper.js"></script>
+    <script type="text/javascript" src="../static/js/bootstrap.js"></script> 
     <script>
     $(document).ready(function () {
 		$("#sidebar").mCustomScrollbar({
@@ -87,5 +96,21 @@
 	      $('.overlay').fadeOut();
 	    });
 	});
+
+    function logout(){	
+        var usuario = null;
+        var senha = null;
+        var data = {usuario: usuario , senha:senha , funcao: 'logout'};
+        var html ;
+        $.ajax({
+            url: '../../controller/login.php',
+            method: "post",
+            data: data ,
+            success: function(data){
+                window.location.href = "controle.php";
+            }
+        })
+    }
+
     </script>
 </html>

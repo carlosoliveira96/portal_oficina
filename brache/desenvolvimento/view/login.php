@@ -1,3 +1,9 @@
+<?php 
+session_start();
+if (isset($_SESSION["usuarioLogado"])){
+    header("Location:controle.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-br" style="min-height:100%; position: relative;">
     <head>
@@ -11,7 +17,6 @@
         <link  href="static/css/fontawesome-all.min.css" rel="stylesheet">
         <!-- Arquivos JS -->
         <script type="text/javascript" src="static/js/jquery.js"></script>
-        <script type="text/javascript" src="static/js/jasny-bootstrap.js"></script>
     </head>
     <body>
         <div style="background-color: #343A40">
@@ -24,7 +29,7 @@
             </p>
         </div>
         <hr style="border: 1px solid rgba(0, 0, 0, 0.5)">
-        <form onkeyup="salvar()">
+        <form >
             <div class="container col-6" style="margin-top: 5%;">
                 <div class="card" style="border: 1px solid rgba(0, 0, 0, 0.5)">
                     <div class="card-header text-center" style="border-bottom: 1px solid rgba(0, 0, 0, 0.5)">
@@ -69,19 +74,47 @@
     </body>
 
     <script>
-    function salvar(){
+
+    document.addEventListener('keypress', function(e){
+        if(e.which == 13){
+            salvar();
+        }
+    }, false);
+    
+    function salvar(){ 
         var nomeUsuario = $('#usuario').val();
         var senhaUsuario = $('#senha').val();
+        var validacao_ok = true;
+        
         if (nomeUsuario.length == 0){ 
+            validacao_ok = false;
             add_erro_input($('#usuario') , "Usuário inválido ou não informado");
         } else {
             remove_erro_input($('#usuario'));
         }
 
         if (senhaUsuario.length == 0){ 
+            validacao_ok = false;
             add_erro_input($('#senha') , "Senha inválida ou não informada");
         } else {
             remove_erro_input($('#senha'));
+        }
+
+        if (validacao_ok){
+            var data = { login : nomeUsuario , senha : senhaUsuario , funcao : "login" };
+            $.ajax({
+                url: '../controller/login.php',
+                method: "post",
+                data: data,
+                success: function(data){
+                    if (data == "1"){
+                        window.location.href = "controle.php";
+                    }else{
+                        add_erro_input($('#usuario') , "Usuário inválido ou não informado");
+                        add_erro_input($('#senha') , "Senha inválida ou não informada");
+                    }
+                }
+            });
         }
     }
 

@@ -12,11 +12,11 @@ include 'menu.php';
         <title>Portal da Oficina</title>
 
         <!-- Arquivos CSS -->
-        <link href="static/css/jasny-bootstrap.css" rel="stylesheet">
-        <link href="static/css/bootstrap-datepicker.css" rel="stylesheet">
-        <link  href="static/css/fontawesome-all.min.css" rel="stylesheet">
+        <link href="../static/css/jasny-bootstrap.css" rel="stylesheet">
+        <link href="../static/css/bootstrap-datepicker.css" rel="stylesheet">
+        <link  href="../static/css/fontawesome-all.min.css" rel="stylesheet">
         <!-- Arquivos JS -->
-        <script type="text/javascript" src="static/js/jasny-bootstrap.js"></script>
+        <script type="text/javascript" src="../static/js/jasny-bootstrap.js"></script>
 
     </head>
 
@@ -171,13 +171,13 @@ include 'menu.php';
                                     <th scope="col"><input type="checkbox"></th>
                                     <th scope="col">Serviço Serviço Serviço Serviço Serviço Serviço Serviço Serviço</th>
                                     <th scope="col">
-                                        <input type="text" class="form-control" placeholder="Qtd...">
+                                        <input type="text" class="form-control" style="margin-top:1rem" placeholder="Qtd...">
                                     </th>
                                     <th scope="col">
-                                        <input type="text" class="form-control" placeholder="Vl. Unitário">
+                                        <input type="text" class="form-control" style="margin-top:1rem" placeholder="Vl. Unitário">
                                     </th>
                                     <th scope="col">
-                                        <input type="text" class="form-control" placeholder="Vl. Total" disabled>
+                                        <input type="text" class="form-control" style="margin-top:1rem"  placeholder="Vl. Total" disabled>
                                     </th>
                                     <th scope="col">
                                         <a href="#" class="btn btn-dark col-12"><i class="fa fa-trash"></i> Remover</a>
@@ -218,48 +218,28 @@ include 'menu.php';
                                 </div>
                                 <div class="row">
                                     <div class="col-12">
-                                        <div class="card" style="margin-top:1rem">
-                                            <div class="card-header">
-                                                <div class="row">
-                                                    <div class="col-9">
-                                                        Serviço Serviço  Serviço  Serviço  Serviço  Serviço 
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <button class="btn btn-dark"><i class="fa fa-plus"></i> Adicionar</button>
-                                                    </div>
-                                                </div>
+                                        <div class="input-group" style="margin-top:1rem">
+                                            <input type="text" class="form-control" disabled placeholder="Serviço serviço" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-dark" type="button">Adicionar</button>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="card" style="margin-top:1rem">
-                                            <div class="card-header">
-                                                <div class="row">
-                                                    <div class="col-9">
-                                                        Serviço Serviço  Serviço  Serviço  Serviço  Serviço 
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <button class="btn btn-dark"><i class="fa fa-plus"></i> Adicionar</button>
-                                                    </div>
-                                                </div>
+                                        <div class="input-group" style="margin-top:1rem">
+                                            <input type="text" class="form-control" disabled placeholder="Serviço serviço" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-dark" type="button">Adicionar</button>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="card" style="margin-top:1rem">
-                                            <div class="card-header">
-                                                <div class="row">
-                                                    <div class="col-9">
-                                                        Serviço Serviço  Serviço  Serviço  Serviço  Serviço 
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <button class="btn btn-dark"><i class="fa fa-plus"></i> Adicionar</button>
-                                                    </div>
-                                                </div>
+                                        <div class="input-group" style="margin-top:1rem">
+                                            <input type="text" class="form-control" disabled placeholder="Serviço serviço" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-dark" type="button">Adicionar</button>
+                                            </div>
+                                        </div>
+                                        <div class="input-group" style="margin-top:1rem">
+                                            <input type="text" class="form-control" disabled placeholder="Serviço serviço" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-dark" type="button">Adicionar</button>
                                             </div>
                                         </div>
                                     </div>
@@ -272,7 +252,7 @@ include 'menu.php';
         </div>
     </body>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="static/js/bootstrap-datepicker.js"></script>
-    <script src="static/js/bootstrap-datepicker.pt-BR.min.js"></script> 
+    <script src="../static/js/bootstrap-datepicker.js"></script>
+    <script src="../static/js/bootstrap-datepicker.pt-BR.min.js"></script> 
     
 </html>
