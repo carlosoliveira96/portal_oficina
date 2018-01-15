@@ -39,7 +39,7 @@ include 'menu.php';
                 </div>
             </div>
             <hr>
-            <div class="row" style="overflow: auto; width: 100%; height: 25rem; ">
+            <div class="row" id="row" style="overflow: auto; width: 100%;">
                 <div class="col-2" style="padding-right: 0; padding-left: 15px;">
                     <table class="table table-dark table-bordered table-striped table-hover" id="pendente_autorizacao">
                         <thead>
@@ -105,6 +105,9 @@ include 'menu.php';
                             <tr>
                                 <td scope="row" class="text-center"><a href="#"><b>ABC-1234</b></a></td>
                             </tr>
+                            <tr>
+                                <td scope="row" class="text-center"><a href="#"><b>ABC-1234</b></a></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -141,22 +144,112 @@ include 'menu.php';
                 </div>
             </div>
         </div>
-
+        <!-- Modal ver mais -->
         <div class="modal fade" id="verificaCarro" tabindex="-1" role="dialog" aria-labelledby="adicionaServicos" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Informações do veículo</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    <div class="modal-body">
-                        <p>Modal body text goes here.</p>
+                    <div class="modal-body" id="verificaCarro-body" style="overflow-y: auto">
+                        <div class="row">
+                            <div class="col-8">
+                                <h6  style="margin-top:1rem"><i>Veículo</i></h6>
+                                <div class="input-group ">
+                                    <span class="input-group-addon" id="sizing-addon1"><i class="fas fa-car"></i></span>
+                                    <input type="text" id="veiculo" class="form-control" disabled  placeholder="Honda Civic - Preto" name="">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <h6  style="margin-top:1rem"><i>Data de liberação</i></h6>
+                                <div class="input-group ">
+                                    <span class="input-group-addon" id="sizing-addon1"><i class="fas fa-calendar"></i></span>
+                                    <input type="text" id="data_liberacao" class="form-control" disabled  placeholder="10/01/2018" name="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-5">
+                                <h6  style="margin-top:1rem"><i>Placa</i></h6>
+                                <div class="input-group ">
+                                    <span class="input-group-addon" id="sizing-addon1"><i class="fas fa-car"></i></span>
+                                    <input type="text" id="placa" class="form-control" disabled  placeholder="ABC-1234" name="">
+                                </div>
+                            </div>
+                            <div class="col-7">
+                                <h6  style="margin-top:1rem"><i>Sinistro</i></h6>
+                                <div class="input-group ">
+                                    <span class="input-group-addon" id="sizing-addon1"><i class="fas fa-info-circle"></i></span>
+                                    <input type="text" id="sinistro" class="form-control" disabled  placeholder="123456" name="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <h6  style="margin-top:1rem"><i>Nome</i></h6>
+                                <div class="input-group ">
+                                    <span class="input-group-addon" id="sizing-addon1"><i class="fas fa-user"></i></span>
+                                    <input type="text" id="nome" class="form-control" disabled  placeholder="Nome do cliente" name="">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <h6  style="margin-top:1rem"><i>Telefone</i></h6>
+                                <div class="input-group ">
+                                    <span class="input-group-addon" id="sizing-addon1"><i class="fas fa-phone"></i></span>
+                                    <input type="text" id="telefone" class="form-control" disabled  placeholder="(61) 99999-9999" name="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <h6  style="margin-top:1rem"><i>E-mail</i></h6>
+                                <div class="input-group ">
+                                    <span class="input-group-addon" id="sizing-addon1"><i class="fas fa-envelope"></i></span>
+                                    <input type="text" id="email" class="form-control" disabled  placeholder="email@email.com" name="">
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-12">
+                                <table class="table table-dark table-bordered" id="entregue">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">Serviço</th>
+                                            <th scope="col" class="text-center">Data Inicio</th>
+                                            <th scope="col" class="text-center">Executante</th>
+                                            <th scope="col" class="text-center">Data Fim</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody data-link="row">
+                                        <tr>
+                                            <td scope="row" class="text-center">Desmontagem</td>
+                                            <td scope="row" class="text-center">10/01/2018</td>
+                                            <td scope="row" class="text-center">Nome Nome Nome</td>
+                                            <td scope="row" class="text-center">11/01/2018</td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="row" class="text-center">Desmontagem</td>
+                                            <td scope="row" class="text-center">10/01/2018</td>
+                                            <td scope="row" class="text-center">Nome Nome Nome</td>
+                                            <td scope="row" class="text-center">11/01/2018</td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="row" class="text-center">Desmontagem</td>
+                                            <td scope="row" class="text-center">10/01/2018</td>
+                                            <td scope="row" class="text-center">Nome Nome Nome</td>
+                                            <td scope="row" class="text-center">11/01/2018</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-dark">Save changes</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-dark btn-block">Ver ordem de servoço completa</button>
                     </div>
                 </div>
             </div>
@@ -166,9 +259,15 @@ include 'menu.php';
         atualiza_tamanho();
 
         function atualiza_tamanho(){
-            var tamanho = $(window).height();
-            tamanho -= 72;
-            $('#container').css("height", tamanho2);
+            var tamanho_container = $(window).height();
+            var tamanho_row = $(window).height();
+            var tamanho_body_modal = $(window).height();
+            tamanho_container -= 75;
+            tamanho_row -= 250;
+            tamanho_body_modal -= 200;
+            $('#container').css("height", tamanho_container);
+            $('#row').css("height", tamanho_row);
+            $('#verificaCarro-body').css("height", tamanho_body_modal);
         }
         
         window.addEventListener('resize', function(){
