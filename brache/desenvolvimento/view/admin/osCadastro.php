@@ -1,10 +1,8 @@
-<!DOCTYPE html>
 <?php
 include 'menu.php';
 ?>
 <!DOCTYPE html>
-<html lang="pt-br" style="min-height:100%; position: relative;">
-
+<html lang="pt-br">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,7 +17,6 @@ include 'menu.php';
         <script type="text/javascript" src="../static/js/jasny-bootstrap.js"></script>
 
     </head>
-
     <body style="background-color: #F8F9FA;">
        <div class="container" style=" background-color: #fff">
             <h2>
@@ -171,13 +168,13 @@ include 'menu.php';
                                     <th scope="col"><input type="checkbox"></th>
                                     <th scope="col">Serviço Serviço Serviço Serviço Serviço Serviço Serviço Serviço</th>
                                     <th scope="col">
-                                        <input type="text" class="form-control" style="margin-top:1rem" placeholder="Qtd...">
+                                        <input type="text" class="form-control" placeholder="Qtd...">
                                     </th>
                                     <th scope="col">
-                                        <input type="text" class="form-control" style="margin-top:1rem" placeholder="Vl. Unitário">
+                                        <input type="text" class="form-control" placeholder="Vl. Unitário">
                                     </th>
                                     <th scope="col">
-                                        <input type="text" class="form-control" style="margin-top:1rem"  placeholder="Vl. Total" disabled>
+                                        <input type="text" class="form-control" placeholder="Vl. Total" disabled>
                                     </th>
                                     <th scope="col">
                                         <a href="#" class="btn btn-dark col-12"><i class="fa fa-trash"></i> Remover</a>
@@ -201,7 +198,7 @@ include 'menu.php';
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                        <h2>Adicionar Serviços</h2> 
+                            <h5 class="modal-title">Adicionar Serviços</h5> 
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>

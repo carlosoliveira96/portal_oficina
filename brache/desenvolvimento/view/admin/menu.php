@@ -8,7 +8,7 @@ include "controle.php";
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Portal da Oficina</title>
-        <link rel="shortcut icon" href="../static/img/favicon.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="" type="image/x-icon">
         <!-- Arquivos CSS -->
         <link rel="stylesheet" href="../static/css/bootstrap.css">
         <link rel="stylesheet" href="../static/css/menu-custom.css">

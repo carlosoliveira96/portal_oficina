@@ -11,11 +11,11 @@ include 'menu.php';
         <title>Portal da Oficina</title>
 
         <!-- Arquivos CSS -->
-        <link href="static/css/jasny-bootstrap.css" rel="stylesheet">
-        <link href="static/css/bootstrap-datepicker.css" rel="stylesheet">
-        <link  href="static/css/fontawesome-all.min.css" rel="stylesheet">
+        <link href="../static/css/jasny-bootstrap.css" rel="stylesheet">
+        <link href="../static/css/bootstrap-datepicker.css" rel="stylesheet">
+        <link  href="../static/css/fontawesome-all.min.css" rel="stylesheet">
         <!-- Arquivos JS -->
-        <script type="text/javascript" src="static/js/jasny-bootstrap.js"></script>
+        <script type="text/javascript" src="../static/js/jasny-bootstrap.js"></script>
     </head>
     <body style="background-color: #F8F9FA;" >
         <div class="container" style=" background-color: #fff;">
@@ -28,7 +28,7 @@ include 'menu.php';
                     <div class="row">
                         <div class="col-3">
                             <div class="col-12">
-                                 <img src="static/img/user.png" alt="..." class="img-thumbnail" style="width:10rem">
+                                 <img src="../static/img/user.png" alt="..." class="img-thumbnail" style="width:10rem">
                             </div>
                         </div>
                         <div class="col-9">
