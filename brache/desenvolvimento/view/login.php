@@ -110,8 +110,8 @@ if (isset($_SESSION["usuarioLogado"])){
                     if (data == "1"){
                         window.location.href = "controle.php";
                     }else{
-                        add_erro_input($('#usuario') , "Usuário inválido ou não informado");
-                        add_erro_input($('#senha') , "Senha inválida ou não informada");
+                        add_erro_input($('#usuario'));
+                        add_erro_input($('#senha') , "Usuário ou senha inválido");
                     }
                 }
             });

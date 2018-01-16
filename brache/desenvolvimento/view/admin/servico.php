@@ -12,10 +12,8 @@ include 'menu.php';
 
         <!-- Arquivos CSS -->
         <link href="../static/css/jasny-bootstrap.css" rel="stylesheet">
-        <link href="../static/css/bootstrap-datepicker.css" rel="stylesheet">
-        <link  href="../static/css/fontawesome-all.min.css" rel="stylesheet">
         <!-- Arquivos JS -->
-        <script type="text/javascript" src="static/js/jasny-bootstrap.js"></script>
+        <script type="text/javascript" src="../static/js/jasny-bootstrap.js"></script>
     </head>
     <body style="background-color: #F8F9FA;" >
         <div class="container" style=" background-color: #fff;">
@@ -23,74 +21,59 @@ include 'menu.php';
                 <p class="text-center" style="color: #000"><i><b>Serviços</b></i></p>
             </h2>
             <hr>
-            <div class="row">
-                <div class="col-10">
-                    <h6  style="margin-top:1rem"><i>Pesquisa </i></h6>	
-                    <div class="input-group ">
-                        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-search"></i></span>
-                        <input type="text" id="pesquisa" class="form-control" placeholder="Serviço " name="">
-                    </div>
-                    <div class="text-danger"></div>
-                </div>
-                <div class="col-2">
-                    <button class="btn btn-dark col-12" style="margin-top:2.4rem"><i class="fa fa-search"></i> Buscar</button>
-                </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-6">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" value="Serviço serviço" disabled aria-label="" aria-describedby="basic-addon1">
-                        <div class="input-group-append">
-                            <button class="btn btn-dark" type="button"><i class="fa fa-edit"></i></button>
-                            <button class="btn btn-dark" type="button"><i class="fa fa-trash"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" value="Serviço serviço" disabled aria-label="" aria-describedby="basic-addon1">
-                        <div class="input-group-append">
-                            <button class="btn btn-dark" type="button"><i class="fa fa-edit"></i></button>
-                            <button class="btn btn-dark" type="button"><i class="fa fa-trash"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" value="Serviço serviço" disabled aria-label="" aria-describedby="basic-addon1">
-                        <div class="input-group-append">
-                            <button class="btn btn-dark" type="button"><i class="fa fa-edit"></i></button>
-                            <button class="btn btn-dark" type="button"><i class="fa fa-trash"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" value="Serviço serviço" disabled aria-label="" aria-describedby="basic-addon1">
-                        <div class="input-group-append">
-                            <button class="btn btn-dark" type="button"><i class="fa fa-edit"></i></button>
-                            <button class="btn btn-dark" type="button"><i class="fa fa-trash"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" value="Serviço serviço" disabled aria-label="" aria-describedby="basic-addon1">
-                        <div class="input-group-append">
-                            <button class="btn btn-dark" type="button"><i class="fa fa-edit"></i></button>
-                            <button class="btn btn-dark" type="button"><i class="fa fa-trash"></i></button>
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
+            <table class="table table-secondary table-bordered table-striped table-hover" id="servico">
+                <thead>
+                    <tr>
+                        <th class="col-12">
+                            <input type="text" class="form-control" placeholder="&#xF002; Pesquise pelo nome da serviço" style="font-family: FontAwesome; font-size: 1.05rem">
+                        </th>
+                        <th class="col-3">
+                            <a href="#" class="btn btn-dark col-12">
+                                <i class="fas fa-plus " style="margin-top: 0.1rem; margin-right: 0.5rem"></i> Cadastrar serviço
+                            </a>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody data-link="row">
+                    <tr>
+                        <td scope="row">Serviço Serviço Serviço</td>
+                        <td scope="row" class="text-center">
+                        <a href="#" class="btn btn-dark btn-sm" title="Alterar serviço">
+                            <i class="fas fa-edit "></i>
+                        </a>
+                        <a href="#" class="btn btn-dark btn-sm" title="Remover serviço">
+                            <i class="fas fa-trash "></i>
+                        </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="row">Serviço Serviço Serviço</td>
+                        <td scope="row" class="text-center">
+                        <a href="#" class="btn btn-dark btn-sm" title="Alterar serviço">
+                            <i class="fas fa-edit "></i>
+                        </a>
+                        <a href="#" class="btn btn-dark btn-sm" title="Remover serviço">
+                            <i class="fas fa-trash "></i>
+                        </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="row">Serviço Serviço Serviço</td>
+                        <td scope="row" class="text-center">
+                        <a href="#" class="btn btn-dark btn-sm" title="Alterar serviço">
+                            <i class="fas fa-edit "></i>
+                        </a>
+                        <a href="#" class="btn btn-dark btn-sm" title="Remover serviço">
+                            <i class="fas fa-trash "></i>
+                        </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
        </div>
     </body>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script type="text/javascript" src="../static/js/popper.js"></script>
-    <script type="text/javascript" src="../static/js/bootstrap.js"></script>   
-    <script src="../static/js/bootstrap-datepicker.js"></script>
-    <script src="../static/js/bootstrap-datepicker.pt-BR.min.js"></script> 
+    <script type="text/javascript" src="../static/js/bootstrap.js"></script>
     
 </html>

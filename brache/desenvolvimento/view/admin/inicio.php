@@ -22,19 +22,15 @@ include 'menu.php';
             </h2>
             <hr>
             <div class="row">
-                <div class="col-3">
+                <div class="col-4">
                     <h6 ><i>Pesquisar OS</i></h6>
                     <div class="input-group">
-                        <span class="input-group-addon" id="sizing-addon1"><i class="fas fa-search"></i></span>
                         <input type="text" id="usuario" class="form-control" placeholder="Placa/Sinistro" aria-label="Username" aria-describedby="basic-addon1">
-                    </div>
-                    <div class="text-danger"></div>
-                </div>
-                <div class="col-3">
-                    <div class="input-group">
-                        <button type="button" class="btn btn-dark" onclick="salvar()" style="margin-top: 1.3rem">
-                            <i class="fas fa-search float-left" style="margin-top: 0.1rem; margin-right: 0.5rem"></i> Buscar
-                        </button>
+                        <div class="input-group-append">
+                            <button class="btn btn-dark" id="buscar_veiculo" type="button">
+                                <i class="fas fa-search float-left" style="margin-top: 0.1rem; margin-right: 0.5rem"></i> Buscar
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -262,8 +258,8 @@ include 'menu.php';
             var tamanho_container = $(window).height();
             var tamanho_row = $(window).height();
             var tamanho_body_modal = $(window).height();
-            tamanho_container -= 75;
-            tamanho_row -= 250;
+            tamanho_container -= 66;
+            tamanho_row -= 255;
             tamanho_body_modal -= 200;
             $('#container').css("height", tamanho_container);
             $('#row').css("height", tamanho_row);
