@@ -25,7 +25,7 @@ include 'menu.php';
                 <thead >
                     <tr>
                         <th class="col-12">
-                            <input type="text" class="form-control" placeholder="&#xF002; Pesquise pelo nome da peça" style="font-family: FontAwesome; font-size: 1.05rem">
+                            <input type="text" class="form-control" style="font-family: FontAwesome; font-size: 1.05rem" placeholder="&#xF002; Pesquise pelo nome da peça">
                         </th>
                         <th class="col-3">
                             <a href="#" class="btn btn-dark col-12" data-toggle="modal" data-target="#incluiPeça">
