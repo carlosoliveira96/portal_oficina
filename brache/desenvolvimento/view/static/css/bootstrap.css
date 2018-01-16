@@ -3863,7 +3863,7 @@ tbody.collapse.show {
   padding-right: 0.5rem;
   padding-left: 0.5rem;
   color: #868e96;
-  content: "/";
+  content: "";
 }
 
 .breadcrumb-item + .breadcrumb-item:hover::before {

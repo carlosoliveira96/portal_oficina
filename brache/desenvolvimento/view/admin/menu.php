@@ -50,6 +50,9 @@ include "controle.php";
                     <li>
                         <a href="servico.php">Serviços</a>
                     </li>
+                    <li>
+                        <a href="clienteCadastroVeiculo.php">Cadastro veículo Cliente</a>
+                    </li>
                 </ul>
             </nav>
 

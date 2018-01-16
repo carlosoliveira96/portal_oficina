@@ -6,11 +6,11 @@ $login = $_POST['login'];
 $senha = $_POST['senha'];
 $funcao = $_POST['funcao'];
 
-//$senhaMd5 = md5($senha);
+$senhaMd5 = md5($senha);
 session_start();
 switch ($funcao) {
     case 'login':
-        $usuario = login($conexao, $login, $senha);
+        $usuario = login($conexao, $login, $senhaMd5);
 		if ($usuario['login']) {
 		    logaUsuario($usuario);
 		    print "1";

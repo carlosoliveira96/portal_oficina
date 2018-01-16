@@ -20,7 +20,6 @@ include 'menu.php';
 		<h2>
 			<p class="text-center" style="color: #000"><i><b>Cadastro</b></i></p>
 		</h2>
-		
 		<hr>
 		<div class="row justify-content-md-center" >
 			<div class="col-6">
@@ -251,6 +250,16 @@ include 'menu.php';
 				<div class="text-danger"></div>
 			</div>
 		</div>
+		<div class="row " id="usuario">
+			<div class="col-6">
+				<h6  style="margin-top:1rem"><i>Nome de Usuário</i></h6>	
+				<div class="input-group ">
+					<span class="input-group-addon" id="sizing-addon1"><i class="fa fa-user"></i></span>
+					<input type="text" class="form-control" id="nome_usuario" onkeyup="verifica_usuario()" placeholder="Ex.: Exemplo" >
+				</div>
+				<div class="text-danger"></div>
+			</div>
+		</div>
 		<div class="row">
 			<div class="col-12">
 				<h6  style="margin-top:1rem"><i>Observações</i></h6>	
@@ -278,6 +287,7 @@ include 'menu.php';
     });
 
 	var controle_cep = true;
+	var controel_usuario = true;
 
 	function modelo_cadastro(){
 		var tipo_cadastro = $('#tipo_cadastro').val();
@@ -318,13 +328,21 @@ include 'menu.php';
 		//adiciona campos extras caso seja fornecedor ou cliene
 		if(tipo_cadastro == "fornecedor"){
 			$('#cadastro_cliente').hide();
+			$('#usuario').hide();
 			$('#cadastro_fornecedor').show();
 			limpa_cadastro();
 		}else if(tipo_cadastro == "cliente"){
 			$('#cadastro_cliente').show();
 			$('#cadastro_fornecedor').hide();
+			$('#usuario').show();
+			limpa_cadastro();
+		}else if(tipo_cadastro == "corretor"){
+			$('#cadastro_cliente').hide();
+			$('#usuario').show();
+			$('#cadastro_fornecedor').hide();
 			limpa_cadastro();
 		}else{
+			$('#usuario').hide();
 			$('#cadastro_cliente').hide();
 			$('#cadastro_fornecedor').hide();
 			limpa_cadastro();
@@ -350,6 +368,9 @@ include 'menu.php';
 		var bairro = $('#bairro').val();
 		var cidade = $('#cidade').val();
 		var uf = $('#uf').val();
+
+		var nome_usuario = $('#nome_usuario').val();
+
 
 		if(tipo_pessoa == "fisica"){
 
@@ -380,15 +401,6 @@ include 'menu.php';
 				remove_erro_input($('#nascimento'));
 			}
 
-
-			if(email.length == 0 ){
-				add_erro_input($('#email') , "Por favor preencha o campo E-mail");
-				validação_ok = false;
-			}else{
-				remove_erro_input($('#email'));
-			}
-
-
 		}else if(tipo_pessoa == "juridica"){
 
 			var cnpj = $('#cnpj').val();
@@ -410,6 +422,12 @@ include 'menu.php';
 
 		}
 
+		if(email.length == 0 ){
+				add_erro_input($('#email') , "Por favor preencha o campo E-mail");
+				validação_ok = false;
+			}else{
+				remove_erro_input($('#email'));
+			}
 
 		if(celular.length == 0 && telefone.length == 0  ){
 			add_erro_input($('#telefone') , "Por favor preencha o campo Telefone e/ou o campo Celular");
@@ -490,6 +508,21 @@ include 'menu.php';
 					validação_ok = false;
 				}else{
 					remove_erro_input($('#complemento'));
+				}
+			}
+		}
+
+		if (tipo_cadastro == "corretor" || tipo_cadastro == "cliente"){
+
+			if(nome_usuario.length == 0 ){
+				add_erro_input($('#nome_usuario') , "Por favor preencha o campo Nome de usuário");
+				validação_ok = false;
+			}else{
+				if(controle_usuario){
+					remove_erro_input($('#nome_usuario'));
+				}else{
+					add_erro_input($('#nome_usuario') , "Nome de Usuário invalido");
+					validação_ok = false;
 				}
 			}
 		}
@@ -638,6 +671,19 @@ include 'menu.php';
 		remove_erro_input($('#nascimento'));
 		remove_erro_input($('#nome'));
 		remove_erro_input($('#cpf'));
+		remove_erro_input($('#nome_usuario'));
+	}
+
+	function verifica_usuario(){
+		var nome_usuario = $('#nome_usuario').val();
+
+		if (nome_usuario.length <= 3 ){
+			add_erro_input($('#nome_usuario') , "Nome de usuário deve conter 4 caracteres no mínimo");
+			controle_usuario = false;
+		}else{
+			remove_erro_input($('#nome_usuario'));
+			controle_usuario = true;
+		}
 	}
 
 	</script>

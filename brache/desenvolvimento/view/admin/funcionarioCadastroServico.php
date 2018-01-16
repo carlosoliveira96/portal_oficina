@@ -28,7 +28,7 @@ include 'menu.php';
                     <div class="row">
                         <div class="col-3">
                             <div class="col-12">
-                                 <img src="static/img/user.png" alt="..." class="img-thumbnail" style="width:10rem">
+                                 <img src="../static/img/user.png" alt="..." class="img-thumbnail" style="width:10rem">
                             </div>
                         </div>
                         <div class="col-9">
@@ -146,8 +146,18 @@ include 'menu.php';
                 </div>
                 <div class="col-5">
                     <h6  style="margin-top:1rem"><i>Serviços já adicionados</i></h6> 
-                    <div class="card" style="margin-top:1rem; height:20rem; overflow:auto">
-                        <div class="card-body">
+                    <div class="card" style="margin-top:1rem; height:20rem;">
+                        <div class="card-head">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="input-group ">
+                                        <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-search"></i></span>
+                                        <input type="text" id="pesquisa" class="form-control" placeholder="Pesquisar serviços" maxlength="200" name="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body" style="height:18rem; overflow-y: auto">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="input-group" style="margin-top:0.5rem">
