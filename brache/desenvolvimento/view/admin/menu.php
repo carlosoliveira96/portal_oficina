@@ -39,13 +39,20 @@ include "controle.php";
                         <a href="cadastro.php">Cadastro</a>
                     </li>
                     <li>
-                        <a href="osCadastro.php">Cadastro de O.S</a>
+                        <a href="osCadastro.php">Ordem de Serviços</a>
                     </li>
                     <li>
-                        <a href="funcionarioCadastro.php">Cadastro de Funcionários</a>
+                        <a href="#funcionarioSubmenu" data-toggle="collapse" aria-expanded="false">Funcionários</a>
+                        <ul class="collapse list-unstyled" id="funcionarioSubmenu">
+                            <li><a href="funcionarioCadastro.php">Cadastro</a></li>
+                            <li><a href="#">Listagem</a></li>
+                         </ul>
                     </li>
                     <li>
                         <a href="funcionarioCadastroServico.php">Cadastro de Serviços para Funcionários</a>
+                    </li>
+                    <li>
+                        <a href="pecas.php">Peças</a>
                     </li>
                     <li>
                         <a href="servico.php">Serviços</a>

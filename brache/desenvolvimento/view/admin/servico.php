@@ -21,11 +21,11 @@ include 'menu.php';
                 <p class="text-center" style="color: #000"><i><b>Serviços</b></i></p>
             </h2>
             <hr>
-            <table class="table table-dark table-bordered table-striped table-hover" id="entregue">
+            <table class="table table-secondary table-bordered table-striped table-hover" id="servico">
                 <thead>
                     <tr>
                         <th class="col-12">
-                            <input type="text" class="form-control" placeholder="Serviço">
+                            <input type="text" class="form-control" placeholder="&#xF002; Pesquise pelo nome da serviço" style="font-family: FontAwesome; font-size: 1.05rem">
                         </th>
                         <th class="col-3">
                             <a href="#" class="btn btn-dark col-12">
