@@ -67,7 +67,7 @@ include 'menu.php';
 				<h6  style="margin-top:1rem"><i>CPF</i></h6>	
 				<div class="input-group ">
 					<span class="input-group-addon" id="sizing-addon1"><i class="fa fa-address-book"></i></span>
-					<input type="text" id="cpf" class="form-control" placeholder="Ex.: 999.999.999-99" data-mask="999.999.999-99" name="">
+					<input type="text" id="cpf" class="form-control" onkeyup="verifica_cpf()" placeholder="Ex.: 999.999.999-99" data-mask="999.999.999-99" name="">
 				</div>
 				<div class="text-danger"></div>
 			</div>
@@ -93,7 +93,7 @@ include 'menu.php';
 				<h6  style="margin-top:1rem"><i>CNPJ</i></h6>	
 				<div class="input-group ">
 					<span class="input-group-addon" id="sizing-addon1"><i class="fa fa-address-book"></i></span>
-					<input type="text" id="cnpj" class="form-control" placeholder="Ex.: 99.999.999/9999-99" data-mask="99.999.999/9999-99" name="">
+					<input type="text" id="cnpj" onkeyup="verifica_cnpj()" class="form-control" placeholder="Ex.: 99.999.999/9999-99" data-mask="99.999.999/9999-99" name="">
 				</div>
 				<div class="text-danger"></div>
 			</div>
@@ -234,7 +234,7 @@ include 'menu.php';
 				<div class="input-group ">
 					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
 					<select class="form-control" id="seguradora">
-						<option value="cliente">Selecione...</option>
+						<option value="">Selecione...</option>
 					</select>
 				</div>
 				<div class="text-danger"></div>
@@ -244,7 +244,7 @@ include 'menu.php';
 				<div class="input-group ">
 					<span class="input-group-addon" id="sizing-addon1"><i class="fa fa-user"></i></span>
 					<select class="form-control" id="corretor">
-						<option value="fisica">Selecione..</option>
+						<option value="">Selecione..</option>
 					</select>
 				</div>
 				<div class="text-danger"></div>
@@ -263,7 +263,7 @@ include 'menu.php';
 		<div class="row">
 			<div class="col-12">
 				<h6  style="margin-top:1rem"><i>Observações</i></h6>	
-				<textarea class="form-control" rows="5"></textarea>
+				<textarea class="form-control" rows="5" id="observacao"></textarea>
 			</div>
 			<div class="col-12">
 				<button style="margin-top: 1rem" class="btn btn-dark btn-lg btn-block" onclick="salvar()">
@@ -287,17 +287,13 @@ include 'menu.php';
     });
 
 	var controle_cep = true;
-	var controel_usuario = true;
+	var controle_usuario = true;
+	var controle_cpf = true;
+	var controle_cnpj = true;
 
 	function modelo_cadastro(){
 		var tipo_cadastro = $('#tipo_cadastro').val();
 		var tipo_pessoa   = $('#tipo_pessoa').val();
-
-
-		//Exemplo de adicionar e remover erro de imput
-		//add_erro_input($('#nome') , "Por favor preencha o campo nome");
-		//remove_erro_input($('#nome'));
-
 
 		//limpa campos do formulario
 		$('#cnpj').val("");
@@ -313,8 +309,7 @@ include 'menu.php';
 
 		$('#fabricante').val("");
 
-
-		//mostra campos de aacordo com o tipo de possoa(Fisica/Juridica)
+		//mostra campos de acordo com o tipo de possoa(Fisica/Juridica)
 		if(tipo_pessoa == "fisica"){
 			$('#juridica').hide();
 			$('#fisica').show();
@@ -350,14 +345,18 @@ include 'menu.php';
 	}
 
 	function salvar(){
+
+		var corretor = $('#corretor').val();
+		var seguradora = $('#seguradora').val();
 		
-		var validação_ok = true; 
+		var validacao_ok = true; 
 		var tipo_cadastro = $('#tipo_cadastro').val();
 		var tipo_pessoa   = $('#tipo_pessoa').val();
 		var tipo_cadastro = $('#tipo_cadastro').val();
 
 		var celular = $('#celular').val();
 		var telefone = $('#telefone').val();
+		var email = $('#email').val();
 
 		var sem_cep = $('#sem_cep');
 
@@ -375,28 +374,27 @@ include 'menu.php';
 		if(tipo_pessoa == "fisica"){
 
 			var nome = $('#nome').val();
-			var email = $('#email').val();
 			var cpf = $('#cpf').val();
 			var nascimento = $('#nascimento').val();
 			
 
 			if(cpf.length == 0 ){
 				add_erro_input($('#cpf') , "Por favor preencha o campo CPF");
-				validação_ok = false;
+				validacao_ok = false;
 			}else{
 				remove_erro_input($('#cpf'));
 			}
 
 			if(nome.length == 0 ){
 				add_erro_input($('#nome') , "Por favor preencha o campo Nome");
-				validação_ok = false;
+				validacao_ok = false;
 			}else{
 				remove_erro_input($('#nome'));
 			}
 
 			if(nascimento.length == 0 ){
 				add_erro_input($('#nascimento') , "Por favor preencha o campo Nascimento");
-				validação_ok = false;
+				validacao_ok = false;
 			}else{
 				remove_erro_input($('#nascimento'));
 			}
@@ -408,14 +406,14 @@ include 'menu.php';
 
 			if(cnpj.length == 0 ){
 				add_erro_input($('#cnpj') , "Por favor preencha o campo CNPJ");
-				validação_ok = false;
+				validacao_ok = false;
 			}else{
 				remove_erro_input($('#cnpj'));
 			}
 
 			if(nome_fantasia.length == 0 ){
 				add_erro_input($('#nome_fantasia') , "Por favor preencha o campo Nome Fantasia");
-				validação_ok = false;
+				validacao_ok = false;
 			}else{
 				remove_erro_input($('#nome_fantasia'));
 			}
@@ -423,16 +421,16 @@ include 'menu.php';
 		}
 
 		if(email.length == 0 ){
-				add_erro_input($('#email') , "Por favor preencha o campo E-mail");
-				validação_ok = false;
-			}else{
-				remove_erro_input($('#email'));
-			}
+			add_erro_input($('#email') , "Por favor preencha o campo E-mail");
+			validacao_ok = false;
+		}else{
+			remove_erro_input($('#email'));
+		}
 
 		if(celular.length == 0 && telefone.length == 0  ){
 			add_erro_input($('#telefone') , "Por favor preencha o campo Telefone e/ou o campo Celular");
 			add_erro_input($('#celular') , "Por favor preencha o campo Telefone e/ou o campo Celular");
-			validação_ok = false;
+			validacao_ok = false;
 		}else{
 			remove_erro_input($('#telefone'));
 			remove_erro_input($('#celular'));
@@ -444,7 +442,7 @@ include 'menu.php';
 
 			if(fabricante.length == 0 ){
 				add_erro_input($('#fabricante') , "Por favor preencha o campo Fabricante");
-				validação_ok = false;
+				validacao_ok = false;
 			}else{
 				remove_erro_input($('#fabricante'));
 			}
@@ -455,42 +453,42 @@ include 'menu.php';
 
 			if(endereco.length == 0 ){
 				add_erro_input($('#endereco') , "Por favor preencha o campo Endereco");
-				validação_ok = false;
+				validacao_ok = false;
 			}else{
 				remove_erro_input($('#endereco'));
 			}
 
 			if(numero.length == 0 ){
 				add_erro_input($('#numero') , "Por favor preencha o campo Número");
-				validação_ok = false;
+				validacao_ok = false;
 			}else{
 				remove_erro_input($('#numero'));
 			}
 
 			if(bairro.length == 0 ){
 				add_erro_input($('#bairro') , "Por favor preencha o campo Bairro");
-				validação_ok = false;
+				validacao_ok = false;
 			}else{
 				remove_erro_input($('#bairro'));
 			}
 
 			if(cidade.length == 0 ){
 				add_erro_input($('#cidade') , "Por favor preencha o campo Cidade");
-				validação_ok = false;
+				validacao_ok = false;
 			}else{
 				remove_erro_input($('#cidade'));
 			}
 
 			if(uf.length == 0 ){
 				add_erro_input($('#uf') , "Por favor preencha o campo UF");
-				validação_ok = false;
+				validacao_ok = false;
 			}else{
 				remove_erro_input($('#uf'));
 			}
 
 			if(complemento.length == 0 ){
 				add_erro_input($('#complemento') , "Por favor preencha o campo Complemento");
-				validação_ok = false;
+				validacao_ok = false;
 			}else{
 				remove_erro_input($('#complemento'));
 			}
@@ -499,15 +497,15 @@ include 'menu.php';
 
 			if(cep.length == 0 ){
 				add_erro_input($('#cep') , "Por favor preencha o campo CEP");
-				validação_ok = false;
+				validacao_ok = false;
 			}else if(controle_cep){
 				remove_erro_input($('#cep'));
 
-				if(complemento.length == 0 ){
-					add_erro_input($('#complemento') , "Por favor preencha o campo Complemento");
-					validação_ok = false;
+				if(numero.length == 0 ){
+					add_erro_input($('#numero') , "Por favor preencha o campo Número");
+					validacao_ok = false;
 				}else{
-					remove_erro_input($('#complemento'));
+					remove_erro_input($('#numero'));
 				}
 			}
 		}
@@ -516,15 +514,83 @@ include 'menu.php';
 
 			if(nome_usuario.length == 0 ){
 				add_erro_input($('#nome_usuario') , "Por favor preencha o campo Nome de usuário");
-				validação_ok = false;
+				validacao_ok = false;
 			}else{
 				if(controle_usuario){
 					remove_erro_input($('#nome_usuario'));
 				}else{
 					add_erro_input($('#nome_usuario') , "Nome de Usuário invalido");
-					validação_ok = false;
+					validacao_ok = false;
 				}
 			}
+		}
+
+
+		if(validacao_ok && controle_cep && controle_usuario && controle_cpf && controle_cnpj ){
+
+			var tipo_cadastro = $('#tipo_cadastro').val();
+			var nome = $('#nome').val();
+			var nascimento = $('#nascimento').val();
+			var cpf = $('#cpf').val();
+			var rg = $('#rg').val();
+			var orgao_emissor = $('#orgao_emissor').val();
+			var cnpj = $('#cnpj').val();
+			var inscricao_estadual = $('#inscricao_estadual').val();
+			var razao_social = $('#razao_social').val();
+			var nome_fantasia = $('#nome_fantasia').val();
+			var email = $('#email').val();
+			var telefone = $('#telefone').val();
+			var celular = $('#celular').val();
+			var cep = $('#cep').val();
+			var endereco = $('#endereco').val();
+			var numero = $('#numero').val();
+			var complemento = $('#complemento').val();
+			var bairro = $('#bairro').val();
+			var cidade = $('#cidade').val();
+			var uf = $('#uf').val();
+			var seguradora = $('#seguradora').val();
+			var corretor = $('#corretor').val();
+			var fabricante = $('#fabricante').val();
+			var nome_usuario = $('#nome_usuario').val();
+			var observacao = $('#observacao').val();
+
+			var data = {
+				tipo_cadastro : tipo_cadastro,
+				nome : nome,
+				nascimento : nascimento,
+				cpf : cpf,
+				rg : rg,
+				orgao_emissor : orgao_emissor,
+				cnpj : cnpj,
+				inscricao_estadual : inscricao_estadual,
+				razao_social : razao_social,
+				nome_fantasia : nome_fantasia,
+				email : email, 
+				telefone : telefone,
+				celular : celular,
+				cep : cep,
+				endereco : endereco,
+				numero : numero,
+				complemento : complemento,
+				bairro : bairro,
+				cidade : cidade,
+				uf : uf,
+				seguradora : seguradora,
+				corretor : corretor,
+				fabricante : fabricante,
+				nome_usuario : nome_usuario,
+				observacao : observacao ,
+				funcao : "salvar"
+			};
+
+			$.ajax({
+				url: '../../controller/cadastro.php',
+				method: "post",
+				data: data ,
+				success: function(data){
+					alert(data);
+				}
+			});
 		}
 	}
 
@@ -560,7 +626,7 @@ include 'menu.php';
 
 	                        controle_cep = true;
 	                    }else{
-	                    	validação_ok = false;
+	                    	validacao_ok = false;
 	                    	controle_cep = false;
 	                    	add_erro_input($('#cep') , "CEP inválido ");
 	                    }
@@ -672,6 +738,11 @@ include 'menu.php';
 		remove_erro_input($('#nome'));
 		remove_erro_input($('#cpf'));
 		remove_erro_input($('#nome_usuario'));
+
+		controle_cep = true;
+		controel_usuario = true;
+		controle_cpf = true;
+		controle_cnpj = true;
 	}
 
 	function verifica_usuario(){
@@ -681,8 +752,81 @@ include 'menu.php';
 			add_erro_input($('#nome_usuario') , "Nome de usuário deve conter 4 caracteres no mínimo");
 			controle_usuario = false;
 		}else{
-			remove_erro_input($('#nome_usuario'));
-			controle_usuario = true;
+			var data = {usuario: nome_usuario, funcao: 'verifica_usuario'};
+			$.ajax({
+				url: '../../controller/cadastro.php',
+				method: "post",
+				data: data ,
+				success: function(data){
+					if(data){
+						controle_usuario = false;
+						add_erro_input($('#nome_usuario') , "Nome de Usuário já cadastrado");
+					}else{
+						remove_erro_input($('#nome_usuario'));
+						controle_usuario = true;
+					}
+				}
+			});
+		}
+	}
+
+	function verifica_cpf(){
+		var cpf = $('#cpf').val();
+		if(cpf.length = 14 && ($.isNumeric(cpf.charAt(0))) 
+			&& ($.isNumeric(cpf.charAt(1))) && ($.isNumeric(cpf.charAt(2)))
+			&& ($.isNumeric(cpf.charAt(4))) && ($.isNumeric(cpf.charAt(5)))
+			&& ($.isNumeric(cpf.charAt(6))) && ($.isNumeric(cpf.charAt(8)))
+			&& ($.isNumeric(cpf.charAt(9))) && ($.isNumeric(cpf.charAt(10)))
+			&& ($.isNumeric(cpf.charAt(12))) && ($.isNumeric(cpf.charAt(13))) ){
+		
+			var data = {cpf: cpf, funcao: 'verifica_cpf'};
+			$.ajax({
+				url: '../../controller/cadastro.php',
+				method: "post",
+				data: data ,
+				success: function(data){
+					if(data){
+						controle_cpf = false;
+						add_erro_input($('#cpf') , "CPF já cadastrado");
+					}else{
+						controle_cpf = true;
+						remove_erro_input($('#cpf'));
+					}
+				}
+			});
+		}
+	}
+
+	function verifica_cnpj(){
+
+		var cnpj = $('#cnpj').val();
+
+		if (cnpj.length = 18 && ($.isNumeric(cnpj.charAt(0))) 
+			&& ($.isNumeric(cnpj.charAt(1))) && ($.isNumeric(cnpj.charAt(3)))
+			&& ($.isNumeric(cnpj.charAt(4))) && ($.isNumeric(cnpj.charAt(5)))
+			&& ($.isNumeric(cnpj.charAt(7))) && ($.isNumeric(cnpj.charAt(8)))
+			&& ($.isNumeric(cnpj.charAt(9))) && ($.isNumeric(cnpj.charAt(11)))
+			&& ($.isNumeric(cnpj.charAt(12))) && ($.isNumeric(cnpj.charAt(13)))
+			&& ($.isNumeric(cnpj.charAt(14))) && ($.isNumeric(cnpj.charAt(16))
+			&& ($.isNumeric(cnpj.charAt(17)))) ){
+				
+			var data = {cnpj: cnpj, funcao: 'verifica_cnpj'};
+			var html ;
+			$.ajax({
+				url: '../../controller/cadastro.php',
+				method: "post",
+				data: data ,
+				success: function(data){
+					if(data){
+						controle_cnpj = false;
+						add_erro_input($('#cnpj') , "CNPJ já cadastrado");
+					}else{
+						alert("ok");
+						controle_cnpj = true;
+						remove_erro_input($('#cnpj'));
+					}
+				}
+			});
 		}
 	}
 

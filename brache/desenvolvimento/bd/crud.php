@@ -4,9 +4,14 @@ include("conexao.php");
 
 function insere($conexao, $campos , $valores , $tabela ) {
     $query = "insert into {$tabela} ({$campos}) values({$valores}) ";
+    var_dump($query);
+    die();
     if(mysqli_query($conexao, $query)){
         $id = mysqli_insert_id($conexao);
         return $id;
+    }else{
+        echo mysqli_error($conexao);
+        die();
     }
 }
 
@@ -15,6 +20,7 @@ function insere($conexao, $campos , $valores , $tabela ) {
 function busca_varios($conexao, $condicao , $tabela){
     $resultados = array();
     $query = "select *  FROM {$tabela} where {$condicao} ";
+
     $result = mysqli_query($conexao, $query);
 
     if ($result == true) {
@@ -56,14 +62,25 @@ function busca_todos($conexao,  $tabela){
 
 }
 
-function busca_detalhada_um($conexao, $condicao , $tabela , $campos){
-    $query = "select {$campos}  FROM {$tabela} where {$condicao} ";
+function busca_detalhada_um($conexao, $condicao , $tabela , $campos = null){
+
+    $query = "";
+
+    if ($campos){
+        $query = "select {$campos}  FROM {$tabela} where {$condicao} ";
+    }else{
+        $query = "select *  FROM {$tabela} where {$condicao} ";
+    }
+
     $result = mysqli_query($conexao, $query);
     $resultado = mysqli_fetch_assoc($result); 
+
     return $resultado;
 }
 
 function altera_geral($conexao, $campos_valores , $tabela , $condicao = null ) {
+
+    $query = "";
 
     if ($condicao){
         $query = "update {$tabela} set ({$campos_valores}) WHERE {$condicao} ";
