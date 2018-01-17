@@ -15,12 +15,15 @@ include 'menu.php';
 	<script type="text/javascript" src="../static/js/jasny-bootstrap.js"></script>
 
 </head>
-<body  style="background-color: #F8F9FA;" onload="modelo_cadastro()">
+<body  style="background-color: #F8F9FA;" onload="modelo_cadastro()" id="body">
 	<div class="container" style=" background-color: #fff;">
 		<h2>
 			<p class="text-center" style="color: #000"><i><b>Cadastro</b></i></p>
 		</h2>
 		<hr>
+		<div id="msg">
+			
+		</div>
 		<div class="row justify-content-md-center" >
 			<div class="col-6">
 				<h6 style="margin-top:1rem"><i>Tipo de Cadastro</i></h6>	
@@ -127,7 +130,7 @@ include 'menu.php';
 				<h6  style="margin-top:1rem"><i>E-Mail</i></h6>	
 				<div class="input-group ">
 					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-envelope"></i></span>
-					<input type="email" id="email" class="form-control" placeholder="Ex.: exemplo@exemplo.com"  name="">
+					<input type="email" id="email" class="form-control" onkeyup="valida_email()" placeholder="Ex.: exemplo@exemplo.com"  name="">
 				</div>
 				<div class="text-danger"></div>
 			</div>
@@ -588,12 +591,23 @@ include 'menu.php';
 				method: "post",
 				data: data ,
 				success: function(data){
-					alert(data);
+					if(data){
+						if(tipo_cadastro == "cliente"){
+							window.location.href='clienteCadastroVeiculo.php?codCli='+data;
+							window.location.href='#body';
+						}else{
+							window.location.href='#body';
+							monta_msg_sucesso("Cadastro efetuado com sucesso");
+						}
+						limpa_campos();
+					}else{
+						window.location.href='#body';
+						monta_msg_erro("Ocorreu um erro, por favor tente mais tarde!");
+					}
 				}
 			});
 		}
 	}
-
 	function busca_cep(){
 
 		var cep =  $('#cep').val();
@@ -821,7 +835,6 @@ include 'menu.php';
 						controle_cnpj = false;
 						add_erro_input($('#cnpj') , "CNPJ já cadastrado");
 					}else{
-						alert("ok");
 						controle_cnpj = true;
 						remove_erro_input($('#cnpj'));
 					}
@@ -829,6 +842,120 @@ include 'menu.php';
 			});
 		}
 	}
+
+	function limpa_campos(){
+
+		$('#sem_cep').prop("checked", false);
+		$('#nome').val('');
+		$('#nascimento').val('');
+		$('#cpf').val('');
+		$('#rg').val('');
+		$('#orgao_emissor').val('');
+		$('#cnpj').val('');
+		$('#inscricao_estadual').val('');
+		$('#razao_social').val('');
+		$('#nome_fantasia').val('');
+		$('#email').val('');
+		$('#telefone').val('');
+		$('#celular').val('');
+		$('#cep').val('');
+		$('#endereco').val('');
+		$('#numero').val('');
+		$('#complemento').val('');
+		$('#bairro').val('');
+		$('#cidade').val('');
+		$('#uf').val('');
+		$('#seguradora').val('');
+		$('#corretor').val('');
+		$('#fabricante').val('');
+		$('#nome_usuario').val('');
+		$('#observacao').val('');
+	}
+
+	function valida_email(){
+		var filter = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+		if(!filter.test($('#email').val())){
+			add_erro_input( $('#email') , "E-mail inválido" )
+			validacao_ok = false;
+		} else {
+			validacao_ok = true;
+			remove_erro_input($('#email'));
+		}
+	}
+
+	function monta_msg_erro(msg){
+		html = '<div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i><strong>  '+ msg +'</strong></div>';
+		$('#msg').html(html);
+		window.setInterval(function(){
+			remove_msg();
+		},10000);
+	}
+
+	function monta_msg_sucesso(msg){
+		html = '<div class="alert alert-success"><i class="fa fa-check"></i><strong>'+ msg +'</strong></div>';
+		$('#msg').html(html);
+		window.setInterval(function(){
+			remove_msg();
+		},10000);
+	}
+
+	function remove_msg(){
+		$('#msg').html('');
+	}
+
+	busca_corretores();
+
+	function busca_corretores(){
+		var data = {funcao: 'busca_corretores'};
+		var html ;
+		$.ajax({
+			url: '../../controller/cadastro.php',
+			method: "post",
+			data: data ,
+			success: function(data){
+				var retorno = $.parseJSON(data);
+
+				html = "";
+				for(var i=0; i < retorno.length ; i++ ){
+					if(retorno[i].nome != null){
+						html += '<option value="'+retorno[i].id+'">'+retorno[i].nome+ '</option>';
+					}else{
+						html += '<option value="'+retorno[i].id+'">'+retorno[i].nome_fantasia+ '</option>';
+					}
+				}
+
+				$('#corretor').append(html);
+			}
+		});
+	}
+
+	busca_seguradoras();
+
+	function busca_seguradoras(){
+		var data = {funcao: 'busca_seguradoras'};
+		var html ;
+		$.ajax({
+			url: '../../controller/cadastro.php',
+			method: "post",
+			data: data ,
+			success: function(data){
+				var retorno = $.parseJSON(data);
+
+				html = "";
+				for(var i=0; i < retorno.length ; i++ ){
+					if(retorno[i].nome != null){
+						html += '<option value="'+retorno[i].id+'">'+retorno[i].nome+ '</option>';
+					}else{
+						html += '<option value="'+retorno[i].id+'">'+retorno[i].nome_fantasia+ '</option>';
+					}
+				}
+
+				$('#seguradora').append(html);
+			}
+		});
+	}
+
+	
 
 	</script>
 
