@@ -2197,6 +2197,7 @@ fieldset[disabled] a.btn {
 
 .btn-dark:focus, .btn-dark.focus {
   box-shadow: 0 0 0 3px rgba(52, 58, 64, 0.5);
+  color: #fff;
 }
 
 .btn-dark.disabled, .btn-dark:disabled {
