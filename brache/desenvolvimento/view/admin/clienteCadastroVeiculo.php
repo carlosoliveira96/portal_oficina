@@ -1,6 +1,7 @@
 <?php
 include "menu.php";
-?>
+
+?> 
 <!DOCTYPE html>
 <html lang="pt-br" style="min-height:100%; position: relative;">
 
@@ -17,12 +18,13 @@ include "menu.php";
         <!-- Arquivos JS -->
         <script type="text/javascript" src="../static/js/jasny-bootstrap.js"></script>
     </head>
-    <body  style="background-color: #F8F9FA;">
+    <body  style="background-color: #F8F9FA;" onload="busca_cliente()">
         <div class="container" style=" background-color: #fff;">
             <h2>
                 <p class="text-center" style="color: #000"><i><b>Víncular Veículo para Cliente</b></i></p>
             </h2>
             <hr>
+            <div class="msg"></div>
             <div class="row" id="fisica">
                 <div class="col-9">
                     <h6  style="margin-top:1rem"><i>Nome</i></h6>	
@@ -191,6 +193,7 @@ include "menu.php";
             var ano_fabricacao = $('#ano_fabricacao').val();
             var fabricante = $('#fabricante').val();
             var cor = $('#cor').val();
+            var validacao_ok = true;
 
             if (placa.length == 0){
                 add_erro_input($('#placa'), "Por favor preencha o campo Placa");

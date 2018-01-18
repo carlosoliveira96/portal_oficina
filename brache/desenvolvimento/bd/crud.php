@@ -4,8 +4,12 @@ include("conexao.php");
 
 function insere($conexao, $campos , $valores , $tabela ) {
     $query = "insert into {$tabela} ({$campos}) values({$valores}) ";
+<<<<<<< HEAD
     //var_dump($query);
     //die();
+=======
+
+>>>>>>> 52c34f1407624b42474b0e5d25f795aa6a1b583a
     if(mysqli_query($conexao, $query)){
         $id = mysqli_insert_id($conexao);
         return $id;
@@ -78,7 +82,7 @@ function busca_detalhada_um($conexao, $condicao , $tabela , $campos = null){
     return $resultado;
 }
 
-function altera_geral($conexao, $campos_valores , $tabela , $condicao = null ) {
+function altera($conexao, $campos_valores , $tabela , $condicao = null ) {
 
     $query = "";
 

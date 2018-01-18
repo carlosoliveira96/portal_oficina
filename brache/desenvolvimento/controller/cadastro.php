@@ -3,7 +3,7 @@ include "../bd/conexao.php";
 include "../bd/crud.php";
 
 $funcao = $_POST["funcao"];
-//$funcao = "salvar";
+//$funcao = "busca_corretores";
 //$nome_usuario = "teste";
 //$tipo_cadastro = "corretor";
 session_start();
@@ -42,6 +42,8 @@ switch ($funcao) {
         break;
     case 'salvar':
         $tipo_cadastro = $_POST['tipo_cadastro'];
+        $tipo_cadastro = "'".$tipo_cadastro."'";
+
         $nome = $_POST['nome'];
 
         if (strlen($nome) <= 0){
@@ -115,6 +117,8 @@ switch ($funcao) {
         }
 
         $email = $_POST['email'];
+        $email = "'".$email."'";
+
         $telefone = $_POST['telefone'];
 
         if (strlen($telefone) <= 0){
@@ -140,7 +144,11 @@ switch ($funcao) {
         }
 
         $endereco = $_POST['endereco'];
+        $endereco = "'".$endereco."'";
+
         $numero = $_POST['numero'];
+        $numero = "'".$numero."'";
+
         $complemento = $_POST['complemento'];
 
         if (strlen($complemento) <= 0){
@@ -150,8 +158,14 @@ switch ($funcao) {
         }
 
         $bairro = $_POST['bairro'];
+        $bairro = "'".$bairro."'";
+
         $cidade = $_POST['cidade'];
+        $cidade = "'".$cidade."'";
+
         $uf = $_POST['uf'];
+        $uf = "'".$uf."'";
+
         $seguradora = $_POST['seguradora'];
 
         if (strlen($seguradora) <= 0){
@@ -197,20 +211,20 @@ switch ($funcao) {
         $campos = "" ;
         $valores = "";
 
-        if($tipo_cadastro == "cliente"){
+        if($tipo_cadastro == "'cliente'"){
             $perfil = 4;
 
-        }else if($tipo_cadastro == "corretor"){
+        }else if($tipo_cadastro == "'corretor'"){
 
             $perfil = 5;
 
         }
 
         if($perfil != 0){
-
+            
             $senhaMd5 = md5('123456'); 
             $campos_login =  "login , senha , perfil_id , primeiro_acesso";
-            $valores_login =  "'{$nome_usuario}' ,'{$senhaMd5}' ,'{$perfil}' , '1' ";
+            $valores_login =  " {$nome_usuario} ,'{$senhaMd5}' ,'{$perfil}' , '1' ";
             $login = insere($conexao, $campos_login , $valores_login , "login" ); 
 
             if(strlen($login) <= 0){
@@ -229,7 +243,24 @@ switch ($funcao) {
         }
 
         break;
+    case 'busca_corretores':
+        
+        $corretores = busca_detalhada_varios($conexao, "tipo = 'corretor' " , "cadastro" , 'nome_fantasia , id , nome');
 
+        if ($corretores != null){
+            print json_encode($corretores);
+        }
+
+       break;
+    case 'busca_seguradoras':
+
+        $seguradoras = busca_detalhada_varios($conexao, "tipo = 'seguradora' " , "cadastro" , 'nome_fantasia , id , nome');
+
+        if ($seguradoras != null){
+            print json_encode($seguradoras);
+        }
+
+        break;
     default:
 		break;
 }
