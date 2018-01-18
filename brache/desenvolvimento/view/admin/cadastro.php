@@ -593,11 +593,20 @@ include 'menu.php';
 				success: function(data){
 					if(data){
 						if(tipo_cadastro == "cliente"){
-							window.location.href='clienteCadastroVeiculo.php?codCli='+data;
+
+							html = '<div class="alert alert-success"><i class="fa fa-check"></i><strong> Cadastro efetuado com secesso</strong></div>';
+							$('#msg').html(html);
+							limpa_campos();
 							window.location.href='#body';
+							window.setInterval(function(){
+								window.location.href='clienteCadastroVeiculo.php?codCli='+data;
+							},3000);
+
 						}else{
 							window.location.href='#body';
 							monta_msg_sucesso("Cadastro efetuado com sucesso");
+							busca_seguradoras();
+							busca_corretores();
 						}
 						limpa_campos();
 					}else{
@@ -612,7 +621,7 @@ include 'menu.php';
 
 		var cep =  $('#cep').val();
 
-		if(cep.length == 9 && ($.isNumeric(cep.charAt(0))) &&
+		if(cep.length > 8 && ($.isNumeric(cep.charAt(0))) &&
 			($.isNumeric(cep.charAt(1))) && ($.isNumeric(cep.charAt(2))) &&
 			($.isNumeric(cep.charAt(3))) && ($.isNumeric(cep.charAt(4))) &&
 			($.isNumeric(cep.charAt(6))) && ($.isNumeric(cep.charAt(7))) &&
@@ -646,6 +655,20 @@ include 'menu.php';
 	                    }
 	                }
 	        }); 
+		}else{
+			$('#endereco').val('');
+			$('#numero').val('');
+			$('#complemento').val('');
+			$('#bairro').val('');
+			$('#cidade').val('');
+			$('#uf').val('');	
+
+			$('#endereco').attr("disabled" , true);
+			$('#numero').attr("disabled" , true);
+			$('#complemento').attr("disabled" , true);
+			$('#bairro').attr("disabled" , true);
+			$('#cidade').attr("disabled" , true);
+			$('#uf').attr("disabled" , true);
 		}
 	}
 
