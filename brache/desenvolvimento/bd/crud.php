@@ -4,8 +4,8 @@ include("conexao.php");
 
 function insere($conexao, $campos , $valores , $tabela ) {
     $query = "insert into {$tabela} ({$campos}) values({$valores}) ";
-    var_dump($query);
-    die();
+    //var_dump($query);
+    //die();
     if(mysqli_query($conexao, $query)){
         $id = mysqli_insert_id($conexao);
         return $id;

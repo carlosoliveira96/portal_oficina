@@ -20,6 +20,9 @@ include "controle.php";
     </head>
     <body>
     	<div class="overlay"></div>
+        <div id="preloader" class="carregando" style="display: none">
+            <img src="../static/gif/loading.gif" style="position: fixed; margin-top: 25%; margin-left: 45%;">
+        </div>
         <div class="wrapper">
             <nav id="sidebar">
                 <div id="dismiss">
