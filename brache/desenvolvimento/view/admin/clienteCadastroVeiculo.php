@@ -346,7 +346,7 @@ include "menu.php";
                     url: '../../controller/clienteCadastroVeiculo.php',
                     method: "post",
                     data: data ,
-                    success: function(data){
+                    success: function(data){w
                         if(data){
                             
                             $('#placa').val("");

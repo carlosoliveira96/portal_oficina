@@ -48,8 +48,12 @@ include 'menu.php';
                 <tbody data-link="row" id="tbody_servico">
                 </tbody>
             </table>
-            <div id="paginacao">
-            </div>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination" id="paginacao">
+                    
+
+                </ul>
+            </nav>
        </div>
     </body>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -94,7 +98,7 @@ include 'menu.php';
                             data: data ,
                             success: function(data){
                                 busca_servico();
-                                alert(data);
+                                //alert(data);
                             }
                         });
                     }
@@ -102,14 +106,25 @@ include 'menu.php';
             }
         }
 
+
+        var nr_pag = 1;
+        var lista_registros ;
+
+        function atualiza_nr_pag(numero){
+            nr_pag = numero;
+            monta_lista(lista_registros);
+        }
+        
+
         function busca_servico(){
+            $('#paginacao').html("")
             $('#tbody_servico').html("");
             //Limpara variável do campo de cadastro, após ser realizado um cadastro
             $('#input_cadastro').val("");
             //Mostra a div de loading no carregamento da pagina
             $('#preloader').show();
             var desc_servico = $('#input_pesquisa').val();
-            alert(desc_servico);
+            //alert(desc_servico);
             var data = {
                 desc_servico: desc_servico,
                 funcao: "consulta"
@@ -120,29 +135,83 @@ include 'menu.php';
                 method: "post",
                 data: data ,
                 success: function(data){
-                    alert(data);
                     var lista = $.parseJSON(data);
-                    var html = "";
-                    //var num_paginas = Math.round(lista.length/6);
-                    $('#preloader').hide();
-                    for(var i = 0; i < lista.length ; i++){
-                        html += '<tr>'
-                                    +'<td scope="row" style="display: none">'+lista[i].id+'</td>'
-                                    +'<td scope="row">'+lista[i].descricao+'</td>'
-                                    +'<td scope="row" class="text-center">'
-                                        +'<a href="#" class="btn btn-dark btn-sm" title="Alterar serviço">'
-                                            +'<i class="fas fa-edit "></i>'
-                                        +'</a>'
-                                        +'<a href="#" class="btn btn-dark btn-sm" style="margin-left: 0.2rem" title="Remover serviço">'
-                                            +'<i class="fas fa-trash "></i>'
-                                        +'</a>'
-                                    +'</td>'
-                                +'</tr>';
-                    }
-                        $('#tbody_servico').append(html);
+                    lista_registros = lista;
+                    monta_lista(lista_registros);          
                 }
             });
         }
+
+        function monta_lista(lista){
+
+            $('#paginacao').html("")
+            $('#tbody_servico').html("");
+
+            var qtd_pag = lista.length / 6 ;
+
+            qtd_pag = parseInt(qtd_pag);
+
+            var ultima_pag = lista.length % 6;
+
+            if(ultima_pag != 0){
+                qtd_pag += 1 ;
+            }
+
+            var inicio = 0;
+
+            inicio = (nr_pag * 6) - 6  ;
+
+            for(var i = 1 ; i <= qtd_pag ; i++){
+                var html = '<li class="page-item"><a class="page-link" href="#" onclick="atualiza_nr_pag('+i+')">'+i+'</a></li>';
+                $('#paginacao').append(html);
+            }
+
+            var html = "";
+
+            $('#preloader').hide();
+            if(nr_pag == qtd_pag && ultima_pag != 0 ){
+                for(var i = 0; i < ultima_pag ; i++){
+                
+                html += '<tr>'
+                            +'<td scope="row">'+lista[inicio].descricao+'</td>'
+                            +'<td scope="row" class="text-center">'
+                                +'<a href="#" class="btn btn-dark btn-sm" title="Alterar serviço">'
+                                    +'<i class="fas fa-edit "></i>'
+                                +'</a>'
+                                +'<a href="#" class="btn btn-dark btn-sm" style="margin-left: 0.2rem" title="Remover serviço">'
+                                    +'<i class="fas fa-trash "></i>'
+                                +'</a>'
+                            +'</td>'
+                        +'</tr>';
+                inicio += 1 ;
+            }
+                $('#tbody_servico').append(html);
+            }else{
+
+                for(var i = 0; i < 6 ; i++){
+                    
+                    html += '<tr>'
+                                +'<td scope="row">'+lista[inicio].descricao+'</td>'
+                                +'<td scope="row" class="text-center">'
+                                    +'<a href="#" class="btn btn-dark btn-sm" title="Alterar serviço">'
+                                        +'<i class="fas fa-edit "></i>'
+                                    +'</a>'
+                                    +'<a href="#" class="btn btn-dark btn-sm" style="margin-left: 0.2rem" onclick="deleta('+lista[inicio].id+')" title="Remover serviço">'
+                                        +'<i class="fas fa-trash "></i>'
+                                    +'</a>'
+                                +'</td>'
+                            +'</tr>';
+                    inicio += 1 ;
+                }
+                    $('#tbody_servico').append(html);
+            }
+        }
+
+        var i = 0;
+        function deleta(id){
+            i += 1 ;
+            alert(i);
+        }        
 
         function exclui_servico(){
             //alert();
