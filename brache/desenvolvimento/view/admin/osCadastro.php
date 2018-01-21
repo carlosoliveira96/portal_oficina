@@ -209,7 +209,7 @@ include 'menu.php';
                                     <div class="col-12">
                                         <div class="input-group ">
                                             <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-search"></i></span>
-                                            <input type="text" id="sinistro" class="form-control" disabled  placeholder="Digite para pesquisar" name="">
+                                            <input type="text" id="sinistro" class="form-control"  placeholder="Digite para pesquisar" name="">
                                         </div>
                                     </div>
                                 </div>

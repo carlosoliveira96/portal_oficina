@@ -8,13 +8,13 @@
         <title>Portal da Oficina</title>
 
         <!-- Arquivos CSS -->
-        <link href="static/css/bootstrap.css" rel="stylesheet">
-        <link href="static/css/jasny-bootstrap.css" rel="stylesheet">
-        <link href="static/css/bootstrap-datepicker.css" rel="stylesheet">
-        <link  href="static/css/fontawesome-all.min.css" rel="stylesheet">
+        <link href="../static/css/bootstrap.css" rel="stylesheet">
+        <link href="../static/css/jasny-bootstrap.css" rel="stylesheet">
+        <link href="../static/css/bootstrap-datepicker.css" rel="stylesheet">
+        <link  href="../static/css/fontawesome-all.min.css" rel="stylesheet">
         <!-- Arquivos JS -->
-        <script type="text/javascript" src="static/js/jquery.js"></script>
-        <script type="text/javascript" src="static/js/jasny-bootstrap.js"></script>
+        <script type="text/javascript" src="../static/js/jquery.js"></script>
+        <script type="text/javascript" src="../static/js/jasny-bootstrap.js"></script>
 
     </head>
 
@@ -30,16 +30,19 @@
     </body>
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script type="text/javascript" src="static/js/popper.js"></script>
-    <script type="text/javascript" src="static/js/bootstrap.js"></script>   
-    <script src="static/js/bootstrap-datepicker.js"></script>
-    <script src="static/js/bootstrap-datepicker.pt-BR.min.js"></script> 
+    <script type="text/javascript" src="../static/js/popper.js"></script>
+    <script type="text/javascript" src="../static/js/bootstrap.js"></script>   
+    <script src="../static/js/bootstrap-datepicker.js"></script>
+    <script src="../static/js/bootstrap-datepicker.pt-BR.min.js"></script> 
     <script>
 
-$("#formulario").submit(function () {
-    var formData = new FormData(this);
+$("#formulario").submit(function (e) {
+
+    var myForm = document.getElementById('formulario');
+    var formData = new FormData(myForm);
+
     $.ajax({
-        url:'../controller/upload.php' ,
+        url:'../../controller/upload.php' ,
         type: 'POST',
         data: formData,
         success: function (data) {
@@ -58,6 +61,7 @@ $("#formulario").submit(function () {
         return myXhr;
         }
     });
+    e.preventDefault();
 });
     </script>
 </html>

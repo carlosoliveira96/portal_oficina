@@ -218,7 +218,7 @@ include "menu.php";
         $('#dados').hide();
         var query = location.search.slice(1);
         var partes = query.split('&');
-        var id_cliente;
+        var cliente_id;
         var data = {};
         partes.forEach(function (parte) {
             var chaveValor = parte.split('=');
@@ -228,7 +228,7 @@ include "menu.php";
         });
 
         cliente_id = data.codCli;
-        
+
         busca_cliente(cliente_id);
 
         function busca_cliente(id_cliente){
@@ -346,7 +346,7 @@ include "menu.php";
                     url: '../../controller/clienteCadastroVeiculo.php',
                     method: "post",
                     data: data ,
-                    success: function(data){w
+                    success: function(data){ 
                         if(data){
                             
                             $('#placa').val("");

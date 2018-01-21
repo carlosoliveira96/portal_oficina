@@ -2,14 +2,17 @@
 include('../bd/login.php');
 include('../bd/conexao.php');
 
-$login = $_POST['login'];
-$senha = $_POST['senha'];
+
 $funcao = $_POST['funcao'];
 
-$senhaMd5 = md5($senha);
 session_start();
 switch ($funcao) {
-    case 'login':
+	case 'login':
+	
+		$login = $_POST['login'];
+		$senha = $_POST['senha'];
+		$senhaMd5 = md5($senha);
+
         $usuario = login($conexao, $login, $senhaMd5);
 		if ($usuario['login']) {
 		    logaUsuario($usuario);
