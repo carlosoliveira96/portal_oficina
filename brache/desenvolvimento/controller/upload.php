@@ -1,6 +1,5 @@
 <?php
 // verifica se foi enviado um arquivo 
-
 if (isset($_FILES['arquivo']['name']) && $_FILES["arquivo"]["error"] == 0) {
     $arquivo_tmp = $_FILES['arquivo']['tmp_name'];
     $nome = $_FILES['arquivo']['name'];

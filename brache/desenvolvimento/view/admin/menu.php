@@ -120,6 +120,7 @@ include "controle.php";
             method: "post",
             data: data ,
             success: function(data){
+                alert(data);
                 window.location.href = "controle.php";
             }
         })

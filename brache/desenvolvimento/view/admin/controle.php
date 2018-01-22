@@ -7,4 +7,5 @@ if (isset($_SESSION["usuarioLogado"])){
 }else{
     header("Location:../login.php");
 }
+
 ?>

@@ -21,9 +21,7 @@ include 'menu.php';
 			<p class="text-center" style="color: #000"><i><b>Cadastro</b></i></p>
 		</h2>
 		<hr>
-		<div id="msg">
-			
-		</div>
+		<div id="msg"></div>
 		<div class="row justify-content-md-center" >
 			<div class="col-6">
 				<h6 style="margin-top:1rem"><i>Tipo de Cadastro</i></h6>	

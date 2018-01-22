@@ -22,6 +22,7 @@ switch ($funcao){
         if (strlen($servico['id']) <= 0 ) {
 			print json_encode($servico);
         }
+    break;
     case 'consulta':
         //Pega o valor entrada no input passado pelo javascript
         $desc_servico = $_POST["desc_servico"];
@@ -29,8 +30,10 @@ switch ($funcao){
         if (strlen($desc_servico) > 0){
 
         }else {
+            $condicao = "situacao=1";
+                        
+            $servico = busca_detalhada_varios($conexao, $condicao, "servico");
             
-            $servico = busca_todos($conexao, "servico");
 
             if ($servico != null ) {
                 print json_encode($servico);
@@ -38,6 +41,18 @@ switch ($funcao){
                 print 0;
             }
         }
+    break;
+    case 'excluir':
+        //Pega o valor do ID passado pelo javascript
+        $id_servico = $_POST['id_servico'];
+
+        $campos_valores = "situacao=0";
+        $condicao = "id='{$id_servico}'";
+
+        $servico = altera($conexao, $campos_valores, $condicao, "servico");
+        var_dump($servico);
+        die();
+    break;
 }
 
 ?>
