@@ -15,7 +15,7 @@ include 'menu.php';
         <!-- Arquivos JS -->
         <script type="text/javascript" src="../static/js/jasny-bootstrap.js"></script>
     </head>
-    <body style="background-color: #F8F9FA;" onload="busca_servico()">
+    <body style="background-color: #F8F9FA;" id="body" onload="busca_servico()">
         <div class="container" id="container" style=" background-color: #fff;">
             <h2>
                 <p class="text-center" style="color: #000"><i><b>Serviços</b></i></p>
@@ -28,10 +28,11 @@ include 'menu.php';
                 <thead>
                     <tr>
                         <th class="col-12" style="width: 90%; font-weight: normal">
-                            <input type="text" id="input_pesquisa" class="form-control" placeholder="&#xF002; Pesquise pelo nome da serviço" style="font-family: FontAwesome; font-size: 1.05rem;">
+                            <input type="text" id="input_pesquisa" class="form-control" placeholder="&#xF002; Pesquise pelo nome da serviço" style="font-family: FontAwesome; font-size: 1.05rem;" onkeyup="busca_servico()">
                             <div class="text-danger"></div>
                             <div>
                                 <input type="text" id="input_cadastro" class="form-control" placeholder="&#xf067; Descrição do serviço" style="font-family: FontAwesome; display: none;" onkeyup="verifica_preenchimento()">
+                                <input type="text" id="input_id" style="display: none">
                             </div>
                             
                         </th>
@@ -45,22 +46,21 @@ include 'menu.php';
                             <a href="#" id="cancela_inclusao" class="btn btn-dark btn-sm" style="display: none" onclick="cadastro_servico(this)">
                                 <i class="fas fa-times "></i>
                             </a>
+                            <a href="#" id="confirma_alteracao" class="btn btn-dark btn-sm" style="display: none" onclick="altera_registro(this)">
+                                <i class="fas fa-check"></i>
+                            </a>
+                            <a href="#" id="cancela_alteracao" class="btn btn-dark btn-sm" style="display: none" onclick="altera_registro(this)">
+                                <i class="fas fa-times "></i>
+                            </a>
                         </th>
                     </tr>
                 </thead>
                 <tbody data-link="row" id="tbody_servico">
                 </tbody>
             </table>
-<<<<<<< HEAD
             <nav>
                 <ul class="pager" id="paginacao">
                     
-=======
-            <nav aria-label="Page navigation example">
-                <ul class="pagination" id="paginacao">
-                    
-
->>>>>>> f26ddc32dee7d142f7d00d21187524d7d69d6c89
                 </ul>
             </nav>
        </div>
@@ -106,6 +106,7 @@ include 'menu.php';
                             data: data ,
                             success: function(data){
                                 busca_servico();
+                                monta_msg_sucesso(" Inclusão realizada com sucesso.");
                                 //alert(data);
                             }
                         });
@@ -113,25 +114,14 @@ include 'menu.php';
                 }
             }
         }
-<<<<<<< HEAD
-        var nr_pag = 1;
-        var lista_registros ;
-=======
-
-
         var nr_pag = 1;
         var lista_registros ;
 
->>>>>>> f26ddc32dee7d142f7d00d21187524d7d69d6c89
         function atualiza_nr_pag(numero){
             nr_pag = numero;
             monta_lista(lista_registros);
         }
         
-<<<<<<< HEAD
-=======
-
->>>>>>> f26ddc32dee7d142f7d00d21187524d7d69d6c89
         function busca_servico(){
             $('#paginacao').html("")
             $('#tbody_servico').html("");
@@ -156,7 +146,7 @@ include 'menu.php';
                 }
             });
         }
-<<<<<<< HEAD
+
         function monta_lista(lista){
             $('#paginacao').html("")
             $('#tbody_servico').html("");
@@ -201,35 +191,6 @@ include 'menu.php';
             $('#paginacao').append(html2);
             //Paginação termina aqui
             var html = "";
-=======
-
-        function monta_lista(lista){
-
-            $('#paginacao').html("")
-            $('#tbody_servico').html("");
-
-            var qtd_pag = lista.length / 6 ;
-
-            qtd_pag = parseInt(qtd_pag);
-
-            var ultima_pag = lista.length % 6;
-
-            if(ultima_pag != 0){
-                qtd_pag += 1 ;
-            }
-
-            var inicio = 0;
-
-            inicio = (nr_pag * 6) - 6  ;
-
-            for(var i = 1 ; i <= qtd_pag ; i++){
-                var html = '<li class="page-item"><a class="page-link" href="#" onclick="atualiza_nr_pag('+i+')">'+i+'</a></li>';
-                $('#paginacao').append(html);
-            }
-
-            var html = "";
-
->>>>>>> f26ddc32dee7d142f7d00d21187524d7d69d6c89
             $('#preloader').hide();
             if(nr_pag == qtd_pag && ultima_pag != 0 ){
                 for(var i = 0; i < ultima_pag ; i++){
@@ -237,14 +198,10 @@ include 'menu.php';
                 html += '<tr>'
                             +'<td scope="row">'+lista[inicio].descricao+'</td>'
                             +'<td scope="row" class="text-center">'
-                                +'<a href="#" class="btn btn-dark btn-sm" title="Alterar serviço">'
+                                +'<a href="#" class="btn btn-dark btn-sm" onclick="monta_alteracao('+lista[inicio].id+')" title="Alterar serviço">'
                                     +'<i class="fas fa-edit "></i>'
                                 +'</a>'
-<<<<<<< HEAD
-                                +'<a href="#" class="btn btn-dark btn-sm" style="margin-left: 0.2rem" onclick="exclui_servico('+lista[inicio].id+')" title="Remover serviço">'
-=======
-                                +'<a href="#" class="btn btn-dark btn-sm" style="margin-left: 0.2rem" title="Remover serviço">'
->>>>>>> f26ddc32dee7d142f7d00d21187524d7d69d6c89
+                                +'<a href="#" class="btn btn-dark btn-sm" style="margin-left: 0.2rem" onclick="confirma_exclusao('+lista[inicio].id+')" title="Remover serviço">'
                                     +'<i class="fas fa-trash "></i>'
                                 +'</a>'
                             +'</td>'
@@ -253,51 +210,101 @@ include 'menu.php';
             }
                 $('#tbody_servico').append(html);
             }else{
-<<<<<<< HEAD
                 for(var i = 0; i < 6 ; i++){
-=======
-
-                for(var i = 0; i < 6 ; i++){
-                    
->>>>>>> f26ddc32dee7d142f7d00d21187524d7d69d6c89
                     html += '<tr>'
                                 +'<td scope="row">'+lista[inicio].descricao+'</td>'
                                 +'<td scope="row" class="text-center">'
-                                    +'<a href="#" class="btn btn-dark btn-sm" title="Alterar serviço">'
+                                    +'<a href="#" class="btn btn-dark btn-sm" onclick="monta_alteracao('+lista[inicio].id+')" title="Alterar serviço">'
                                         +'<i class="fas fa-edit "></i>'
                                     +'</a>'
-<<<<<<< HEAD
-                                    +'<button class="btn btn-dark btn-sm" style="margin-left: 0.2rem" onclick="exclui_servico('+lista[inicio].id+')" title="Remover serviço">'
-                                        +'<i class="fas fa-trash "></i>'
-                                    +'</button>'
-=======
-                                    +'<a href="#" class="btn btn-dark btn-sm" style="margin-left: 0.2rem" onclick="deleta('+lista[inicio].id+')" title="Remover serviço">'
+                                    +'<a href="#" class="btn btn-dark btn-sm" style="margin-left: 0.2rem" onclick="confirma_exclusao('+lista[inicio].id+')" title="Remover serviço">'
                                         +'<i class="fas fa-trash "></i>'
                                     +'</a>'
->>>>>>> f26ddc32dee7d142f7d00d21187524d7d69d6c89
                                 +'</td>'
                             +'</tr>';
                     inicio += 1 ;
                 }
                     $('#tbody_servico').append(html);
             }
-        }
-<<<<<<< HEAD
-     
-        function exclui_servico(id){
+        }  
+
+        function monta_alteracao(id){
             //alert(id);
-=======
+            $('#preloader').show();
+            var data = {
+                id_servico: id,
+                funcao: "consulta_unico"
+            };
+            $.ajax({
+                url: '../../controller/servico.php',
+                method: "post",
+                data: data ,
+                success: function(data){
+                    var lista = $.parseJSON(data);
+                    $('#preloader').hide();
+                    $('#confirma_alteracao').show();
+                    $('#cancela_alteracao').show();
+                    $('#input_cadastro').show();
+                    $('#input_pesquisa').hide();
+                    $('#novo_servico').hide();
+                    $('#input_cadastro').val(lista.descricao);
+                    $('#input_id').val(lista.id);    
+                }
+            });
+        }
 
-        var i = 0;
-        function deleta(id){
-            i += 1 ;
-            alert(i);
-        }        
+        function altera_registro(e){
+            if (e.id == "cancela_alteracao"){
+                $('#confirma_alteracao').hide();
+                $('#cancela_alteracao').hide();
+                $('#input_cadastro').hide();
+                $('#input_pesquisa').show();
+                $('#novo_servico').show();
+            } else if (e.id == "confirma_alteracao"){
+                var validacao_ok = true; 
+                var desc_servico = $('#input_cadastro').val();
+                var id = $('#input_id').val();
+                if (desc_servico.length <= 0){
+                    add_erro_input($('#input_cadastro') , "Descrição do serviço inválido ou não informado");
+                    var validacao_ok = true;
+                } else if (desc_servico.length <= 3){
+                    add_erro_input($('#input_cadastro') , "Descrição do serviço deve possuir mais que 3 caracteres");
+                    var validacao_ok = true;
+                } else {
+                    remove_erro_input($('#input_cadastro'));
+                    if (validacao_ok){
+                        var data = {
+                            desc_servico: desc_servico,
+                            id_servico: id,
+                            funcao: "altera"
+                        };
+                        $.ajax({
+                            url: '../../controller/servico.php',
+                            method: "post",
+                            data: data ,
+                            success: function(data){
+                                busca_servico();
+                                monta_msg_sucesso(" Alteração realizada com sucesso.");
+                                $('#confirma_alteracao').hide();
+                                $('#cancela_alteracao').hide();
+                                $('#input_cadastro').hide();
+                                $('#input_pesquisa').show();
+                                $('#novo_servico').show();
+                            }
+                        });
+                    }
+                }
+            }
+        }
 
-        function exclui_servico(){
+        function confirma_exclusao(id){
+            //Mensagem de confirmação
+            monta_msg_confirma(" Confirma exclusão do serviço? <a href='#' class='btn btn-dark btn-sm' onclick='exclui_servico("+id+")'>Sim</a> <a href='#' class='btn btn-secondary btn-sm'>Não</a> ");
+        }    
+
+        function exclui_servico(id){
             //alert();
             var desc_servico = $('#input_cadastro').val();
->>>>>>> f26ddc32dee7d142f7d00d21187524d7d69d6c89
             var data = {
                 id_servico: id,
                 funcao: "excluir"
@@ -356,6 +363,21 @@ include 'menu.php';
             window.setInterval(function(){
                 remove_msg();
             },10000);
+        }
+
+        //Monta mensagem de alerta ao incluir registro
+        function monta_msg_sucesso(msg){
+            html = '<div class="alert alert-success"><i class="fas fa-exclamation-triangle"></i><strong>'+ msg +'</strong></div>';
+            $('#msg').html(html);
+            window.setInterval(function(){
+                remove_msg();
+            },10000);
+        }
+
+        //Monta mensagem de confirmação
+        function monta_msg_confirma(msg){
+            html = '<div class="alert alert-dark"><i class="fas fa-exclamation-triangle"></i><strong>'+ msg +'</strong></div>';
+            $('#msg').html(html);
         }
 
         function remove_msg(){
