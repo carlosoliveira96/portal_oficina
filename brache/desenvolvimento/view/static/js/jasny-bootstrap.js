@@ -918,8 +918,8 @@ if (typeof jQuery === 'undefined') { throw new Error('Jasny Bootstrap\'s JavaScr
         if (preview.css('max-height') != 'none') 
 
           $img.css('max-height', parseInt(preview.css('max-height'), 10) - parseInt(preview.css('padding-top'), 10) - parseInt(preview.css('padding-bottom'), 10)  - parseInt(preview.css('border-top'), 10) - parseInt(preview.css('border-bottom'), 10)- parseInt(preview.css('width'), 10))
-          $img.css("height", "20rem")
-          $img.css("width", "19rem")
+          $img.css("height", "100%")
+          $img.css("width", "100%")
         
         preview.html($img)
         element.addClass('fileinput-exists').removeClass('fileinput-new')

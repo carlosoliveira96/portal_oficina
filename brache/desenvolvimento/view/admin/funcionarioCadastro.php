@@ -32,7 +32,7 @@ include 'menu.php';
                             <span class="btn btn-dark btn-file col-12">
                                 <span class="fileinput-new ">Selecione a imagem</span>
                                 <span class="fileinput-exists" data-dismiss="fileinput">Alterar</span>
-                                <input type="file" id="arquivo" name="arquivo">
+                                <input type="file" id="arquivo" name="arquivo" accept="image/*">
                             </span>
                             <a href="#" class="btn btn-dark fileinput-exists col-12" data-dismiss="fileinput" style="margin-top: 0.5rem">Remover</a>
                         </div>

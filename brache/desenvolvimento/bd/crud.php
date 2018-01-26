@@ -4,6 +4,12 @@ include("conexao.php");
 
 function insere($conexao, $campos , $valores , $tabela ) {
     $query = "insert into {$tabela} ({$campos}) values({$valores}) ";
+<<<<<<< HEAD
+=======
+    //var_dump($query);
+    //die();
+
+>>>>>>> 33f66d79c1c90869294f49f6217f9afc4e7fe372
     if(mysqli_query($conexao, $query)){
         $id = mysqli_insert_id($conexao);
         return $id;
@@ -31,9 +37,13 @@ function busca_varios($conexao, $condicao , $tabela){
     return $resultados;
 }
 
-function busca_detalhada_varios($conexao, $condicao , $tabela , $campos){
+function busca_detalhada_varios($conexao, $condicao , $tabela , $campos = null){
     $resultados = array();
-    $query = "select {$campos}  FROM {$tabela} where {$condicao} ";
+    if ($campos){
+        $query = "select {$campos} FROM {$tabela} where {$condicao} ";
+    } else {
+        $query = "select * FROM {$tabela} where {$condicao} ";
+    }
     $result = mysqli_query($conexao, $query);
 
     if ($result == true) {
@@ -43,7 +53,7 @@ function busca_detalhada_varios($conexao, $condicao , $tabela , $campos){
         return $resultados ;
     }
     
-    return $resultados;
+    //return $resultados;
 }
 
 function busca_todos($conexao,  $tabela){
@@ -76,19 +86,22 @@ function busca_detalhada_um($conexao, $condicao , $tabela , $campos = null){
     return $resultado;
 }
 
-function altera($conexao, $campos_valores , $tabela , $condicao = null ) {
+function altera($conexao, $campos_valores, $condicao = null, $tabela) {
 
     $query = "";
-
+    
     if ($condicao){
-        $query = "update {$tabela} set ({$campos_valores}) WHERE {$condicao} ";
+        $query = "update {$tabela} set {$campos_valores} WHERE {$condicao} ";
     }else{
-        $query = "update {$tabela} set ({$campos_valores}) ";        
+        $query = "update {$tabela} set {$campos_valores} ";        
     }
 
     if(mysqli_query($conexao, $query)){
         $id = mysqli_insert_id($conexao);
         return $id;
+    }else{
+        echo mysqli_error($conexao);
+        die();
     }
 }
 

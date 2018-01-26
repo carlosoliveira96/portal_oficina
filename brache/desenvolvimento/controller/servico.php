@@ -22,15 +22,26 @@ switch ($funcao){
         if (strlen($servico['id']) <= 0 ) {
 			print json_encode($servico);
         }
+    break;
     case 'consulta':
         //Pega o valor entrada no input passado pelo javascript
         $desc_servico = $_POST["desc_servico"];
     
         if (strlen($desc_servico) > 0){
+            $condicao = "situacao=1 AND descricao LIKE '%$desc_servico%'";
+                        
+            $servico = busca_detalhada_varios($conexao, $condicao, "servico");
+
+            if ($servico != null ) {
+                print json_encode($servico);
+            } else {
+                print 0;
+            }
 
         }else {
-            
-            $servico = busca_todos($conexao, "servico");
+            $condicao = "situacao=1";
+                        
+            $servico = busca_detalhada_varios($conexao, $condicao, "servico");
 
             if ($servico != null ) {
                 print json_encode($servico);
@@ -38,6 +49,46 @@ switch ($funcao){
                 print 0;
             }
         }
+    break;
+    case 'consulta_unico':
+        //Pega o valor do ID passado pelo javascript
+        $id_servico = $_POST['id_servico'];
+
+        $condicao = "id='$id_servico'";
+
+        $servico = busca_detalhada_um($conexao, $condicao, "servico");
+
+        if ($servico != null) {
+            print json_encode($servico);
+        }else {
+            print 0;
+        }
+    break;
+    case 'excluir':
+        //Pega o valor do ID passado pelo javascript
+        $id_servico = $_POST['id_servico'];
+
+        $campos_valores = "situacao=0";
+        $condicao = "id='{$id_servico}'";
+
+        $servico = altera($conexao, $campos_valores, $condicao, "servico");
+        var_dump($servico);
+        die();
+    break;
+    case 'altera':
+        //Pega o valor entrada no input passado pelo javascript
+        $desc_servico = $_POST["desc_servico"];
+        $id_servico = $_POST['id_servico'];
+
+        $campos_valores = "descricao='$desc_servico'";
+        $condicao = "id='{$id_servico}'";
+
+        $servico = altera($conexao, $campos_valores, $condicao, "servico");
+        
+        if (strlen($servico['id']) == 0 ) {
+			print json_encode($servico);
+        }
+    break;
 }
 
 ?>
