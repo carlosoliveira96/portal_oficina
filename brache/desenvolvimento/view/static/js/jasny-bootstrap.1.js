@@ -867,7 +867,7 @@ if (typeof jQuery === 'undefined') { throw new Error('Jasny Bootstrap\'s JavaScr
     var height = this.$preview.css('height')
 
     this.$preview.css('height', "17.5rem")
-    this.$preview.css('width', "20rem")
+    this.$preview.css('width', "69.5rem")
         
     this.original = {
       exists: this.$element.hasClass('fileinput-exists'),

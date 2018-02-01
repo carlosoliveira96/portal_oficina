@@ -21,10 +21,17 @@ include "menu.php";
     <body  style="background-color: #F8F9FA;" id="body">
         <div class="container" style=" background-color: #fff;">
             <h2>
-                <p class="text-center" style="color: #000"><i><b>Víncular Veículo para Cliente</b></i></p>
+                <p class="text-center" style="color: #000; display: none" id="nome_vinculo"><i><b>Víncular Veículo para Cliente</b></i></p>
+                <p class="text-center" style="color: #000; display: none" id="nome_cadastro"><i><b>Cadastro de veículos</b></i></p>
             </h2>
             <hr>
             <div id="msg"></div>
+            <div class="row" id="info_cliente">
+                <div class="col-9">
+                <input type="checkbox" onclick="esconde_campos()" id="check_cliente" aria-label="Checkbox for following text input">
+                Não possuo informações do veículo
+                </div>
+            </div>
             <div id="dados">
                 <div class="row" id="fisica">
                     <div class="col-8">
@@ -90,120 +97,154 @@ include "menu.php";
                 </div>
                 <hr>
             </div>
-            <div class="row">
-                <div class="col-4">
-                    <h6  style="margin-top:1rem"><i>Placa</i></h6>	
-                    <div class="input-group ">
-                        <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-search"></i></span>
-                        <input type="text" id="placa" onkeyup="busca_placa()" class="form-control" placeholder="Ex.: AAA-9999"  data-mask="aaa-9999"  name="">
+            <div id="dados_veiculo">
+                <div class="row">
+                    <div class="col-4">
+                        <h6  style="margin-top:1rem"><i>Placa</i></h6>	
+                        <div class="input-group ">
+                            <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-search"></i></span>
+                            <input type="text" id="placa" onkeyup="busca_placa()" class="form-control" placeholder="Ex.: AAA-9999"  data-mask="aaa-9999"  name="">
+                        </div>
+                        <div class="text-danger"></div>
                     </div>
-                    <div class="text-danger"></div>
+                    <div class="col-8">
+                        <h6  style="margin-top:1rem"><i>Modelo</i></h6>	
+                        <div class="input-group ">
+                            <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-car"></i></span>
+                            <input type="text" id="modelo" class="form-control" disabled placeholder="Ex.: Exemplo Exemplo"  maxlength="100" name="">
+                        </div>
+                        <div class="text-danger"></div>
+                    </div>
+                    <div class="col-3">
+                        <h6  style="margin-top:1rem"><i>Ano Modelo</i></h6>	
+                        <div class="input-group ">
+                            <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-calendar"></i></span>
+                            <input type="text" id="ano_modelo" class="form-control" disabled placeholder="Ex.: Exemplo Exemplo"  data-mask="9999" maxlength="100" name="">
+                        </div>
+                        <div class="text-danger"></div>
+                    </div>
+                    <div class="col-3">
+                        <h6  style="margin-top:1rem"><i>Ano Fabricação</i></h6>	
+                        <div class="input-group ">
+                            <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-calendar"></i></span>
+                            <input type="text" id="ano_fabricacao" class="form-control" disabled placeholder="Ex.: Exemplo Exemplo"  data-mask="9999" maxlength="100" name="">
+                        </div>
+                        <div class="text-danger"></div>
+                    </div>
+                    <div class="col-6">
+                        <h6  style="margin-top:1rem"><i>Fabricante</i></h6>	
+                        <div class="input-group ">
+                            <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-calendar"></i></span>
+                            <select name="" id="fabricante" disabled  class="form-control">
+                                <option value="0">Selecione...</option>
+                                <option value="Agrale">Agrale </option>
+                                <option value="Aston Martin">Aston Martin </option>
+                                <option value="Audi">Audi </option>
+                                <option value="Bentley">Bentley </option>
+                                <option value="BMW">BMW </option>
+                                <option value="Changan">Changan </option>
+                                <option value="Chery">Chery </option>
+                                <option value="Chrysler">Chrysler </option>
+                                <option value="Citroën">Citroën </option>
+                                <option value="Dodge">Dodge </option>
+                                <option value="Effa">Effa </option>
+                                <option value="Ferrari">Ferrari </option>
+                                <option value="Fiat">Fiat </option>
+                                <option value="Ford">Ford </option>
+                                <option value="Geely">Geely </option>
+                                <option value="GM/Chevrolet">GM/Chevrolet </option>
+                                <option value="Hafei">Hafei </option>
+                                <option value="Honda">Honda </option>
+                                <option value="Hyundai">Hyundai </option>
+                                <option value="Iveco">Iveco </option>
+                                <option value="Jac Motors">Jac Motors </option>
+                                <option value="Jaguar">Jaguar </option>
+                                <option value="Jeep">Jeep </option>
+                                <option value="Jinbei">Jinbei </option>
+                                <option value="Kia">Kia </option>
+                                <option value="Lamborghini">Lamborghini </option>
+                                <option value="Land Rover">Land Rover </option>
+                                <option value="Lexus">Lexus </option>
+                                <option value="Lifan">Lifan </option>
+                                <option value="Mahindra">Mahindra </option>
+                                <option value="Maserati">Maserati </option>
+                                <option value="Mercedes-Benz">Mercedes-Benz </option>
+                                <option value="MG Motors">MG Motors </option>
+                                <option value="Mini">Mini </option>
+                                <option value="Mitsubishi">Mitsubishi </option>
+                                <option value="Nissan">Nissan </option>
+                                <option value="Peugeot">Peugeot </option>
+                                <option value="Porsche">Porsche </option>
+                                <option value="Ram">Ram </option>
+                                <option value="Renault">Renault </option>
+                                <option value="Smart">Smart </option>
+                                <option value="Ssangyong">Ssangyong </option>
+                                <option value="Subaru">Subaru </option>
+                                <option value="Suzuki">Suzuki </option>
+                                <option value="Tesla">Tesla </option>
+                                <option value="Toyota">Toyota </option>
+                                <option value="Troller">Troller </option>
+                                <option value="Volkswagen">Volkswagen </option>
+                                <option value="Volvo">Volvo </option>
+                            </select>
+                        </div>
+                        <div class="text-danger"></div>
+                    </div>
+                    <div class="col-4">
+                        <h6  style="margin-top:1rem"><i>Cor</i></h6>	
+                        <div class="input-group ">
+                            <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-paint-brush"></i></span>
+                            <input type="text" id="cor" class="form-control" disabled  placeholder="Ex.: Exemplo "   maxlength="50" name="">
+                        </div>
+                        <div class="text-danger"></div>
+                    </div>
+                    <div class="col-8">
+                        <h6  style="margin-top:1rem"><i>Chassi</i></h6>	
+                        <div class="input-group ">
+                            <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-car"></i></span>
+                            <input type="text" id="chassi" disabled  class="form-control" placeholder="Ex.: Exemplo "   maxlength="50" name="">
+                        </div>
+                        <div class="text-danger"></div>
+                    </div>  
+                    <div class="col-12">
+                        <button style="margin-top: 1rem" class="btn btn-dark btn-lg btn-block" onclick="salvar()">
+                            <i class="fa fa-check float-left" style="margin-top: 0.3rem;"></i> Salvar
+                        </button>
+                        <br>
+                    </div>                  
                 </div>
-                <div class="col-8">
-                    <h6  style="margin-top:1rem"><i>Modelo</i></h6>	
+            </div>
+            <div class="row" id="info_manual" style="display:none">
+            <!--Escondido para quando o usuário não souber informações do veículo-->
+                <div class="col-3">
+                    <h6  style="margin-top:1rem"><i>Data de entrada</i></h6>	
                     <div class="input-group ">
-                        <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-car"></i></span>
-                        <input type="text" id="modelo" class="form-control" disabled placeholder="Ex.: Exemplo Exemplo"  maxlength="100" name="">
+                        <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-calendar"></i></span>
+                        <input type="text" id="dt_entrada"  class="form-control" placeholder="Ex.: 99/99/9999">
                     </div>
                     <div class="text-danger"></div>
                 </div>
                 <div class="col-3">
-                    <h6  style="margin-top:1rem"><i>Ano Modelo</i></h6>	
+                    <h6  style="margin-top:1rem"><i>Hora de entrada</i></h6>	
                     <div class="input-group ">
-                        <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-calendar"></i></span>
-                        <input type="text" id="ano_modelo" class="form-control" disabled placeholder="Ex.: Exemplo Exemplo"  data-mask="9999" maxlength="100" name="">
-                    </div>
-                    <div class="text-danger"></div>
-                </div>
-                <div class="col-3">
-                    <h6  style="margin-top:1rem"><i>Ano Fabricação</i></h6>	
-                    <div class="input-group ">
-                        <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-calendar"></i></span>
-                        <input type="text" id="ano_fabricacao" class="form-control" disabled placeholder="Ex.: Exemplo Exemplo"  data-mask="9999" maxlength="100" name="">
-                    </div>
-                    <div class="text-danger"></div>
-                </div>
-                <div class="col-6">
-                    <h6  style="margin-top:1rem"><i>Fabricante</i></h6>	
-                    <div class="input-group ">
-                        <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-calendar"></i></span>
-                        <select name="" id="fabricante" disabled  class="form-control">
-                            <option value="0">Selecione...</option>
-                            <option value="Agrale">Agrale </option>
-                            <option value="Aston Martin">Aston Martin </option>
-                            <option value="Audi">Audi </option>
-                            <option value="Bentley">Bentley </option>
-                            <option value="BMW">BMW </option>
-                            <option value="Changan">Changan </option>
-                            <option value="Chery">Chery </option>
-                            <option value="Chrysler">Chrysler </option>
-                            <option value="Citroën">Citroën </option>
-                            <option value="Dodge">Dodge </option>
-                            <option value="Effa">Effa </option>
-                            <option value="Ferrari">Ferrari </option>
-                            <option value="Fiat">Fiat </option>
-                            <option value="Ford">Ford </option>
-                            <option value="Geely">Geely </option>
-                            <option value="GM/Chevrolet">GM/Chevrolet </option>
-                            <option value="Hafei">Hafei </option>
-                            <option value="Honda">Honda </option>
-                            <option value="Hyundai">Hyundai </option>
-                            <option value="Iveco">Iveco </option>
-                            <option value="Jac Motors">Jac Motors </option>
-                            <option value="Jaguar">Jaguar </option>
-                            <option value="Jeep">Jeep </option>
-                            <option value="Jinbei">Jinbei </option>
-                            <option value="Kia">Kia </option>
-                            <option value="Lamborghini">Lamborghini </option>
-                            <option value="Land Rover">Land Rover </option>
-                            <option value="Lexus">Lexus </option>
-                            <option value="Lifan">Lifan </option>
-                            <option value="Mahindra">Mahindra </option>
-                            <option value="Maserati">Maserati </option>
-                            <option value="Mercedes-Benz">Mercedes-Benz </option>
-                            <option value="MG Motors">MG Motors </option>
-                            <option value="Mini">Mini </option>
-                            <option value="Mitsubishi">Mitsubishi </option>
-                            <option value="Nissan">Nissan </option>
-                            <option value="Peugeot">Peugeot </option>
-                            <option value="Porsche">Porsche </option>
-                            <option value="Ram">Ram </option>
-                            <option value="Renault">Renault </option>
-                            <option value="Smart">Smart </option>
-                            <option value="Ssangyong">Ssangyong </option>
-                            <option value="Subaru">Subaru </option>
-                            <option value="Suzuki">Suzuki </option>
-                            <option value="Tesla">Tesla </option>
-                            <option value="Toyota">Toyota </option>
-                            <option value="Troller">Troller </option>
-                            <option value="Volkswagen">Volkswagen </option>
-                            <option value="Volvo">Volvo </option>
-                        </select>
-                    </div>
-                    <div class="text-danger"></div>
-                </div>
-                <div class="col-4">
-                    <h6  style="margin-top:1rem"><i>Cor</i></h6>	
-                    <div class="input-group ">
-                        <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-paint-brush"></i></span>
-                        <input type="text" id="cor" class="form-control" disabled  placeholder="Ex.: Exemplo "   maxlength="50" name="">
-                    </div>
-                    <div class="text-danger"></div>
-                </div>
-                <div class="col-8">
-                    <h6  style="margin-top:1rem"><i>Chassi</i></h6>	
-                    <div class="input-group ">
-                        <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-car"></i></span>
-                        <input type="text" id="chassi" disabled  class="form-control" placeholder="Ex.: Exemplo "   maxlength="50" name="">
+                        <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-clock"></i></span>
+                        <input type="text" id="hr_entrada" data-mask="99:99" class="form-control" placeholder="Ex.: 12:00">
                     </div>
                     <div class="text-danger"></div>
                 </div>
                 <div class="col-12">
-				    <button style="margin-top: 1rem" class="btn btn-dark btn-lg btn-block" onclick="salvar()">
-				        <i class="fa fa-check float-left" style="margin-top: 0.3rem;"></i> Salvar
-				    </button>
-				    <br>
-			    </div>
+                    <h6  style="margin-top:1rem"><i>Observações</i></h6>	
+                    <div class="input-group ">
+                        <textarea id="obs" class="form-control" placeholder="Informações sobre a entrada do veículo" rows="3"></textarea>
+                    </div>
+                    <div class="text-danger"></div>
+                </div>
+                <div class="col-12">
+                    <button style="margin-top: 1rem" class="btn btn-dark btn-lg btn-block" onclick="salvar_info_manual()">
+                        <i class="fa fa-check float-left" style="margin-top: 0.3rem;"></i> Salvar
+                    </button>
+                    <br>
+                </div>
             </div>
         </div>
     </body>
@@ -214,6 +255,11 @@ include "menu.php";
     <script src="../static/js/bootstrap-datepicker.js"></script>
     <script src="../static/js/bootstrap-datepicker.pt-BR.min.js"></script> 
     <script>
+
+        $('#dt_entrada').datepicker({
+            format: 'dd/mm/yyyy',
+            language : 'pt-BR'
+        });
 
         $('#dados').hide();
         var query = location.search.slice(1);
@@ -228,6 +274,14 @@ include "menu.php";
         });
 
         cliente_id = data.codCli;
+
+        if (cliente_id > 0){
+            $('#nome_vinculo').show();
+            $('#nome_cadastro').hide();
+        }else {
+            $('#nome_cadastro').show();
+            $('#nome_vinculo').hide();
+        }
 
         busca_cliente(cliente_id);
 
@@ -276,8 +330,21 @@ include "menu.php";
             });
         }
 
-        function salvar(){
+        //Função para esconder campos quando não existir dados de cadastro do cliente
+        function esconde_campos(){
+            var check_cliente = document.getElementById("check_cliente");
+            if (check_cliente.checked){
+                $('#dados_veiculo').hide();
+                $('#info_manual').show();
+                limpa_campos();
+            } else {
+                $('#dados_veiculo').show();
+                $('#info_manual').hide();
+                limpa_campos();
+            }
+        }
 
+        function salvar(){
             var placa = $('#placa').val();
             var modelo = $('#modelo').val();
             var ano_modelo = $('#ano_modelo').val();
@@ -377,21 +444,51 @@ include "menu.php";
         
         }
 
-        function busca_placa(){ 
+        //Salva as informações manuais
+        function salvar_info_manual(){
+            var data_entrada = $('#dt_entrada').val();
+            var hora_entrada = $('#hr_entrada').val();
+            var observacoes = $('#obs').val();
+            var validacao_ok = true;
 
+            //Verifica preenchimento
+            if(data_entrada.length == 0 ){
+				add_erro_input($('#dt_entrada') , "Por favor preencha o campo data de entrada");
+				validacao_ok = false;
+			}else{
+				remove_erro_input($('#dt_entrada'));
+			}
+
+            if (hora_entrada.length == 0){
+                add_erro_input($('#hr_entrada') , "Por favor preencha o campo hora de entrada");
+				validacao_ok = false;
+            }else {
+                remove_erro_input($('#hr_entrada'));
+            }
+
+            if (observacoes.length < 5){
+                add_erro_input($('#obs') , "Por favor preencha o campo observações com informações sobre a entrada do veículo");
+				validacao_ok = false;
+            }else {
+                remove_erro_input($('#obs'));
+            }
+        }
+
+        function busca_placa(){ 
             var placa = $('#placa').val();
 
-            if (  placa.length > 7 && (isNaN(placa.charAt(0))) &&
+            if (  placa.length >= 7 && (isNaN(placa.charAt(0))) &&
             (isNaN(placa.charAt(1))) && (isNaN(placa.charAt(2))) &&
             ($.isNumeric(placa.charAt(4))) && ($.isNumeric(placa.charAt(5))) &&
             ($.isNumeric(placa.charAt(6))) && ($.isNumeric(placa.charAt(7))) ){
-
+                $('#preloader').show();
                 var data = {placa : placa , funcao : "busca_placa"};
                 $.ajax({
                     url: '../../controller/clienteCadastroVeiculo.php',
                     method: "post",
                     data: data ,
                     success: function(data){
+                        $('#preloader').hide();
                         if(data){
                             var retorno = $.parseJSON(data);
 
@@ -403,8 +500,7 @@ include "menu.php";
                             $('#chassi').val(retorno.chassi);
 
                         }else{
-
-                            $('#placa').val("");
+                            $('#placa').val(placa);
                             $('#modelo').val("");
                             $('#ano_modelo').val("");
                             $('#ano_fabricacao').val("");
@@ -422,7 +518,6 @@ include "menu.php";
                     }
                 });
             }else{
-
                 $('#modelo').val("");
                 $('#ano_modelo').val("");
                 $('#ano_fabricacao').val("");
@@ -437,6 +532,32 @@ include "menu.php";
                 $('#cor').attr('disabled' , true);
                 $('#chassi').attr('disabled' , true);
             }
+        }
+
+        function limpa_campos(){
+            remove_erro_input($('#dt_entrada'));
+            remove_erro_input($('#hr_entrada'));
+            remove_erro_input($('#obs'));
+            remove_erro_input($('#placa'));
+            remove_erro_input($('#modelo'));
+            remove_erro_input($('#ano_modelo'));
+            remove_erro_input($('#ano_fabricacao'));
+            remove_erro_input($('#fabricante'));
+            remove_erro_input($('#cor'));
+            $('#placa').val("");
+            $('#modelo').val("");
+            $('#ano_modelo').val("");
+            $('#ano_fabricacao').val("");
+            $('#fabricante').val("0");
+            $('#cor').val("");
+            $('#chassi').val("");
+
+            $('#modelo').attr('disabled' , true);
+            $('#ano_modelo').attr('disabled' , true);
+            $('#ano_fabricacao').attr('disabled' , true);
+            $('#fabricante').attr('disabled' , true);
+            $('#cor').attr('disabled' , true);
+            $('#chassi').attr('disabled' , true);
         }
 
         function add_erro_input(input , msg){

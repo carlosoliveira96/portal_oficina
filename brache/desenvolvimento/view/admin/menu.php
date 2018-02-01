@@ -39,7 +39,10 @@ include "controle.php";
                         <a href="inicio.php">Início</a>
                     </li>
                     <li>
-                        <a href="cadastro.php">Cadastro</a>
+                        <a href="cadastro.php">Atendimentos</a>
+                    </li>
+                    <li>
+                        <a href="clienteCadastroVeiculo.php">Veículo</a>
                     </li>
                     <li>
                         <a href="osCadastro.php">Ordem de Serviços</a>
@@ -48,7 +51,7 @@ include "controle.php";
                         <a href="#funcionarioSubmenu" data-toggle="collapse" aria-expanded="false">Funcionários</a>
                         <ul class="collapse list-unstyled" id="funcionarioSubmenu">
                             <li><a href="funcionarioCadastro.php">Cadastro</a></li>
-                            <li><a href="#">Listagem</a></li>
+                            <li><a href="funcionarioListar.php">Listagem</a></li>
                          </ul>
                     </li>
                     <li>

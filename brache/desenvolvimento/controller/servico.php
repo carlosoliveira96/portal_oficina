@@ -8,14 +8,22 @@ $funcao = $_POST["funcao"];
 session_start();
 
 //Verifica a função passada
+/* Onde:
+   salvar = Cadastro
+   consulta = Consultar todos os registro ou de acordo com digitado no campo de busca
+   consulta_unico = Consultar para realizar operações de alterar e excluir
+   excluir = Excluir/Inativar registro
+   altera = Alterar registro
+*/
 switch ($funcao){
     case 'salvar':
-        //Pega o valor entrada no input passado pelo javascript
+        //Pega o valor da entrada no input passado pelo javascript
         $desc_servico = $_POST["desc_servico"];
+        $check = $_POST["check"];
 
         //Passa informações de inclusão na variável utilizada
-        $campos = "descricao, situacao";
-        $valores= "'{$desc_servico}', '1'";
+        $campos = "descricao, situacao, tipo_pagamento";
+        $valores= "'{$desc_servico}', '1', '{$check}'";
         
         $servico = insere($conexao, $campos, $valores, "servico");
 

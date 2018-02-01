@@ -12,8 +12,6 @@ include 'menu.php';
 
         <!-- Arquivos CSS -->
         <link href="../static/css/jasny-bootstrap.css" rel="stylesheet">
-        <!-- Arquivos JS -->
-        <script type="text/javascript" src="../static/js/jasny-bootstrap.js"></script>
     </head>
     <body style="background-color: #F8F9FA;" id="body" onload="busca_servico()">
         <div class="container" id="container" style=" background-color: #fff;">
@@ -29,10 +27,16 @@ include 'menu.php';
                     <tr>
                         <th class="col-12" style="width: 90%; font-weight: normal">
                             <input type="text" id="input_pesquisa" class="form-control" placeholder="&#xF002; Pesquise pelo nome da serviço" style="font-family: FontAwesome; font-size: 1.05rem;" onkeyup="busca_servico()">
-                            <div class="text-danger"></div>
                             <div>
-                                <input type="text" id="input_cadastro" class="form-control" placeholder="&#xf067; Descrição do serviço" style="font-family: FontAwesome; display: none;" onkeyup="verifica_preenchimento()">
-                                <input type="text" id="input_id" style="display: none">
+                            <div class="text-danger"></div>
+                                <div class="input-group" id="div_cadastro" style=" display: none;">
+                                    <span class="input-group-addon">
+                                        <input type="checkbox" id="check_pecas" aria-label="Checkbox for following text input"> 
+                                        <span class="input-group-text" id="">&nbsp;Pagamento por peças</span>
+                                    </span>
+                                    <input type="text" id="input_cadastro" class="form-control" placeholder="Descrição do serviço" style="font-family: FontAwesome;" onkeyup="verifica_preenchimento()">
+                                    <input type="text" id="input_id" style="display: none">
+                                </div>
                             </div>
                             
                         </th>
@@ -58,9 +62,15 @@ include 'menu.php';
                 <tbody data-link="row" id="tbody_servico">
                 </tbody>
             </table>
+
+            <nav aria-label="Page navigation example">
+                <ul class="pagination" id="paginacao">
+                    
+
             <nav>
                 <ul class="pager" id="paginacao">
                     
+
                 </ul>
             </nav>
        </div>
@@ -75,58 +85,102 @@ include 'menu.php';
             if (e.id == "novo_servico"){
                 $('#confirma_inclusao').show();
                 $('#cancela_inclusao').show();
-                $('#input_cadastro').show();
+                $('#div_cadastro').show();
                 $('#input_pesquisa').hide();
                 $('#novo_servico').hide();
             } else if (e.id == "cancela_inclusao"){
                 $('#confirma_inclusao').hide();
                 $('#cancela_inclusao').hide();
-                $('#input_cadastro').hide();
+                $('#div_cadastro').hide();
                 $('#input_pesquisa').show();
                 $('#novo_servico').show();
             } else if (e.id == "confirma_inclusao"){
-                var validacao_ok = true; 
-                var desc_servico = $('#input_cadastro').val();
-                if (desc_servico.length <= 0){
-                    add_erro_input($('#input_cadastro') , "Descrição do serviço inválido ou não informado");
-                    var validacao_ok = true;
-                } else if (desc_servico.length <= 3){
-                    add_erro_input($('#input_cadastro') , "Descrição do serviço deve possuir mais que 3 caracteres");
-                    var validacao_ok = true;
-                } else {
+                
+            var t = document.getElementById("check_pecas"); 
+            var validacao_ok = true; 
+            var desc_servico = $('#input_cadastro').val();
+            if (desc_servico.length <= 0){
+                add_erro_input($('#input_cadastro') , "Descrição do serviço inválido ou não informado");
+                var validacao_ok = true;
+            } else if (desc_servico.length <= 3){
+                add_erro_input($('#input_cadastro') , "Descrição do serviço deve possuir mais que 3 caracteres");
+                var validacao_ok = true;
+            } else {
+                $('#preloader').show();
+                if (t.checked == true){
+                    alert();
                     remove_erro_input($('#input_cadastro'));
                     if (validacao_ok){
                         var data = {
                             desc_servico: desc_servico,
+                            check: "1",
                             funcao: "salvar"
                         };
+                    }
+                }else {
+                    remove_erro_input($('#input_cadastro'));
+                    if (validacao_ok){
+                        var data = {
+                            desc_servico: desc_servico,
+                            check: "0",
+                            funcao: "salvar"
+                        };
+<<<<<<< HEAD
+=======
                         $.ajax({
                             url: '../../controller/servico.php',
                             method: "post",
                             data: data ,
                             success: function(data){
                                 busca_servico();
+<<<<<<< HEAD
+=======
                                 monta_msg_sucesso(" Inclusão realizada com sucesso.");
+>>>>>>> 33f66d79c1c90869294f49f6217f9afc4e7fe372
                                 //alert(data);
                             }
                         });
+>>>>>>> 10227748f4029fe7df4f6b2277f5ec766fc288cf
                     }
                 }
+                    $.ajax({
+                        url: '../../controller/servico.php',
+                        method: "post",
+                        data: data ,
+                        success: function(data){
+                            busca_servico();
+                            monta_msg_sucesso(" Inclusão realizada com sucesso.");
+                        }
+                    });
+            }
             }
         }
         var nr_pag = 1;
         var lista_registros ;
 
+<<<<<<< HEAD
+
+        var nr_pag = 1;
+        var lista_registros ;
+
+=======
+>>>>>>> 33f66d79c1c90869294f49f6217f9afc4e7fe372
         function atualiza_nr_pag(numero){
             nr_pag = numero;
             monta_lista(lista_registros);
         }
         
+<<<<<<< HEAD
+
+=======
+>>>>>>> 33f66d79c1c90869294f49f6217f9afc4e7fe372
         function busca_servico(){
             $('#paginacao').html("")
             $('#tbody_servico').html("");
             //Limpara variável do campo de cadastro, após ser realizado um cadastro
             $('#input_cadastro').val("");
+            var check = document.getElementById("check_pecas");
+            check.checked = false;
             //Mostra a div de loading no carregamento da pagina
             $('#preloader').show();
             var desc_servico = $('#input_pesquisa').val();
@@ -140,9 +194,14 @@ include 'menu.php';
                 method: "post",
                 data: data ,
                 success: function(data){
-                    var lista = $.parseJSON(data);
-                    lista_registros = lista;
-                    monta_lista(lista_registros);          
+                    if (data == "0"){
+                        $('#preloader').hide();
+                        monta_msg_alerta(" Você não possui serviços cadastros. Cliquem em <b>cadastrar serviço</b> para iniciar.")
+                    }else {
+                        var lista = $.parseJSON(data);
+                        lista_registros = lista;
+                        monta_lista(lista_registros);          
+                    }
                 }
             });
         }
@@ -194,16 +253,15 @@ include 'menu.php';
             $('#preloader').hide();
             if(nr_pag == qtd_pag && ultima_pag != 0 ){
                 for(var i = 0; i < ultima_pag ; i++){
-                
                 html += '<tr>'
                             +'<td scope="row">'+lista[inicio].descricao+'</td>'
                             +'<td scope="row" class="text-center">'
-                                +'<a href="#" class="btn btn-dark btn-sm" onclick="monta_alteracao('+lista[inicio].id+')" title="Alterar serviço">'
-                                    +'<i class="fas fa-edit "></i>'
-                                +'</a>'
-                                +'<a href="#" class="btn btn-dark btn-sm" style="margin-left: 0.2rem" onclick="confirma_exclusao('+lista[inicio].id+')" title="Remover serviço">'
-                                    +'<i class="fas fa-trash "></i>'
-                                +'</a>'
+                                +'<button type="button" class="btn btn-dark btn-sm" onclick="monta_alteracao('+lista[inicio].id+')" title="Alterar serviço">'
+                                    +'<i class="fas fa-edit"></i>'
+                                +'</button>'
+                                +'<button type="button" class="btn btn-dark btn-sm" style="margin-left: 0.2rem" onclick="confirma_exclusao('+lista[inicio].id+')" title="Remover serviço">'
+                                    +'<i class="fas fa-trash"></i>'
+                                +'</button>'
                             +'</td>'
                         +'</tr>';
                 inicio += 1 ;
@@ -214,12 +272,12 @@ include 'menu.php';
                     html += '<tr>'
                                 +'<td scope="row">'+lista[inicio].descricao+'</td>'
                                 +'<td scope="row" class="text-center">'
-                                    +'<a href="#" class="btn btn-dark btn-sm" onclick="monta_alteracao('+lista[inicio].id+')" title="Alterar serviço">'
-                                        +'<i class="fas fa-edit "></i>'
-                                    +'</a>'
-                                    +'<a href="#" class="btn btn-dark btn-sm" style="margin-left: 0.2rem" onclick="confirma_exclusao('+lista[inicio].id+')" title="Remover serviço">'
-                                        +'<i class="fas fa-trash "></i>'
-                                    +'</a>'
+                                    +'<button type="button" class="btn btn-dark btn-sm" onclick="monta_alteracao('+lista[inicio].id+')" title="Alterar serviço">'
+                                        +'<i class="fas fa-edit"></i>'
+                                    +'</button>'
+                                    +'<button type="button" class="btn btn-dark btn-sm" style="margin-left: 0.2rem" onclick="confirma_exclusao('+lista[inicio].id+')" title="Remover serviço">'
+                                        +'<i class="fas fa-trash"></i>'
+                                    +'</button>'
                                 +'</td>'
                             +'</tr>';
                     inicio += 1 ;
@@ -229,37 +287,118 @@ include 'menu.php';
         }  
 
         function monta_alteracao(id){
-            //alert(id);
             $('#preloader').show();
             var data = {
                 id_servico: id,
                 funcao: "consulta_unico"
             };
             $.ajax({
-                url: '../../controller/servico.php',
                 method: "post",
                 data: data ,
+                url: '../../controller/servico.php',                
                 success: function(data){
                     var lista = $.parseJSON(data);
+
+                    lista_registros = lista;
+                    monta_lista(lista_registros);          
+
                     $('#preloader').hide();
                     $('#confirma_alteracao').show();
                     $('#cancela_alteracao').show();
-                    $('#input_cadastro').show();
+                    $('#div_cadastro').show();
+                    $('#confirma_inclusao').hide();
+                    $('#cancela_inclusao').hide();
                     $('#input_pesquisa').hide();
                     $('#novo_servico').hide();
                     $('#input_cadastro').val(lista.descricao);
                     $('#input_id').val(lista.id);    
-                }
+                                    }
             });
         }
 
+        function monta_lista(lista){
+
+            $('#paginacao').html("")
+            $('#tbody_servico').html("");
+
+            var qtd_pag = lista.length / 6 ;
+
+            qtd_pag = parseInt(qtd_pag);
+
+            var ultima_pag = lista.length % 6;
+
+            if(ultima_pag != 0){
+                qtd_pag += 1 ;
+            }
+
+            var inicio = 0;
+
+            inicio = (nr_pag * 6) - 6  ;
+
+            for(var i = 1 ; i <= qtd_pag ; i++){
+                var html = '<li class="page-item"><a class="page-link" href="#" onclick="atualiza_nr_pag('+i+')">'+i+'</a></li>';
+                $('#paginacao').append(html);
+            }
+
+            var html = "";
+
+            $('#preloader').hide();
+            if(nr_pag == qtd_pag && ultima_pag != 0 ){
+                for(var i = 0; i < ultima_pag ; i++){
+                
+                html += '<tr>'
+                            +'<td scope="row">'+lista[inicio].descricao+'</td>'
+                            +'<td scope="row" class="text-center">'
+                                +'<a href="#" class="btn btn-dark btn-sm" title="Alterar serviço">'
+                                    +'<i class="fas fa-edit "></i>'
+                                +'</a>'
+                                +'<a href="#" class="btn btn-dark btn-sm" style="margin-left: 0.2rem" title="Remover serviço">'
+                                    +'<i class="fas fa-trash "></i>'
+                                +'</a>'
+                            +'</td>'
+                        +'</tr>';
+                inicio += 1 ;
+            }
+                $('#tbody_servico').append(html);
+            }else{
+
+                for(var i = 0; i < 6 ; i++){
+                    
+                    html += '<tr>'
+                                +'<td scope="row">'+lista[inicio].descricao+'</td>'
+                                +'<td scope="row" class="text-center">'
+                                    +'<a href="#" class="btn btn-dark btn-sm" title="Alterar serviço">'
+                                        +'<i class="fas fa-edit "></i>'
+                                    +'</a>'
+                                    +'<a href="#" class="btn btn-dark btn-sm" style="margin-left: 0.2rem" onclick="deleta('+lista[inicio].id+')" title="Remover serviço">'
+                                        +'<i class="fas fa-trash "></i>'
+                                    +'</a>'
+                                +'</td>'
+                            +'</tr>';
+                    inicio += 1 ;
+                }
+                    $('#tbody_servico').append(html);
+            }
+        }
+
+        var i = 0;
+        function deleta(id){
+            i += 1 ;
+            alert(i);
+        }        
+
+        function exclui_servico(){
+=======
         function altera_registro(e){
+            $('#preloader').show();
             if (e.id == "cancela_alteracao"){
                 $('#confirma_alteracao').hide();
                 $('#cancela_alteracao').hide();
-                $('#input_cadastro').hide();
+                $('#div_cadastro').hide();
+                $('#input_cadastro').val("");
                 $('#input_pesquisa').show();
                 $('#novo_servico').show();
+                $('#preloader').hide();
             } else if (e.id == "confirma_alteracao"){
                 var validacao_ok = true; 
                 var desc_servico = $('#input_cadastro').val();
@@ -283,11 +422,12 @@ include 'menu.php';
                             method: "post",
                             data: data ,
                             success: function(data){
+                                $('#preloader').hide();
                                 busca_servico();
                                 monta_msg_sucesso(" Alteração realizada com sucesso.");
                                 $('#confirma_alteracao').hide();
                                 $('#cancela_alteracao').hide();
-                                $('#input_cadastro').hide();
+                                $('#div_cadastro').hide();
                                 $('#input_pesquisa').show();
                                 $('#novo_servico').show();
                             }
@@ -299,10 +439,32 @@ include 'menu.php';
 
         function confirma_exclusao(id){
             //Mensagem de confirmação
-            monta_msg_confirma(" Confirma exclusão do serviço? <a href='#' class='btn btn-dark btn-sm' onclick='exclui_servico("+id+")'>Sim</a> <a href='#' class='btn btn-secondary btn-sm'>Não</a> ");
+            monta_msg_confirma(' Confirma exclusão do serviço? <a href="#" id="confirma" class="btn btn-dark btn-sm" onclick="exclui_servico('+id+', this)">Sim</a> <a href="#" id="cancela" class="btn btn-secondary btn-sm" onclick="exclui_servico(0, this)">Não</a> ');
         }    
 
+<<<<<<< HEAD
+        function exclui_servico(id, id_button){
+            if (id_button.id == "confirma"){
+                var desc_servico = $('#input_cadastro').val();
+                var data = {
+                    id_servico: id,
+                    funcao: "excluir"
+                };
+                $.ajax({
+                    url: '../../controller/servico.php',
+                    method: "post",
+                    data: data ,
+                    success: function(data){
+                        busca_servico();
+                        monta_msg_alerta(" Serviço inativado! Caso deseje ativá-lo novamente, entre em contato com o administrador.");
+                    }
+                });
+            }else {
+                remove_msg();
+            }
+=======
         function exclui_servico(id){
+>>>>>>> 33f66d79c1c90869294f49f6217f9afc4e7fe372
             //alert();
             var desc_servico = $('#input_cadastro').val();
             var data = {
@@ -318,6 +480,7 @@ include 'menu.php';
                     monta_msg_alerta(" Serviço inativado! Caso deseje ativá-lo novamente, entre em contato com o administrador.");
                 }
             });
+>>>>>>> 10227748f4029fe7df4f6b2277f5ec766fc288cf
         }
 
         //Função que faz a verificação do preenchimento do campo de cadastro ao digitar
@@ -363,6 +526,12 @@ include 'menu.php';
             window.setInterval(function(){
                 remove_msg();
             },10000);
+        }
+
+        //Monta mensagem de quando não existem registros
+        function monta_msg_alerta(msg){
+            html = '<div class="alert alert-warning"><i class="fas fa-exclamation-triangle"></i><strong>'+ msg +'</strong></div>';
+            $('#msg').html(html);
         }
 
         //Monta mensagem de alerta ao incluir registro
