@@ -2,7 +2,7 @@
 
 include "../bd/conexao.php";
 include "../bd/crud.php";
-
+if (isset($_POST['funcao'])){
 $funcao = $_POST['funcao'];
 
 switch ($funcao){

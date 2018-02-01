@@ -4,12 +4,6 @@ include("conexao.php");
 
 function insere($conexao, $campos , $valores , $tabela ) {
     $query = "insert into {$tabela} ({$campos}) values({$valores}) ";
-<<<<<<< HEAD
-=======
-    //var_dump($query);
-    //die();
-
->>>>>>> 33f66d79c1c90869294f49f6217f9afc4e7fe372
     if(mysqli_query($conexao, $query)){
         $id = mysqli_insert_id($conexao);
         return $id;
@@ -91,10 +85,22 @@ function altera($conexao, $campos_valores, $condicao = null, $tabela) {
     $query = "";
     
     if ($condicao){
-        $query = "update {$tabela} set {$campos_valores} WHERE {$condicao} ";
+        $query = "UPDATE {$tabela} set {$campos_valores} WHERE {$condicao} ";
     }else{
-        $query = "update {$tabela} set {$campos_valores} ";        
+        $query = "UPDATE {$tabela} set {$campos_valores} ";        
     }
+
+    if(mysqli_query($conexao, $query)){
+        $id = mysqli_insert_id($conexao);
+        return $id;
+    }else{
+        echo mysqli_error($conexao);
+        die();
+    }
+}
+
+function deleta($conexao , $tabela , $condicao){
+    $query = "DELETE FROM  {$tabela} WHERE {$condicao} ";
 
     if(mysqli_query($conexao, $query)){
         $id = mysqli_insert_id($conexao);

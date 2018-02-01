@@ -14,7 +14,7 @@ include 'menu.php';
         <link href="../static/css/bootstrap-datepicker.css" rel="stylesheet">
         <link  href="../static/css/fontawesome-all.min.css" rel="stylesheet">
         <!-- Arquivos JS -->
-        <script type="text/javascript" src="../static/js/jasny-bootstrap.js"></script>
+        <script type="text/javascript" src="../static/js/jasny-bootstrap.1.js"></script>
 
     </head>
     <body style="background-color: #F8F9FA;">
@@ -144,48 +144,61 @@ include 'menu.php';
                 </div>
             </div>
             <div class="row">
-                <div class="col-12">
-                    <h6  style="margin-top:1rem"><i>Serviços</i></h6>	
-                    <textarea name="" id="servicos"  rows="5" class="form-control"></textarea>
+                <div class="col-12"> 
+                <h6  style="margin-top:1rem"><i>Imagens</i></h6>	
+                    <div class="fileinput fileinput-new " style="margin-top: 1rem" data-provides="fileinput" style="margin-left: 1rem">
+                        <div class="fileinput-preview thumbnail img-thumbnail" data-trigger="fileinput" style="width: 69.5rem;  height: 17.5rem"></div>
+                        <div>
+                            <span class="btn btn-dark btn-file col-12">
+                                <span class="fileinput-new ">Selecione a imagem</span>
+                                <span class="fileinput-exists" data-dismiss="fileinput">Alterar</span>
+                                <input type="file" id="arquivo" name="arquivo" accept="image/*">
+                            </span>
+                            <a href="#" class="btn btn-dark fileinput-exists col-12" data-dismiss="fileinput" style="margin-top: 0.5rem">Remover</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-12">
+                    <h6  style="margin-top:1rem"><i>Serviços</i></h6>	
                     <div class="table-responsive">
                         <table class="table table-responsive table-stripped">
                             <thead >
                                 <tr>
                                     <th scope="col">Comp.</th>
                                     <th scope="col">Serviço</th>
-                                    <th scope="col">Qtd.</th>
-                                    <th scope="col">Vl. Unitário</th>
-                                    <th scope="col">Vl. Total</th>
+                                    <th scope="col">Funcionário</th>
+                                    <th scope="col">Qtd. Peças</th>
                                     <th scope="col">
-                                        <Button data-toggle="modal" data-target="#adicionaServicos" class="btn btn-dark col-12"><i class="fa fa-plus"></i> Adicionar</a>
+                                        <Button  onclick="busca_servicos()"  class="btn btn-dark col-12"><i class="fa fa-plus"></i> Adicionar</a>
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="tbody">
+                                <!--
                                 <tr>
                                     <th scope="col"><input type="checkbox"></th>
-                                    <th scope="col">Serviço Serviço Serviço Serviço Serviço Serviço Serviço Serviço</th>
+                                    <th scope="col">Serviço Serviço  Serviço Serviço Serviço Serviço</th>
                                     <th scope="col">
                                         <input type="text" class="form-control" placeholder="Qtd...">
                                     </th>
                                     <th scope="col">
-                                        <input type="text" class="form-control" placeholder="Vl. Unitário">
-                                    </th>
-                                    <th scope="col">
-                                        <input type="text" class="form-control" placeholder="Vl. Total" disabled>
+                                        <input type="text" class="form-control" placeholder="funcionário">
                                     </th>
                                     <th scope="col">
                                         <a href="#" class="btn btn-dark col-12"><i class="fa fa-trash"></i> Remover</a>
                                     </th>
                                 </tr>
+                                -->
                             </tbody>
                         </table>
                     </div>
+                    <div class="msg_servicos">
+                    </div>
+                    <!--
                     <div class="alert alert-danger">
                         <i class="fa fa-exclamation-triangle"></i>  Adicione um Serviço
                     </div>
+                    -->
                 </div>
                 <div class="col-12">
                     <button style="margin-top: 1rem" class="btn btn-dark btn-lg btn-block"  onclick="salvar()">
@@ -194,52 +207,71 @@ include 'menu.php';
                     <br>
 			    </div>
             </div>
-            <div class="modal fade" id="adicionaServicos" tabindex="-1" role="dialog" aria-labelledby="adicionaServicos" aria-hidden="true">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Adicionar Serviços</h5> 
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="container-fluid">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="input-group ">
-                                            <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-search"></i></span>
-                                            <input type="text" id="sinistro" class="form-control"  placeholder="Digite para pesquisar" name="">
-                                        </div>
+        </div>
+        <div class="modal fade" id="adicionaServicos" tabindex="-1" role="dialog" aria-labelledby="adicionaServicos" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Adicionar Serviços</h5> 
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="input-group ">
+                                        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-search"></i></span>
+                                        <input type="text" id="pesquisa_servico" onkeyup="busca_servicos()" class="form-control"  placeholder="Digite para pesquisar" name="">
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="input-group" style="margin-top:1rem">
-                                            <input type="text" class="form-control" disabled placeholder="Serviço serviço" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-dark" type="button">Adicionar</button>
-                                            </div>
-                                        </div>
-                                        <div class="input-group" style="margin-top:1rem">
-                                            <input type="text" class="form-control" disabled placeholder="Serviço serviço" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-dark" type="button">Adicionar</button>
-                                            </div>
-                                        </div>
-                                        <div class="input-group" style="margin-top:1rem">
-                                            <input type="text" class="form-control" disabled placeholder="Serviço serviço" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-dark" type="button">Adicionar</button>
-                                            </div>
-                                        </div>
-                                        <div class="input-group" style="margin-top:1rem">
-                                            <input type="text" class="form-control" disabled placeholder="Serviço serviço" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-dark" type="button">Adicionar</button>
-                                            </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12" id="lista_servicos">
+                                    <!--
+                                    <div class="input-group" style="margin-top:1rem">
+                                        <input type="text" class="form-control" disabled placeholder="Serviço serviço" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-dark" type="button">Adicionar</button>
                                         </div>
                                     </div>
+                                    -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><div class="modal fade" id="adicionaFuncionario" tabindex="-1" role="dialog" aria-labelledby="adicionaServicos" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Adicionar Funcionário</h5> 
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="input-group ">
+                                        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-search"></i></span>
+                                        <input type="text" id="pesquisa_servico_funcionario" onkeyup="busca_servicos()" class="form-control"  placeholder="Digite para pesquisar" name="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12" id="lista_funcionario">
+                                    <!--
+                                    <div class="input-group" style="margin-top:1rem">
+                                        <input type="text" class="form-control" disabled placeholder="Serviço serviço" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-dark" type="button">Adicionar</button>
+                                        </div>
+                                    </div>
+                                    -->
                                 </div>
                             </div>
                         </div>
@@ -251,5 +283,110 @@ include 'menu.php';
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="../static/js/bootstrap-datepicker.js"></script>
     <script src="../static/js/bootstrap-datepicker.pt-BR.min.js"></script> 
+    <script>
+
+var qtd_servico = 0 ;
+var funcionarios = [];
+
+function busca_servicos (){
+        $('#preloader').show();
+        $('#lista_servicos').val("");
+        var pesquisa = $('#pesquisa_servico').val();
+        var data = {funcao : "buscar_servicos" , pesquisa : pesquisa };
+        var html= "";
+        $.ajax({
+            url: '../../controller/osCadastro.php',
+            method: "post",
+            data: data ,
+            success: function(data){
+                if(data){
+                    var resultado = $.parseJSON(data);
+                    if(resultado.length > 0){
+                        $('#adicionaServicos').modal('show');
+                        for(var i = 0; i < resultado.length ; i++){
+                            html += '<div class="input-group" style="margin-top:1rem">'+
+                            '<input type="text" class="form-control" disabled placeholder="'+resultado[i].descricao+'" aria-label="Recipients username" aria-describedby="basic-addon2">'+
+                            '<div class="input-group-append">'+
+                            '<button class="btn btn-dark" id="'+resultado[i].descricao+'" onclick="adiciona_servico('+resultado[i].id +','+ resultado[i].tipo_pagamento+', this)" type="button">Adicionar</button>'+
+                            '</div>'+
+                            '</div>';
+                        }
+                        $('#lista_servicos').html(html);
+                        $('#preloader').hide();
+                    }else{
     
+                    }
+                }else{
+                    $('#preloader').hide();
+                }
+            }
+        });
+    }
+
+    var id_servicos = [];
+    function adiciona_servico(id , tipo_pagamento , descricao){
+        var html = "";
+        var confere = true;
+        for(var i = 0 ; i < id_servicos.length ; i++){
+            if( id == id_servicos[i] ){
+                confere = false;
+            }
+        }
+        id_servicos.push(id);
+        busca_funcionario(id);
+        if(tipo_pagamento == 0 && confere){
+            html += '<tr>'+
+                    '<th scope="col"><input type="checkbox"></th>'+
+                    '<th scope="col">'+descricao.id+'</th>'+
+                    '<th scope="col">';
+            html += '<select class="form-control" id="'+id+'s">';
+            html += '<option value="0">Selecione um Funcionario</option>';        
+            html += '</select>';           
+            html += '</th>'+
+                    '<th scope="col">'+
+                        '<input type="text" class="form-control" placeholder="Qtd. peças"   value="Por carro">'+
+                    '</th>'+
+                    '<th scope="col">'+
+                        '<a href="#" class="btn btn-dark col-12"><i class="fa fa-trash"></i> Remover</a>'+
+                    '</th>'+
+                '</tr>';
+        }else if(confere){
+            html += '<tr>'+
+                    '<th scope="col"><input type="checkbox"></th>'+
+                    '<th scope="col">'+descricao.id+'</th>'+
+                    '<th scope="col">';
+            html += '<select class="form-control" id="'+id+'s">';
+            html += '<option value="0">Selecione um Funcionario</option>';        
+            html += '</select>';           
+            html += '</th>'+
+                    '<th scope="col">'+
+                        '<input type="text" class="form-control" placeholder="Qtd. peças">'+
+                    '</th>'+
+                    '<th scope="col">'+
+                        '<a href="#" class="btn btn-dark col-12"><i class="fa fa-trash"></i> Remover</a>'+
+                    '</th>'+
+                '</tr>';
+        }
+        $('#tbody').append(html);
+    }
+
+    function busca_funcionario(servico_id){
+        var data = {funcao : "busca_funcionarios" , servico_id : servico_id };
+        $.ajax({
+            url: '../../controller/osCadastro.php',
+            method: "post",
+            data: data ,
+            success: function(data){
+                if(data){
+                    var html = '';
+                    var resultado = $.parseJSON(data);
+                    for(var i = 0; i < resultado.length ; i++  ){
+                        html += '<option value="'+resultado[i].id+'">'+resultado[i].nome+'</option>'; 
+                    }   
+                    $('#'+servico_id+'s').append(html);
+                }
+            }
+        });
+    }
+    </script>
 </html>
