@@ -87,7 +87,7 @@ include "menu.php";
                         <div class="text-danger"></div>
                     </div>
                     <div class="col-3">
-                        <h6  style="margin-top:1rem"><i>Telefone</i></h6>	
+                        <h6  style="margin-top:1rem"><i>Celular</i></h6>	
                         <div class="input-group ">
                             <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-mobile"></i></span>
                             <input type="text" id="celular" class="form-control"  value="(99) 9999-9999" disabled  name="">

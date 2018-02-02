@@ -221,16 +221,21 @@ switch ($funcao) {
         }
 
         if($perfil != 0){
-            
-            $senhaMd5 = md5('123456'); 
-            $campos_login =  "login , senha , perfil_id , primeiro_acesso";
-            $valores_login =  " {$nome_usuario} ,'{$senhaMd5}' ,'{$perfil}' , '1' ";
-            $login = insere($conexao, $campos_login , $valores_login , "login" ); 
 
-            if(strlen($login) <= 0){
-                die();
+            $condicao = "login=$nome_usuario";
+            $campos = "login";
+            $busca_login = busca_detalhada_um($conexao, $condicao, "login");
+
+            if ($busca_login == null){
+                $senhaMd5 = md5('123456'); 
+                $campos_login =  "login , senha , perfil_id , primeiro_acesso";
+                $valores_login =  " {$nome_usuario} ,'{$senhaMd5}' ,'{$perfil}' , '1' ";
+                $login = insere($conexao, $campos_login , $valores_login , "login" ); 
+
+                if(strlen($login) <= 0){
+                    die();
+                }
             }
-        
         }
 
         $campos = " tipo , nome , cpf , rg, orgao_emissor , data_nascimento , cnpj, inscricao_estadual ,telefone , celular , razao_social, nome_fantasia, observacao , email , fabricante , cep , endereco , numero , complemento , bairro , cidade, uf , situacao , seguradora_id , corretor_id , login_login ";

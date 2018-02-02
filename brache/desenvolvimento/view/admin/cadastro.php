@@ -346,7 +346,7 @@ include 'menu.php';
 	}
 
 	function salvar(){
-
+		$('#preloader').show();
 		var corretor = $('#corretor').val();
 		var seguradora = $('#seguradora').val();
 		
@@ -589,6 +589,8 @@ include 'menu.php';
 				method: "post",
 				data: data ,
 				success: function(data){
+					alert(data);
+					$('#preloader').hide();
 					if(data){
 						if(tipo_cadastro == "cliente"){
 
@@ -937,6 +939,7 @@ include 'menu.php';
 				var retorno = $.parseJSON(data);
 
 				html = "";
+				html += '<option value="">Selecione...</option>';
 				for(var i=0; i < retorno.length ; i++ ){
 					if(retorno[i].nome != null){
 						html += '<option value="'+retorno[i].id+'">'+retorno[i].nome+ '</option>';
@@ -945,7 +948,7 @@ include 'menu.php';
 					}
 				}
 
-				$('#corretor').append(html);
+				$('#corretor').html(html);
 			}
 		});
 	}
@@ -963,6 +966,7 @@ include 'menu.php';
 				var retorno = $.parseJSON(data);
 
 				html = "";
+				html += '<option value="">Selecione...</option>';
 				for(var i=0; i < retorno.length ; i++ ){
 					if(retorno[i].nome != null){
 						html += '<option value="'+retorno[i].id+'">'+retorno[i].nome+ '</option>';
@@ -971,7 +975,7 @@ include 'menu.php';
 					}
 				}
 
-				$('#seguradora').append(html);
+				$('#seguradora').html(html);
 			}
 		});
 	}
