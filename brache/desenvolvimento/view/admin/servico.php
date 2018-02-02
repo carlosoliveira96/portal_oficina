@@ -62,15 +62,9 @@ include 'menu.php';
                 <tbody data-link="row" id="tbody_servico">
                 </tbody>
             </table>
-
-            <nav aria-label="Page navigation example">
-                <ul class="pagination" id="paginacao">
-                    
-
             <nav>
                 <ul class="pager" id="paginacao">
                     
-
                 </ul>
             </nav>
        </div>
@@ -125,22 +119,6 @@ include 'menu.php';
                             check: "0",
                             funcao: "salvar"
                         };
-<<<<<<< HEAD
-=======
-                        $.ajax({
-                            url: '../../controller/servico.php',
-                            method: "post",
-                            data: data ,
-                            success: function(data){
-                                busca_servico();
-<<<<<<< HEAD
-=======
-                                monta_msg_sucesso(" Inclusão realizada com sucesso.");
->>>>>>> 33f66d79c1c90869294f49f6217f9afc4e7fe372
-                                //alert(data);
-                            }
-                        });
->>>>>>> 10227748f4029fe7df4f6b2277f5ec766fc288cf
                     }
                 }
                     $.ajax({
@@ -158,22 +136,11 @@ include 'menu.php';
         var nr_pag = 1;
         var lista_registros ;
 
-<<<<<<< HEAD
-
-        var nr_pag = 1;
-        var lista_registros ;
-
-=======
->>>>>>> 33f66d79c1c90869294f49f6217f9afc4e7fe372
         function atualiza_nr_pag(numero){
             nr_pag = numero;
             monta_lista(lista_registros);
         }
         
-<<<<<<< HEAD
-
-=======
->>>>>>> 33f66d79c1c90869294f49f6217f9afc4e7fe372
         function busca_servico(){
             $('#paginacao').html("")
             $('#tbody_servico').html("");
@@ -298,10 +265,6 @@ include 'menu.php';
                 url: '../../controller/servico.php',                
                 success: function(data){
                     var lista = $.parseJSON(data);
-
-                    lista_registros = lista;
-                    monta_lista(lista_registros);          
-
                     $('#preloader').hide();
                     $('#confirma_alteracao').show();
                     $('#cancela_alteracao').show();
@@ -312,83 +275,10 @@ include 'menu.php';
                     $('#novo_servico').hide();
                     $('#input_cadastro').val(lista.descricao);
                     $('#input_id').val(lista.id);    
-                                    }
+                }
             });
         }
 
-        function monta_lista(lista){
-
-            $('#paginacao').html("")
-            $('#tbody_servico').html("");
-
-            var qtd_pag = lista.length / 6 ;
-
-            qtd_pag = parseInt(qtd_pag);
-
-            var ultima_pag = lista.length % 6;
-
-            if(ultima_pag != 0){
-                qtd_pag += 1 ;
-            }
-
-            var inicio = 0;
-
-            inicio = (nr_pag * 6) - 6  ;
-
-            for(var i = 1 ; i <= qtd_pag ; i++){
-                var html = '<li class="page-item"><a class="page-link" href="#" onclick="atualiza_nr_pag('+i+')">'+i+'</a></li>';
-                $('#paginacao').append(html);
-            }
-
-            var html = "";
-
-            $('#preloader').hide();
-            if(nr_pag == qtd_pag && ultima_pag != 0 ){
-                for(var i = 0; i < ultima_pag ; i++){
-                
-                html += '<tr>'
-                            +'<td scope="row">'+lista[inicio].descricao+'</td>'
-                            +'<td scope="row" class="text-center">'
-                                +'<a href="#" class="btn btn-dark btn-sm" title="Alterar serviço">'
-                                    +'<i class="fas fa-edit "></i>'
-                                +'</a>'
-                                +'<a href="#" class="btn btn-dark btn-sm" style="margin-left: 0.2rem" title="Remover serviço">'
-                                    +'<i class="fas fa-trash "></i>'
-                                +'</a>'
-                            +'</td>'
-                        +'</tr>';
-                inicio += 1 ;
-            }
-                $('#tbody_servico').append(html);
-            }else{
-
-                for(var i = 0; i < 6 ; i++){
-                    
-                    html += '<tr>'
-                                +'<td scope="row">'+lista[inicio].descricao+'</td>'
-                                +'<td scope="row" class="text-center">'
-                                    +'<a href="#" class="btn btn-dark btn-sm" title="Alterar serviço">'
-                                        +'<i class="fas fa-edit "></i>'
-                                    +'</a>'
-                                    +'<a href="#" class="btn btn-dark btn-sm" style="margin-left: 0.2rem" onclick="deleta('+lista[inicio].id+')" title="Remover serviço">'
-                                        +'<i class="fas fa-trash "></i>'
-                                    +'</a>'
-                                +'</td>'
-                            +'</tr>';
-                    inicio += 1 ;
-                }
-                    $('#tbody_servico').append(html);
-            }
-        }
-
-        var i = 0;
-        function deleta(id){
-            i += 1 ;
-            alert(i);
-        }        
-
-        function exclui_servico(){
-=======
         function altera_registro(e){
             $('#preloader').show();
             if (e.id == "cancela_alteracao"){
@@ -442,7 +332,6 @@ include 'menu.php';
             monta_msg_confirma(' Confirma exclusão do serviço? <a href="#" id="confirma" class="btn btn-dark btn-sm" onclick="exclui_servico('+id+', this)">Sim</a> <a href="#" id="cancela" class="btn btn-secondary btn-sm" onclick="exclui_servico(0, this)">Não</a> ');
         }    
 
-<<<<<<< HEAD
         function exclui_servico(id, id_button){
             if (id_button.id == "confirma"){
                 var desc_servico = $('#input_cadastro').val();
@@ -462,25 +351,6 @@ include 'menu.php';
             }else {
                 remove_msg();
             }
-=======
-        function exclui_servico(id){
->>>>>>> 33f66d79c1c90869294f49f6217f9afc4e7fe372
-            //alert();
-            var desc_servico = $('#input_cadastro').val();
-            var data = {
-                id_servico: id,
-                funcao: "excluir"
-            };
-            $.ajax({
-                url: '../../controller/servico.php',
-                method: "post",
-                data: data ,
-                success: function(data){
-                    busca_servico();
-                    monta_msg_alerta(" Serviço inativado! Caso deseje ativá-lo novamente, entre em contato com o administrador.");
-                }
-            });
->>>>>>> 10227748f4029fe7df4f6b2277f5ec766fc288cf
         }
 
         //Função que faz a verificação do preenchimento do campo de cadastro ao digitar
