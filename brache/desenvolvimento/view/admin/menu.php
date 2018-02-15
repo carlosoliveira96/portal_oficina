@@ -42,7 +42,7 @@ include "controle.php";
                         <a href="cadastro.php">Atendimentos</a>
                     </li>
                     <li>
-                        <a href="clienteCadastroVeiculo.php">Veículo</a>
+                        <a href="veiculoCadastro.php">Veículo</a>
                     </li>
                     <li>
                         <a href="osCadastro.php">Ordem de Serviços</a>
@@ -65,9 +65,11 @@ include "controle.php";
                     <li>
                         <a href="servico.php">Serviços</a>
                     </li>
+                    <!--
                     <li>
                         <a href="veiculoCadastro.php">Cadastro de Veículos</a>
                     </li>
+                    -->
                 </ul>
             </nav>
 
@@ -140,7 +142,9 @@ include "controle.php";
         tamanho_container -= 66;
         tamanho_row -= 255;
         tamanho_body_modal -= 200;
-        $('.container').css("height", tamanho_container);
+        $('#container').css("height", tamanho_container);
+        $('#row').css("height", tamanho_row);
+        $('#verificaCarro-body').css("height", tamanho_body_modal);
     }
 
     window.addEventListener('resize', function(){

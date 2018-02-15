@@ -24,7 +24,7 @@ include 'menu.php';
             </h2>
             <hr>
             <div id="msg"></div>
-            <div class="row">
+            <div class="row" id="dados">
                 <div class="col-4">
                     <div class="fileinput fileinput-new " data-provides="fileinput" style="margin-left: 1rem">
                         <div class="fileinput-preview thumbnail img-thumbnail" data-trigger="fileinput" style="width: 20rem;  height: 17.5rem"></div>
@@ -393,7 +393,7 @@ include 'menu.php';
            data.append('bairro',bairro);
            data.append('cidade',cidade);
            data.append('uf',uf);
-
+           $('#preloader').show();
             $.ajax({
 				url: '../../controller/funcionarioCadastro.php',
 				method: "post",
@@ -404,8 +404,7 @@ include 'menu.php';
                 processData: false,
 				success: function(data){
 					if(data){
-
-                        $('#container').load( "funcionarioCadastro.php #container" );
+                        $('#dados').load( "funcionarioCadastro.php #dados" );
                         html = '<div class="alert alert-success"><i class="fa fa-check"></i><strong> Cadastro efetuado com secesso</strong></div>';
                         $('#msg').html(html);
                         window.location.href='#body';
@@ -417,6 +416,7 @@ include 'menu.php';
 						window.location.href='#body';
 						monta_msg_erro("Ocorreu um erro, por favor tente mais tarde!");
 					}
+                    $('#preloader').hide();
 				}
 			});
         }
@@ -430,7 +430,7 @@ include 'menu.php';
 			&& ($.isNumeric(cpf.charAt(6))) && ($.isNumeric(cpf.charAt(8)))
 			&& ($.isNumeric(cpf.charAt(9))) && ($.isNumeric(cpf.charAt(10)))
 			&& ($.isNumeric(cpf.charAt(12))) && ($.isNumeric(cpf.charAt(13))) ){
-		
+            $('#preloader').show();
 			var data = {cpf: cpf, funcao: 'verifica_cpf'};
 			$.ajax({
 				url: '../../controller/funcionarioCadastro.php',
@@ -444,6 +444,7 @@ include 'menu.php';
 						controle_cpf = true;
 						remove_erro_input($('#cpf'));
 					}
+                    $('#preloader').hide();
 				}
 			});
 		}
@@ -456,6 +457,7 @@ include 'menu.php';
 			add_erro_input($('#nome_usuario') , "Nome de usuário deve conter 4 caracteres no mínimo");
 			controle_usuario = false;
 		}else{
+            $('#preloader').show();
 			var data = {usuario: nome_usuario, funcao: 'verifica_usuario'};
 			$.ajax({
 				url: '../../controller/cadastro.php',
@@ -469,6 +471,7 @@ include 'menu.php';
 						remove_erro_input($('#nome_usuario'));
 						controle_usuario = true;
 					}
+                    $('#preloader').hide();
 				}
 			});
 		}
@@ -485,7 +488,7 @@ include 'menu.php';
 			($.isNumeric(cep.charAt(3))) && ($.isNumeric(cep.charAt(4))) &&
 			($.isNumeric(cep.charAt(6))) && ($.isNumeric(cep.charAt(7))) &&
 			($.isNumeric(cep.charAt(8))) ){
-
+            $('#preloader').show();
 			$.ajax({
 	                url : '../../controller/consultar_cep.php', /* URL que será chamada */ 
 	                type : 'POST', /* Tipo da requisição */ 
@@ -511,6 +514,7 @@ include 'menu.php';
 	                    	controle_cep = false;
 	                    	add_erro_input($('#cep') , "CEP inválido ");
 	                    }
+                        $('#preloader').hide();
 	                }
 	        }); 
 		}else{
@@ -646,6 +650,5 @@ include 'menu.php';
         input.parent().next().html("");
     }
 
-        
     </script>
 </html>
