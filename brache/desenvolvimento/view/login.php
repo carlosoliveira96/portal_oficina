@@ -23,7 +23,7 @@ if (isset($_SESSION["usuarioLogado"])){
             <p class="text-center">
                 <b>
                     <font class="text-center" size="12" color="white">
-                        Portal da oficina
+                        Plataforma da Oficina
                     </font>
                 </b>
             </p>

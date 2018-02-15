@@ -41,7 +41,7 @@ include 'menu.php';
                     <h6  style="margin-top:1rem"><i>Pesquisa </i></h6>	
                     <div class="input-group ">
                         <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-search"></i></span>
-                        <input type="text" id="pesquisa" class="form-control" placeholder="Placa/Sinistro " name="">
+                        <input type="text" id="pesquisa" class="form-control" placeholder="Placa " name="">
                     </div>
                     <div class="text-danger"></div>
                 </div>
@@ -138,7 +138,15 @@ include 'menu.php';
                     <h6  style="margin-top:1rem"><i>Sinistro</i></h6>	
                     <div class="input-group ">
                         <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-info-circle"></i></span>
-                        <input type="text" id="sinistro" class="form-control" disabled  placeholder="Ex.:  999999999" name="">
+                        <input type="text" id="sinistro" class="form-control"  placeholder="Ex.:  999999999" name="">
+                    </div>
+                    <div class="text-danger"></div>
+                </div>
+                <div class="col-6">
+                    <h6  style="margin-top:1rem"><i>Valor</i></h6>	
+                    <div class="input-group ">
+                        <span class="input-group-addon" id="sizing-addon1">R$</span>
+                        <input type="text" id="valor" class="form-control"   placeholder="Ex.:  9999999,99" name="">
                     </div>
                     <div class="text-danger"></div>
                 </div>
@@ -169,7 +177,7 @@ include 'menu.php';
                                     <th scope="col">Funcionário</th>
                                     <th scope="col">Qtd. Peças</th>
                                     <th scope="col">
-                                        <Button  onclick="busca_servicos()"  class="btn btn-dark col-12"><i class="fa fa-plus"></i> Adicionar</a>
+                                        <button  onclick="busca_servicos()"  class="btn btn-dark col-12"><i class="fa fa-plus"></i> Adicionar</button>
                                     </th>
                                 </tr>
                             </thead>
@@ -243,42 +251,6 @@ include 'menu.php';
                     </div>
                 </div>
             </div>
-        </div><div class="modal fade" id="adicionaFuncionario" tabindex="-1" role="dialog" aria-labelledby="adicionaServicos" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Adicionar Funcionário</h5> 
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="input-group ">
-                                        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-search"></i></span>
-                                        <input type="text" id="pesquisa_servico_funcionario" onkeyup="busca_servicos()" class="form-control"  placeholder="Digite para pesquisar" name="">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12" id="lista_funcionario">
-                                    <!--
-                                    <div class="input-group" style="margin-top:1rem">
-                                        <input type="text" class="form-control" disabled placeholder="Serviço serviço" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-dark" type="button">Adicionar</button>
-                                        </div>
-                                    </div>
-                                    -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </body>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="../static/js/bootstrap-datepicker.js"></script>
@@ -335,35 +307,37 @@ function busca_servicos (){
         id_servicos.push(id);
         busca_funcionario(id);
         if(tipo_pagamento == 0 && confere){
-            html += '<tr>'+
-                    '<th scope="col"><input type="checkbox"></th>'+
+            html += '<tr id="'+id+'tr">'+
+                    '<th scope="col"><input type="checkbox" id="'+id+'c"></th>'+
+                    '<th style="display:none" id="'+id+'">'+id+'</th>'+
                     '<th scope="col">'+descricao.id+'</th>'+
-                    '<th scope="col">';
-            html += '<select class="form-control" id="'+id+'s">';
-            html += '<option value="0">Selecione um Funcionario</option>';        
-            html += '</select>';           
-            html += '</th>'+
                     '<th scope="col">'+
-                        '<input type="text" class="form-control" placeholder="Qtd. peças"   value="Por carro">'+
+                    '<select class="form-control" id="'+id+'s">'+
+                    '<option value="0">Selecione um Funcionario</option>'+       
+                    '</select>'+         
                     '</th>'+
                     '<th scope="col">'+
-                        '<a href="#" class="btn btn-dark col-12"><i class="fa fa-trash"></i> Remover</a>'+
+                        '<input type="text" class="form-control" placeholder="Qtd. peças" id="'+id+'i"  disabled value="Por carro">'+
+                    '</th>'+
+                    '<th scope="col">'+
+                    '<button class="btn btn-dark col-12" onclick="remove_servico('+id+');"><i class="fa fa-trash"></i> Remover</buttona>'+
                     '</th>'+
                 '</tr>';
         }else if(confere){
-            html += '<tr>'+
-                    '<th scope="col"><input type="checkbox"></th>'+
+            html += '<tr id="'+id+'tr">'+
+                    '<th scope="col"><input type="checkbox" ></th>'+
+                    '<th style="display:none">'+id+'</th>'+
                     '<th scope="col">'+descricao.id+'</th>'+
-                    '<th scope="col">';
-            html += '<select class="form-control" id="'+id+'s">';
-            html += '<option value="0">Selecione um Funcionario</option>';        
-            html += '</select>';           
-            html += '</th>'+
                     '<th scope="col">'+
-                        '<input type="text" class="form-control" placeholder="Qtd. peças">'+
+                    '<select class="form-control" id="'+id+'s">'+
+                    '<option value="0">Selecione um Funcionario</option>'+       
+                    '</select>'+         
                     '</th>'+
                     '<th scope="col">'+
-                        '<a href="#" class="btn btn-dark col-12"><i class="fa fa-trash"></i> Remover</a>'+
+                        '<input type="text" class="form-control" id="'+id+'i"  placeholder="Qtd. peças">'+
+                    '</th>'+
+                    '<th scope="col">'+
+                        '<button class="btn btn-dark col-12" onclick="remove_servico('+id+');"><i class="fa fa-trash"></i> Remover</buttona>'+
                     '</th>'+
                 '</tr>';
         }
@@ -387,6 +361,19 @@ function busca_servicos (){
                 }
             }
         });
+    }
+
+    function remove_servico(id ){
+
+        var nova_lista = id_servicos;
+        id_servicos = [];
+        for(var i = 0; i < nova_lista.length ; i++ ){
+            if ( nova_lista[i] != id ){
+                id_servicos.push(nova_lista[i]);
+            }
+        }
+        $('#'+id+'tr').remove();
+
     }
     </script>
 </html>
