@@ -57,14 +57,16 @@ include "controle.php";
                     <li>
                         <a href="funcionarioCadastroServico.php">Cadastro de Serviços para Funcionários</a>
                     </li>
+                    <!--
                     <li>
                         <a href="pecas.php">Peças</a>
                     </li>
+                    -->
                     <li>
                         <a href="servico.php">Serviços</a>
                     </li>
                     <li>
-                        <a href="clienteCadastroVeiculo.php">Cadastro veículo Cliente</a>
+                        <a href="veiculoCadastro.php">Cadastro de Veículos</a>
                     </li>
                 </ul>
             </nav>
@@ -128,6 +130,22 @@ include "controle.php";
             }
         })
     }
+
+    atualiza_tamanho();
+
+    function atualiza_tamanho(){
+        var tamanho_container = $(window).height();
+        var tamanho_row = $(window).height();
+        var tamanho_body_modal = $(window).height();
+        tamanho_container -= 66;
+        tamanho_row -= 255;
+        tamanho_body_modal -= 200;
+        $('.container').css("height", tamanho_container);
+    }
+
+    window.addEventListener('resize', function(){
+        atualiza_tamanho();
+    });
 
     </script>
 </html>

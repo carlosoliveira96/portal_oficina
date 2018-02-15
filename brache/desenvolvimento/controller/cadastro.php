@@ -166,22 +166,6 @@ switch ($funcao) {
         $uf = $_POST['uf'];
         $uf = "'".$uf."'";
 
-        $seguradora = $_POST['seguradora'];
-
-        if (strlen($seguradora) <= 0){
-            $seguradora = 'NULL';
-        }else{
-            $seguradora = "'".$seguradora."'";
-        }
-
-        $corretor = $_POST['corretor'];
-
-        if (strlen($corretor) <= 0){
-            $corretor = 'NULL';
-        }else{
-            $corretor = "'".$corretor."'";
-        }
-
         $fabricante = $_POST['fabricante'];
 
         if (strlen($fabricante) <= 0){
@@ -238,8 +222,8 @@ switch ($funcao) {
             }
         }
 
-        $campos = " tipo , nome , cpf , rg, orgao_emissor , data_nascimento , cnpj, inscricao_estadual ,telefone , celular , razao_social, nome_fantasia, observacao , email , fabricante , cep , endereco , numero , complemento , bairro , cidade, uf , situacao , seguradora_id , corretor_id , login_login ";
-        $valores= "{$tipo_cadastro} , {$nome} , {$cpf} , {$rg} , {$orgao_emissor} , {$nascimento} , {$cnpj}, {$inscricao_estadual} , {$telefone} , {$celular} , {$razao_social} , {$nome_fantasia}, {$observacao} , {$email} , {$fabricante} , {$cep} , {$endereco} , {$numero} , {$complemento} , {$bairro} , {$cidade} , {$uf} , 1 , {$seguradora} , {$corretor} ,{$nome_usuario}";
+        $campos = " tipo , nome , cpf , rg, orgao_emissor , data_nascimento , cnpj, inscricao_estadual ,telefone , celular , razao_social, nome_fantasia, observacao , email , fabricante , cep , endereco , numero , complemento , bairro , cidade, uf , situacao  , login_login ";
+        $valores= "{$tipo_cadastro} , {$nome} , {$cpf} , {$rg} , {$orgao_emissor} , {$nascimento} , {$cnpj}, {$inscricao_estadual} , {$telefone} , {$celular} , {$razao_social} , {$nome_fantasia}, {$observacao} , {$email} , {$fabricante} , {$cep} , {$endereco} , {$numero} , {$complemento} , {$bairro} , {$cidade} , {$uf} , 1 , {$nome_usuario}";
 
         $usuario = insere($conexao, $campos , $valores , "cadastro"); 
 

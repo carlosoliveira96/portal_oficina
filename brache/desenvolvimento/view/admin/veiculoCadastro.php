@@ -21,75 +21,15 @@ include "menu.php";
     <body  style="background-color: #F8F9FA;" id="body">
         <div class="container" id="container" style=" background-color: #fff;">
             <h2>
-                <p class="text-center"  id="nome_vinculo"><i><b>Víncular Veículo para Cliente</b></i></p>
-
+                <p class="text-center" style="color: #000; display: none" id="nome_cadastro"><i><b>Cadastro de veículos</b></i></p>
             </h2>
             <hr>
             <div id="msg"></div>
-            <div id="dados">
-                <div class="row" id="fisica">
-                    <div class="col-8">
-                        <h6  style="margin-top:1rem"><i>Nome</i></h6>	
-                        <div class="input-group ">
-                            <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-address-book"></i></span>
-                            <input type="text" id="nome" disabled  class="form-control" value="Exemplo exemplo " maxlength="200" name="">
-                        </div>
-                        <div class="text-danger"></div>
-                    </div>
-                    <div class="col-4">
-                        <h6  style="margin-top:1rem"><i>CPF</i></h6>	
-                        <div class="input-group ">
-                            <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-address-card"></i></span>
-                            <input type="text" id="cpf" class="form-control" disabled value="999.999.999-99" data-mask="999.999.999-99" name="">
-                        </div>
-                        <div class="text-danger"></div>
-                    </div>
+            <div class="row" id="info_cliente">
+                <div class="col-9">
+                <input type="checkbox" onclick="esconde_campos()" id="check_cliente" aria-label="Checkbox for following text input">
+                Não possuo informações do veículo
                 </div>
-                <div class="row" id="juridica">
-                    <div class="col-6">
-                        <h6  style="margin-top:1rem"><i>Nome fantasia</i></h6>	
-                        <div class="input-group ">
-                            <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-address-book"></i></span>
-                            <input type="text" id="nome_fantasia" class="form-control" value="Exemplo exemplo" disabled maxlength="200" name="">
-                        </div>
-                        <div class="text-danger"></div>
-                    </div>
-                    <div class="col-6">
-                        <h6  style="margin-top:1rem"><i>CNPJ</i></h6>	
-                        <div class="input-group ">
-                            <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-address-book"></i></span>
-                            <input type="text" id="cnpj" class="form-control" value="99.999.999/9999-99" disabled name="">
-                        </div>
-                        <div class="text-danger"></div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-6">
-                        <h6  style="margin-top:1rem"><i>E-mail</i></h6>	
-                        <div class="input-group ">
-                            <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-envelope"></i></span>
-                            <input type="email" id="email" class="form-control" value="exemplo@exemplo.com" disabled  name="">
-                        </div>
-                        <div class="text-danger"></div>
-                    </div>
-                    <div class="col-3" id="col_telefone">
-                        <h6  style="margin-top:1rem"><i>Telefone</i></h6>	
-                        <div class="input-group ">
-                            <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-phone"></i></span>
-                            <input type="text" id="telefone" class="form-control" value="(99) 9999-9999" disabled  name="">
-                        </div>
-                        <div class="text-danger"></div>
-                    </div>
-                    <div class="col-3" id="col_celular">
-                        <h6  style="margin-top:1rem"><i>Celular</i></h6>	
-                        <div class="input-group ">
-                            <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-mobile"></i></span>
-                            <input type="text" id="celular" class="form-control"  value="(99) 9999-9999" disabled  name="">
-                        </div>
-                        <div class="text-danger"></div>
-                    </div>
-                </div>
-                <hr>
             </div>
             <div id="dados_veiculo">
                 <div class="row">
@@ -105,7 +45,7 @@ include "menu.php";
                         <h6  style="margin-top:1rem"><i>Modelo</i></h6>	
                         <div class="input-group ">
                             <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-car"></i></span>
-                            <input type="text" id="modelo" class="form-control" disabled placeholder="Ex.: Exemplo Exemplo"  maxlength="100" name="">
+                            <input type="text" id="modelo" class="form-control"  placeholder="Ex.: Exemplo Exemplo"  maxlength="100" name="">
                         </div>
                         <div class="text-danger"></div>
                     </div>
@@ -113,7 +53,7 @@ include "menu.php";
                         <h6  style="margin-top:1rem"><i>Ano Modelo</i></h6>	
                         <div class="input-group ">
                             <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-calendar"></i></span>
-                            <input type="text" id="ano_modelo" class="form-control" disabled placeholder="Ex.: Exemplo Exemplo"  data-mask="9999" maxlength="100" name="">
+                            <input type="text" id="ano_modelo" class="form-control"  placeholder="Ex.: Exemplo Exemplo"  data-mask="9999" maxlength="100" name="">
                         </div>
                         <div class="text-danger"></div>
                     </div>
@@ -121,7 +61,7 @@ include "menu.php";
                         <h6  style="margin-top:1rem"><i>Ano Fabricação</i></h6>	
                         <div class="input-group ">
                             <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-calendar"></i></span>
-                            <input type="text" id="ano_fabricacao" class="form-control" disabled placeholder="Ex.: Exemplo Exemplo"  data-mask="9999" maxlength="100" name="">
+                            <input type="text" id="ano_fabricacao" class="form-control"  placeholder="Ex.: Exemplo Exemplo"  data-mask="9999" maxlength="100" name="">
                         </div>
                         <div class="text-danger"></div>
                     </div>
@@ -129,7 +69,7 @@ include "menu.php";
                         <h6  style="margin-top:1rem"><i>Fabricante</i></h6>	
                         <div class="input-group ">
                             <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-calendar"></i></span>
-                            <select name="" id="fabricante" disabled  class="form-control">
+                            <select name="" id="fabricante"  class="form-control">
                                 <option value="0">Selecione...</option>
                                 <option value="Agrale">Agrale </option>
                                 <option value="Aston Martin">Aston Martin </option>
@@ -188,7 +128,7 @@ include "menu.php";
                         <h6  style="margin-top:1rem"><i>Cor</i></h6>	
                         <div class="input-group ">
                             <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-paint-brush"></i></span>
-                            <input type="text" id="cor" class="form-control" disabled  placeholder="Ex.: Exemplo "   maxlength="50" name="">
+                            <input type="text" id="cor" class="form-control"   placeholder="Ex.: Exemplo "   maxlength="50" name="">
                         </div>
                         <div class="text-danger"></div>
                     </div>
@@ -196,7 +136,8 @@ include "menu.php";
                         <h6  style="margin-top:1rem"><i>Chassi</i></h6>	
                         <div class="input-group ">
                             <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-car"></i></span>
-                            <input type="text" id="chassi" disabled  class="form-control" placeholder="Ex.: Exemplo "   maxlength="50" name="">
+                            <input type="text" id="chassi" 
+                              class="form-control" placeholder="Ex.: Exemplo "   maxlength="50" name="">
                         </div>
                         <div class="text-danger"></div>
                     </div>  
@@ -208,6 +149,38 @@ include "menu.php";
                     </div>                  
                 </div>
             </div>
+            <div class="row" id="info_manual" style="display:none">
+            <!--Escondido para quando o usuário não souber informações do veículo-->
+                <div class="col-3">
+                    <h6  style="margin-top:1rem"><i>Data de entrada</i></h6>	
+                    <div class="input-group ">
+                        <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-calendar"></i></span>
+                        <input type="text" id="dt_entrada"  class="form-control" placeholder="Ex.: 99/99/9999">
+                    </div>
+                    <div class="text-danger"></div>
+                </div>
+                <div class="col-3">
+                    <h6  style="margin-top:1rem"><i>Hora de entrada</i></h6>	
+                    <div class="input-group ">
+                        <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-clock"></i></span>
+                        <input type="text" id="hr_entrada" data-mask="99:99" class="form-control" placeholder="Ex.: 12:00">
+                    </div>
+                    <div class="text-danger"></div>
+                </div>
+                <div class="col-12">
+                    <h6  style="margin-top:1rem"><i>Observações</i></h6>	
+                    <div class="input-group ">
+                        <textarea id="obs" class="form-control" placeholder="Informações sobre a entrada do veículo" rows="3"></textarea>
+                    </div>
+                    <div class="text-danger"></div>
+                </div>
+                <div class="col-12">
+                    <button style="margin-top: 1rem" class="btn btn-dark btn-lg btn-block" onclick="salvar()">
+                        <i class="fa fa-check float-left" style="margin-top: 0.3rem;"></i> Salvar
+                    </button>
+                    <br>
+                </div>
+            </div>
         </div>
     </body>
 
@@ -217,6 +190,9 @@ include "menu.php";
     <script src="../static/js/bootstrap-datepicker.js"></script>
     <script src="../static/js/bootstrap-datepicker.pt-BR.min.js"></script> 
     <script>
+
+        var validacao_ok = true ;
+        var validacao_placa = true;
 
         $('#dt_entrada').datepicker({
             format: 'dd/mm/yyyy',
@@ -237,179 +213,174 @@ include "menu.php";
 
         cliente_id = data.codCli;
 
-        if (cliente_id == undefined){
-
-            $('#dados_veiculo').hide();
-            window.location.href='#body';
-            monta_msg_erro_permanente(" Ocorreu um erro, por favor tente novamente mais tarde!");
-           
-        }else{
-
-            busca_cliente(cliente_id);
-        
+        if (cliente_id > 0){
+            $('#nome_vinculo').show();
+            $('#nome_cadastro').hide();
+            $('#info_cliente').hide();
+        }else {
+            $('#nome_cadastro').show();
+            $('#info_cliente').show();
+            $('#nome_vinculo').hide();
         }
 
-
-        function busca_cliente(id_cliente){
-
-            var dados = {id_cliente : id_cliente , funcao : "busca_cliente"} ;
-            $.ajax({
-                url: '../../controller/clienteCadastroVeiculo.php',
-                method: "post",
-                data: dados ,
-                success: function(data){
-                    if(data){
-                        var retorno = $.parseJSON(data);
-                        if(retorno.cpf == null){
-                            $('#fisica').hide();
-                            $('#juridica').show();
-
-                            $('#cnpj').val(retorno.cnpj);
-                            $('#razao_social').val(retorno.razao_social);
-
-                        }else{
-                            $('#juridica').hide();
-                            $('#fisica').show();
-
-                            $('#nome').val(retorno.nome);
-                            $('#cpf').val(retorno.cpf);
-                        }
-
-                        $('#email').val(retorno.email);
-                        
-                        if(retorno.telefone == null){
-                            $('#col_telefone').hide();
-                        }else{
-                            $('#telefone').val(retorno.telefone);                            
-                        }
-                        
-                        if(retorno.celular == null){
-                            $('#col_celular').hide();
-                        }else{
-                            $('#celular').val(retorno.celular);                            
-                        }
-
-                        $('#dados').show();
-                    }else{
-
-                        $('#dados_veiculo').hide();
-                        window.location.href='#body';
-                        monta_msg_erro_permanente(" Cliente não localizado, por favor tente novamente mais tarde!");
-                    }
-                }
-            });
+        //Função para esconder campos quando não existir dados de cadastro do cliente
+        function esconde_campos(){
+            var check_cliente = document.getElementById("check_cliente");
+            if (check_cliente.checked){
+                $('#dados_veiculo').hide();
+                $('#info_manual').show();
+                limpa_campos();
+            } else {
+                $('#dados_veiculo').show();
+                $('#info_manual').hide();
+                limpa_campos();
+            }
         }
 
         function salvar(){
-            $('#preloader').show();
-            var placa = $('#placa').val();
-            var modelo = $('#modelo').val();
-            var ano_modelo = $('#ano_modelo').val();
-            var ano_fabricacao = $('#ano_fabricacao').val();
-            var fabricante = $('#fabricante').val();
-            var cor = $('#cor').val();
-            var chassi = $('#chassi').val();
-            var validacao_ok = true;
 
-            if (placa.length == 0){
-                validacao_ok = false;
-                add_erro_input($('#placa'), "Por favor preencha o campo Placa");
+            var check_cliente = $('#check_cliente');
+            validacao_ok = true;
+
+            if(check_cliente.is(':checked')){
+
+                var data_entrada = $('#dt_entrada').val();
+                var hora_entrada = $('#hr_entrada').val();
+                var observacoes = $('#obs').val();
+
+                //Verifica preenchimento
+                if(data_entrada.length == 0 ){
+                    add_erro_input($('#dt_entrada') , "Por favor preencha o campo data de entrada");
+                    validacao_ok = false;
+                }else{
+                    remove_erro_input($('#dt_entrada'));
+                }
+
+                if (hora_entrada.length == 0){
+                    add_erro_input($('#hr_entrada') , "Por favor preencha o campo hora de entrada");
+                    validacao_ok = false;
+                }else {
+                    remove_erro_input($('#hr_entrada'));
+                }
+
+                if (observacoes.length < 5){
+                    add_erro_input($('#obs') , "Por favor preencha o campo observações com informações sobre a entrada do veículo");
+                    validacao_ok = false;
+                }else {
+                    remove_erro_input($('#obs'));
+                }
+
             }else{
-                remove_erro_input($('#placa'));
+
+                var placa = $('#placa').val();
+                var modelo = $('#modelo').val();
+                var ano_modelo = $('#ano_modelo').val();
+                var ano_fabricacao = $('#ano_fabricacao').val();
+                var fabricante = $('#fabricante').val();
+                var cor = $('#cor').val();
+                var chassi = $('#chassi').val();
+
+                if (placa.length == 0){
+                    validacao_ok = false;
+                    add_erro_input($('#placa'), "Por favor preencha o campo Placa");
+                }else if (!validacao_placa){
+                    validacao_ok = false;
+                    add_erro_input($('#placa'), "Placa já cadastrada no sistema");
+                }else{
+                    remove_erro_input($('#placa'));
+                }
+
+                if (modelo.length == 0){
+                    validacao_ok = false;
+                    add_erro_input($('#modelo'), "Por favor preencha o campo Modelo");
+                }else{
+                    remove_erro_input($('#modelo'));
+                }
+
+                if (ano_modelo.length == 0){
+                    validacao_ok = false;
+                    add_erro_input($('#ano_modelo'), "Por favor preencha o campo Ano Modelo");
+                }else{
+                    remove_erro_input($('#ano_modelo'));
+                }
+
+                if (ano_fabricacao.length == 0){
+                    validacao_ok = false;
+                    add_erro_input($('#ano_fabricacao'), "Por favor preencha o campo Ano Fabricação");
+                }else{
+                    remove_erro_input($('#ano_fabricacao'));
+                }
+
+                if (fabricante == "0"){
+                    validacao_ok = false;
+                    add_erro_input($('#fabricante'), "Por favor selecione um Fabricante");
+                }else{
+                    remove_erro_input($('#fabricante'));
+                }
+
+                if (cor.length == 0){
+                    validacao_ok = false;
+                    add_erro_input($('#cor'), "Por favor preencha o campo Cor");
+                }else{
+                    remove_erro_input($('#cor'));
+                }
             }
 
-            if (modelo.length == 0){
-                validacao_ok = false;
-                add_erro_input($('#modelo'), "Por favor preencha o campo Modelo");
-            }else{
-                remove_erro_input($('#modelo'));
-            }
+            if(validacao_ok && validacao_placa){
+                
+                var check_cliente = $('#check_cliente');
+                var data = {}; 
 
-            if (ano_modelo.length == 0){
-                validacao_ok = false;
-                add_erro_input($('#ano_modelo'), "Por favor preencha o campo Ano Modelo");
-            }else{
-                remove_erro_input($('#ano_modelo'));
-            }
+                if(check_cliente.is(':checked')){
+                
+                    var dt_entrada = $('#dt_entrada').val();
+                    var hr_entrada = $('#hr_entrada').val();
+                    var obs = $('#obs').val();
 
-            if (ano_fabricacao.length == 0){
-                validacao_ok = false;
-                add_erro_input($('#ano_fabricacao'), "Por favor preencha o campo Ano Fabricação");
-            }else{
-                remove_erro_input($('#ano_fabricacao'));
-            }
+                    data = {
+                        dt_entrada : dt_entrada, 
+                        hr_entrada : hr_entrada ,
+                        obs : obs,
+                        funcao : "salvar_veiculo_desconhecido" };
 
-            if (fabricante == "0"){
-                validacao_ok = false;
-                add_erro_input($('#fabricante'), "Por favor selecione um Fabricante");
-            }else{
-                remove_erro_input($('#fabricante'));
-            }
-
-            if (cor.length == 0){
-                validacao_ok = false;
-                add_erro_input($('#cor'), "Por favor preencha o campo Cor");
-            }else{
-                remove_erro_input($('#cor'));
-            }
-
-            if(validacao_ok){
-
-                var data = { 
-                    placa : placa ,
-                    modelo: modelo , 
-                    ano_modelo : ano_modelo , 
-                    ano_fabricacao : ano_fabricacao , 
-                    fabricante : fabricante ,
-                    cor : cor ,
-                    chassi : chassi ,
-                    cliente_id : cliente_id, 
-                    funcao : "salvar" };
+                }else{
+                     
+                    data = { 
+                        placa : placa ,
+                        modelo: modelo , 
+                        ano_modelo : ano_modelo , 
+                        ano_fabricacao : ano_fabricacao , 
+                        fabricante : fabricante ,
+                        cor : cor ,
+                        chassi : chassi ,
+                        funcao : "salvar_veiculo" };
+                }
 
                 $.ajax({
                     url: '../../controller/clienteCadastroVeiculo.php',
                     method: "post",
                     data: data ,
                     success: function(data){ 
-                        alert(data);
-                        if(data){
-                            if(data == '0'){
-                                window.location.href='#body';
-                                monta_msg_erro(" Cliente já vinculado a este veículo!");
-                            }else{
 
-                                $('#placa').val("");
-                                $('#modelo').val("");
-                                $('#ano_modelo').val("");
-                                $('#ano_fabricacao').val("");
-                                $('#fabricante').val("0");
-                                $('#cor').val("");
-                                $('#chassi').val("");
+                        if(data){
+
+                            limpa_campos();
+                            window.location.href='#body';
+                            monta_msg_sucesso(" Cadastro efetuado com sucesso");
     
-                                $('#modelo').attr('disabled' , true);
-                                $('#ano_modelo').attr('disabled' , true);
-                                $('#ano_fabricacao').attr('disabled' , true);
-                                $('#fabricante').attr('disabled' , true);
-                                $('#cor').attr('disabled' , true);
-                                $('#chassi').attr('disabled' , true);
-    
-                                window.location.href='#body';
-                                monta_msg_sucesso(" Cadastro efetuado com sucesso");
-                            }
                         }else{
+
                             window.location.href='#body';
                             monta_msg_erro(" Ocorreu um erro, por favor tente novamente mais tarde!");
                         }
-
-                        $('#preloader').hide();
                     }
                 });
             }
         
         }
 
-        function busca_placa(){ 
 
+        function busca_placa(){ 
             var placa = $('#placa').val();
 
             if (  placa.length >= 7 && (isNaN(placa.charAt(0))) &&
@@ -423,18 +394,20 @@ include "menu.php";
                     method: "post",
                     data: data ,
                     success: function(data){
-                        
+                        $('#preloader').hide();
                         if(data){
                             var retorno = $.parseJSON(data);
 
-                            $('#modelo').val(retorno.modelo);
-                            $('#ano_modelo').val(retorno.ano_modelo);
-                            $('#ano_fabricacao').val(retorno.ano_fabricacao);
-                            $('#fabricante').val(retorno.fabricante);
-                            $('#cor').val(retorno.cor);
-                            $('#chassi').val(retorno.chassi);
+                            validacao_placa = false;
+                            add_erro_input($('#placa'), "Placa já cadastrada no sistema");
+
 
                         }else{
+
+                            validacao_placa = true;
+                            remove_erro_input($('#placa'));
+
+                            /*
                             $('#placa').val(placa);
                             $('#modelo').val("");
                             $('#ano_modelo').val("");
@@ -449,24 +422,10 @@ include "menu.php";
                             $('#fabricante').removeAttr('disabled');
                             $('#cor').removeAttr('disabled');
                             $('#chassi').removeAttr('disabled');
+                            */
                         }
-                        $('#preloader').hide();
                     }
                 });
-            }else{
-                $('#modelo').val("");
-                $('#ano_modelo').val("");
-                $('#ano_fabricacao').val("");
-                $('#fabricante').val("0");
-                $('#cor').val("");
-                $('#chassi').val("");
-
-                $('#modelo').attr('disabled' , true);
-                $('#ano_modelo').attr('disabled' , true);
-                $('#ano_fabricacao').attr('disabled' , true);
-                $('#fabricante').attr('disabled' , true);
-                $('#cor').attr('disabled' , true);
-                $('#chassi').attr('disabled' , true);
             }
         }
 
@@ -480,6 +439,9 @@ include "menu.php";
             remove_erro_input($('#ano_fabricacao'));
             remove_erro_input($('#fabricante'));
             remove_erro_input($('#cor'));
+            remove_erro_input($('#dt_entrada'));
+            remove_erro_input($('#hr_entrada'));
+            remove_erro_input($('#obs'));
             $('#placa').val("");
             $('#modelo').val("");
             $('#ano_modelo').val("");
@@ -487,13 +449,10 @@ include "menu.php";
             $('#fabricante').val("0");
             $('#cor').val("");
             $('#chassi').val("");
+            $('#dt_entrada').val("");
+            $('#hr_entrada').val("");
+            $('#obs').val("");
 
-            $('#modelo').attr('disabled' , true);
-            $('#ano_modelo').attr('disabled' , true);
-            $('#ano_fabricacao').attr('disabled' , true);
-            $('#fabricante').attr('disabled' , true);
-            $('#cor').attr('disabled' , true);
-            $('#chassi').attr('disabled' , true);
         }
 
         function add_erro_input(input , msg){
@@ -514,17 +473,17 @@ include "menu.php";
             },10000);
         }
 
+        function monta_msg_erro_permanente(msg){
+            html = '<div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i><strong>  '+ msg +'</strong></div>';
+            $('#msg').html(html);
+        }
+
         function monta_msg_sucesso(msg){
             html = '<div class="alert alert-success"><i class="fa fa-check"></i><strong>'+ msg +'</strong></div>';
             $('#msg').html(html);
             window.setInterval(function(){
                 remove_msg();
             },10000);
-        }
-
-        function monta_msg_erro_permanente(msg){
-            html = '<div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i><strong>  '+ msg +'</strong></div>';
-            $('#msg').html(html);
         }
 
         function remove_msg(){

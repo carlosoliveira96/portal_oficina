@@ -117,6 +117,28 @@ include 'menu.php';
                     <div class="text-danger"></div>
                 </div>
             </div>
+            <div class="row " id="cadastro_cliente">
+			<div class="col-6">
+				<h6 style="margin-top:1rem"><i>Seguradora</i></h6>	
+				<div class="input-group ">
+					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
+					<select class="form-control" id="seguradora">
+						<option value="">Selecione...</option>
+					</select>
+				</div>
+				<div class="text-danger"></div>
+			</div>
+			<div class="col-6">
+				<h6  style="margin-top:1rem"><i>Corretor</i></h6>	
+				<div class="input-group ">
+					<span class="input-group-addon" id="sizing-addon1"><i class="fa fa-user"></i></span>
+					<select class="form-control" id="corretor">
+						<option value="">Selecione..</option>
+					</select>
+				</div>
+				<div class="text-danger"></div>
+			</div>
+		</div>
             <div class="row">
                 <div class="col-6">
                     <h6  style="margin-top:1rem"><i>Veículo</i></h6>	
@@ -374,6 +396,60 @@ function busca_servicos (){
         }
         $('#'+id+'tr').remove();
 
+    }
+
+    busca_corretores();
+
+    function busca_corretores(){
+        var data = {funcao: 'busca_corretores'};
+        var html ;
+        $.ajax({
+            url: '../../controller/cadastro.php',
+            method: "post",
+            data: data ,
+            success: function(data){
+                var retorno = $.parseJSON(data);
+
+                html = "";
+                html += '<option value="">Selecione...</option>';
+                for(var i=0; i < retorno.length ; i++ ){
+                    if(retorno[i].nome != null){
+                        html += '<option value="'+retorno[i].id+'">'+retorno[i].nome+ '</option>';
+                    }else{
+                        html += '<option value="'+retorno[i].id+'">'+retorno[i].nome_fantasia+ '</option>';
+                    }
+                }
+
+                $('#corretor').html(html);
+            }
+        });
+    }
+
+    busca_seguradoras();
+
+    function busca_seguradoras(){
+        var data = {funcao: 'busca_seguradoras'};
+        var html ;
+        $.ajax({
+            url: '../../controller/cadastro.php',
+            method: "post",
+            data: data ,
+            success: function(data){
+                var retorno = $.parseJSON(data);
+
+                html = "";
+                html += '<option value="">Selecione...</option>';
+                for(var i=0; i < retorno.length ; i++ ){
+                    if(retorno[i].nome != null){
+                        html += '<option value="'+retorno[i].id+'">'+retorno[i].nome+ '</option>';
+                    }else{
+                        html += '<option value="'+retorno[i].id+'">'+retorno[i].nome_fantasia+ '</option>';
+                    }
+                }
+
+                $('#seguradora').html(html);
+            }
+        });
     }
     </script>
 </html>

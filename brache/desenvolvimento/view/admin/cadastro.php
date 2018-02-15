@@ -229,38 +229,6 @@ include 'menu.php';
 				<div class="text-danger"></div>
 			</div>
 		</div>
-		<div class="row " id="cadastro_cliente">
-			<div class="col-6">
-				<h6 style="margin-top:1rem"><i>Seguradora</i></h6>	
-				<div class="input-group ">
-					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-user"></i></span>
-					<select class="form-control" id="seguradora">
-						<option value="">Selecione...</option>
-					</select>
-				</div>
-				<div class="text-danger"></div>
-			</div>
-			<div class="col-6">
-				<h6  style="margin-top:1rem"><i>Corretor</i></h6>	
-				<div class="input-group ">
-					<span class="input-group-addon" id="sizing-addon1"><i class="fa fa-user"></i></span>
-					<select class="form-control" id="corretor">
-						<option value="">Selecione..</option>
-					</select>
-				</div>
-				<div class="text-danger"></div>
-			</div>
-		</div>
-		<div class="row " id="usuario">
-			<div class="col-6">
-				<h6  style="margin-top:1rem"><i>Nome de Usuário</i></h6>	
-				<div class="input-group ">
-					<span class="input-group-addon" id="sizing-addon1"><i class="fa fa-user"></i></span>
-					<input type="text" class="form-control" id="nome_usuario" onkeyup="verifica_usuario()" placeholder="Ex.: Exemplo" >
-				</div>
-				<div class="text-danger"></div>
-			</div>
-		</div>
 		<div class="row">
 			<div class="col-12">
 				<h6  style="margin-top:1rem"><i>Observações</i></h6>	
@@ -323,23 +291,19 @@ include 'menu.php';
 
 		//adiciona campos extras caso seja fornecedor ou cliene
 		if(tipo_cadastro == "fornecedor"){
-			$('#cadastro_cliente').hide();
 			$('#usuario').hide();
 			$('#cadastro_fornecedor').show();
 			limpa_cadastro();
 		}else if(tipo_cadastro == "cliente"){
-			$('#cadastro_cliente').show();
 			$('#cadastro_fornecedor').hide();
 			$('#usuario').show();
 			limpa_cadastro();
 		}else if(tipo_cadastro == "corretor"){
-			$('#cadastro_cliente').hide();
 			$('#usuario').show();
 			$('#cadastro_fornecedor').hide();
 			limpa_cadastro();
 		}else{
 			$('#usuario').hide();
-			$('#cadastro_cliente').hide();
 			$('#cadastro_fornecedor').hide();
 			limpa_cadastro();
 		}
@@ -369,13 +333,10 @@ include 'menu.php';
 		var cidade = $('#cidade').val();
 		var uf = $('#uf').val();
 
-		var nome_usuario = $('#nome_usuario').val();
-
-
 		if(tipo_pessoa == "fisica"){
 
-			var nome = $('#nome').val();
 			var cpf = $('#cpf').val();
+			var nome = $('#nome').val();
 			var nascimento = $('#nascimento').val();
 			
 
@@ -511,21 +472,6 @@ include 'menu.php';
 			}
 		}
 
-		if (tipo_cadastro == "corretor" || tipo_cadastro == "cliente"){
-
-			if(nome_usuario.length == 0 ){
-				add_erro_input($('#nome_usuario') , "Por favor preencha o campo Nome de usuário");
-				validacao_ok = false;
-			}else{
-				if(controle_usuario){
-					remove_erro_input($('#nome_usuario'));
-				}else{
-					add_erro_input($('#nome_usuario') , "Nome de Usuário invalido");
-					validacao_ok = false;
-				}
-			}
-		}
-
 
 		if(validacao_ok && controle_cep && controle_usuario && controle_cpf && controle_cnpj ){
 
@@ -549,11 +495,15 @@ include 'menu.php';
 			var bairro = $('#bairro').val();
 			var cidade = $('#cidade').val();
 			var uf = $('#uf').val();
-			var seguradora = $('#seguradora').val();
-			var corretor = $('#corretor').val();
 			var fabricante = $('#fabricante').val();
-			var nome_usuario = $('#nome_usuario').val();
 			var observacao = $('#observacao').val();
+			var tipo_pessoa   = $('#tipo_pessoa').val();
+
+			if(tipo_pessoa == "fisica"){
+				var nome_usuario = cpf;
+			}else{
+				var nome_usuario = cnpj;
+			}
 
 			var data = {
 				tipo_cadastro : tipo_cadastro,
@@ -576,8 +526,6 @@ include 'menu.php';
 				bairro : bairro,
 				cidade : cidade,
 				uf : uf,
-				seguradora : seguradora,
-				corretor : corretor,
 				fabricante : fabricante,
 				nome_usuario : nome_usuario,
 				observacao : observacao ,
@@ -589,7 +537,6 @@ include 'menu.php';
 				method: "post",
 				data: data ,
 				success: function(data){
-					alert(data);
 					$('#preloader').hide();
 					if(data){
 						if(tipo_cadastro == "cliente"){
@@ -605,8 +552,6 @@ include 'menu.php';
 						}else{
 							window.location.href='#body';
 							monta_msg_sucesso("Cadastro efetuado com sucesso");
-							busca_seguradoras();
-							busca_corretores();
 						}
 						limpa_campos();
 					}else{
@@ -782,31 +727,6 @@ include 'menu.php';
 		controle_cnpj = true;
 	}
 
-	function verifica_usuario(){
-		var nome_usuario = $('#nome_usuario').val();
-
-		if (nome_usuario.length <= 3 ){
-			add_erro_input($('#nome_usuario') , "Nome de usuário deve conter 4 caracteres no mínimo");
-			controle_usuario = false;
-		}else{
-			var data = {usuario: nome_usuario, funcao: 'verifica_usuario'};
-			$.ajax({
-				url: '../../controller/cadastro.php',
-				method: "post",
-				data: data ,
-				success: function(data){
-					if(data){
-						controle_usuario = false;
-						add_erro_input($('#nome_usuario') , "Nome de Usuário já cadastrado");
-					}else{
-						remove_erro_input($('#nome_usuario'));
-						controle_usuario = true;
-					}
-				}
-			});
-		}
-	}
-
 	function verifica_cpf(){
 		var cpf = $('#cpf').val();
 		if(cpf.length = 14 && ($.isNumeric(cpf.charAt(0))) 
@@ -888,8 +808,6 @@ include 'menu.php';
 		$('#bairro').val('');
 		$('#cidade').val('');
 		$('#uf').val('');
-		$('#seguradora').val('');
-		$('#corretor').val('');
 		$('#fabricante').val('');
 		$('#nome_usuario').val('');
 		$('#observacao').val('');
@@ -925,62 +843,6 @@ include 'menu.php';
 	function remove_msg(){
 		$('#msg').html('');
 	}
-
-	busca_corretores();
-
-	function busca_corretores(){
-		var data = {funcao: 'busca_corretores'};
-		var html ;
-		$.ajax({
-			url: '../../controller/cadastro.php',
-			method: "post",
-			data: data ,
-			success: function(data){
-				var retorno = $.parseJSON(data);
-
-				html = "";
-				html += '<option value="">Selecione...</option>';
-				for(var i=0; i < retorno.length ; i++ ){
-					if(retorno[i].nome != null){
-						html += '<option value="'+retorno[i].id+'">'+retorno[i].nome+ '</option>';
-					}else{
-						html += '<option value="'+retorno[i].id+'">'+retorno[i].nome_fantasia+ '</option>';
-					}
-				}
-
-				$('#corretor').html(html);
-			}
-		});
-	}
-
-	busca_seguradoras();
-
-	function busca_seguradoras(){
-		var data = {funcao: 'busca_seguradoras'};
-		var html ;
-		$.ajax({
-			url: '../../controller/cadastro.php',
-			method: "post",
-			data: data ,
-			success: function(data){
-				var retorno = $.parseJSON(data);
-
-				html = "";
-				html += '<option value="">Selecione...</option>';
-				for(var i=0; i < retorno.length ; i++ ){
-					if(retorno[i].nome != null){
-						html += '<option value="'+retorno[i].id+'">'+retorno[i].nome+ '</option>';
-					}else{
-						html += '<option value="'+retorno[i].id+'">'+retorno[i].nome_fantasia+ '</option>';
-					}
-				}
-
-				$('#seguradora').html(html);
-			}
-		});
-	}
-
-	
 
 	</script>
 

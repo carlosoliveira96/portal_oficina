@@ -7,10 +7,11 @@ function insere($conexao, $campos , $valores , $tabela ) {
     if(mysqli_query($conexao, $query)){
         $id = mysqli_insert_id($conexao);
         return $id;
-    }else{
+    }
+    else{
         echo mysqli_error($conexao);
         die();
-    }
+     }
 }
 
 
