@@ -86,6 +86,7 @@ if(isset($_POST['funcao'])){
                 $busca_vinculo = busca_detalhada_um($conexao, "veiculo_placa = {$placa} and cliente_id = {$cliente_id}" , "cliente_veiculo" , $campos = null);
                 
                 if(strlen($busca_vinculo['cliente_id']) <= 0 ){
+
                     $cliente_veiculo = insere($conexao, "cliente_id , veiculo_placa" , "{$cliente_id} , {$placa}" , "cliente_veiculo" );
                 
                     if(strlen($cliente_veiculo) <= 0){
@@ -94,7 +95,7 @@ if(isset($_POST['funcao'])){
                         print json_encode($cliente_veiculo);
                     }
                 }else{
-                    print '0';
+                    print '1';
                 }
            
             }

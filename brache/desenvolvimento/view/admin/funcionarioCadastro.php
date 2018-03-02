@@ -457,7 +457,6 @@ include 'menu.php';
 			add_erro_input($('#nome_usuario') , "Nome de usuário deve conter 4 caracteres no mínimo");
 			controle_usuario = false;
 		}else{
-            $('#preloader').show();
 			var data = {usuario: nome_usuario, funcao: 'verifica_usuario'};
 			$.ajax({
 				url: '../../controller/cadastro.php',
@@ -471,7 +470,6 @@ include 'menu.php';
 						remove_erro_input($('#nome_usuario'));
 						controle_usuario = true;
 					}
-                    $('#preloader').hide();
 				}
 			});
 		}

@@ -163,7 +163,7 @@ include 'menu.php';
                 success: function(data){
                     if (data == "0"){
                         $('#preloader').hide();
-                        monta_msg_alerta(" Você não possui serviços cadastros. Cliquem em <b>cadastrar serviço</b> para iniciar.")
+                        monta_msg_alerta_permanente(" Você não possui serviços cadastrados. Cliquem em <b>cadastrar serviço</b> para iniciar.")
                     }else {
                         var lista = $.parseJSON(data);
                         lista_registros = lista;
@@ -399,7 +399,7 @@ include 'menu.php';
         }
 
         //Monta mensagem de quando não existem registros
-        function monta_msg_alerta(msg){
+        function monta_msg_alerta_permanente(msg){
             html = '<div class="alert alert-warning"><i class="fas fa-exclamation-triangle"></i><strong>'+ msg +'</strong></div>';
             $('#msg').html(html);
         }

@@ -29,10 +29,7 @@ include 'menu.php';
                     <div class="input-group ">
                         <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-building"></i></span>
                         <select class="form-control" id="empresa">
-                            <option value="">Selecione...</option>
-                            <option value="crt">CRT</option>
-                            <option value="smart">Smart</option>
-                            <option value="master">Master</option>
+                            <option value="0">Selecione...</option>
                         </select>
                     </div>
                     <div class="text-danger"></div>
@@ -52,6 +49,32 @@ include 'menu.php';
             <hr>
             <div class="row">
                 <div class="col-6">
+                    <h6  style="margin-top:1rem"><i>Veículo</i></h6>	
+                    <div class="input-group ">
+                        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-car"></i></span>
+                        <input type="text" id="veiculo" class="form-control" disabled  placeholder="Ex.:  Exemplo Exemplo" name="">
+                    </div>
+                    <div class="text-danger"></div>
+                </div>
+                <div class="col-3">
+                    <h6  style="margin-top:1rem"><i>Placa</i></h6>	
+                    <div class="input-group ">
+                        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-car"></i></span>
+                        <input type="text" id="placa" class="form-control" disabled  placeholder="Ex.:  XXX-9999" name="">
+                    </div>
+                    <div class="text-danger"></div>
+                </div>
+                <div class="col-3">
+                    <h6  style="margin-top:1rem"><i>Sinistro</i></h6>	
+                    <div class="input-group ">
+                        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-info-circle"></i></span>
+                        <input type="text" id="sinistro" class="form-control"  placeholder="Ex.:  999999999" name="">
+                    </div>
+                    <div class="text-danger"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
                     <h6  style="margin-top:1rem"><i>Nome</i></h6>	
                     <div class="input-group ">
                         <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-user"></i></span>
@@ -60,16 +83,6 @@ include 'menu.php';
                     <div class="text-danger"></div>
                 </div>
                 <div class="col-6">
-                    <h6  style="margin-top:1rem"><i>Corretor</i></h6>	
-                    <div class="input-group ">
-                        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-user-circle"></i></span>
-                        <input type="text" id="corretor" class="form-control" disabled  placeholder="Ex.: Exemplo Exemplo " name="">
-                    </div>
-                    <div class="text-danger"></div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-4">
                     <h6  style="margin-top:1rem"><i>E-mail</i></h6>	
                     <div class="input-group ">
                         <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-envelope"></i></span>
@@ -77,7 +90,9 @@ include 'menu.php';
                     </div>
                     <div class="text-danger"></div>
                 </div>
-                <div class="col-4">
+            </div>
+            <div class="row">
+                <div class="col-3">
                     <h6  style="margin-top:1rem"><i>Celular</i></h6>	
                     <div class="input-group ">
                         <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-mobile"></i></span>
@@ -85,7 +100,7 @@ include 'menu.php';
                     </div>
                     <div class="text-danger"></div>
                 </div>
-                <div class="col-4">
+                <div class="col-3">
                     <h6  style="margin-top:1rem"><i>Telefone</i></h6>	
                     <div class="input-group ">
                         <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-phone"></i></span>
@@ -93,8 +108,6 @@ include 'menu.php';
                     </div>
                     <div class="text-danger"></div>
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-6">
                     <h6  style="margin-top:1rem"><i>Tipo</i></h6>	
                     <div class="input-group ">
@@ -105,14 +118,6 @@ include 'menu.php';
                             <option value="terceiro">Terceiro</option>
                             <option value="particular">Particular</option>
                         </select>
-                    </div>
-                    <div class="text-danger"></div>
-                </div>
-                <div class="col-6">
-                    <h6  style="margin-top:1rem"><i>Seguradora</i></h6>	
-                    <div class="input-group ">
-                        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-building"></i></span>
-                        <input type="text" id="seguradora" class="form-control" disabled  placeholder="Ex.:  Exemplo Exemplo" name="">
                     </div>
                     <div class="text-danger"></div>
                 </div>
@@ -140,30 +145,6 @@ include 'menu.php';
 			</div>
 		</div>
             <div class="row">
-                <div class="col-6">
-                    <h6  style="margin-top:1rem"><i>Veículo</i></h6>	
-                    <div class="input-group ">
-                        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-car"></i></span>
-                        <input type="text" id="veiculo" class="form-control" disabled  placeholder="Ex.:  Exemplo Exemplo" name="">
-                    </div>
-                    <div class="text-danger"></div>
-                </div>
-                <div class="col-3">
-                    <h6  style="margin-top:1rem"><i>Placa</i></h6>	
-                    <div class="input-group ">
-                        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-car"></i></span>
-                        <input type="text" id="placa" class="form-control" disabled  placeholder="Ex.:  XXX-9999" name="">
-                    </div>
-                    <div class="text-danger"></div>
-                </div>
-                <div class="col-3">
-                    <h6  style="margin-top:1rem"><i>Sinistro</i></h6>	
-                    <div class="input-group ">
-                        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-info-circle"></i></span>
-                        <input type="text" id="sinistro" class="form-control"  placeholder="Ex.:  999999999" name="">
-                    </div>
-                    <div class="text-danger"></div>
-                </div>
                 <div class="col-6">
                     <h6  style="margin-top:1rem"><i>Valor</i></h6>	
                     <div class="input-group ">
@@ -367,6 +348,7 @@ function busca_servicos (){
     }
 
     function busca_funcionario(servico_id){
+        
         var data = {funcao : "busca_funcionarios" , servico_id : servico_id };
         $.ajax({
             url: '../../controller/osCadastro.php',
@@ -408,19 +390,20 @@ function busca_servicos (){
             method: "post",
             data: data ,
             success: function(data){
-                var retorno = $.parseJSON(data);
-
-                html = "";
-                html += '<option value="">Selecione...</option>';
-                for(var i=0; i < retorno.length ; i++ ){
-                    if(retorno[i].nome != null){
-                        html += '<option value="'+retorno[i].id+'">'+retorno[i].nome+ '</option>';
-                    }else{
-                        html += '<option value="'+retorno[i].id+'">'+retorno[i].nome_fantasia+ '</option>';
+                if(data){
+                    var retorno = $.parseJSON(data);
+                    html = "";
+                    html += '<option value="">Selecione...</option>';
+                    for(var i=0; i < retorno.length ; i++ ){
+                        if(retorno[i].nome != null){
+                            html += '<option value="'+retorno[i].id+'">'+retorno[i].nome+ '</option>';
+                        }else{
+                            html += '<option value="'+retorno[i].id+'">'+retorno[i].nome_fantasia+ '</option>';
+                        }
                     }
-                }
 
-                $('#corretor').html(html);
+                    $('#corretor').html(html);
+                }
             }
         });
     }
@@ -435,21 +418,55 @@ function busca_servicos (){
             method: "post",
             data: data ,
             success: function(data){
-                var retorno = $.parseJSON(data);
+                if(data){
+                    var retorno = $.parseJSON(data);
 
-                html = "";
-                html += '<option value="">Selecione...</option>';
-                for(var i=0; i < retorno.length ; i++ ){
-                    if(retorno[i].nome != null){
-                        html += '<option value="'+retorno[i].id+'">'+retorno[i].nome+ '</option>';
-                    }else{
-                        html += '<option value="'+retorno[i].id+'">'+retorno[i].nome_fantasia+ '</option>';
+                    html = "";
+                    html += '<option value="">Selecione...</option>';
+                    for(var i=0; i < retorno.length ; i++ ){
+                        if(retorno[i].nome != null){
+                            html += '<option value="'+retorno[i].id+'">'+retorno[i].nome+ '</option>';
+                        }else{
+                            html += '<option value="'+retorno[i].id+'">'+retorno[i].nome_fantasia+ '</option>';
+                        }
                     }
-                }
 
-                $('#seguradora').html(html);
+                    $('#seguradora').html(html);
+                }
             }
         });
     }
+
+    busca_empresas();
+
+    function busca_empresas(){
+
+        $('#preloader').show();
+        var data = {funcao: 'busca_empresas'};
+        var html ;
+
+        $.ajax({
+            url: '../../controller/osCadastro.php',
+            method: "post",
+            data: data ,
+            success: function(data){
+                
+                if(data){
+                    var retorno = $.parseJSON(data);
+
+                    html = "";
+                    html += '<option value="">Selecione...</option>';
+                    
+                    for(var i=0; i < retorno.length ; i++ ){
+                        html += '<option value="'+retorno[i].id+'">'+retorno[i].nome_fantasia+ '</option>';
+                    }
+
+                    $('#empresa').html(html);
+                }
+                $('#preloader').hide();
+            }
+        });
+    }
+
     </script>
 </html>

@@ -18,6 +18,15 @@ if(isset($_POST['funcao'])){
             }
 
             break;
+        case 'busca_empresas':
+            
+            $empresas = busca_todos($conexao, 'empresa');
+
+            if($empresas != null){
+                print json_encode($empresas);
+            }
+
+            break;
         case 'busca_funcionarios':
             
             $id = $_POST['servico_id'];

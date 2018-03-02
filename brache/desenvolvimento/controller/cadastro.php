@@ -196,6 +196,7 @@ switch ($funcao) {
         $valores = "";
 
         if($tipo_cadastro == "'cliente'"){
+
             $perfil = 4;
 
         }else if($tipo_cadastro == "'corretor'"){
@@ -222,9 +223,21 @@ switch ($funcao) {
             }
         }
 
-        $campos = " tipo , nome , cpf , rg, orgao_emissor , data_nascimento , cnpj, inscricao_estadual ,telefone , celular , razao_social, nome_fantasia, observacao , email , fabricante , cep , endereco , numero , complemento , bairro , cidade, uf , situacao  , login_login ";
-        $valores= "{$tipo_cadastro} , {$nome} , {$cpf} , {$rg} , {$orgao_emissor} , {$nascimento} , {$cnpj}, {$inscricao_estadual} , {$telefone} , {$celular} , {$razao_social} , {$nome_fantasia}, {$observacao} , {$email} , {$fabricante} , {$cep} , {$endereco} , {$numero} , {$complemento} , {$bairro} , {$cidade} , {$uf} , 1 , {$nome_usuario}";
+        if($tipo_cadastro == "'cliente'" || $tipo_cadastro == "'corretor'" ){
 
+            $campos = " tipo , nome , cpf , rg, orgao_emissor , data_nascimento , cnpj, inscricao_estadual ,telefone , celular , razao_social, nome_fantasia, observacao , email , fabricante , cep , endereco , numero , complemento , bairro , cidade, uf , situacao  , login_login ";
+            $valores= "{$tipo_cadastro} , {$nome} , {$cpf} , {$rg} , {$orgao_emissor} , {$nascimento} , {$cnpj}, {$inscricao_estadual} , {$telefone} , {$celular} , {$razao_social} , {$nome_fantasia}, {$observacao} , {$email} , {$fabricante} , {$cep} , {$endereco} , {$numero} , {$complemento} , {$bairro} , {$cidade} , {$uf} , 1 , {$nome_usuario}";
+
+
+        }else {
+
+            $campos = " tipo , nome , cpf , rg, orgao_emissor , data_nascimento , cnpj, inscricao_estadual ,telefone , celular , razao_social, nome_fantasia, observacao , email , fabricante , cep , endereco , numero , complemento , bairro , cidade, uf , situacao   ";
+            $valores= "{$tipo_cadastro} , {$nome} , {$cpf} , {$rg} , {$orgao_emissor} , {$nascimento} , {$cnpj}, {$inscricao_estadual} , {$telefone} , {$celular} , {$razao_social} , {$nome_fantasia}, {$observacao} , {$email} , {$fabricante} , {$cep} , {$endereco} , {$numero} , {$complemento} , {$bairro} , {$cidade} , {$uf} , 1 ";
+
+
+        }
+
+        
         $usuario = insere($conexao, $campos , $valores , "cadastro"); 
 
         if (strlen($usuario['id']) <= 0 ) {

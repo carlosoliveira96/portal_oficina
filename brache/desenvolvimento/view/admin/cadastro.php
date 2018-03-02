@@ -553,7 +553,12 @@ include 'menu.php';
 							window.location.href='#body';
 							monta_msg_sucesso("Cadastro efetuado com sucesso");
 						}
+
+						$('#numero').attr("disabled" , "true");
+						$('#complemento').attr("disabled" , "true");
+
 						limpa_campos();
+
 					}else{
 						window.location.href='#body';
 						monta_msg_erro("Ocorreu um erro, por favor tente mais tarde!");
@@ -565,7 +570,6 @@ include 'menu.php';
 	function busca_cep(){
 
 		var cep =  $('#cep').val();
-
 		if(cep.length > 8 && ($.isNumeric(cep.charAt(0))) &&
 			($.isNumeric(cep.charAt(1))) && ($.isNumeric(cep.charAt(2))) &&
 			($.isNumeric(cep.charAt(3))) && ($.isNumeric(cep.charAt(4))) &&

@@ -21,6 +21,7 @@ include 'menu.php';
                 <p class="text-center" style="color: #000"><i><b>Lista de funcionários</b></i></p>
             </h2>
             <hr>
+            <div id="msg"></div>
             <table class="table table-secondary table-bordered table-striped table-hover" id="funcionario">
                 <thead>
                     <tr>
@@ -29,7 +30,17 @@ include 'menu.php';
                             <div>                            
                         </th>
                         <th class="col-12" style="width: 30%; font-weight: normal">
-                            <input type="text" id="input_pesquisa_cargo" class="form-control" placeholder="&#xF002; Cargo" style="font-family: FontAwesome; font-size: 1.05rem;" onkeyup="busca_funcionario()">
+                            <select class="form-control" id="input_pesquisa_cargo" onchange="busca_funcionario()" >
+                                <option value="">Todos os Cargos</option>
+                                <option value="Lanterneiro">Lanterneiro</option>
+                                <option value="Mecânico">Mecânico</option>
+                                <option value="Polidor">Polidor</option>
+                                <option value="Montador">Montador</option>
+                                <option value="Financeiro">Financeiro</option>
+                            </select>
+                            <!--
+                                <input type="text" id="input_pesquisa_cargo" class="form-control" placeholder="&#xF002; Cargo" style="font-family: FontAwesome; font-size: 1.05rem;" onkeyup="busca_funcionario()">
+                            -->
                             <div>                            
                         </th>
                     </tr>
@@ -119,7 +130,7 @@ include 'menu.php';
                 success: function(data){
                     if (data == "0"){
                         $('#preloader').hide();
-                        monta_msg_alerta(" Você não possui funcionarios cadastros.")
+                        monta_msg_alerta_permanente(" Você não possui funcionarios cadastros.")
                     }else {
                         var lista = $.parseJSON(data);
                         lista_registros = lista;
@@ -198,6 +209,12 @@ include 'menu.php';
         function teste(id, nome, cpf, rg, orgao_emissor, data_nascimento, telefone, celular, cargo, cep, endereco, numero, complemento, bairro, cidade, uf, url_imagem, email){
             alert(id);
             //$('#modal_funcionario').modal('show'); 
+        }
+
+        //Monta mensagem de quando não existem registros
+        function monta_msg_alerta_permanente(msg){
+            html = '<div class="alert alert-warning"><i class="fas fa-exclamation-triangle"></i><strong>'+ msg +'</strong></div>';
+            $('#msg').html(html);
         }
 
         //Função para atualizar tamanho do container

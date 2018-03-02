@@ -371,9 +371,8 @@ include "menu.php";
                     method: "post",
                     data: data ,
                     success: function(data){ 
-                        alert(data);
                         if(data){
-                            if(data == '0'){
+                            if(data == 1){
                                 window.location.href='#body';
                                 monta_msg_erro(" Cliente já vinculado a este veículo!");
                             }else{
