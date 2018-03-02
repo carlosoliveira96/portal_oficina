@@ -604,6 +604,12 @@ pre code {
   width: 100%;
 }
 
+.div-veiculos {
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
+}
+
 @media (min-width: 576px) {
   .container {
     max-width: 540px;
