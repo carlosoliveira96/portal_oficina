@@ -102,7 +102,6 @@ include 'menu.php';
             } else {
                 $('#preloader').show();
                 if (t.checked == true){
-                    alert();
                     remove_erro_input($('#input_cadastro'));
                     if (validacao_ok){
                         var data = {

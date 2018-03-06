@@ -265,7 +265,7 @@ include "menu.php";
                             $('#juridica').show();
 
                             $('#cnpj').val(retorno.cnpj);
-                            $('#razao_social').val(retorno.razao_social);
+                            $('#nome_fantasia').val(retorno.nome_fantasia);
 
                         }else{
                             $('#juridica').hide();

@@ -11,7 +11,7 @@ if(isset($_POST['funcao'])){
 
             $pesquisa = $_POST['pesquisa'];
 
-            $servicos = busca_varios($conexao, "situacao = 1 and descricao LIKE '%{$pesquisa}%'" , 'servico');
+            $servicos = busca_detalhada_varios($conexao, " a.id  IN (SELECT c.servico_id FROM servico_funcionario c ) and a.descricao LIKE '%{$pesquisa}%' GROUP BY a.id" , "servico a , servico_funcionario b " , "a.*");
 
             if($servicos != null){
                 print json_encode($servicos);
@@ -37,6 +37,14 @@ if(isset($_POST['funcao'])){
             if($funcionarios != null){
                 print json_encode($funcionarios);
             }
+
+            break;
+        case 'busca_placa':
+            $placa = $_POST['placa'];
+
+            $resultado_placa = busca_detalhada_varios($conexao, "a.veiculo_placa = c.placa AND a.cliente_id = b.id AND  a.veiculo_placa LIKE '%{$placa}%' ORDER BY a.veiculo_placa" , "cliente_veiculo a , cadastro  b , veiculo c" , "a.* , b.* , c.*" );
+
+            print json_encode($resultado_placa);
 
             break;
         default:

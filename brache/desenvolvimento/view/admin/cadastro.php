@@ -310,7 +310,7 @@ include 'menu.php';
 	}
 
 	function salvar(){
-		$('#preloader').show();
+		
 		var corretor = $('#corretor').val();
 		var seguradora = $('#seguradora').val();
 		
@@ -475,6 +475,7 @@ include 'menu.php';
 
 		if(validacao_ok && controle_cep && controle_usuario && controle_cpf && controle_cnpj ){
 
+			$('#preloader').show();
 			var tipo_cadastro = $('#tipo_cadastro').val();
 			var nome = $('#nome').val();
 			var nascimento = $('#nascimento').val();
@@ -696,16 +697,6 @@ include 'menu.php';
 
 	}
 
-	function add_erro_input(input , msg){
-		input.addClass("is-invalid");
-		input.parent().next().html(msg);
-	}
-
-	function remove_erro_input(input){
-		input.removeClass("is-invalid");
-		input.parent().next().html("");
-	}
-
 	function limpa_cadastro(){
 		remove_erro_input($('#complemento'));
 		remove_erro_input($('#cep'));
@@ -826,26 +817,6 @@ include 'menu.php';
 			validacao_ok = true;
 			remove_erro_input($('#email'));
 		}
-	}
-
-	function monta_msg_erro(msg){
-		html = '<div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i><strong>  '+ msg +'</strong></div>';
-		$('#msg').html(html);
-		window.setInterval(function(){
-			remove_msg();
-		},10000);
-	}
-
-	function monta_msg_sucesso(msg){
-		html = '<div class="alert alert-success"><i class="fa fa-check"></i><strong>'+ msg +'</strong></div>';
-		$('#msg').html(html);
-		window.setInterval(function(){
-			remove_msg();
-		},10000);
-	}
-
-	function remove_msg(){
-		$('#msg').html('');
 	}
 
 	</script>

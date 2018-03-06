@@ -92,6 +92,8 @@ include "controle.php";
     </body>
     <script type="text/javascript" src="../static/js/popper.js"></script>
     <script type="text/javascript" src="../static/js/bootstrap.js"></script> 
+    <script src="../static/js/mascaraMoeda.js"></script> 
+    <script src="../static/js/auxilio.js"></script> 
     <script>
     $(document).ready(function () {
 		$("#sidebar").mCustomScrollbar({
