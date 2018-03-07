@@ -17,12 +17,13 @@ include 'menu.php';
         <script type="text/javascript" src="../static/js/jasny-bootstrap.1.js"></script>
 
     </head>
-    <body style="background-color: #F8F9FA;">
+    <body style="background-color: #F8F9FA;" id="body">
        <div class="container" style=" background-color: #fff">
             <h2>
                 <p class="text-center" style="color: #000"><i><b>Cadastro de O.S</b></i></p>
             </h2>
             <hr>
+            <div id="msg"></div>
             <div class="row">
                 <div class="col-4">
                     <h6  style="margin-top:1rem"><i>Empresa</i></h6>	
@@ -155,7 +156,7 @@ include 'menu.php';
                 </div>
             </div>
             <div class="row">
-                <div class="col-12"> 
+                <div class="col-12" id="col_imagem"> 
                 <h6  style="margin-top:1rem"><i>Imagem</i></h6>	
                     <div class="fileinput fileinput-new " style="margin-top: 1rem" data-provides="fileinput" style="margin-left: 1rem">
                         <div class="fileinput-preview thumbnail img-thumbnail" data-trigger="fileinput" style="width: 69.5rem;  height: 17.5rem"></div>
@@ -281,8 +282,7 @@ include 'menu.php';
         var sinistro = $('#sinistro').val();
         var tipo = $('#tipo').val();
         var valor = $('#valor').val();
-
-        
+       
         if(id_servicos.length == 0 ){
             var html =  '<div class="alert alert-danger">'+
                         '<i class="fa fa-exclamation-triangle"></i>  Por favor adicione um serviço'+
@@ -377,22 +377,142 @@ include 'menu.php';
             remove_erro_input($('#empresa'));
         }
 
+
+
         
         if(validacao_ok){
 
-           var data = new FormData();
-           data.append('arquivo',$('#arquivo').prop('files')[0]);
-           data.append('funcao',"cadastro");
-           data.append('cliente_id', id_cliente );
-           data.append('placa',placa);
-           data.append('tipo',tipo);
-           data.append('seguradora',seguradora);
-           data.append('corretor',corretor);
-           data.append('valor',valor);
+            var corretor = $('#corretor').val();
+            var seguradora = $('#seguradora').val();
 
+            // Obtém a data/hora atual
+            var data2 = new Date();
+ 
+            // Guarda cada pedaço em uma variável
+            var dia     = data2.getDate();           // 1-31
+            var mes     = data2.getMonth();          // 0-11 (zero=janeiro)
+            var ano4    = data2.getFullYear();       // 4 dígitos
+            // Formata a data e a hora (note o mês + 1)
+            var str_data = dia + '/' + (mes+1) + '/' + ano4;
 
-        }
+            var data = new FormData();
+            data.append('arquivo',$('#arquivo').prop('files')[0]);
+            data.append('funcao',"cadastro_os");
+            data.append('cliente_id', id_cliente );
+            data.append('placa',placa);
+            data.append('tipo',tipo);
+            data.append('seguradora',seguradora);
+            data.append('corretor',corretor);
+            data.append('valor',valor);
+            data.append('empresa_id',empresa);
+            data.append('sinistro',sinistro);
+            data.append('data_entrada',str_data);
+            $('#preloader').show();
+           var id_os = 0; 
+           $.ajax({
+            url: '../../controller/osCadastro.php',
+            method: "post",
+            data: data ,
+            dataType: 'script',
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(data){
+                    if(data){
+                        salva_servicos(data);
+                    }else{
+                        $('#preloader').hide();
+                        window.location.href='#body';
+						monta_msg_erro("Ocorreu um erro, por favor tente mais tarde!");
+                    }
+                }
+            });
+            
+         }
         
+    }
+
+    var ok = 0;
+    function salva_servicos(id_os){
+
+        var tamanho = id_servicos.length;
+
+        for (var i = 0 ; i < id_servicos.length ; i++ ){
+                
+                var qtd_pecas = $('#'+id_servicos[i]+'i' ).val();
+                var id_funcionario = $('#'+id_servicos[i]+'s' ).val();
+                var comp    = $('#'+id_servicos[i]+'c' );
+                var complemento = 0;
+
+                if(comp.is(':checked')){
+                    complemento = 1;
+                }
+
+                var qtd = 0;
+                if(!isNaN(qtd_pecas)){
+                    qtd = qtd_pecas;
+                }
+
+                var data = {
+                    os_id : id_os ,   
+                    qtd : qtd ,
+                    funcionario_id : id_funcionario,
+                    complemento : complemento,
+                    servico_id : id_servicos[i] , 
+                    funcao : "cadastro_servicos"
+                };  
+                 $.ajax({
+                    url: '../../controller/osCadastro.php',
+                    method: "post",
+                    data: data ,
+                    success: function(data){
+                        if(data){
+                            if(tamanho == i){
+                                $('#preloader').hide();
+                                $('#msg').html('');
+                                html = '<div class="alert alert-success"><i class="fa fa-check"></i><strong> Cadastro efetuado com sucesso</strong></div>';
+                                $('#msg').html(html);
+                                window.location.href='#body';
+                                window.setInterval(function(){
+                                    window.location.href='os.php?cod='+id_os;
+                                },3000);
+                            }
+                        }else{
+                            ('#preloader').hide();
+                            window.location.href='#body';
+                            monta_msg_erro("Ocorreu um erro, por favor tente mais tarde!");
+                        }
+                    }
+                });
+
+            }
+
+
+            $('#corretor').val('');
+            $('#seguradora').val('');
+            $('#empresa').val('');
+            $('#placa').val('');
+            $('#sinistro').val('');
+            $('#tipo').val('0');
+            $('#cliente').val('');
+            $('#email').val('');
+            $('#veiculo').val('');
+            $('#telefone').val('');
+            $('#celular').val('');
+            $('#valor').val('');
+
+            $('#col_telefone').show();
+            $('#col_celular').show();
+            $('#tbody').html('');
+
+            $('#col_imagem').load( "osCadastro.php #col_imagem" );
+
+            lista        = [];
+            funcionarios = [];
+            id_servicos  = [];
+            id_cliente   = 0;
+            qtd_servico  = 0 ;
+
     }
     
     
@@ -493,7 +613,7 @@ function busca_servicos (){
                     '<th scope="col">'+
                     '<button class="btn btn-dark col-12" onclick="remove_servico('+id+');"><i class="fa fa-trash"></i> Remover</buttona>'+
                     '</th>'+
-                '</tr>';
+                    '</tr>';
         }else if(confere){
             html += '<tr id="'+id+'tr">'+
                     '<th scope="col"><input type="checkbox" ></th>'+
@@ -514,9 +634,9 @@ function busca_servicos (){
                         '<div class="text-danger"></div>'+ 
                     '</td>'+
                     '<th scope="col">'+
-                        '<button class="btn btn-dark col-12" onclick="remove_servico('+id+');"><i class="fa fa-trash"></i> Remover</buttona>'+
+                    '<button class="btn btn-dark col-12" onclick="remove_servico('+id+');"><i class="fa fa-trash"></i> Remover</buttona>'+
                     '</th>'+
-                '</tr>';
+                    '</tr>';
         }
 
         $('#tbody').append(html);

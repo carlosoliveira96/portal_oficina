@@ -47,6 +47,131 @@ if(isset($_POST['funcao'])){
             print json_encode($resultado_placa);
 
             break;
+        case 'cadastro_os':
+
+            $corretor = $_POST['corretor'];
+
+            if (strlen($corretor) <= 0){
+                $corretor = 'NULL';
+            }else{
+                $corretor = "'".$corretor."'";
+            }
+
+            $seguradora = $_POST['seguradora'];
+
+            if (strlen($seguradora) <= 0){
+                $seguradora = 'NULL';
+            }else{
+                $seguradora = "'".$seguradora."'";
+            }
+
+            $valor = $_POST['valor'];
+
+            if (strlen($valor) <= 0){
+                $valor = 'NULL';
+            }else{
+                $valor = "'".$valor."'";
+            }
+
+            $sinistro = $_POST['sinistro'];
+
+            if (strlen($sinistro) <= 0){
+                $sinistro = 'NULL';
+            }else{
+                $sinistro = "'".$sinistro."'";
+            }
+
+            $cliente_id = $_POST['cliente_id'];
+            $cliente_id = "'".$cliente_id."'";
+
+            $placa = $_POST['placa'];
+            $placa = "'".$placa."'";
+
+            $data_entrada = $_POST['data_entrada'];
+            $data_entrada = "'".$data_entrada."'";
+
+            $empresa_id = $_POST['empresa_id'];
+            $empresa_id = "'".$empresa_id."'";
+
+            $tipo = $_POST['tipo'];
+            $tipo = "'".$tipo."'";
+
+            $destino = "";
+            // verifica se foi enviado um arquivo 
+            if (isset($_FILES['arquivo']['name']) && $_FILES["arquivo"]["error"] == 0) {
+                $arquivo_tmp = $_FILES['arquivo']['tmp_name'];
+                $nome = $_FILES['arquivo']['name'];
+                // Pega a extensao
+                $extensao = strrchr($nome, '.');
+                // Converte a extensao para mimusculo
+                $extensao = strtolower($extensao);
+                // Somente imagens, .jpg;.jpeg;.gif;.png
+                // Aqui eu enfilero as extesões permitidas e separo por ';'
+                // Isso server apenas para eu poder pesquisar dentro desta String
+                if (strstr('.jpg;.jpeg;.gif;.png', $extensao)) {
+                    // Cria um nome único para esta imagem
+                    // Evita que duplique as imagens no servidor.
+                    $novoNome = md5(microtime()) . $extensao;
+                    // Concatena a pasta com o nome
+                    $destino = "../imagens/". $novoNome;
+
+                    @move_uploaded_file($arquivo_tmp, $destino);
+
+                    
+                }
+            } 
+                
+            if (strlen($destino) <= 0){
+                $destino = 'NULL';
+            }else{
+                $destino = "'".$destino."'";
+            };
+
+            $campos = " tipo , data_entrada , sinistro , valor_total , url  , empresa_id , situacao, cliente_id , veiculo_placa , corretor_id , seguradora_id";
+            $valores= "{$tipo} , {$data_entrada} , {$sinistro} , {$valor} , {$destino} , {$empresa_id} , 1 , {$cliente_id} , {$placa} , {$corretor} , {$seguradora} ";
+            
+            $os = insere($conexao, $campos , $valores , "os"); 
+
+            if (strlen($os['id']) <= 0 ) {
+                print json_encode($os);
+            }
+
+            break;
+        
+        case 'cadastro_servicos':
+            
+            $os_id = $_POST['os_id'];
+            $os_id = "'".$os_id."'";
+
+            $servico_id = $_POST['servico_id'];
+            $servico_id = "'".$servico_id."'";
+
+            $funcionario_id = $_POST['funcionario_id'];
+            $funcionario_id = "'".$funcionario_id."'";
+
+            $qtd = $_POST['qtd'];
+
+            if ($qtd == 0){
+                $qtd = 'NULL';
+            }else{
+                $qtd = "'".$qtd."'";
+            }
+
+            $complemento = $_POST['complemento'];
+            $complemento = "'".$complemento."'";
+
+            $campos = " os_id , servico_id , funcionario_id , qtd , status  , situacao, complemento ";
+            $valores= "{$os_id} , {$servico_id} , {$funcionario_id} , {$qtd} , 'A iniciar' , 1 , {$complemento} ";
+            
+            $os_servico = insere($conexao, $campos , $valores , "os_servico"); 
+
+            if(strlen($os_servico) <= 0){
+                die();
+            }else{
+                print json_encode($os_servico);
+            }
+
+            break;
         default:
             break;
     }
