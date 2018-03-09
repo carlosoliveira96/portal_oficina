@@ -542,7 +542,7 @@ include 'menu.php';
 					if(data){
 						if(tipo_cadastro == "cliente"){
 
-							html = '<div class="alert alert-success"><i class="fa fa-check"></i><strong> Cadastro efetuado com secesso</strong></div>';
+							html = '<div class="alert alert-success"><i class="fa fa-check"></i><strong> Cadastro efetuado com sucesso</strong></div>';
 							$('#msg').html(html);
 							limpa_campos();
 							window.location.href='#body';

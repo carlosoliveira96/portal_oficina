@@ -179,6 +179,7 @@ include "controle.php";
     <script src="../static/js/mascaraMoeda.js"></script> 
     <script src="../static/js/auxilio.js"></script> 
     <script>
+    
     $(document).ready(function () {
 		$("#sidebar").mCustomScrollbar({
 			theme: "minimal"
