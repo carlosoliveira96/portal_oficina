@@ -58,7 +58,7 @@ include 'menu.php';
                             </thead>
                             <tbody data-link="row" class="rowlink">
                                 <tr>
-                                    <td scope="row" class="text-center"><b><a href="#" data-toggle="modal" data-target="#verificaCarro">ABC-1234</a></b></td>
+                                    <td scope="row" class="text-center"><b><a href="#" data-toggle="modal" data-target="#comunicacao">Funcionário</a></b></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -72,7 +72,7 @@ include 'menu.php';
                             </thead>
                             <tbody data-link="row" class="rowlink">
                                 <tr>
-                                    <td scope="row" class="text-center"><a href="#"><b>ABC-1234</b></a></td>
+                                    <td scope="row" class="text-center"><b><a href="#" data-toggle="modal" data-target="#verificaCarro">ABC-1234</a></b></td>
                                 </tr>
                             </tbody>
                         </table>

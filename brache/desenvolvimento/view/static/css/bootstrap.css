@@ -676,6 +676,13 @@ pre code {
   padding-left: 15px;
 }
 
+.col-n-11, .col-n-1 {
+  position: relative;
+  width: 100%;
+  min-height: 1px;
+  padding-left: 15px;
+}
+
 .col {
   -ms-flex-preferred-size: 0;
       flex-basis: 0;
@@ -692,6 +699,12 @@ pre code {
 }
 
 .col-1 {
+  -ms-flex: 0 0 8.333333%;
+      flex: 0 0 8.333333%;
+  max-width: 8.333333%;
+}
+
+.col-n-1 {
   -ms-flex: 0 0 8.333333%;
       flex: 0 0 8.333333%;
   max-width: 8.333333%;
@@ -755,6 +768,12 @@ pre code {
   -ms-flex: 0 0 91.666667%;
       flex: 0 0 91.666667%;
   max-width: 91.666667%;
+}
+
+.col-n-11 {
+  -ms-flex: 0 0 90%;
+      flex: 0 0 90%;
+  max-width: 90%;
 }
 
 .col-12 {
@@ -3672,7 +3691,7 @@ tbody.collapse.show {
 .card-body {
   -ms-flex: 1 1 auto;
       flex: 1 1 auto;
-  padding: 1.25rem;
+  padding: 0.8rem;
 }
 
 .card-title {
@@ -4722,6 +4741,12 @@ button.close {
 @media (min-width: 992px) {
   .modal-lg {
     max-width: 800px;
+  }
+}
+
+@media (min-width: 992px) {
+  .modal-elg {
+    max-width: 80%;
   }
 }
 
@@ -8246,4 +8271,12 @@ a.text-dark:focus, a.text-dark:hover {
   background-color: #fff;
   pointer-events: none;
 }
+
+/* Criado para dividir o comunicador da pagina OS */
+ 
+ .linha-vertical {
+  border-left: 1px solid;/* Adiciona borda esquerda na div como ser fosse uma linha.*/
+  box-sizing: border-box;
+  border-color: #23272b;
+ }
 /*# sourceMappingURL=bootstrap.css.map */

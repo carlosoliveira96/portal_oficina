@@ -11,6 +11,8 @@ include "controle.php";
         <link rel="shortcut icon" href="" type="image/x-icon">
         <!-- Arquivos CSS -->
         <link rel="stylesheet" href="../static/css/bootstrap.css">
+        <link href="../static/css/jasny-bootstrap.css" rel="stylesheet">
+        <link rel="stylesheet" href="../static/css/jquery-ui.css">
         <link rel="stylesheet" href="../static/css/menu-custom.css">
         <link rel="stylesheet" href="../static/css/customScrollbar.css">
         <!-- Arquivos JS -->
@@ -82,6 +84,10 @@ include "controle.php";
                     </button>
                 </div>
                 <div class="float-right">
+                    <button type="" id="sidebarCollapse" class="btn btn-dark navbar-btn" data-toggle="modal" data-target="#comunicacao">
+                        <i class="fas fa-comment-alt"></i>
+                        <span>Comunicador</span>
+                    </button>
             		<button type="" id="sidebarCollapse" class="btn btn-dark navbar-btn" onClick="logout()">
                         <i class="fas fa-sign-out-alt"></i>
                         <span>Sair</span>
@@ -89,9 +95,87 @@ include "controle.php";
               	</div>
             </div>
         </div>
+        <!-- Modal ver mais -->
+        <div class="modal fade" id="comunicacao" tabindex="-1" role="dialog" aria-labelledby="comunicacaoInterna" aria-hidden="true">
+            <div class="modal-dialog modal-elg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Comunicador</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="comunicador-body" style="overflow-y: auto">
+                        <div class="row">
+                            <div class="col-4">
+                                <label for="comunicador">
+                                    <h6 style="margin-top:1rem"><i>Funcionários</i></h6>
+                                </label>
+                                <table class="table table-secondary table-bordered table-striped table-hover" id="funcionariosComunicador">
+                                    <thead>
+                                    </thead>
+                                    <tbody data-link="row" id="tbody_servico">
+                                        <tr>
+                                            <th class="col-12" style="width: 90%; font-weight: normal">
+                                                funcionário
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th class="col-12" style="width: 90%; font-weight: normal">
+                                                funcionário
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th class="col-12" style="width: 90%; font-weight: normal">
+                                                funcionário
+                                            </th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="linha-vertical"></div>
+                            <div class="col-7">
+                                <label for="comunicador">
+                                    <h6 style="margin-top:1rem"><i>Mensagen para o funcionário</i></h6>
+                                </label>
+                                <table class="table" id="funcionariosComunicador" style="height: 30rem">
+                                    <thead>
+                                    </thead>
+                                    <tbody data-link="row" id="tbody_servico">
+                                        <tr style="border: 1px solid #343A40; ">
+                                            <th style="border: 1px solid #343A40;">
+                                                <div class="alert alert-warning  float-right" style="width: 90%; position: absolute; bottom: 7rem;" role="alert">
+                                                    <h6 class="text-right">Mensagem enviada</h6>
+                                                </div>
+                                                <div class="alert alert-success float-left" style="width: 90%; position: absolute; bottom: 12rem;" role="alert">
+                                                    <h6 class="text-left">Mensagem recebida</h6>
+                                                </div>
+                                            </th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-n-11">
+                                            <textarea placeholder="Mensagem..." id="texto_comunicador" rows="2" class="form-control"></textarea>
+                                        </div>
+                                        <div class="col-n-1" style="padding-left: 0">
+                                            <button class="btn btn-dark" id="enviar_comunicador" title="Enviar"> 
+                                                <i class="fa fa-share-square float-left" style="height: 3.5rem"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
-    <script type="text/javascript" src="../static/js/popper.js"></script>
-    <script type="text/javascript" src="../static/js/bootstrap.js"></script> 
+    <script src="../static/js/popper.js"></script>
+    <script src="../static/js/bootstrap.js"></script> 
+    <script src="../static/js/jquery-ui.js"></script>
     <script src="../static/js/mascaraMoeda.js"></script> 
     <script src="../static/js/auxilio.js"></script> 
     <script>
