@@ -114,7 +114,7 @@ include "controle.php";
                                 <table class="table table-secondary table-bordered table-striped table-hover" id="funcionariosComunicador">
                                     <thead>
                                     </thead>
-                                    <tbody data-link="row" id="tbody_servico">
+                                    <tbody data-link="row" id="lista_funcionarios">
                                         <tr>
                                             <th class="col-12" style="width: 90%; font-weight: normal">
                                                 funcionário
@@ -141,7 +141,7 @@ include "controle.php";
                                 <table class="table" id="funcionariosComunicador" style="height: 30rem">
                                     <thead>
                                     </thead>
-                                    <tbody data-link="row" id="tbody_servico">
+                                    <tbody data-link="row" id="lista_mensagens">
                                         <tr style="border: 1px solid #343A40; ">
                                             <th style="border: 1px solid #343A40;">
                                                 <div class="alert alert-warning  float-right" style="width: 90%; position: absolute; bottom: 7rem;" role="alert">

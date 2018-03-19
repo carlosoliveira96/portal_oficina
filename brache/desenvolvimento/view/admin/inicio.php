@@ -50,21 +50,7 @@ include 'menu.php';
             <div class="div-veiculos" id="container" style="width: 100%; overflow-x: auto; background-color: #fff;">
                 <div class="row" id="row" style="overflow: auto;  width: 141rem;">
                     <div class="" style="padding-right: 0; padding-left: 15px;">
-                        <table class="table table-dark table-bordered table-striped table-hover" id="pendente_autorizacao">
-                            <thead>
-                                <tr>
-                                    <th scope="col" class="text-center">Comunicador</th>
-                                </tr>
-                            </thead>
-                            <tbody data-link="row" class="rowlink">
-                                <tr>
-                                    <td scope="row" class="text-center"><b><a href="#" data-toggle="modal" data-target="#comunicacao">Funcionário</a></b></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="" style="padding-right: 0; padding-left: 0;">
-                        <table class="table table-dark table-bordered table-striped table-hover" id="desmontagem">
+                    <table class="table table-dark table-bordered table-striped table-hover" id="desmontagem">
                             <thead>
                                 <tr>
                                     <th scope="col" class="text-center">Registro</th>

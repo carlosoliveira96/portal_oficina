@@ -486,7 +486,6 @@ include 'menu.php';
 			($.isNumeric(cep.charAt(3))) && ($.isNumeric(cep.charAt(4))) &&
 			($.isNumeric(cep.charAt(6))) && ($.isNumeric(cep.charAt(7))) &&
 			($.isNumeric(cep.charAt(8))) ){
-            $('#preloader').show();
 			$.ajax({
 	                url : '../../controller/consultar_cep.php', /* URL que será chamada */ 
 	                type : 'POST', /* Tipo da requisição */ 
@@ -494,7 +493,6 @@ include 'menu.php';
 	                dataType: 'json', /* Tipo de transmissão */
 	                success: function(data){
 	                    if(data.sucesso == 1){
-	             
 	                        $('#endereco').val(data.rua);
 	                        $('#bairro').val(data.bairro);
 	                        $('#cidade').val(data.cidade);
@@ -512,7 +510,6 @@ include 'menu.php';
 	                    	controle_cep = false;
 	                    	add_erro_input($('#cep') , "CEP inválido ");
 	                    }
-                        $('#preloader').hide();
 	                }
 	        }); 
 		}else{
