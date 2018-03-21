@@ -393,7 +393,14 @@ include 'menu.php';
             var mes     = data2.getMonth();          // 0-11 (zero=janeiro)
             var ano4    = data2.getFullYear();       // 4 dígitos
             // Formata a data e a hora (note o mês + 1)
-            var str_data = dia + '/' + (mes+1) + '/' + ano4;
+            
+            var m1 = mes+1;
+
+            if (m1 < 10){
+                m1 = "0"+ m1;
+            }
+
+            var str_data = dia + '/' + m1 + '/' + ano4;
 
             var data = new FormData();
             data.append('arquivo',$('#arquivo').prop('files')[0]);
@@ -406,7 +413,7 @@ include 'menu.php';
             data.append('valor',valor);
             data.append('empresa_id',empresa);
             data.append('sinistro',sinistro);
-            data.append('data_entrada',str_data);
+            data.append('data_registro',str_data);
             $('#preloader').show();
            var id_os = 0; 
            $.ajax({

@@ -87,8 +87,8 @@ if(isset($_POST['funcao'])){
             $placa = $_POST['placa'];
             $placa = "'".$placa."'";
 
-            $data_entrada = $_POST['data_entrada'];
-            $data_entrada = "'".$data_entrada."'";
+            $data_registro = $_POST['data_registro'];
+            $data_registro = "'".$data_registro."'";
 
             $empresa_id = $_POST['empresa_id'];
             $empresa_id = "'".$empresa_id."'";
@@ -127,8 +127,8 @@ if(isset($_POST['funcao'])){
                 $destino = "'".$destino."'";
             };
 
-            $campos = " tipo , data_entrada , sinistro , valor_total , url  , empresa_id , situacao, cliente_id , veiculo_placa , corretor_id , seguradora_id";
-            $valores= "{$tipo} , {$data_entrada} , {$sinistro} , {$valor} , {$destino} , {$empresa_id} , 1 , {$cliente_id} , {$placa} , {$corretor} , {$seguradora} ";
+            $campos = " tipo , data_registro , sinistro , valor_total , url  , empresa_id , situacao, cliente_id , veiculo_placa , corretor_id , seguradora_id";
+            $valores= "{$tipo} , {$data_registro} , {$sinistro} , {$valor} , {$destino} , {$empresa_id} , 1 , {$cliente_id} , {$placa} , {$corretor} , {$seguradora} ";
             
             $os = insere($conexao, $campos , $valores , "os"); 
 
