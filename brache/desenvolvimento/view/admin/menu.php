@@ -21,7 +21,7 @@ include "controle.php";
         <script src="../static/js/fontawesome-all.js"></script>
     </head>
     <body>
-    	<div class="overlay"></div>
+        <div class="overlay"></div>
         <div id="preloader" class="carregando" style="display: none">
             <img src="../static/gif/loading.gif" style="position: fixed; margin-top: 25%; margin-left: 45%;">
         </div>
@@ -35,7 +35,7 @@ include "controle.php";
                     <p>Usuário logado</p>
                     <p>Cargo</p>
                 </div>
-				<hr style="border-color: #5E636B">
+                <hr style="border-color: #5E636B">
                 <ul class="list-unstyled components">
                     <li class="active">
                         <a href="inicio.php">Início</a>
@@ -77,7 +77,7 @@ include "controle.php";
 
             <!-- Pagina do navbar -->
             <div class="navbar navbar-dark">
-            	<div class="float-left">
+                <div class="float-left">
                     <button type="button" id="sidebarCollapse" class="btn btn-dark navbar-btn">
                         <i class="fas fa-bars"></i>
                         <span>Menu</span>
@@ -88,14 +88,14 @@ include "controle.php";
                         <i class="fas fa-comment-alt"></i>
                         <span>Comunicador</span>
                     </button>
-            		<button type="" id="sidebarCollapse" class="btn btn-dark navbar-btn" onClick="logout()">
+                    <button type="" id="sidebarCollapse" class="btn btn-dark navbar-btn" onClick="logout()">
                         <i class="fas fa-sign-out-alt"></i>
                         <span>Sair</span>
                     </button>
-              	</div>
+                </div>
             </div>
         </div>
-        <!-- Modal ver mais -->
+        <!-- Modal comunicador -->
         <div class="modal fade" id="comunicacao" tabindex="-1" role="dialog" aria-labelledby="comunicacaoInterna" aria-hidden="true">
             <div class="modal-dialog modal-elg" role="document">
                 <div class="modal-content">
@@ -138,33 +138,21 @@ include "controle.php";
                                 <label for="comunicador">
                                     <h6 style="margin-top:1rem"><i>Mensagen para o funcionário</i></h6>
                                 </label>
-                                <table class="table" id="funcionariosComunicador" style="height: 30rem">
-                                    <thead>
-                                    </thead>
-                                    <tbody data-link="row" id="lista_mensagens">
-                                        <tr style="border: 1px solid #343A40; ">
-                                            <th style="border: 1px solid #343A40;">
-                                                <div class="alert alert-warning  float-right" style="width: 90%; position: absolute; bottom: 7rem;" role="alert">
-                                                    <h6 class="text-right">Mensagem enviada</h6>
-                                                </div>
-                                                <div class="alert alert-success float-left" style="width: 90%; position: absolute; bottom: 12rem;" role="alert">
-                                                    <h6 class="text-left">Mensagem recebida</h6>
-                                                </div>
-                                            </th>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <div id="chat-box"></div>
+                                <br>
                                 <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-n-11">
-                                            <textarea placeholder="Mensagem..." id="texto_comunicador" rows="2" class="form-control"></textarea>
+                                    <form name="frmChat" id="frmChat">
+                                        <div class="row">
+                                            <div class="col-n-11">
+                                                <textarea placeholder="Mensagem..." id="chat-message" rows="2" class="form-control"></textarea>
+                                            </div>
+                                            <div class="col-n-1" style="padding-left: 0.3rem">
+                                                <button class="btn btn-dark" id="btnSend" name="send-chat-message" title="Enviar"> 
+                                                    <i class="fa fa-share-square float-left" style="height: 3.5rem"></i>
+                                                </button>
+                                            </div>
                                         </div>
-                                        <div class="col-n-1" style="padding-left: 0">
-                                            <button class="btn btn-dark" id="enviar_comunicador" title="Enviar"> 
-                                                <i class="fa fa-share-square float-left" style="height: 3.5rem"></i>
-                                            </button>
-                                        </div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>  
@@ -179,32 +167,65 @@ include "controle.php";
     <script src="../static/js/mascaraMoeda.js"></script> 
     <script src="../static/js/auxilio.js"></script> 
     <script>
+    //Mensagem
+    function showMessage(messageHTML) {
+        $('#chat-box').append(messageHTML);
+    }
+
+    $(document).ready(function(){
+        var websocket = new WebSocket("ws://localhost:8090/websockets/php-socket.php"); 
+        websocket.onopen = function(event) { 
+            showMessage("<div class='chat-connection-ack'>Connection is established!</div>");       
+        }
+        websocket.onmessage = function(event) {
+            var Data = JSON.parse(event.data);
+            showMessage("<div class='"+Data.message_type+"'>teste</div>");
+            showMessage("<div class='"+Data.message_type+"'>"+Data.message+"</div>");
+            $('#chat-message').val('');
+        };
+        
+        websocket.onerror = function(event){
+            showMessage("<div class='error'>Problem due to some Error</div>");
+        };
+        websocket.onclose = function(event){
+            showMessage("<div class='chat-connection-ack'>Connection Closed</div>");
+        }; 
+        
+        $('#frmChat').on("submit",function(event){
+            event.preventDefault(); 
+            var messageJSON = {
+                chat_message: $('#chat-message').val()
+            };
+            websocket.send(JSON.stringify(messageJSON));
+        });
+    });
+    //Fim mensagem
     
     $(document).ready(function () {
-		$("#sidebar").mCustomScrollbar({
-			theme: "minimal"
-	    });
+        $("#sidebar").mCustomScrollbar({
+            theme: "minimal"
+        });
 
-	    // Abrir o sidebar
-	    $('#sidebarCollapse').on('click', function () {
-	        // open sidebar
-	        $('#sidebar').addClass('active');
-	        // fade in the overlay
-	        $('.overlay').fadeIn();
-	        $('.collapse.in').toggleClass('in');
-	        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
-	    });
+        // Abrir o sidebar
+        $('#sidebarCollapse').on('click', function () {
+            // open sidebar
+            $('#sidebar').addClass('active');
+            // fade in the overlay
+            $('.overlay').fadeIn();
+            $('.collapse.in').toggleClass('in');
+            $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+        });
 
-	    // Click para abrir e fechar
-	    $('#dismiss, .overlay').on('click', function () {
-	      // hide the sidebar
-	      $('#sidebar').removeClass('active');
-	      // fade out the overlay
-	      $('.overlay').fadeOut();
-	    });
-	});
+        // Click para abrir e fechar
+        $('#dismiss, .overlay').on('click', function () {
+          // hide the sidebar
+          $('#sidebar').removeClass('active');
+          // fade out the overlay
+          $('.overlay').fadeOut();
+        });
+    });
 
-    function logout(){	
+    function logout(){  
         var usuario = null;
         var senha = null;
         var data = {usuario: usuario , senha:senha , funcao: 'logout'};
@@ -220,22 +241,22 @@ include "controle.php";
         })
     }
 
-    atualiza_tamanho();
+    atualiza_tamanho1();
 
-    function atualiza_tamanho(){
+    function atualiza_tamanho1(){
         var tamanho_container = $(window).height();
-        var tamanho_row = $(window).height();
-        var tamanho_body_modal = $(window).height();
+        var tamanho_div_modal = $(window).height();
+        var tamanho_div_msg = $(window).height();
         tamanho_container -= 66;
-        tamanho_row -= 255;
-        tamanho_body_modal -= 200;
+        tamanho_div_modal -= 130;
+        tamanho_div_msg -= 350;
         $('#container').css("height", tamanho_container);
-        $('#row').css("height", tamanho_row);
-        $('#verificaCarro-body').css("height", tamanho_body_modal);
+        $('#comunicador-body').css("height", tamanho_div_modal);
+        $('#chat-box').css("height", tamanho_div_msg);
     }
 
     window.addEventListener('resize', function(){
-        atualiza_tamanho();
+        atualiza_tamanho1();
     });
 
     </script>
