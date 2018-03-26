@@ -16,10 +16,10 @@ include 'menu.php';
         <script type="text/javascript" src="../static/js/jasny-bootstrap.1.js"></script>
 
     </head>
-    <body style="background-color: #F8F9FA;" onload="busca_funcionario_select(); busca_seguradoras(); busca_corretores();">
+    <body style="background-color: #F8F9FA;" onload="busca_os(); busca_funcionario_select();">
         <div class="container" style=" background-color: #fff">
             <h2>
-                <p class="text-center" style="color: #000"><i><b>Ordem de Serviço Nº 99999 </b></i></p>
+                <p class="text-center" style="color: #000"><i><b>Processo Eletrônico </b></i></p>
             </h2>
             <hr>
             <div class="row">
@@ -36,7 +36,7 @@ include 'menu.php';
                 <div class="card">
                     <button class="btn btn-secondary card-body" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                         <h5 class="mb-0 text-left font-weight-normal">    
-                            Dados pessoais
+                            Cliente
                         </h5>
                     </button>
                     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
@@ -176,7 +176,7 @@ include 'menu.php';
                 <div class="card">
                     <button class="btn btn-secondary card-body" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                         <h5 class="mb-0 text-left font-weight-normal">    
-                            Dados do veículo
+                            Veículo
                         </h5>
                     </button>
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
@@ -271,7 +271,7 @@ include 'menu.php';
                 <div class="card">
                     <button class="btn btn-secondary card-body" style="width: 100%" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                         <h5 class="mb-0 text-left font-weight-normal">    
-                            Dados do serviço
+                           Tramitação do processo
                         </h5>
                     </button>
                     <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
@@ -415,32 +415,30 @@ include 'menu.php';
                 <div class="card">
                     <button class="btn btn-secondary card-body" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
                         <h5 class="mb-0 text-left font-weight-normal">    
-                            Cartas padronizadas
+                            Expedientes
                         </h5>
                     </button>
                     <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label for="comunicador">
-                                        <h6 style="margin-top:1rem"><i>Modelos de cartas</i></h6>
-                                    </label>
-                                    <select class="form-control" id="cartas">
-                                        <option name="">Selecione...</option>
-                                        <option name="bradesco">Bradesco Seguros</option>
-                                        <option name="caixa">Caixa Seguradora</option>
-                                        <option name="itau">Itau Seguros</option>
-                                    </select>
+                        <div class="card-body">
+                            <label for="comunicador">
+                                <h6 style="margin-top:1rem"><i>Modelo da carta padronizada</i></h6>
+                            </label>
+                            <div class="row">
+                                <div class="col-12">
+                                    <textarea id="carta" rows="6" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-12">
+                                    <a href="emitirRelatorio.php" class="btn btn-dark float-right" id="btnImprimir"> 
+                                        <i class="fa fa-print float-left" style="margin-top: 0.1rem; margin-right: 0.3rem"></i> 
+                                        Imprimir
+                                    </a>
+
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <textarea id="carta" rows="6" class="form-control"></textarea>
-                            </div>
-                        </div>
-                    </div>
                     </div>
                 </div>
                 <div class="card">
@@ -455,43 +453,89 @@ include 'menu.php';
                         <div id="msg">
                         </div>
                         <div class="row">
-                            <div class="col-3">
-                                <div class="form-group">
-                                    <label for="comunicador">
-                                        <h6 style="margin-top:1rem"><i>Funcionário</i></h6>
-                                    </label>
-                                    <select class="form-control" id="funcionario">
-                                        
-                                    </select>
+                            <div class="col-6">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <table class="table" id="funcionariosComunicador" style="height: 15rem">
+                                            <thead>
+                                            </thead>
+                                            <tbody data-link="row" id="lista_mensagens">
+                                                <tr style="border: 1px solid #343A40; ">
+                                                    <th style="border: 1px solid #343A40;">
+                                                        <div class="alert alert-warning  float-right" style="width: 90%; position: absolute; bottom: 0.5rem;" role="alert">
+                                                            <h6 class="text-right">Mensagem enviada <br>
+                                                            <font size="1px" class="text-left">19/03/2018 - 10:00</font>
+                                                            </h6>
+                                                        </div>
+                                                        <div class="alert alert-success float-left" style="width: 90%; position: absolute; bottom: 5rem;" role="alert">
+                                                            <h6 class="text-left">Mensagem recebida <br>
+                                                            <font size="1px" class="text-left">19/03/2018 - 10:00</font><br>
+                                                            <font size="1px" class="text-left"><b>Funcionário</b></font>
+                                                            </h6>
+                                                        </div>
+                                                    </th>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-5">
+                                        <div class="form-group">
+                                            <label for="comunicador">
+                                                <h6 style="margin-top:1rem"><i>Funcionário</i></h6>
+                                            </label>
+                                            <select multiple class="form-control" id="comunicadorFuncionario">
+                                            </select>
+                                        </div>
+                                        <div class="text-danger"></div>
+                                    </div>
+                                    <div class="col-7">
+                                        <div class="form-group">
+                                            <label for="comunicador">
+                                                <h6 style="margin-top:1rem"><i>Mensagem</i></h6>
+                                            </label>
+                                            <textarea class="form-control" id="comunicadorMensagem" rows="2"></textarea>
+                                        </div>
+                                        <div class="text-danger"></div>
+                                        <button class="btn btn-dark float-right" id="enviar_comunicador" onclick="envia_comunicador(this.id)"> 
+                                            <i class="fa fa-share-square float-left" style="margin-top: 0.1rem; margin-right: 0.3rem"></i> 
+                                                Enviar
+                                        </button>
+                                    </div>
                                 </div>
-                                <div class="text-danger"></div>
-                            </div>
-                            <div class="col-3">
-                                <div class="form-group">
-                                    <label for="comunicador">
-                                        <h6 style="margin-top:1rem"><i>Mensagem</i></h6>
-                                    </label>
-                                    <textarea class="form-control" id="comunicador" rows="2"></textarea>
-                                </div>
-                                <div class="text-danger"></div>
-                                <button class="btn btn-dark float-right" id="enviar_comunicador" onclick="envia_comunicador(this.id)"> 
-                                    <i class="fa fa-share-square float-left" style="margin-top: 0.1rem; margin-right: 0.3rem"></i> 
-                                        Enviar
-                                </button>
                             </div>
                             <div class="linha-vertical"></div>
                             <div class="col-5">
-                                <div class="form-group">
-                                    <label for="comunicador">
-                                        <h6 style="margin-top:1rem"><i>Registro interno</i></h6>
-                                    </label>
-                                    <textarea class="form-control" id="registro_interno" rows="2"></textarea>
+                                <div class="col-12">
+                                    <table class="table" id="funcionariosComunicador" style="height: 15rem">
+                                        <thead>
+                                        </thead>
+                                        <tbody data-link="row" id="lista_mensagens">
+                                            <tr style="border: 1px solid #343A40; ">
+                                                <th style="border: 1px solid #343A40;">
+                                                    <div class="alert alert-light float-left" style="width: 88%; position: absolute; bottom: 0rem;" role="alert">
+                                                        <h6 class="text-left">Mensagem recebida <br>
+                                                        <font size="1px" class="text-left">19/03/2018 - 10:00</font> <br>
+                                                        <font size="1px" class="text-left"><b>Funcionário</b></font>
+                                                        </h6>
+                                                    </div>
+                                                </th>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <div class="text-danger"></div>
-                                <button class="btn btn-dark float-right" id="enviar_registro" onclick="envia_comunicador(this.id)"> 
-                                    <i class="fa fa-share-square float-left" style="margin-top: 0.1rem; margin-right: 0.3rem"></i> 
-                                        Enviar
-                                </button>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="comunicador">
+                                            <h6 style="margin-top:1rem"><i>Registro interno</i></h6>
+                                        </label>
+                                        <textarea class="form-control" id="registro_interno" rows="2"></textarea>
+                                    </div>
+                                    <div class="text-danger"></div>
+                                    <button class="btn btn-dark float-right" id="enviar_registro" onclick="envia_comunicador(this.id)"> 
+                                        <i class="fa fa-share-square float-left" style="margin-top: 0.1rem; margin-right: 0.3rem"></i> 
+                                            Enviar
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -531,237 +575,213 @@ include 'menu.php';
         </div> 
     </body>
     <script>
-        
-        function envia(){ 
-            $("#dados_servico").data("changed",true);
-            if ($("#dados_servico").data("changed")) {
-                $('#btnEnviar').removeAttr('disabled');
-            }else {
-                $('#btnEnviar').attr('disabled', 'true');
-            }
+    function envia(){ 
+        $("#dados_servico").data("changed",true);
+        if ($("#dados_servico").data("changed")) {
+            $('#btnEnviar').removeAttr('disabled');
+        }else {
+            $('#btnEnviar').attr('disabled', 'true');
         }
-        
-        //Função datepicker
-        $( function() {
-            $('#vistoria_realizada').datepicker();
-            $('#autorizacao').datepicker();
-            $('#entrada').datepicker();
-            $('#saida').datepicker();
-            $('#icomplemento').datepicker();
-            $('#agendamento').datepicker();
-            $('#previsao_entrega').datepicker();
-            $('#entregue').datepicker();
-            $('#dtRetorno').datepicker();
-        });
+    }
+    
+    //Função datepicker
+    $( function() {
+        $('#vistoria_realizada').datepicker();
+        $('#autorizacao').datepicker();
+        $('#entrada').datepicker();
+        $('#saida').datepicker();
+        $('#icomplemento').datepicker();
+        $('#agendamento').datepicker();
+        $('#previsao_entrega').datepicker();
+        $('#entregue').datepicker();
+        $('#dtRetorno').datepicker();
+    });
 
+    atualiza_tamanho();
+
+    function atualiza_tamanho(){
+        var tamanho_container = $(window).height();
+        tamanho_container -= 66;
+        $('.container').css("height", tamanho_container);
+    }
+
+    window.addEventListener('resize', function(){
         atualiza_tamanho();
+    });
 
-        function atualiza_tamanho(){
-            var tamanho_container = $(window).height();
-            tamanho_container -= 66;
-            $('.container').css("height", tamanho_container);
+    //Função para desabilitar campos quando PT
+    function verifica_pt(){
+        var check_pt = document.getElementById("pt");
+        if (check_pt.checked){
+            $('#autorizacao').val("");
+            $('#entrada').val("");
+            $('#saida').val("");
+            $('#icomplemento').val("");
+            $('#agendamento').val("");
+            $('#previsao_entrega').val("");
+            $('#entregue').val("");
+            $('#particular').val("");
+
+            $('#autorizacao').attr('disabled', 'true');
+            $('#entrada').attr('disabled', 'true');
+            $('#saida').attr('disabled', 'true');
+            $('#icomplemento').attr('disabled', 'true');
+            $('#agendamento').attr('disabled', 'true');
+            $('#previsao_entrega').attr('disabled', 'true');
+            $('#entregue').attr('disabled', 'true');
+            $('#particular').attr('disabled', 'true');
+        } else {
+            $('#autorizacao').removeAttr('disabled');
+            $('#entrada').removeAttr('disabled');
+            $('#saida').removeAttr('disabled');
+            $('#icomplemento').removeAttr('disabled');
+            $('#agendamento').removeAttr('disabled');
+            $('#previsao_entrega').removeAttr('disabled');
+            $('#entregue').removeAttr('disabled');
+            $('#particular').removeAttr('disabled');
         }
+    }
 
-        window.addEventListener('resize', function(){
-            atualiza_tamanho();
-        });
-
-        //Função para desabilitar campos quando PT
-        function verifica_pt(){
-            var check_pt = document.getElementById("pt");
-            if (check_pt.checked){
-                $('#autorizacao').val("");
-                $('#entrada').val("");
-                $('#saida').val("");
-                $('#icomplemento').val("");
-                $('#agendamento').val("");
-                $('#previsao_entrega').val("");
-                $('#entregue').val("");
-                $('#particular').val("");
-
-                $('#autorizacao').attr('disabled', 'true');
-                $('#entrada').attr('disabled', 'true');
-                $('#saida').attr('disabled', 'true');
-                $('#icomplemento').attr('disabled', 'true');
-                $('#agendamento').attr('disabled', 'true');
-                $('#previsao_entrega').attr('disabled', 'true');
-                $('#entregue').attr('disabled', 'true');
-                $('#particular').attr('disabled', 'true');
-            } else {
-                $('#autorizacao').removeAttr('disabled');
-                $('#entrada').removeAttr('disabled');
-                $('#saida').removeAttr('disabled');
-                $('#icomplemento').removeAttr('disabled');
-                $('#agendamento').removeAttr('disabled');
-                $('#previsao_entrega').removeAttr('disabled');
-                $('#entregue').removeAttr('disabled');
-                $('#particular').removeAttr('disabled');
-            }
+    //função que habilida campo de retorno
+    function habilita_retorno(){
+        var check_retorno = document.getElementById("retorno");
+        if (check_retorno.checked){
+            $('#dtRetorno').removeAttr('disabled');
+        } else {
+            $('#dtRetorno').attr('disabled', 'true');
         }
+    }
 
-        //função que habilida campo de retorno
-        function habilita_retorno(){
-            var check_retorno = document.getElementById("retorno");
-            if (check_retorno.checked){
-                $('#dtRetorno').removeAttr('disabled');
-            } else {
-                $('#dtRetorno').attr('disabled', 'true');
-            }
-        }
-
-        //Função para buscar serviços da pendencia interna
-        function busca_funcionario (){
-            $('#preloader').show();
-            $('#lista_servicos').val("");
-            var pesquisa = $('#pesquisa_funcionario').val();
-            var data = {funcao : "buscar_funcionario" , pesquisa : pesquisa };
-            var html= "";
-            $.ajax({
-                url: '../../controller/os.php',
-                method: "post",
-                data: data ,
-                success: function(data){
-                    if(data){
-                        var resultado = $.parseJSON(data);
-                        if(resultado.length > 0){
-                            $('#adicionaFuncionario').modal('show');
-                            for(var i = 0; i < resultado.length ; i++){
-                                html += '<div class="input-group" style="margin-top:1rem">'+
-                                '<input type="text" class="form-control" disabled placeholder="'+resultado[i].nome+'" aria-label="Recipients username" aria-describedby="basic-addon2">'+
-                                '<div class="input-group-append">'+
-                                '<button class="btn btn-dark" id="'+resultado[i].nome+'" onclick="adiciona_funcionario('+resultado[i].id+', this); pendencia_interna();" type="button">Adicionar</button>'+
-                                '</div>'+
-                                '</div>';
-                            }
-                            $('#lista_servicos').html(html);
-                            $('#preloader').hide();
-                        }else{
-        
-                        }
-                    }else{
-                        $('#preloader').hide();
-                    }
-                }
-            });
-        }
-
-        //Função para adicionar funcionario a tabela
-        var id_funcionarios = [];
-        function adiciona_funcionario(id, nome){
-            var html = "";
-            var confere = true;
-            for(var i = 0 ; i < id_funcionarios.length ; i++){
-                if( id == id_funcionarios[i] ){
-                    confere = false;
-                }
-            }
-            id_funcionarios.push(id);
-            html += '<tr id="'+id+'tr">'+
-                    '<th style="display:none" id="'+id+'">'+id+'</th>'+
-                    '<th scope="col">'+nome.id+'</th>'+
-                    '<th scope="col">'+
-                    '<input id="servico_pendencia" class="form-control">'+       
-                    '</th>'+
-                    '<th scope="col">'+
-                    '<button class="btn btn-dark col-12" onclick="remove_servico('+id+');"><i class="fa fa-trash"></i> Remover</buttona>'+
-                    '</th>'+
-                '</tr>';
-            $('#tbody').append(html);
-        }
-
-        //Função para verificar acionamento de pendencias internas para desabilitar botão
-        function pendencia_interna(){
-            if (id_funcionarios.length > 0){
-                $('#btnEnviar').removeAttr('disabled');
-            }else {
-                $('#btnEnviar').attr('disabled', 'true');
-            }
-        }
-
-        //Função para remover serviço da tabela
-        function remove_servico(id ){
-            var nova_lista = id_funcionarios;
-            id_funcionario = [];
-            for(var i = 0; i < nova_lista.length ; i++ ){
-                if ( nova_lista[i] != id ){
-                    id_funcionario.push(nova_lista[i]);
-                }
-            }
-            $('#'+id+'tr').remove();
-        }
-
-        //Função para buscar funcionário para adicionar no select Comunicações
-        function busca_funcionario_select(){
-            $('#preloader').show();
-            var data = {funcao : "buscar_funcionario"};
-            $.ajax({
-                url: '../../controller/os.php',
-                method: "post",
-                data: data ,
-                success: function(data){
-                    $('#preloader').hide();
-                    if(data){
-                        var html = '';
-                        var resultado = $.parseJSON(data);
-                        html += '<option value="selecione">Selecione...</option>';
-                        for(var i = 0; i < resultado.length ; i++  ){
-                            html += '<option value="'+resultado[i].id+'">'+resultado[i].nome+'</option>'; 
-                        }   
-                        $('#funcionario').append(html);
-                    }
-                }
-            });
-        }
-
-        //Função para buscar corretor e seguradora
-        function busca_corretores(){
-            var data = {funcao: 'busca_corretores'};
-            var html ;
-            $.ajax({
-                url: '../../controller/cadastro.php',
-                method: "post",
-                data: data ,
-                success: function(data){
-                    if(data){
-                        var retorno = $.parseJSON(data);
-                        html = "";
-                        html += '<option value="">Selecione...</option>';
-                        for(var i=0; i < retorno.length ; i++ ){
-                            if(retorno[i].nome != null){
-                                html += '<option value="'+retorno[i].id+'">'+retorno[i].nome+ '</option>';
-                            }else{
-                                html += '<option value="'+retorno[i].id+'">'+retorno[i].nome_fantasia+ '</option>';
-                            }
-                        }
-
-                        $('#corretor').html(html);
-                    }
-                }
-            });
-        }
-
-    function busca_seguradoras(){
-        var data = {funcao: 'busca_seguradoras'};
-        var html ;
+    //Função para buscar funcionários da pendencia interna
+    function busca_funcionario (){
+        $('#preloader').show();
+        $('#lista_servicos').val("");
+        var pesquisa = $('#pesquisa_funcionario').val();
+        var data = {funcao : "buscar_funcionario" , pesquisa : pesquisa };
+        var html= "";
         $.ajax({
-            url: '../../controller/cadastro.php',
+            url: '../../controller/os.php',
             method: "post",
             data: data ,
             success: function(data){
                 if(data){
-                    var retorno = $.parseJSON(data);
-
-                    html = "";
-                    html += '<option value="">Selecione...</option>';
-                    for(var i=0; i < retorno.length ; i++ ){
-                        if(retorno[i].nome != null){
-                            html += '<option value="'+retorno[i].id+'">'+retorno[i].nome+ '</option>';
-                        }else{
-                            html += '<option value="'+retorno[i].id+'">'+retorno[i].nome_fantasia+ '</option>';
+                    var resultado = $.parseJSON(data);
+                    if(resultado.length > 0){
+                        $('#adicionaFuncionario').modal('show');
+                        for(var i = 0; i < resultado.length ; i++){
+                            html += '<div class="input-group" style="margin-top:1rem">'+
+                            '<input type="text" class="form-control" disabled placeholder="'+resultado[i].nome+'" aria-label="Recipients username" aria-describedby="basic-addon2">'+
+                            '<div class="input-group-append">'+
+                            '<button class="btn btn-dark" id="'+resultado[i].nome+'" onclick="adiciona_funcionario('+resultado[i].id+', this); pendencia_interna();" type="button">Adicionar</button>'+
+                            '</div>'+
+                            '</div>';
                         }
+                        $('#lista_servicos').html(html);
+                        $('#preloader').hide();
+                    }else{
+    
                     }
+                }else{
+                    $('#preloader').hide();
+                }
+            }
+        });
+    }
 
-                    $('#seguradora').html(html);
+    //Função para adicionar funcionario a tabela
+    var id_funcionarios = [];
+    function adiciona_funcionario(id, nome){
+        var html = "";
+        var confere = true;
+        for(var i = 0 ; i < id_funcionarios.length ; i++){
+            if( id == id_funcionarios[i] ){
+                confere = false;
+            }
+        }
+        id_funcionarios.push(id);
+        html += '<tr id="'+id+'tr">'+
+                '<th style="display:none" id="'+id+'">'+id+'</th>'+
+                '<th scope="col">'+nome.id+'</th>'+
+                '<th scope="col">'+
+                '<input id="servico_pendencia" class="form-control">'+       
+                '</th>'+
+                '<th scope="col">'+
+                '<button class="btn btn-dark col-12" onclick="remove_funcionario('+id+');"><i class="fa fa-trash"></i> Remover</buttona>'+
+                '</th>'+
+            '</tr>';
+        $('#tbody').append(html);
+    }
+
+    //Função para verificar acionamento de pendencias internas para desabilitar botão
+    function pendencia_interna(){
+        if (id_funcionarios.length > 0){
+            $('#btnEnviar').removeAttr('disabled');
+        }else {
+            $('#btnEnviar').attr('disabled', 'true');
+        }
+    }
+
+    //Função para remover funcionário da tabela
+    function remove_funcionario(id){
+        var nova_lista = id_funcionarios;
+        id_funcionario = [];
+        for(var i = 0; i < nova_lista.length ; i++ ){
+            if ( nova_lista[i] != id ){
+                id_funcionario.push(nova_lista[i]);
+            }
+        }
+        $('#'+id+'tr').remove();
+    }
+
+    //Função para buscar funcionário para adicionar no select Comunicações
+    function busca_funcionario_select(){
+        $('#preloader').show();
+        var data = {funcao : "buscar_funcionario"};
+        $.ajax({
+            url: '../../controller/os.php',
+            method: "post",
+            data: data ,
+            success: function(data){
+                $('#preloader').hide();
+                if(data){
+                    var html = '';
+                    var resultado = $.parseJSON(data);
+                    for(var i = 0; i < resultado.length ; i++  ){
+                        html += '<option value="'+resultado[i].id+'">'+resultado[i].nome+'</option>'; 
+                    }   
+                    $('#comunicadorFuncionario').append(html);
+                }
+            }
+        });
+    }
+
+    //Função para buscar dados da OS
+    function busca_os(){
+        $('#preloader').show();
+        var data = {funcao : "buscar_os"};
+        $.ajax({
+            url: '../../controller/os.php',
+            method: "post",
+            data: data ,
+            success: function(data){
+                $('#preloader').hide();
+                if(data){
+                    var resultado = $.parseJSON(data);
+                    $('#nome').attr('value', resultado.nome);
+                    $('#nascimento').attr('value', resultado.data_nascimento);
+                    $('#cpf').attr('value', resultado.cpf);
+                    $('#rg').attr('value', resultado.rg);
+                    $('#orgao_emissor').attr('value', resultado.orgao_emissor);
+                    $('#email').attr('value', resultado.email);
+                    $('#telefone').attr('value', resultado.telefone);
+                    $('#celular').attr('value', resultado.celular);
+                    $('#cep').attr('value', resultado.cep);
+                    $('#endereco').attr('value', resultado.endereco);
+                    $('#numero').attr('value', resultado.numero);
+                    $('#complemento').attr('value', resultado.complemento);
+                    $('#bairro').attr('value', resultado.bairro);
+                    $('#cidade').attr('value', resultado.cidade);
+                    $('#uf').attr('value', resultado.uf);
                 }
             }
         });
@@ -770,18 +790,18 @@ include 'menu.php';
     //Função para enviar mensagem do comunicador
     function envia_comunicador(id){
         if (id == "enviar_comunicador"){
-            var funcionario = $('#funcionario').val();
-            var mensagem = $('#comunicador').val();
+            var funcionario = $('#comunicadorFuncionario').val();
+            var mensagem = $('#comunicadorMensagem').val();
             
             if ((funcionario == "selecione") || (mensagem == "")){
-                $('#comunicador').addClass("is-invalid");
-                add_erro_input($('#funcionario') , "Os campos Funcionário e Mensagem devem ser preenchidos");
+                $('#comunicadorMensagem').addClass("is-invalid");
+                add_erro_input($('#comunicadorFuncionario') , "Os campos Funcionário e Mensagem devem ser preenchidos");
             }else if (mensagem.length <= 5){
-                add_erro_input($('#comunicador') , "A mensagem deve possuir mais de 5 caracteres");
-                remove_erro_input($('#funcionario'));
+                add_erro_input($('#comunicadorMensagem') , "A mensagem deve possuir mais de 5 caracteres");
+                remove_erro_input($('#comunicadorFuncionario'));
             }else {
-                remove_erro_input($('#funcionario'));
-                remove_erro_input($('#comunicador'));
+                remove_erro_input($('#comunicadorFuncionario'));
+                remove_erro_input($('#comunicadorMensagem'));
                 //enviar
             }
         }else {

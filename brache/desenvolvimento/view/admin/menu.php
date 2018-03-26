@@ -95,7 +95,7 @@ include "controle.php";
               	</div>
             </div>
         </div>
-        <!-- Modal ver mais -->
+        <!-- Modal comunicador -->
         <div class="modal fade" id="comunicacao" tabindex="-1" role="dialog" aria-labelledby="comunicacaoInterna" aria-hidden="true">
             <div class="modal-dialog modal-elg" role="document">
                 <div class="modal-content">
@@ -114,7 +114,7 @@ include "controle.php";
                                 <table class="table table-secondary table-bordered table-striped table-hover" id="funcionariosComunicador">
                                     <thead>
                                     </thead>
-                                    <tbody data-link="row" id="tbody_servico">
+                                    <tbody data-link="row" id="lista_funcionarios">
                                         <tr>
                                             <th class="col-12" style="width: 90%; font-weight: normal">
                                                 funcionário
@@ -138,10 +138,12 @@ include "controle.php";
                                 <label for="comunicador">
                                     <h6 style="margin-top:1rem"><i>Mensagen para o funcionário</i></h6>
                                 </label>
+                                <div id="chat-box"></div>
+                                <br>
                                 <table class="table" id="funcionariosComunicador" style="height: 30rem">
                                     <thead>
                                     </thead>
-                                    <tbody data-link="row" id="tbody_servico">
+                                    <tbody data-link="row" id="lista_mensagens">
                                         <tr style="border: 1px solid #343A40; ">
                                             <th style="border: 1px solid #343A40;">
                                                 <div class="alert alert-warning  float-right" style="width: 90%; position: absolute; bottom: 7rem;" role="alert">
@@ -154,17 +156,20 @@ include "controle.php";
                                         </tr>
                                     </tbody>
                                 </table>
+
                                 <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-n-11">
-                                            <textarea placeholder="Mensagem..." id="texto_comunicador" rows="2" class="form-control"></textarea>
+                                    <form name="frmChat" id="frmChat">
+                                        <div class="row">
+                                            <div class="col-n-11">
+                                                <textarea placeholder="Mensagem..." id="chat-message" rows="2" class="form-control"></textarea>
+                                            </div>
+                                            <div class="col-n-1" style="padding-left: 0.3rem">
+                                                <button class="btn btn-dark" id="btnSend" name="send-chat-message" title="Enviar"> 
+                                                    <i class="fa fa-share-square float-left" style="height: 3.5rem"></i>
+                                                </button>
+                                            </div>
                                         </div>
-                                        <div class="col-n-1" style="padding-left: 0">
-                                            <button class="btn btn-dark" id="enviar_comunicador" title="Enviar"> 
-                                                <i class="fa fa-share-square float-left" style="height: 3.5rem"></i>
-                                            </button>
-                                        </div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>  
@@ -179,6 +184,39 @@ include "controle.php";
     <script src="../static/js/mascaraMoeda.js"></script> 
     <script src="../static/js/auxilio.js"></script> 
     <script>
+    //Mensagem
+    function showMessage(messageHTML) {
+		$('#chat-box').append(messageHTML);
+	}
+
+	$(document).ready(function(){
+		var websocket = new WebSocket("ws://localhost:8090/websockets/php-socket.php"); 
+		websocket.onopen = function(event) { 
+			showMessage("<div class='chat-connection-ack'>Connection is established!</div>");		
+		}
+		websocket.onmessage = function(event) {
+			var Data = JSON.parse(event.data);
+			showMessage("<div class='"+Data.message_type+"'>teste</div>");
+			showMessage("<div class='"+Data.message_type+"'>"+Data.message+"</div>");
+			$('#chat-message').val('');
+		};
+		
+		websocket.onerror = function(event){
+			showMessage("<div class='error'>Problem due to some Error</div>");
+		};
+		websocket.onclose = function(event){
+			showMessage("<div class='chat-connection-ack'>Connection Closed</div>");
+		}; 
+		
+		$('#frmChat').on("submit",function(event){
+			event.preventDefault();	
+			var messageJSON = {
+				chat_message: $('#chat-message').val()
+			};
+			websocket.send(JSON.stringify(messageJSON));
+		});
+	});
+    //Fim mensagem
     
     $(document).ready(function () {
 		$("#sidebar").mCustomScrollbar({
@@ -220,22 +258,22 @@ include "controle.php";
         })
     }
 
-    atualiza_tamanho();
+    atualiza_tamanho1();
 
-    function atualiza_tamanho(){
+    function atualiza_tamanho1(){
         var tamanho_container = $(window).height();
-        var tamanho_row = $(window).height();
-        var tamanho_body_modal = $(window).height();
+        var tamanho_div_modal = $(window).height();
+        var tamanho_div_msg = $(window).height();
         tamanho_container -= 66;
-        tamanho_row -= 255;
-        tamanho_body_modal -= 200;
+        tamanho_div_modal -= 130;
+        tamanho_div_msg -= 350;
         $('#container').css("height", tamanho_container);
-        $('#row').css("height", tamanho_row);
-        $('#verificaCarro-body').css("height", tamanho_body_modal);
+        $('#comunicador-body').css("height", tamanho_div_modal);
+        $('#chat-box').css("height", tamanho_div_msg);
     }
 
     window.addEventListener('resize', function(){
-        atualiza_tamanho();
+        atualiza_tamanho1();
     });
 
     </script>

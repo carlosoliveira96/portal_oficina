@@ -164,6 +164,7 @@ include 'menu.php';
                         $('#preloader').hide();
                         monta_msg_alerta_permanente(" Você não possui serviços cadastrados. Cliquem em <b>cadastrar serviço</b> para iniciar.")
                     }else {
+                        remove_msg();
                         var lista = $.parseJSON(data);
                         lista_registros = lista;
                         monta_lista(lista_registros);          
@@ -174,7 +175,7 @@ include 'menu.php';
 
         function monta_lista(lista){
             $('#paginacao').html("")
-            $('#tbody_servico').html("");
+           $('#tbody_servico').html("");
             var qtd_pag = lista.length / 6 ;
             qtd_pag = parseInt(qtd_pag);
             var ultima_pag = lista.length % 6;
