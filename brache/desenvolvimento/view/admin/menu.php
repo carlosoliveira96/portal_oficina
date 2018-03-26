@@ -140,6 +140,22 @@ include "controle.php";
                                 </label>
                                 <div id="chat-box"></div>
                                 <br>
+                                <table class="table" id="funcionariosComunicador" style="height: 30rem">
+                                    <thead>
+                                    </thead>
+                                    <tbody data-link="row" id="lista_mensagens">
+                                        <tr style="border: 1px solid #343A40; ">
+                                            <th style="border: 1px solid #343A40;">
+                                                <div class="alert alert-warning  float-right" style="width: 90%; position: absolute; bottom: 7rem;" role="alert">
+                                                    <h6 class="text-right">Mensagem enviada</h6>
+                                                </div>
+                                                <div class="alert alert-success float-left" style="width: 90%; position: absolute; bottom: 12rem;" role="alert">
+                                                    <h6 class="text-left">Mensagem recebida</h6>
+                                                </div>
+                                            </th>
+                                        </tr>
+                                    </tbody>
+                                </table>
                                 <div class="form-group">
                                     <form name="frmChat" id="frmChat">
                                         <div class="row">
@@ -173,7 +189,7 @@ include "controle.php";
     }
 
     $(document).ready(function(){
-        var websocket = new WebSocket("ws://localhost:8090/websockets/php-socket.php"); 
+        var websocket = new WebSocket("ws://localhost:8090/php-socket.php"); 
         websocket.onopen = function(event) { 
             showMessage("<div class='chat-connection-ack'>Connection is established!</div>");       
         }
@@ -198,6 +214,7 @@ include "controle.php";
             };
             websocket.send(JSON.stringify(messageJSON));
         });
+        $('#chat-box').append(messageHTML);
     });
     //Fim mensagem
     

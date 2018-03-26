@@ -733,6 +733,51 @@ include 'menu.php';
         $('#'+id+'tr').remove();
     }
 
+    //Função para adicionar funcionario a tabela
+    var id_funcionarios = [];
+    function adiciona_funcionario(id, nome){
+        var html = "";
+        var confere = true;
+        for(var i = 0 ; i < id_funcionarios.length ; i++){
+            if( id == id_funcionarios[i] ){
+                confere = false;
+            }
+        }
+        id_funcionarios.push(id);
+        html += '<tr id="'+id+'tr">'+
+                '<th style="display:none" id="'+id+'">'+id+'</th>'+
+                '<th scope="col">'+nome.id+'</th>'+
+                '<th scope="col">'+
+                '<input id="servico_pendencia" class="form-control">'+       
+                '</th>'+
+                '<th scope="col">'+
+                '<button class="btn btn-dark col-12" onclick="remove_funcionario('+id+');"><i class="fa fa-trash"></i> Remover</buttona>'+
+                '</th>'+
+            '</tr>';
+        $('#tbody').append(html);
+    }
+
+    //Função para verificar acionamento de pendencias internas para desabilitar botão
+    function pendencia_interna(){
+        if (id_funcionarios.length > 0){
+            $('#btnEnviar').removeAttr('disabled');
+        }else {
+            $('#btnEnviar').attr('disabled', 'true');
+        }
+    }
+
+    //Função para remover funcionário da tabela
+    function remove_funcionario(id){
+        var nova_lista = id_funcionarios;
+        id_funcionario = [];
+        for(var i = 0; i < nova_lista.length ; i++ ){
+            if ( nova_lista[i] != id ){
+                id_funcionario.push(nova_lista[i]);
+            }
+        }
+        $('#'+id+'tr').remove();
+    }
+
     //Função para buscar funcionário para adicionar no select Comunicações
     function busca_funcionario_select(){
         $('#preloader').show();
@@ -804,10 +849,13 @@ include 'menu.php';
             method: "post",
             data: data ,
             success: function(data){
+                alert(data);
+                $('#preloader').hide();
                 if(data){
                     var resultado = $.parseJSON(data);
                     //Dados do cliente
                     $('#nome').attr('value', resultado.nome_cliente);
+                    $('#nome').attr('value', resultado.nome);
                     $('#nascimento').attr('value', resultado.data_nascimento);
                     $('#cpf').attr('value', resultado.cpf);
                     $('#rg').attr('value', resultado.rg);

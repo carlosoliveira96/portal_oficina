@@ -20,13 +20,15 @@ if(isset($_POST['funcao'])){
 
             break;
         case 'buscar_os':
-            
             $os =  busca_detalhada_um($conexao, "a.cliente_id = 1 AND a.cliente_id = b.id AND a.veiculo_placa = c.placa AND a.corretor_id = b1.id AND a.seguradora_id = b2.id" , 'os a, cadastro b, veiculo c, cadastro b1, cadastro b2', 'a.*, b.*, c.*, b.nome as nome_cliente, b1.nome as nome_corretor_f, b1.nome_fantasia as nome_corretor_j, b2.nome as nome_seguradora_f, b2.nome_fantasia as nome_seguradora_j');
+
+            $os =  busca_detalhada_um($conexao, "a.cliente_id = 1 AND a.cliente_id = b.id" , 'os a, cadastro b');
+
 
             if($os != null){
                 print json_encode($os);
             }
-            
+
             break;
         case 'busca_os':
 
