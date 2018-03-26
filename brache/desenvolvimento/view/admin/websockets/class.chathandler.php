@@ -1,4 +1,5 @@
 <?php
+//
 class ChatHandler {
 	function send($message) {
 		global $clientSocketArray;

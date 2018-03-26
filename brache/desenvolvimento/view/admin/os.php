@@ -24,7 +24,7 @@ include 'menu.php';
             <hr>
             <div class="row">
                 <div class="col-12">
-                    <button class="btn btn-dark float-right" id="btnEnviar" disabled> 
+                    <button class="btn btn-dark float-right" id="btnEnviar" onClick="salvarAlteracao()" disabled> 
                         <i class="fa fa-check float-left" style="margin-top: 0.1rem; margin-right: 0.3rem"></i> 
                             Salvar
                     </button>
@@ -296,21 +296,21 @@ include 'menu.php';
                                         <h6 style="margin-top:1rem"><i>Vistoria realizada</i></h6>
                                             <div class="input-group ">
                                                 <span class="input-group-addon" id="sizing-addon1"><i class="fas fa-calendar"></i></span>
-                                                <input type="text" id="vistoria_realizada" class="form-control" data-mask="99/99/9999" placeholder="12/02/2018" name="">
+                                                <input type="text" id="vistoria_realizada" class="form-control" data-mask="99/99/9999" placeholder="Ex... 99/99/9999" name="">
                                             </div>
                                     </div>
                                     <div class="col-3">
                                         <h6 style="margin-top:1rem"><i>Autorização</i></h6>
                                         <div class="input-group ">
                                             <span class="input-group-addon" id="sizing-addon1"><i class="fas fa-calendar"></i></span>
-                                            <input type="text" id="autorizacao" class="form-control" data-mask="99/99/9999" placeholder="12/02/2018" name="">
+                                            <input type="text" id="autorizacao" class="form-control" data-mask="99/99/9999" placeholder="Ex... 99/99/9999" name="">
                                         </div>
                                     </div>
                                     <div class="col-3">
                                         <h6 style="margin-top:1rem"><i>Entrada</i></h6>
                                         <div class="input-group ">
                                             <span class="input-group-addon" id="sizing-addon1"><i class="fas fa-calendar"></i></span>
-                                            <input type="text" id="entrada" class="form-control" data-mask="99/99/9999" placeholder="12/02/2018" name="">
+                                            <input type="text" id="entrada" class="form-control" data-mask="99/99/9999" placeholder="Ex... 99/99/9999" name="">
                                         </div>
                                     </div>
                                 </div>
@@ -319,21 +319,21 @@ include 'menu.php';
                                         <h6 style="margin-top:1rem"><i>Saída</i></h6>
                                         <div class="input-group ">
                                             <span class="input-group-addon" id="sizing-addon1"><i class="fas fa-calendar"></i></span>
-                                            <input type="text" id="saida" data-mask="99/99/9999" class="form-control"  placeholder="12/02/2018" name="">
+                                            <input type="text" id="saida" data-mask="99/99/9999" class="form-control"  placeholder="Ex... 99/99/9999" name="">
                                         </div>
                                     </div>
                                     <div class="col-3">
                                         <h6 style="margin-top:1rem"><i>Complemento realizado</i></h6>
                                         <div class="input-group ">
                                             <span class="input-group-addon" id="sizing-addon1"><i class="fas fa-calendar"></i></span>
-                                            <input type="text" id="icomplemento" class="form-control" data-mask="99/99/9999" placeholder="12/02/2018" name="">
+                                            <input type="text" id="icomplemento" class="form-control" data-mask="99/99/9999" placeholder="Ex... 99/99/9999" name="">
                                         </div>
                                     </div>
                                     <div class="col-3">
                                         <h6 style="margin-top:1rem"><i>Agendamento</i></h6>
                                         <div class="input-group ">
                                             <span class="input-group-addon" id="sizing-addon1"><i class="fas fa-calendar"></i></span>
-                                            <input type="text" id="agendamento" class="form-control" data-mask="99/99/9999" placeholder="12/02/2018" name="">
+                                            <input type="text" id="agendamento" class="form-control" data-mask="99/99/9999" placeholder="Ex... 99/99/9999" name="">
                                         </div>
                                     </div>
                                 </div>
@@ -342,14 +342,14 @@ include 'menu.php';
                                         <h6 style="margin-top:1rem"><i>Previsão de entrega</i></h6>
                                         <div class="input-group ">
                                             <span class="input-group-addon" id="sizing-addon1"><i class="fas fa-calendar"></i></span>
-                                            <input type="text" id="previsao_entrega" class="form-control" data-mask="99/99/9999" placeholder="12/02/2018" name="">
+                                            <input type="text" id="previsao_entrega" class="form-control" data-mask="99/99/9999" placeholder="Ex... 99/99/9999" name="">
                                         </div>
                                     </div>
                                     <div class="col-3">
                                         <h6 style="margin-top:1rem"><i>Entregue</i></h6>
                                         <div class="input-group ">
                                             <span class="input-group-addon" id="sizing-addon1"><i class="fas fa-calendar"></i></span>
-                                            <input type="text" id="entregue" class="form-control" data-mask="99/99/9999" placeholder="12/02/2018" name="">
+                                            <input type="text" id="entregue" class="form-control" data-mask="99/99/9999" placeholder="Ex... 99/99/9999" name="">
                                         </div>
                                     </div>
                                 <div class="col-2" style="margin-top:3rem">
@@ -361,7 +361,7 @@ include 'menu.php';
                                         <h6 style="margin-top:1rem"><i>Data do retorno</i></h6>
                                         <div class="input-group ">
                                             <span class="input-group-addon" id="sizing-addon1"><i class="fas fa-calendar"></i></span>
-                                            <input type="text" id="dtRetorno" class="form-control" data-mask="99/99/9999" disabled placeholder="12/02/2018" name="">
+                                            <input type="text" id="dtRetorno" class="form-control" data-mask="99/99/9999" disabled placeholder="Ex... 99/99/9999" name="">
                                         </div>
                                     </div>
                                     <div class="col-4">
@@ -755,6 +755,46 @@ include 'menu.php';
         });
     }
 
+    //Função para salvar as alterações da OS
+    function salvarAlteracao(){
+        $('#preloader').show();
+        var vistoria_realizada = $('#vistoria_realizada').val();
+        var autorizacao = $('#autorizacao').val();
+        var entrada = $('#entrada').val();
+        var saida = $('#saida').val();
+        var icomplemento = $('#icomplemento').val();
+        var agendamento = $('#agendamento').val();
+        var previsao_entrega = $('#previsao_entrega').val();
+        var entregue = $('#entregue').val();
+        var dtRetorno = $('#dtRetorno').val();
+        var check_pt = document.getElementById("pt");
+        if (check_pt.checked){
+            var check = 1;
+        }else {
+            check = 0;
+        }
+
+        var data = {vistoria_realizada : vistoria_realizada,
+                    autorizacao : autorizacao,
+                    entrada : entrada,
+                    saida : saida,
+                    icomplemento : icomplemento,
+                    agendamento : agendamento,
+                    previsao_entrega : previsao_entrega,
+                    entregue : entregue,
+                    dtRetorno : dtRetorno,
+                    check : check,
+                    funcao : "salva_os"};
+        $.ajax({
+            url: '../../controller/os.php',
+            method: "post",
+            data: data ,
+            success: function(data){
+                alert(data);
+            }
+        });
+    }
+
     //Função para buscar dados da OS
     function busca_os(){
         $('#preloader').show();
@@ -807,6 +847,7 @@ include 'menu.php';
 
                     //Datas
                     if (resultado.perda_total == 1){
+                        $('#pt').attr('checked', true);
                         $('#autorizacao').val("");
                         $('#entrada').val("");
                         $('#saida').val("");
@@ -825,7 +866,7 @@ include 'menu.php';
                         $('#entregue').attr('disabled', 'true');
                         $('#particular').attr('disabled', 'true');
                     }
-                    
+
                     $('#vistoria_realizada').attr('value', resultado.data_vistoria_realizada);
                     $('#autorizacao').attr('value', resultado.data_autorizacao);
                     $('#entrada').attr('value', resultado.data_entrada);
