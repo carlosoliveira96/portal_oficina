@@ -24,6 +24,18 @@ function monta_msg_sucesso(msg){
     },10000);
 }
 
+function monta_msg_registro(msg){
+    html = '<div class="alert alert-success"><i class="fa fa-check"></i><strong>'+ msg +'</strong></div>';
+    $('#msg_registro').html(html);
+    window.setInterval(function(){
+        remove_msg_registro();
+    },10000);
+}
+
+function remove_msg_registro(){
+    $('#msg_registro').html('');
+}
+
 function remove_msg(){
     $('#msg').html('');
 }

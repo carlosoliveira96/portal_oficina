@@ -1,5 +1,9 @@
 <?php
 include 'menu.php';
+
+date_default_timezone_set('America/Sao_Paulo');
+$data_atual = date('d/m/Y');
+$hora_atual = date('H:i:s');
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -16,12 +20,13 @@ include 'menu.php';
         <script type="text/javascript" src="../static/js/jasny-bootstrap.1.js"></script>
 
     </head>
-    <body style="background-color: #F8F9FA;" onload="busca_os(); busca_funcionario_select();">
+    <body style="background-color: #F8F9FA;" onload="busca_os(); verifica_entrega(); busca_registro_interno(); busca_mensagem_comunicador(); busca_pendencias(); busca_funcionario_select();">
         <div class="container" style=" background-color: #fff">
             <h2>
                 <p class="text-center" style="color: #000"><i><b>Processo Eletrônico </b></i></p>
             </h2>
             <hr>
+            <div id="msg"></div>
             <div class="row">
                 <div class="col-12">
                     <button class="btn btn-dark float-right" id="btnEnviar" onClick="salvarAlteracao()" disabled> 
@@ -349,7 +354,7 @@ include 'menu.php';
                                         <h6 style="margin-top:1rem"><i>Entregue</i></h6>
                                         <div class="input-group ">
                                             <span class="input-group-addon" id="sizing-addon1"><i class="fas fa-calendar"></i></span>
-                                            <input type="text" id="entregue" class="form-control" data-mask="99/99/9999" placeholder="Ex... 99/99/9999" name="">
+                                            <input type="text" id="entregue" onchange="verifica_entrega();" class="form-control" data-mask="99/99/9999" placeholder="Ex... 99/99/9999" name="">
                                         </div>
                                     </div>
                                 <div class="col-2" style="margin-top:3rem">
@@ -420,7 +425,7 @@ include 'menu.php';
                     </button>
                     <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
                         <div class="card-body">
-                            <label for="comunicador">
+                            <label for="modeloCarta">
                                 <h6 style="margin-top:1rem"><i>Modelo da carta padronizada</i></h6>
                             </label>
                             <div class="row">
@@ -452,89 +457,64 @@ include 'menu.php';
                         <h6 style="margin-top:1rem"><i>Comunicador</i></h6>
                         <div id="msg">
                         </div>
+                        <div id="msg_registro"></div>
                         <div class="row">
                             <div class="col-6">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <table class="table" id="funcionariosComunicador" style="height: 15rem">
-                                            <thead>
-                                            </thead>
-                                            <tbody data-link="row" id="lista_mensagens">
-                                                <tr style="border: 1px solid #343A40; ">
-                                                    <th style="border: 1px solid #343A40;">
-                                                        <div class="alert alert-warning  float-right" style="width: 90%; position: absolute; bottom: 0.5rem;" role="alert">
-                                                            <h6 class="text-right">Mensagem enviada <br>
-                                                            <font size="1px" class="text-left">19/03/2018 - 10:00</font>
-                                                            </h6>
-                                                        </div>
-                                                        <div class="alert alert-success float-left" style="width: 90%; position: absolute; bottom: 5rem;" role="alert">
-                                                            <h6 class="text-left">Mensagem recebida <br>
-                                                            <font size="1px" class="text-left">19/03/2018 - 10:00</font><br>
-                                                            <font size="1px" class="text-left"><b>Funcionário</b></font>
-                                                            </h6>
-                                                        </div>
-                                                    </th>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="col-5">
-                                        <div class="form-group">
-                                            <label for="comunicador">
-                                                <h6 style="margin-top:1rem"><i>Funcionário</i></h6>
-                                            </label>
-                                            <select multiple class="form-control" id="comunicadorFuncionario">
-                                            </select>
+                                <div class="card text-center">
+                                    <div class="card-body" id="comunicador_msg" style="height: 15rem; overflow-x: hidden;">
+                                        <!--<div class="alert alert-warning  float-right" style="width: 90%;" role="alert">
+                                            <h6 class="text-right">Mensagem enviada <br>
+                                            <font size="1px" class="text-left">19/03/2018 - 10:00</font>
+                                            </h6>
                                         </div>
-                                        <div class="text-danger"></div>
+                                        <div class="alert alert-success float-left" style="width: 90%;" role="alert">
+                                            <h6 class="text-left">Mensagem recebida <br>
+                                            <font size="1px" class="text-left">19/03/2018 - 10:00</font><br>
+                                            <font size="1px" class="text-left"><b>Funcionário</b></font>
+                                            </h6>
+                                        </div>-->
                                     </div>
-                                    <div class="col-7">
-                                        <div class="form-group">
-                                            <label for="comunicador">
-                                                <h6 style="margin-top:1rem"><i>Mensagem</i></h6>
-                                            </label>
-                                            <textarea class="form-control" id="comunicadorMensagem" rows="2"></textarea>
+                                    <div class="card-footer text-muted">
+                                        <div class="row">
+                                            <div class="col-5">
+                                                <div class="form-group">
+                                                    <label for="comunicador">
+                                                        <h6 style="margin-top:1rem"><i>Funcionário</i></h6>
+                                                    </label>
+                                                    <select multiple class="form-control" id="comunicadorFuncionario">
+                                                    </select>
+                                                </div>
+                                                <div class="text-danger"></div>
+                                            </div>
+                                            <div class="col-7">
+                                                <textarea class="form-control" placeholder="Mensagem..." id="comunicadorMensagem" rows="4"></textarea>
+                                            </div>
                                         </div>
-                                        <div class="text-danger"></div>
-                                        <button class="btn btn-dark float-right" id="enviar_comunicador" onclick="envia_comunicador(this.id)"> 
-                                            <i class="fa fa-share-square float-left" style="margin-top: 0.1rem; margin-right: 0.3rem"></i> 
-                                                Enviar
-                                        </button>
                                     </div>
+                                    <div class="text-danger"></div>
+                                    <button class="btn btn-dark float-right" id="enviar_comunicador" onclick="envia_comunicador(this.id)"> 
+                                        <i class="fa fa-share-square float-left" style="margin-top: 0.1rem; margin-right: 0.3rem"></i> 
+                                            Enviar
+                                    </button>
                                 </div>
                             </div>
                             <div class="linha-vertical"></div>
                             <div class="col-5">
                                 <div class="col-12">
-                                    <table class="table" id="funcionariosComunicador" style="height: 15rem">
-                                        <thead>
-                                        </thead>
-                                        <tbody data-link="row" id="lista_mensagens">
-                                            <tr style="border: 1px solid #343A40; ">
-                                                <th style="border: 1px solid #343A40;">
-                                                    <div class="alert alert-light float-left" style="width: 88%; position: absolute; bottom: 0rem;" role="alert">
-                                                        <h6 class="text-left">Mensagem recebida <br>
-                                                        <font size="1px" class="text-left">19/03/2018 - 10:00</font> <br>
-                                                        <font size="1px" class="text-left"><b>Funcionário</b></font>
-                                                        </h6>
-                                                    </div>
-                                                </th>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label for="comunicador">
-                                            <h6 style="margin-top:1rem"><i>Registro interno</i></h6>
-                                        </label>
-                                        <textarea class="form-control" id="registro_interno" rows="2"></textarea>
+                                    <div class="card text-center">
+                                        <div class="card-body" id="mensagens_interna" style="height: 15rem; overflow-x: hidden;">
+                                            
+                                        </div>
+                                        <div class="card-footer text-muted">
+                                            <textarea class="form-control" id="registro_interno" rows="2" placeholder="Mensagem..."></textarea>
+                                        </div>
+                                        <div class="text-danger"></div>
+                                            <button class="btn btn-dark float-right" id="enviar_registro" onclick="envia_comunicador(this.id)"> 
+                                                <i class="fa fa-share-square float-left" style="margin-top: 0.1rem; margin-right: 0.3rem"></i> 
+                                                    Enviar
+                                            </button>
+                                        </div>
                                     </div>
-                                    <div class="text-danger"></div>
-                                    <button class="btn btn-dark float-right" id="enviar_registro" onclick="envia_comunicador(this.id)"> 
-                                        <i class="fa fa-share-square float-left" style="margin-top: 0.1rem; margin-right: 0.3rem"></i> 
-                                            Enviar
-                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -575,6 +555,20 @@ include 'menu.php';
         </div> 
     </body>
     <script>
+
+    var query = location.search.slice(1);
+    var partes = query.split('&');
+    var os_id;
+    var data = {};
+    partes.forEach(function (parte) {
+        var chaveValor = parte.split('=');
+        var chave = chaveValor[0];
+        var valor = chaveValor[1];
+        data[chave] = valor;
+    });
+
+    os_id = data.codOS;
+
     function envia(){ 
         $("#dados_servico").data("changed",true);
         if ($("#dados_servico").data("changed")) {
@@ -642,6 +636,30 @@ include 'menu.php';
         }
     }
 
+    //Função verifica data entrega
+    function verifica_entrega(){
+        var entregue = $('#entregue').val();
+        if (entregue != ""){
+            $('#vistoria_realizada').attr('disabled', 'true');
+            $('#autorizacao').attr('disabled', 'true');
+            $('#entrada').attr('disabled', 'true');
+            $('#saida').attr('disabled', 'true');
+            $('#icomplemento').attr('disabled', 'true');
+            $('#previsao_entrega').attr('disabled', 'true');
+            $('#entregue').attr('disabled', 'true');
+            $('#particular').attr('disabled', 'true');
+        } else {
+            $('#autorizacao').removeAttr('disabled');
+            $('#entrada').removeAttr('disabled');
+            $('#saida').removeAttr('disabled');
+            $('#icomplemento').removeAttr('disabled');
+            $('#agendamento').removeAttr('disabled');
+            $('#previsao_entrega').removeAttr('disabled');
+            $('#entregue').removeAttr('disabled');
+            $('#particular').removeAttr('disabled');
+        }
+    }
+
     //função que habilida campo de retorno
     function habilita_retorno(){
         var check_retorno = document.getElementById("retorno");
@@ -657,7 +675,10 @@ include 'menu.php';
         $('#preloader').show();
         $('#lista_servicos').val("");
         var pesquisa = $('#pesquisa_funcionario').val();
-        var data = {funcao : "buscar_funcionario" , pesquisa : pesquisa };
+        var data = {
+            funcao : "buscar_funcionario" , 
+            pesquisa : pesquisa 
+        };
         var html= "";
         $.ajax({
             url: '../../controller/os.php',
@@ -688,50 +709,6 @@ include 'menu.php';
         });
     }
 
-    //Função para adicionar funcionario a tabela
-    var id_funcionarios = [];
-    function adiciona_funcionario(id, nome){
-        var html = "";
-        var confere = true;
-        for(var i = 0 ; i < id_funcionarios.length ; i++){
-            if( id == id_funcionarios[i] ){
-                confere = false;
-            }
-        }
-        id_funcionarios.push(id);
-        html += '<tr id="'+id+'tr">'+
-                '<th style="display:none" id="'+id+'">'+id+'</th>'+
-                '<th scope="col">'+nome.id+'</th>'+
-                '<th scope="col">'+
-                '<input id="servico_pendencia" class="form-control">'+       
-                '</th>'+
-                '<th scope="col">'+
-                '<button class="btn btn-dark col-12" onclick="remove_funcionario('+id+');"><i class="fa fa-trash"></i> Remover</buttona>'+
-                '</th>'+
-            '</tr>';
-        $('#tbody').append(html);
-    }
-
-    //Função para verificar acionamento de pendencias internas para desabilitar botão
-    function pendencia_interna(){
-        if (id_funcionarios.length > 0){
-            $('#btnEnviar').removeAttr('disabled');
-        }else {
-            $('#btnEnviar').attr('disabled', 'true');
-        }
-    }
-
-    //Função para remover funcionário da tabela
-    function remove_funcionario(id){
-        var nova_lista = id_funcionarios;
-        id_funcionario = [];
-        for(var i = 0; i < nova_lista.length ; i++ ){
-            if ( nova_lista[i] != id ){
-                id_funcionario.push(nova_lista[i]);
-            }
-        }
-        $('#'+id+'tr').remove();
-    }
 
     //Função para adicionar funcionario a tabela
     var id_funcionarios = [];
@@ -745,9 +722,9 @@ include 'menu.php';
         }
         id_funcionarios.push(id);
         html += '<tr id="'+id+'tr">'+
-                '<th style="display:none" id="'+id+'">'+id+'</th>'+
-                '<th scope="col">'+nome.id+'</th>'+
+                '<th scope="col" id="'+id+'">'+nome.id+'</th>'+
                 '<th scope="col">'+
+                '<input id="id_funcionario_pend" value="'+id+'" hidden>'+
                 '<input id="servico_pendencia" class="form-control">'+       
                 '</th>'+
                 '<th scope="col">'+
@@ -803,6 +780,15 @@ include 'menu.php';
     //Função para salvar as alterações da OS
     function salvarAlteracao(){
         $('#preloader').show();
+        var servico_pendencia = $('#servico_pendencia').val();
+        var id_funcionario = $('#id_funcionario_pend').val();
+
+        if (id_funcionario > 0){
+            var pendencia = 1;
+        }else {
+            pendencia = 0;
+        }
+
         var vistoria_realizada = $('#vistoria_realizada').val();
         var autorizacao = $('#autorizacao').val();
         var entrada = $('#entrada').val();
@@ -819,23 +805,69 @@ include 'menu.php';
             check = 0;
         }
 
-        var data = {vistoria_realizada : vistoria_realizada,
-                    autorizacao : autorizacao,
-                    entrada : entrada,
-                    saida : saida,
-                    icomplemento : icomplemento,
-                    agendamento : agendamento,
-                    previsao_entrega : previsao_entrega,
-                    entregue : entregue,
-                    dtRetorno : dtRetorno,
-                    check : check,
-                    funcao : "salva_os"};
+        var data = {
+            pendencia : pendencia,
+            servico_pendencia : servico_pendencia,
+            id_funcionario : id_funcionario,
+            vistoria_realizada : vistoria_realizada,
+            autorizacao : autorizacao,
+            entrada : entrada,
+            saida : saida,
+            icomplemento : icomplemento,
+            agendamento : agendamento,
+            previsao_entrega : previsao_entrega,
+            entregue : entregue,
+            dtRetorno : dtRetorno,
+            check : check,
+            id : os_id,
+            funcao : "salva_os"
+        };
         $.ajax({
             url: '../../controller/os.php',
             method: "post",
             data: data ,
             success: function(data){
                 alert(data);
+                if(data){
+                    monta_msg_sucesso("Alteração efetuada com sucesso");
+                    busca_os();
+                }
+            }
+        });
+    }
+
+    //Função para buscar pendencias
+    function busca_pendencias(){
+        $('#preloader').show();
+        var data = {
+            id : os_id,
+            funcao : "buscar_pendencias"
+        };
+        $.ajax({
+            url: '../../controller/os.php',
+            method: "post",
+            data: data ,
+            success: function(data){
+                var html = "";
+                if(data){
+                    var resultado = $.parseJSON(data);
+                    if (resultado.length > 0){
+                        for(var i = 0; i < resultado.length ; i++  ){
+                            html += '<tr id="'+resultado[i].id+'tr">'+
+                                    '<th scope="col" id="'+resultado[i].id+'">'+resultado[i].nome+'</th>'+
+                                    '<th scope="col">'+
+                                    '<input id="id_funcionario_pend" value="'+resultado[i].id+'" hidden>'+
+                                    '<input id="servico_pendencia" class="form-control" value="'+resultado[i].servico+'">'+       
+                                    '</th>'+
+                                    '<th scope="col">'+
+                                    '<button class="btn btn-dark col-12" onclick="remove_funcionario('+resultado[i].id+');"><i class="fa fa-trash"></i> Remover</buttona>'+
+                                    '</th>'+
+                                '</tr>';
+                            $('#tbody').append(html);
+                        }
+                    }
+                    
+                }
             }
         });
     }
@@ -843,13 +875,15 @@ include 'menu.php';
     //Função para buscar dados da OS
     function busca_os(){
         $('#preloader').show();
-        var data = {funcao : "buscar_os"};
+        var data = {
+            id : os_id,
+            funcao : "buscar_os"
+        };
         $.ajax({
             url: '../../controller/os.php',
             method: "post",
             data: data ,
             success: function(data){
-                alert(data);
                 $('#preloader').hide();
                 if(data){
                     var resultado = $.parseJSON(data);
@@ -931,6 +965,9 @@ include 'menu.php';
         });
     }
 
+    //Recupera id do funcionário logado
+    var id_logado = "<?php print $_SESSION['meu_id_funcionario']; ?>";
+
     //Função para enviar mensagem do comunicador
     function envia_comunicador(id){
         if (id == "enviar_comunicador"){
@@ -946,7 +983,35 @@ include 'menu.php';
             }else {
                 remove_erro_input($('#comunicadorFuncionario'));
                 remove_erro_input($('#comunicadorMensagem'));
-                //enviar
+                
+                var funcionarios = $('#comunicadorFuncionario').val();
+                var mensagem = $('#comunicadorMensagem').val();
+                if(funcionarios.length > 0){
+                    for(var i = 0; i < funcionarios.length ; i++){
+                        var data = "<?php print $data_atual; ?>";
+                        var hora = "<?php print $hora_atual; ?>";
+                        var data = {
+                            id : os_id,
+                            mensagem : mensagem,
+                            data : data,
+                            hora : hora,
+                            id_funcionario_de : id_logado,
+                            id_funcionario_para : funcionarios[i],
+                            funcao : "salva_registroC"
+                        };
+                        $.ajax({
+                            url: '../../controller/os.php',
+                            method: "post",
+                            data: data ,
+                            success: function(data){
+                                busca_mensagem_comunicador();
+                                monta_msg_registro("Mensagem enviada com sucesso");
+                                $('#comunicador_msg').html("");
+                                $('#comunicadorMensagem').val("");
+                            }
+                        });
+                    }
+                }
             }
         }else {
             var registro_interno = $('#registro_interno').val();
@@ -957,9 +1022,119 @@ include 'menu.php';
                 add_erro_input($('#registro_interno') , "A mensagem deve possuir mais de 5 caracteres");
             }else {
                 remove_erro_input($('#registro_interno'));
-                //enviar
+                var mensagem = $('#registro_interno').val();
+                var data = "<?php print $data_atual; ?>";
+                var hora = "<?php print $hora_atual; ?>";
+                var data = {
+                    id : os_id,
+                    mensagem : mensagem,
+                    id_funcionario : id_logado,
+                    data : data,
+                    hora : hora,
+                    funcao : "salva_registroI"
+                };
+                $.ajax({
+                    url: '../../controller/os.php',
+                    method: "post",
+                    data: data ,
+                    success: function(data){
+                        busca_registro_interno();
+                        monta_msg_registro("Mensagem enviada com sucesso");
+                        $('#mensagens_interna').html("");
+                        $('#registro_interno').val("");
+                    }
+                });
             }
         }
+    }
+
+    function busca_registro_interno(){
+        $('#preloader').show();
+        var data = {
+            id : os_id,
+            id_funcionario : id_logado,
+            funcao : "busca_registro_interno"
+        };
+        $.ajax({
+            url: '../../controller/os.php',
+            method: "post",
+            data: data ,
+            success: function(data){
+                var html = "";
+                if (data){
+                    var resultado = $.parseJSON(data);
+                    if (resultado.length > 0){
+                        for(var i = 0; i < resultado.length ; i++){
+                            html += '<div class="alert alert-secondary" style="width: 100%;" role="alert">'+
+                                        '<h6 class="text-left" id="mensagem'+resultado[i].id+'">'+resultado[i].observacao+'<br>'+
+                                        '<font size="1px" class="text-left" id="data$hora$func'+resultado[i].id+'">'+resultado[i].nome+ ' - '+resultado[i].data+ ' - '+resultado[i].hora+'</font> <br>'+
+                                        '</h6>'+
+                                    '</div>';
+                        }
+                    }
+                }
+                $('#mensagens_interna').append(html);
+                $('#preloader').hide();
+            }
+        });
+    }
+
+    function busca_mensagem_comunicador(){
+        $('#preloader').show();
+        var data = {
+            id : os_id,
+            id_funcionario : id_logado,
+            funcao : "busca_mensagem_comunicador"
+        };
+        $.ajax({
+            url: '../../controller/os.php',
+            method: "post",
+            data: data ,
+            success: function(data){
+                var html = "";
+                if (data){
+                    var resultado = $.parseJSON(data);
+                    if (resultado.length > 0){
+                        for(var i = 0; i < resultado.length ; i++){
+                            var str = resultado[i].hora;
+                            var horaFormatada = (str.substring(0,5));
+                            var nome_para = resultado[i].para.split(",");
+                            if (resultado[i].de_funcionario_id == id_logado){
+                                html += '<div class="alert alert-info float-right" style="width: 90%;" role="alert">'+
+                                            '<h6 class="text-left" id="mensagem'+resultado[i].id+'">'+resultado[i].mensagem+'<font size="1px" class="float-right" id="data$hora'+resultado[i].id+'">'+resultado[i].data+ ' - '+horaFormatada+'</font><br>'+
+                                            '<font size="1px" class="float-right" id="deFunc'+resultado[i].id+'"><b>Eu</b></font><br>';
+                                            for (var j = 0 ; j < nome_para.length ; j++){
+                                                if(j == 0){
+                                                    html +=  '<font size="1px" class="float-right" id="paraFunc'+resultado[i].id+'"><b>Para:</b> '+nome_para[j]+ '</font><br>';
+                                                    
+                                                }else{
+                                                    html +=  '<font size="1px" class="float-right" id="paraFunc'+resultado[i].id+'"> '+nome_para[j]+ '</font><br>';
+                                                }
+                                            }
+                                            html += '</h6>'+
+                                        '</div>';
+                            }else {
+                                html += '<div class="alert alert-warning float-left" style="width: 90%;" role="alert">'+
+                                            '<h6 class="text-left" id="mensagem'+resultado[i].id+'">'+resultado[i].mensagem+'<font size="1px" class="float-right" id="data$hora'+resultado[i].id+'">'+resultado[i].data+ ' - '+horaFormatada+'</font><br>'+
+                                            '<font size="1px" class="float-right" id="deFunc'+resultado[i].id+'"><b>De:</b> '+resultado[i].de+ '</font><br>';
+                                            for (var j = 0 ; j < nome_para.length ; j++){
+                                                if(j == 0){
+                                                    html +=  '<font size="1px" class="float-right" id="paraFunc'+resultado[i].id+'"><b>Para:</b> '+nome_para[j]+ '</font><br>';
+                                                    
+                                                }else{
+                                                    html +=  '<font size="1px" class="float-right" id="paraFunc'+resultado[i].id+'"> '+nome_para[j]+ '</font><br>';
+                                                }
+                                            }
+                                            html += '</h6>'+
+                                        '</div>';
+                            }
+                        }
+                    }
+                }
+                $('#comunicador_msg').append(html);
+                $('#preloader').hide();
+            }
+        });
     }
         
     </script>

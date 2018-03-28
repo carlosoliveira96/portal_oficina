@@ -8,10 +8,10 @@ if(isset($_POST['funcao'])){
     switch ($funcao){
         case 'buscar_funcionario':
             if (empty($_POST['pesquisa'])){
-                $funcionarios = busca_varios($conexao, "situacao = 1" , 'funcionario');
+                $funcionarios = busca_detalhada_varios($conexao, "situacao = 1" , 'funcionario', 'id, nome');
             }else {
                 $pesquisa = $_POST['pesquisa'];
-                $funcionarios = busca_varios($conexao, "situacao = 1 and nome LIKE '%{$pesquisa}%'" , 'funcionario');
+                $funcionarios = busca_detalhada_varios($conexao, "situacao = 1 and nome LIKE '%{$pesquisa}%'" , 'funcionario', 'id, nome');
             }
 
             if($funcionarios != null){
@@ -20,9 +20,10 @@ if(isset($_POST['funcao'])){
 
             break;
         case 'buscar_os':
-            $os =  busca_detalhada_um($conexao, "a.cliente_id = 1 AND a.cliente_id = b.id AND a.veiculo_placa = c.placa AND a.corretor_id = b1.id AND a.seguradora_id = b2.id" , 'os a, cadastro b, veiculo c, cadastro b1, cadastro b2', 'a.*, b.*, c.*, b.nome as nome_cliente, b1.nome as nome_corretor_f, b1.nome_fantasia as nome_corretor_j, b2.nome as nome_seguradora_f, b2.nome_fantasia as nome_seguradora_j');
+            $id = $_POST['id'];
+            $os =  busca_detalhada_um($conexao, "a.cliente_id = '$id' AND a.cliente_id = b.id AND a.veiculo_placa = c.placa AND a.corretor_id = b1.id AND a.seguradora_id = b2.id" , 'os a, cadastro b, veiculo c, cadastro b1, cadastro b2', 'a.*, b.*, c.*, b.nome as nome_cliente, b1.nome as nome_corretor_f, b1.nome_fantasia as nome_corretor_j, b2.nome as nome_seguradora_f, b2.nome_fantasia as nome_seguradora_j');
 
-            $os =  busca_detalhada_um($conexao, "a.cliente_id = 1 AND a.cliente_id = b.id" , 'os a, cadastro b');
+            //$os =  busca_detalhada_um($conexao, "a.cliente_id = 1 AND a.cliente_id = b.id" , 'os a, cadastro b');
 
 
             if($os != null){
@@ -46,7 +47,7 @@ if(isset($_POST['funcao'])){
 
             break;
         case 'salva_os':
-
+            
             if (strlen($_POST['vistoria_realizada']) <= 0){
                 $vistoria_realizada = 'NULL';
             }else{
@@ -102,6 +103,7 @@ if(isset($_POST['funcao'])){
             }
 
             $check = "'".$_POST['check']."'";
+            $id = $_POST['id'];
 
             $campos_valores = ("data_vistoria_realizada = $vistoria_realizada, 
                                 data_autorizacao = $autorizacao, data_entrada = $entrada,
@@ -110,7 +112,7 @@ if(isset($_POST['funcao'])){
                                 data_entrega = $entregue, data_retorno = $dtRetorno, perda_total = $check");
 
                                 
-            $condicao = ("id = 1");
+            $condicao = ("id = '$id'");
             
             $salva_alteracao = altera($conexao, $campos_valores, $condicao, "os");
 
@@ -118,6 +120,130 @@ if(isset($_POST['funcao'])){
                 print json_encode($salva_alteracao);
             }
 
+            $pendencia = $_POST['pendencia'];
+
+            if($pendencia = '1'){
+                $servico_pendencia = $_POST['servico_pendencia'];
+                $id_funcionario = $_POST['id_funcionario'];
+
+                $campos = "servico, funcionario_id";
+                $valores = "'$servico_pendencia', '$id_funcionario'";
+
+                $inclui_pendencia = insere($conexao, $campos, $valores, 'pendencias');
+
+                if (strlen($inclui_pendencia['id']) <= 0 ) {
+                    $id_pendencia = json_encode($inclui_pendencia);
+
+                    $campos = "os_id, pendencias_id";
+                    
+                    $valores = "'$id', '$id_pendencia'"; 
+
+                    $inclui_os_pendencia = insere($conexao, $campos, $valores, 'os_pendencias');
+
+                    if (strlen($inclui_os_pendencia['id']) <= 0 ) {
+                        print json_encode($inclui_os_pendencia);
+                    }
+
+                }
+
+            }
+
+            break;
+            case 'buscar_pendencias':
+                $id = $_POST['id'];
+
+                $condicao = "a.pendencias_id = c.id AND a.os_id = '$id' AND c.funcionario_id = b.id";
+                $tabelas = "os_pendencias a, funcionario b, pendencias c";
+
+                $pendencias = busca_detalhada_varios($conexao, $condicao , $tabelas, 'c.id, b.nome, c.servico');
+    
+                if($pendencias != null){
+                    print json_encode($pendencias);
+                }
+    
+                break;
+            case 'salva_registroI':
+                $id = $_POST['id'];
+                $mensagem = $_POST['mensagem'];
+                $id_logado = $_POST['id_funcionario'];
+                $data = $_POST['data'];
+                $hora = $_POST['hora'];
+
+                $campos = "observacao, os_id, data, hora, funcionario_id";
+                $valores = "'$mensagem', '$id', '$data', '$hora', '$id_logado'";
+
+                $registro_interno = insere($conexao, $campos, $valores, 'observacao');
+
+                if (strlen($registro_interno['id']) <= 0 ) {
+                    print json_encode($registro_interno);
+                }
+
+            break;
+            case 'recupera_id':
+                $nome_usuario = $_POST['nome_usuario'];
+
+                $condicao = "login_login = '$nome_usuario'";
+
+                $id_funcionario = busca_detalhada_um($conexao, $condicao, 'funcionario', 'id');
+
+                if($id_funcionario != null){
+                    print json_encode($id_funcionario);
+                }
+            break;
+            case 'busca_registro_interno':
+                $id = $_POST['id'];
+                $id_logado = $_POST['id_funcionario'];
+
+                $condicao = "a.os_id = '$id' AND a.funcionario_id = b.id order by a.id desc";
+                $tabelas = "observacao a, funcionario b";
+                $campos = "a.*, b.nome";
+                
+                $mensagens_interna = busca_detalhada_varios($conexao, $condicao , $tabelas, $campos);
+    
+                if($mensagens_interna != null){
+                    print json_encode($mensagens_interna);
+                }
+            break;
+            case 'salva_registroC':
+                $id = $_POST['id'];
+                $mensagem = $_POST['mensagem'];
+                $data = $_POST['data'];
+                $hora = $_POST['hora'];
+                $id_funcionario_de = $_POST['id_funcionario_de'];
+                $id_funcionario_para = $_POST['id_funcionario_para'];
+
+                $campos = "mensagem, data, hora, de_funcionario_id, para_funcionario_id";
+                $valores = "'$mensagem', '$data', '$hora', '$id_funcionario_de', '$id_funcionario_para'";
+
+                $mensagem_comunicador = insere($conexao, $campos, $valores, 'mensagem');
+
+                if (strlen($mensagem_comunicador['id']) <= 0 ) {
+                    $id_mensagem = json_encode($mensagem_comunicador);
+
+                    $campos = "os_id, mensagen_id";
+                    
+                    $valores = "'$id', '$id_mensagem'"; 
+
+                    $inclui_os_pendencia = insere($conexao, $campos, $valores, 'os_mensagem');
+
+                    if (strlen($inclui_os_pendencia['id']) <= 0 ) {
+                        print json_encode($inclui_os_pendencia);
+                    }
+                }
+            break;
+            case 'busca_mensagem_comunicador':
+                $id = $_POST['id'];
+                $id_logado = $_POST['id_funcionario'];
+
+                $condicao = "b.os_id = '$id' AND a.id = b.mensagen_id AND a.de_funcionario_id = c.id AND a.para_funcionario_id = d.id GROUP BY hora ORDER BY a.id DESC";
+                $tabelas = "mensagem a, os_mensagem b, funcionario c, funcionario d";
+                $campos = "a.*, c.nome AS de, group_concat(d.nome) AS para";
+                
+                $mensagens_interna = busca_detalhada_varios($conexao, $condicao , $tabelas, $campos);
+    
+                if($mensagens_interna != null){
+                    print json_encode($mensagens_interna);
+                }
             break;
         default:
             break;

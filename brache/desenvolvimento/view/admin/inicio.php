@@ -307,14 +307,14 @@ include 'menu.php';
                                 <h6  style="margin-top:1rem"><i>Veículo</i></h6>
                                 <div class="input-group ">
                                     <span class="input-group-addon" id="sizing-addon1"><i class="fas fa-car"></i></span>
-                                    <input type="text" id="veiculo" class="form-control" disabled  placeholder="Honda Civic - Preto" name="">
+                                    <input type="text" id="veiculo_modal" class="form-control" disabled  placeholder="Honda Civic - Preto" name="">
                                 </div>
                             </div>
                             <div class="col-4">
                                 <h6  style="margin-top:1rem"><i>Data de liberação</i></h6>
                                 <div class="input-group ">
                                     <span class="input-group-addon" id="sizing-addon1"><i class="fas fa-calendar"></i></span>
-                                    <input type="text" id="data_liberacao" class="form-control" disabled  placeholder="10/01/2018" name="">
+                                    <input type="text" id="data_liberacao_modal" class="form-control" disabled  placeholder="10/01/2018" name="">
                                 </div>
                             </div>
                         </div>
@@ -323,14 +323,14 @@ include 'menu.php';
                                 <h6  style="margin-top:1rem"><i>Placa</i></h6>
                                 <div class="input-group ">
                                     <span class="input-group-addon" id="sizing-addon1"><i class="fas fa-car"></i></span>
-                                    <input type="text" id="placa" class="form-control" disabled  placeholder="ABC-1234" name="">
+                                    <input type="text" id="placa_modal" class="form-control" disabled  placeholder="ABC-1234" name="">
                                 </div>
                             </div>
                             <div class="col-7">
                                 <h6  style="margin-top:1rem"><i>Sinistro</i></h6>
                                 <div class="input-group ">
                                     <span class="input-group-addon" id="sizing-addon1"><i class="fas fa-info-circle"></i></span>
-                                    <input type="text" id="sinistro" class="form-control" disabled  placeholder="123456" name="">
+                                    <input type="text" id="sinistro_modal" class="form-control" disabled  placeholder="123456" name="">
                                 </div>
                             </div>
                         </div>
@@ -339,14 +339,14 @@ include 'menu.php';
                                 <h6  style="margin-top:1rem"><i>Nome</i></h6>
                                 <div class="input-group ">
                                     <span class="input-group-addon" id="sizing-addon1"><i class="fas fa-user"></i></span>
-                                    <input type="text" id="nome" class="form-control" disabled  placeholder="Nome do cliente" name="">
+                                    <input type="text" id="nome_modal" class="form-control" disabled  placeholder="Nome do cliente" name="">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <h6  style="margin-top:1rem"><i>Telefone</i></h6>
                                 <div class="input-group ">
                                     <span class="input-group-addon" id="sizing-addon1"><i class="fas fa-phone"></i></span>
-                                    <input type="text" id="telefone" class="form-control" disabled  placeholder="(61) 99999-9999" name="">
+                                    <input type="text" id="telefone_modal" class="form-control" disabled  placeholder="(61) 99999-9999" name="">
                                 </div>
                             </div>
                         </div>
@@ -355,7 +355,7 @@ include 'menu.php';
                                 <h6  style="margin-top:1rem"><i>E-mail</i></h6>
                                 <div class="input-group ">
                                     <span class="input-group-addon" id="sizing-addon1"><i class="fas fa-envelope"></i></span>
-                                    <input type="text" id="email" class="form-control" disabled  placeholder="email@email.com" name="">
+                                    <input type="text" id="email_modal" class="form-control" disabled  placeholder="email@email.com" name="">
                                 </div>
                             </div>
                         </div>
@@ -395,8 +395,8 @@ include 'menu.php';
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <a href="os.php" class="btn btn-dark btn-block">Ver ordem de servoço completa</a>
+                    <div class="modal-footer" id="botao_modal">
+                        
                     </div>
                 </div>
             </div>
@@ -526,73 +526,73 @@ include 'menu.php';
 
                             if(retorno[i].perda_total == 1 ){
                                 html_ii += '<tr>'+
-                                    '<td>'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</td>'+
+                                    '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                     '</tr>';
                             }else if (retorno[i].data_entrada != null && retorno[i].data_autorizacao != null  ){
                                 html_fazer_os += '<tr>'+
-                                    '<td>'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</td>'+
+                                    '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                     '</tr>';
                                 html_triagem += '<tr>'+
-                                    '<td>'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</td>'+
+                                    '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                     '</tr>';
                                 html_servico += '<tr>'+
-                                    '<td>'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</td>'+
+                                    '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                     '</tr>';
                             }else if(retorno[i].data_saida != null ){
                                 html_saida += '<tr>'+
-                                    '<td>'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</td>'+
+                                    '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                     '</tr>';
                             }else if(retorno[i].data_agendamento != null){
                                 html_agendamento += '<tr>'+
-                                    '<td>'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</td>'+
+                                    '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                     '</tr>';
                             }else if(retorno[i].data_previsao_entrega != null){
                                 html_previsao_entrega += '<tr>'+
-                                    '<td>'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</td>'+
+                                    '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                     '</tr>';
                             }else if(retorno[i].data_retorno != null){
                                 html_retorno += '<tr>'+
-                                    '<td>'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</td>'+
+                                    '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                     '</tr>';
                                 html_autorizado_oficina += '<tr>'+
-                                    '<td>'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</td>'+
+                                    '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                     '</tr>';
                                 html_pendencia_pecas += '<tr>'+
-                                    '<td>'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</td>'+
+                                    '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                     '</tr>';
                                 html_triagem += '<tr>'+
-                                    '<td>'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</td>'+
+                                    '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                     '</tr>';
                                 html_entrada += '<tr>'+
-                                    '<td>'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</td>'+
+                                    '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                     '</tr>';
                                 html_servico += '<tr>'+
-                                    '<td>'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</td>'+
+                                    '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                     '</tr>';
                             }else{
 
                                 if(retorno[i].data_vistoria_realizada != null){
                                     html_registro += '<tr>'+
-                                            '<td>'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</td>'+
+                                            '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                             '</tr>';
                                 }else if(retorno[i].data_autorizacao != null ){
 
                                         if(retorno[i].data_entrada != null){
                                             html_autorizado_cliente += '<tr>'+
-                                            '<td>'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</td>'+
+                                            '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                             '</tr>';
                                         }else{
                                             html_autorizado_oficina += '<tr>'+
-                                            '<td>'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</td>'+
+                                            '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                             '</tr>';
                                         }
 
                                          html_pendencia_pecas += '<tr>'+
-                                            '<td>'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</td>'+
+                                            '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                             '</tr>';
                                 }else{
                                     html_entrada += '<tr>'+
-                                        '<td>'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</td>'+
+                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                         '</tr>'; 
                                 } 
                             }
@@ -601,69 +601,69 @@ include 'menu.php';
 
                                 if(retorno[i].perda_total == 1 ){
                                     html_ii += '<tr>'+
-                                        '<td>'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</td>'+
+                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                         '</tr>';
                                 }else if (retorno[i].data_entrada != null && retorno[i].data_autorizacao != null  ){
                                     html_fazer_os += '<tr>'+
-                                        '<td>'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</td>'+
+                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                         '</tr>';
                                     html_triagem += '<tr>'+
-                                        '<td>'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</td>'+
+                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                         '</tr>';
                                     html_servico += '<tr>'+
-                                        '<td>'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</td>'+
+                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                         '</tr>';
                                 }else if(retorno[i].data_saida != null ){
                                     html_saida += '<tr>'+
-                                        '<td>'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</td>'+
+                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                         '</tr>';
                                 }else if(retorno[i].data_agendamento != null){
                                     html_agendamento += '<tr>'+
-                                        '<td>'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</td>'+
+                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                         '</tr>';
                                 }else if(retorno[i].data_previsao_entrega != null){
                                     html_previsao_entrega += '<tr>'+
-                                        '<td>'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</td>'+
+                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                         '</tr>';
                                 }else if(retorno[i].data_retorno != null){
                                     html_retorno += '<tr>'+
-                                        '<td>'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</td>'+
+                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                         '</tr>';
                                     html_autorizado_oficina += '<tr>'+
-                                        '<td>'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</td>'+
+                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                         '</tr>';
                                     html_pendencia_pecas += '<tr>'+
-                                        '<td>'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</td>'+
+                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                         '</tr>';
                                     html_triagem += '<tr>'+
-                                        '<td>'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</td>'+
+                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                         '</tr>';
                                     html_entrada += '<tr>'+
-                                        '<td>'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</td>'+
+                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                         '</tr>';
                                     html_servico += '<tr>'+
-                                        '<td>'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</td>'+
+                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                         '</tr>';
                                 }else{
 
                                     if(retorno[i].data_vistoria_realizada != null){
                                         html_registro += '<tr>'+
-                                                '<td>'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</td>'+
+                                                '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                                 '</tr>';
                                     }else if(retorno[i].data_autorizacao != null ){
 
                                             if(retorno[i].data_entrada != null){
                                                 html_autorizado_cliente += '<tr>'+
-                                                '<td>'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</td>'+
+                                                '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                                 '</tr>';
                                             }else{
                                                 html_autorizado_oficina += '<tr>'+
-                                                '<td>'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</td>'+
+                                                '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                                 '</tr>';
                                             }
 
                                             html_pendencia_pecas += '<tr>'+
-                                                '<td>'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</td>'+
+                                                '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                                 '</tr>';
                                     }
                                 }
@@ -692,6 +692,41 @@ include 'menu.php';
                 }
             }
         });
+    }
+
+    var dados_os;
+    function detalha_os(id){
+        $('#preloader').show();
+        var data = { id : id,
+                     funcao : "buscar_os"};
+        $.ajax({
+            url: '../../controller/os.php',
+            method: "post",
+            data: data ,
+            success: function(data){
+                if(data){
+                    var resultado = $.parseJSON(data);
+                    //Dados do cliente
+                    $('#veiculo_modal').attr('value', resultado.modelo);
+                    $('#data_liberacao_modal').attr('value', resultado.data_liberacao);
+                    $('#placa_modal').attr('value', resultado.placa);
+                    $('#sinistro_modal').attr('value', resultado.sinistro);
+                    $('#nome_modal').attr('value', resultado.nome_cliente);
+                    $('#telefone_modal').attr('value', resultado.telefone);
+                    $('#email_modal').attr('value', resultado.email);
+
+                    dados_os = resultado;
+
+                    var html = '<a href="#" onclick="os_completa()" class="btn btn-dark btn-block">Ver ordem de serviço completa</a>'
+                }
+                $('#botao_modal').html(html);
+                $('#preloader').hide();
+            }
+        });
+    }
+
+    function os_completa(){
+        window.location.href='os.php?codOS='+dados_os.id;
     }
 
 
