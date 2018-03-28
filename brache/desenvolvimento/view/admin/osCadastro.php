@@ -190,13 +190,7 @@ include 'menu.php';
                             </tbody>
                         </table>
                     </div>
-                    <div id="msg_servicos">
-                    </div>
-                    <!--
-                    <div class="alert alert-danger">
-                        <i class="fa fa-exclamation-triangle"></i>  Adicione um Serviço
-                    </div>
-                    -->
+                    <div id="msg_servicos"></div>
                 </div>
                 <div class="col-12">
                     <button style="margin-top: 1rem" class="btn btn-dark btn-lg btn-block"  onclick="salvar()">

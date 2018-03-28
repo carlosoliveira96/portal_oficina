@@ -1,4 +1,7 @@
 <?php
+
+include "../controle.php";
+
 //
 class ChatHandler {
 	function send($message) {
@@ -69,22 +72,24 @@ class ChatHandler {
 	}
 	
 	function newConnectionACK($client_ip_address) {
-		$message = 'New client ' . $client_ip_address.' joined';
-		$messageArray = array('message'=>$message,'message_type'=>'chat-connection-ack');
-		$ACK = $this->seal(json_encode($messageArray));
-		return $ACK;
+		//$message = 'New client ' . $client_ip_address.' joined';
+		//$messageArray = array('message'=>$message,'message_type'=>'chat-connection-ack');
+		//$ACK = $this->seal(json_encode($messageArray));
+		//return $ACK;
+		return ;
 	}
 	
 	function connectionDisconnectACK($client_ip_address) {
-		$message = 'Client ' . $client_ip_address.' disconnected';
-		$messageArray = array('message'=>$message,'message_type'=>'chat-connection-ack');
-		$ACK = $this->seal(json_encode($messageArray));
-		return $ACK;
+		//$message = 'Client ' . $client_ip_address.' disconnected';
+		//$messageArray = array('message'=>$message,'message_type'=>'chat-connection-ack');
+		//$ACK = $this->seal(json_encode($messageArray));
+		//return $ACK;
+		return ;
 	}
 	
-	function createChatBoxMessage($chat_user,$chat_box_message) {
-		$message = $chat_user . ": <div class='chat-box-message'>" . $chat_box_message . "</div>";
-		$messageArray = array('message'=>$message,'message_type'=>'chat-box-html');
+	function createChatBoxMessage( $chat_user ,$usuario2 , $chat_box_message , $data , $hora   ) {
+		$message = $chat_box_message;
+		$messageArray = array('message'=>$message,'usuario'=> $chat_user , 'usuario2'=> $usuario2 ,  'data'=> $data , 'hora'=> $hora  );
 		$chatMessage = $this->seal(json_encode($messageArray));
 		return $chatMessage;
 	}

@@ -41,6 +41,19 @@ switch ($funcao){
                 print 0;
             }
         }
+        break;
 
-    break;
+    case 'busca_usuarios':
+
+        $pesquisa = $_POST['pesquisa'];
+
+        $funcionarios = busca_detalhada_varios($conexao, "a.login = b.login_login and b.nome LIKE '%$pesquisa%' " , "login a , funcionario b ", "b.id , b.nome , b.url_imagem");
+
+        if($funcionarios != null){
+            print json_encode($funcionarios);
+        }
+    
+        break;
+    default:
+        break;
 }
