@@ -771,7 +771,7 @@ $hora_atual = date('H:i:s');
                     for(var i = 0; i < resultado.length ; i++  ){
                         html += '<option value="'+resultado[i].id+'">'+resultado[i].nome+'</option>'; 
                     }   
-                    $('#comunicadorFuncionario').append(html);
+                    $('#comunicadorFuncionario').html(html);
                 }
             }
         });
@@ -863,7 +863,7 @@ $hora_atual = date('H:i:s');
                                     '<button class="btn btn-dark col-12" onclick="remove_funcionario('+resultado[i].id+');"><i class="fa fa-trash"></i> Remover</buttona>'+
                                     '</th>'+
                                 '</tr>';
-                            $('#tbody').append(html);
+                            $('#tbody').html(html);
                         }
                     }
                     
@@ -1073,7 +1073,7 @@ $hora_atual = date('H:i:s');
                         }
                     }
                 }
-                $('#mensagens_interna').append(html);
+                $('#mensagens_interna').html(html);
                 $('#preloader').hide();
             }
         });
@@ -1131,7 +1131,7 @@ $hora_atual = date('H:i:s');
                         }
                     }
                 }
-                $('#comunicador_msg').append(html);
+                $('#comunicador_msg').html(html);
                 $('#preloader').hide();
             }
         });

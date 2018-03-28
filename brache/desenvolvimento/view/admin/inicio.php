@@ -15,7 +15,7 @@ include 'menu.php';
         <!-- Arquivos JS -->
         <script type="text/javascript" src="../static/js/jasny-bootstrap.js"></script>
     </head>
-    <body  id="body" style="background-color: #F8F9FA" onload="busca_os()">
+    <body  id="body" style="background-color: #F8F9FA" onload="busca_os();">
         <div class="container" style="background-color: #fff;">
             <h2>
                 <p class="text-center" style="color: #000"><i><b>Consulta de Veículos</b></i></p>
@@ -371,25 +371,8 @@ include 'menu.php';
                                             <th scope="col" class="text-center">Data Fim</th>
                                         </tr>
                                     </thead>
-                                    <tbody data-link="row">
-                                        <tr>
-                                            <td scope="row" class="text-center">Desmontagem</td>
-                                            <td scope="row" class="text-center">10/01/2018</td>
-                                            <td scope="row" class="text-center">Nome Nome Nome</td>
-                                            <td scope="row" class="text-center">11/01/2018</td>
-                                        </tr>
-                                        <tr>
-                                            <td scope="row" class="text-center">Desmontagem</td>
-                                            <td scope="row" class="text-center">10/01/2018</td>
-                                            <td scope="row" class="text-center">Nome Nome Nome</td>
-                                            <td scope="row" class="text-center">11/01/2018</td>
-                                        </tr>
-                                        <tr>
-                                            <td scope="row" class="text-center">Desmontagem</td>
-                                            <td scope="row" class="text-center">10/01/2018</td>
-                                            <td scope="row" class="text-center">Nome Nome Nome</td>
-                                            <td scope="row" class="text-center">11/01/2018</td>
-                                        </tr>
+                                    <tbody data-link="row" id="tabela_servicos">
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -486,6 +469,7 @@ include 'menu.php';
         });
     }
 
+    var id_os = 0;
     function busca_os(){ 
         var corretor = $('#corretor').val();
         var seguradora = $('#seguradora').val();
@@ -503,6 +487,7 @@ include 'menu.php';
                 if(data){
                     var retorno = $.parseJSON(data);
                     if(retorno.length > 0 ){
+                        
 
                         var html_registro = "";
                         var html_autorizado_cliente = "";
@@ -523,76 +508,77 @@ include 'menu.php';
                         var html_servico = "";
 
                         for(var i = 0 ; i <retorno.length ; i++ ){
+                            id_os = retorno[i].id;
 
                             if(retorno[i].perda_total == 1 ){
                                 html_ii += '<tr>'+
-                                    '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                    '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                     '</tr>';
                             }else if (retorno[i].data_entrada != null && retorno[i].data_autorizacao != null  ){
                                 html_fazer_os += '<tr>'+
-                                    '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                    '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                     '</tr>';
                                 html_triagem += '<tr>'+
-                                    '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                    '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                     '</tr>';
                                 html_servico += '<tr>'+
-                                    '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                    '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                     '</tr>';
                             }else if(retorno[i].data_saida != null ){
                                 html_saida += '<tr>'+
-                                    '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                    '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                     '</tr>';
                             }else if(retorno[i].data_agendamento != null){
                                 html_agendamento += '<tr>'+
-                                    '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                    '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                     '</tr>';
                             }else if(retorno[i].data_previsao_entrega != null){
                                 html_previsao_entrega += '<tr>'+
-                                    '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                    '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                     '</tr>';
                             }else if(retorno[i].data_retorno != null){
                                 html_retorno += '<tr>'+
-                                    '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                    '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                     '</tr>';
                                 html_autorizado_oficina += '<tr>'+
-                                    '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                    '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                     '</tr>';
                                 html_pendencia_pecas += '<tr>'+
-                                    '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                    '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                     '</tr>';
                                 html_triagem += '<tr>'+
-                                    '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                    '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                     '</tr>';
                                 html_entrada += '<tr>'+
-                                    '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                    '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                     '</tr>';
                                 html_servico += '<tr>'+
-                                    '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                    '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                     '</tr>';
                             }else{
 
                                 if(retorno[i].data_vistoria_realizada != null){
                                     html_registro += '<tr>'+
-                                            '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                            '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                             '</tr>';
                                 }else if(retorno[i].data_autorizacao != null ){
 
                                         if(retorno[i].data_entrada != null){
                                             html_autorizado_cliente += '<tr>'+
-                                            '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                            '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                             '</tr>';
                                         }else{
                                             html_autorizado_oficina += '<tr>'+
-                                            '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                            '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                             '</tr>';
                                         }
 
                                          html_pendencia_pecas += '<tr>'+
-                                            '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                            '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                             '</tr>';
                                 }else{
                                     html_entrada += '<tr>'+
-                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                         '</tr>'; 
                                 } 
                             }
@@ -601,69 +587,69 @@ include 'menu.php';
 
                                 if(retorno[i].perda_total == 1 ){
                                     html_ii += '<tr>'+
-                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                         '</tr>';
                                 }else if (retorno[i].data_entrada != null && retorno[i].data_autorizacao != null  ){
                                     html_fazer_os += '<tr>'+
-                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                         '</tr>';
                                     html_triagem += '<tr>'+
-                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                         '</tr>';
                                     html_servico += '<tr>'+
-                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                         '</tr>';
                                 }else if(retorno[i].data_saida != null ){
                                     html_saida += '<tr>'+
-                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                         '</tr>';
                                 }else if(retorno[i].data_agendamento != null){
                                     html_agendamento += '<tr>'+
-                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                         '</tr>';
                                 }else if(retorno[i].data_previsao_entrega != null){
                                     html_previsao_entrega += '<tr>'+
-                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                         '</tr>';
                                 }else if(retorno[i].data_retorno != null){
                                     html_retorno += '<tr>'+
-                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                         '</tr>';
                                     html_autorizado_oficina += '<tr>'+
-                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                         '</tr>';
                                     html_pendencia_pecas += '<tr>'+
-                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                         '</tr>';
                                     html_triagem += '<tr>'+
-                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                         '</tr>';
                                     html_entrada += '<tr>'+
-                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                         '</tr>';
                                     html_servico += '<tr>'+
-                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                         '</tr>';
                                 }else{
 
                                     if(retorno[i].data_vistoria_realizada != null){
                                         html_registro += '<tr>'+
-                                                '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                                '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                                 '</tr>';
                                     }else if(retorno[i].data_autorizacao != null ){
 
                                             if(retorno[i].data_entrada != null){
                                                 html_autorizado_cliente += '<tr>'+
-                                                '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                                '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                                 '</tr>';
                                             }else{
                                                 html_autorizado_oficina += '<tr>'+
-                                                '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                                '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                                 '</tr>';
                                             }
 
                                             html_pendencia_pecas += '<tr>'+
-                                                '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                                '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os('+retorno[i].id+'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                                 '</tr>';
                                     }
                                 }
@@ -717,7 +703,7 @@ include 'menu.php';
 
                     dados_os = resultado;
 
-                    var html = '<a href="#" onclick="os_completa()" class="btn btn-dark btn-block">Ver ordem de serviço completa</a>'
+                    var html = '<a href="#" onclick="os_completa();" class="btn btn-dark btn-block">Ver ordem de serviço completa</a>'
                 }
                 $('#botao_modal').html(html);
                 $('#preloader').hide();
@@ -727,6 +713,42 @@ include 'menu.php';
 
     function os_completa(){
         window.location.href='os.php?codOS='+dados_os.id;
+    }
+
+    //Função para busca dos servicos
+    function busca_servicos_os(id_os){
+        $('#preloader').show();
+        $('#tabela_servicos').html("");
+        var data = { id : id_os,
+                     funcao : "buscar_servicos"};
+        $.ajax({
+            url: '../../controller/os.php',
+            method: "post",
+            data: data ,
+            success: function(data){
+                if(data){
+                    var resultado = $.parseJSON(data);
+                    if(resultado.length > 0){
+                        var html = "";
+                        for(var i = 0; i < resultado.length; i++){
+                            if(resultado[i].data_inicio == null){
+                                resultado[i].data_inicio = "";
+                            }
+                            if(resultado[i].data_fim == null){
+                                resultado[i].data_fim = "";
+                            }
+                            html += '<tr>'+
+	                                    '<td scope="row" class="text-center" id="servoco'+resultado[i].os_id+'">'+resultado[i].descricao+'</td>'+
+                                        '<td scope="row" class="text-center" id="dtInicio'+resultado[i].os_id+'">'+resultado[i].data_inicio+'</td>'+
+                                        '<td scope="row" class="text-center" id="funcionario'+resultado[i].os_id+'">'+resultado[i].nome+'</td>'+
+                                        '<td scope="row" class="text-center" id="dtFim'+resultado[i].os_id+'">'+resultado[i].data_fim+'</td>'+
+                                    '</tr>';
+                        }
+                        $('#tabela_servicos').html(html);
+                    }
+                }
+            }
+        });
     }
 
 
