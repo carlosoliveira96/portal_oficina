@@ -121,26 +121,30 @@ include "controle.php";
                                     
                                     </div>
                                 </div>
-                                 <!--
+                                 
                                 <div class="card  border-dark ">
                                     <div class="body"  style="margin-top:0.5rem ; margin-bottom : 0.5rem">
-                                       
+                                       <!--
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="row">
                                                     <div class="col-3"  >
                                                         <img src="../static/img/user.png"  style="margin-left:0.5rem" class="rounded-circle" height="50" width="50">
                                                     </div>
-                                                    <div class="col-9">
+                                                    <div class="col-7">
                                                         <div style="margin-top:0.8rem"><strong>Usuário</strong></div>
+                                                    </div>
+                                                    <div class="col-2"  id="badge">
+                                                        <span class="badge badge-dark" style="margin-top:1rem">
+                                                            <i class="fa fa-envelope"></i>
+                                                        </span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                       
+                                      -->
                                     </div>
                                 </div>
-                                 -->
                             </div>
                             <div class="col-8">
                                 <div  class="card" id="card_msg">
@@ -220,6 +224,8 @@ include "controle.php";
         $('#chat-box').append(messageHTML);
     }
 
+    var altura = $('#chat-box').height();
+
     $('#card_msg').hide();
 
     $(document).ready(function(){
@@ -229,6 +235,7 @@ include "controle.php";
         }
         websocket.onmessage = function(event) {
             var Data = JSON.parse(event.data);
+            alert(JSON.stringify(Data));
             if(Data.usuario != null){
                 if (usuario == Data.usuario){
                     var html = '<div class="row justify-content-end" style="margin-top: 1rem">';
@@ -254,12 +261,26 @@ include "controle.php";
                         html += '</div>';    
                         html += '</div>';
                     showMessage(html);
+                }else if(meu_id == Data.usuario2 && Data.id_user ==  $('#id_contato').val()  ){
+                    var html = '<div class="row" style="margin-top: 1rem">';
+                        html += '<div class="col-10" style="margin-left:0.5rem">';
+                        html += '<div class="card text-white bg-primary ">';
+                        html += '<div class="body" style="margin-top:0.5rem ; margin-bottom : 0.5rem">';
+                        html += '<div style="margin-left:0.5rem"><strong>'+Data.usuario+'</strong><small> &nbsp;&nbsp;'+Data.data+' - '+Data.hora+'</small></div>';
+                        html += '<div style="margin-left:1rem">'+Data.message+'</div>';
+                        html += '</div>';
+                        html += '</div>';
+                        html += '</div>';    
+                        html += '</div>';
+                    showMessage(html);
                 }
             }
 
+            altura += 90;
+
             $('#chat-box').animate({
-                    scrollTop: $('#chat-box').height()
-            }, 500);
+                    scrollTop: altura
+                }, 500);
 
             $('#chat-message').val('');
         };
@@ -285,8 +306,14 @@ include "controle.php";
             if (m1 < 10){
                 m1 = "0"+ m1;
             }
+
+            if (min < 10){
+                min = "0"+ min;
+            }
+
             var str_hora = hora +':'+min;
             var str_data = dia + '/' + m1 + '/' + ano4;
+
 
             event.preventDefault(); 
             var messageJSON = {
@@ -294,7 +321,8 @@ include "controle.php";
                 usuario2 : $('#id_contato').val() , 
                 chat_message: $('#chat-message').val(),
                 hora : str_hora,
-                data : str_data 
+                data : str_data,
+                id_user : meu_id
             };
 
             var texto = $('#chat-message').val();
@@ -421,6 +449,8 @@ include "controle.php";
         
         nome_funcionario = lista_usuarios[i].nome;
 
+        altura = $('#chat-box').height();
+
         $('#img_contato').html(html);
         $('#nome_contato').html(lista_usuarios[i].nome);
         $('#id_contato').val(lista_usuarios[i].id);
@@ -472,14 +502,16 @@ include "controle.php";
                                     html += '</div>';    
                                     html += '</div>';
                             }
-
+                            altura += 90;
                         }
                     }   
                 }
                 $('#chat-box').append(html);
-                $('#chat-box').animate({
-                    scrollTop: $('#chat-box').height()
+                
+                 $('#chat-box').animate({
+                    scrollTop: altura
                 }, 500);
+
                 $('#card_msg').show();
             }
         })

@@ -36,7 +36,28 @@ if(isset($_POST['funcao'])){
             $data_inicio = $_POST['data_inicio'];
             $data_fim = $_POST['data_fim'];
 
-            $os = busca_detalhada_varios($conexao, "a.cliente_id = c.id AND a.veiculo_placa = b.placa" , "os a , veiculo b , cadastro c ");
+            if(strlen($data_inicio) <= 0){
+                $data_inicio = "01/01/0001";
+            }
+
+            if(strlen($data_fim) <= 0){
+                $data_fim = "31/12/9999";
+            }
+
+            $data_inicio = date_format(date_create_from_format('d/m/Y', $data_inicio), 'Y/m/d');
+            $data_fim = date_format(date_create_from_format('d/m/Y', $data_fim), 'Y/m/d');     
+
+            $os ="";
+            if (strlen($corretor) > 0 && strlen($seguradora) > 0 ){
+                $os = busca_detalhada_varios($conexao, "a.cliente_id = c.id AND a.veiculo_placa = b.placa AND (b.placa like '%{$pesquisa}%' OR a.sinistro  LIKE '%{$pesquisa}%' OR c.nome  OR '%{$pesquisa}%' OR b.modelo LIKE '%{$pesquisa}%') AND a.corretor_id = '{$corretor}' AND a.seguradora_id = '{$seguradora} ' AND STR_TO_DATE( a.data_cadastro , '%d/%m/%Y' ) BETWEEN '{$data_inicio}' AND '{$data_fim}' " , "os a , veiculo b , cadastro c ");
+            }else if (strlen($corretor) <= 0 && strlen($seguradora) <= 0){
+                $os = busca_detalhada_varios($conexao, "a.cliente_id = c.id AND a.veiculo_placa = b.placa AND (b.placa like '%{$pesquisa}%' OR a.sinistro  LIKE '%{$pesquisa}%' OR c.nome  OR '%{$pesquisa}%' OR b.modelo LIKE '%{$pesquisa}%') AND STR_TO_DATE( a.data_cadastro , '%d/%m/%Y' ) BETWEEN '{$data_inicio}' AND '{$data_fim}'" , "os a , veiculo b , cadastro c ");                
+            }else if(strlen($seguradora) <= 0){
+                $os = busca_detalhada_varios($conexao, "a.cliente_id = c.id AND a.veiculo_placa = b.placa AND (b.placa like '%{$pesquisa}%' OR a.sinistro  LIKE '%{$pesquisa}%' OR c.nome  OR '%{$pesquisa}%' OR b.modelo LIKE '%{$pesquisa}%') AND a.corretor_id = '{$corretor}' AND STR_TO_DATE( a.data_cadastro , '%d/%m/%Y' ) BETWEEN '{$data_inicio}' AND '{$data_fim}'" , "os a , veiculo b , cadastro c ");
+            }else if(strlen($corretor) <= 0){
+                $os = busca_detalhada_varios($conexao, "a.cliente_id = c.id AND a.veiculo_placa = b.placa AND (b.placa like '%{$pesquisa}%' OR a.sinistro  LIKE '%{$pesquisa}%' OR c.nome  OR '%{$pesquisa}%' OR b.modelo LIKE '%{$pesquisa}%')  AND a.seguradora_id = '{$seguradora}' AND STR_TO_DATE( a.data_cadastro , '%d/%m/%Y' ) BETWEEN '{$data_inicio}' AND '{$data_fim}'" , "os a , veiculo b , cadastro c ");
+            }
+           // $os = busca_detalhada_varios($conexao, "a.cliente_id = c.id AND a.veiculo_placa = b.placa AND (b.placa like '%{$pesquisa}%' OR a.sinistro  LIKE '%{$pesquisa}%' OR c.nome  OR '%{$pesquisa}%' OR b.modelo LIKE '%{$pesquisa}%') AND a.corretor_id = '{$corretor}' AND a.seguradora_id = '{$seguradora} ' " , "os a , veiculo b , cadastro c ");
 
             if($os != null){
                 print json_encode($os);

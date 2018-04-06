@@ -25,7 +25,7 @@ include 'menu.php';
                 <div class="col-3">
                     <h6 ><i>Placa/Sinistro/Nome/Carro</i></h6>
                     <div class="input-group">
-                        <input type="text" id="pesquisa" class="form-control" placeholder="Placa/Sinistro/Nome/Carro" aria-label="Username" aria-describedby="basic-addon1">
+                        <input type="text" id="pesquisa_os" class="form-control" placeholder="Placa/Sinistro/Nome/Carro">
                     </div>
                 </div>
 
@@ -208,11 +208,16 @@ include 'menu.php';
                         <table class="table table-dark table-bordered table-striped table-hover" id="entregue">
                             <thead>
                                 <tr>
-                                    <th scope="col" class="text-center">Pendência Interna</th>
+                                    <th scope="col" colspan="2" class="text-center">Pendência Interna</th>
                                 </tr>
                             </thead>
                             <tbody data-link="row" class="rowlink" id="tbody_pendencia_interna">
-                                
+                                <td>
+                                    <input type="checkbox" name="" id="">
+                                </td>
+                                <td>
+                                    Pendencia
+                                </td>
                             </tbody>
                         </table>
                     </div>
@@ -471,11 +476,30 @@ include 'menu.php';
 
     var id_os = 0;
     function busca_os(){ 
+        //$('#preloader').show();
         var corretor = $('#corretor').val();
         var seguradora = $('#seguradora').val();
-        var pesquisa = $('#pesquisa').val();
+        var pesquisa = $('#pesquisa_os').val();
         var data_inicio = $('#data_inicio').val();
         var data_fim = $('#data_fim').val();
+
+        var html_registro = "";
+        var html_autorizado_cliente = "";
+        var html_autorizado_oficina = "";
+        var html_pendencia_pecas = "";
+        var html_agendamento = "";
+        var html_entrada = "";
+        var html_fazer_os = "";
+        var html_triagem = "";
+        var html_particular = "";
+        var html_pendencia_interna = "";
+        var html_previsao_entrega = "";
+        var html_saida = "";
+        var html_tc = "";
+        var html_ii = "";
+        var html_retorno = "";
+        var html_conferencia = "";
+        var html_servico = "";
 
         var data = {funcao: 'busca_os' , corretor : corretor , seguradora : seguradora , pesquisa : pesquisa , data_inicio : data_inicio , data_fim : data_fim };
         var html ;
@@ -483,29 +507,28 @@ include 'menu.php';
             url: '../../controller/os.php',
             method: "post",
             data: data ,
-            success: function(data){
+            success: function(data){   
                 if(data){
                     var retorno = $.parseJSON(data);
                     if(retorno.length > 0 ){
                         
-
-                        var html_registro = "";
-                        var html_autorizado_cliente = "";
-                        var html_autorizado_oficina = "";
-                        var html_pendencia_pecas = "";
-                        var html_agendamento = "";
-                        var html_entrada = "";
-                        var html_fazer_os = "";
-                        var html_triagem = "";
-                        var html_particular = "";
-                        var html_pendencia_interna = "";
-                        var html_previsao_entrega = "";
-                        var html_saida = "";
-                        var html_tc = "";
-                        var html_ii = "";
-                        var html_retorno = "";
-                        var html_conferencia = "";
-                        var html_servico = "";
+                        html_registro = "";
+                        html_autorizado_cliente = "";
+                        html_autorizado_oficina = "";
+                        html_pendencia_pecas = "";
+                        html_agendamento = "";
+                        html_entrada = "";
+                        html_fazer_os = "";
+                        html_triagem = "";
+                        html_particular = "";
+                        html_pendencia_interna = "";
+                        html_previsao_entrega = "";
+                        html_saida = "";
+                        html_tc = "";
+                        html_ii = "";
+                        html_retorno = "";
+                        html_conferencia = "";
+                        html_servico = "";
 
                         for(var i = 0 ; i <retorno.length ; i++ ){
                             id_os = retorno[i].id;
@@ -663,7 +686,7 @@ include 'menu.php';
                         $('#tbody_agendamento').html(html_agendamento);
                         $('#tbody_triagem').html(html_triagem);
                         $('#tbody_particular').html(html_particular);
-                        $('#tbody_pendencia_interna').html(html_pendencia_interna);
+                       // $('#tbody_pendencia_interna').html(html_pendencia_interna);
                         $('#tbody_previsao_entrega').html(html_previsao_entrega);
                         $('#tbody_saida').html(html_saida);
                         $('#tbody_tc').html(html_tc);
@@ -675,7 +698,26 @@ include 'menu.php';
                         $('#tbody_entrada').html(html_entrada);
                         $('#tbody_ii').html(html_ii);
                     }
+                }else{
+                    $('#tbody_autorizado_cliente').html(html_autorizado_cliente);
+                    $('#tbody_autorizado_oficina').html(html_autorizado_oficina);
+                    $('#tbody_pendencia_pecas').html(html_pendencia_pecas);
+                    $('#tbody_agendamento').html(html_agendamento);
+                    $('#tbody_triagem').html(html_triagem);
+                    $('#tbody_particular').html(html_particular);
+                    $('#tbody_pendencia_interna').html(html_pendencia_interna);
+                    $('#tbody_previsao_entrega').html(html_previsao_entrega);
+                    $('#tbody_saida').html(html_saida);
+                    $('#tbody_tc').html(html_tc);
+                    $('#tbody_conferencia').html(html_conferencia);
+                    $('#tbody_servico').html(html_servico);
+                    $('#tbody_fazer_os').html(html_fazer_os);
+                    $('#tbody_retorno').html(html_retorno);
+                    $('#tbody_registro').html(html_registro);
+                    $('#tbody_entrada').html(html_entrada);
+                    $('#tbody_ii').html(html_ii);
                 }
+                $('#preloader').hide();
             }
         });
     }

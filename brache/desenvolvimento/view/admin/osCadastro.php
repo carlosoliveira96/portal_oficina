@@ -394,6 +394,11 @@ include 'menu.php';
                 m1 = "0"+ m1;
             }
 
+            if (dia < 10){
+                dia = "0"+ dia;
+            }
+
+
             var str_data = dia + '/' + m1 + '/' + ano4;
 
             var data = new FormData();
@@ -475,7 +480,7 @@ include 'menu.php';
                                 $('#msg').html(html);
                                 window.location.href='#body';
                                 window.setInterval(function(){
-                                    window.location.href='os.php?cod='+id_os;
+                                    window.location.href='os.php?codOS='+id_os;
                                 },3000);
                             }
                         }else{

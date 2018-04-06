@@ -87,9 +87,9 @@ class ChatHandler {
 		return ;
 	}
 	
-	function createChatBoxMessage( $chat_user ,$usuario2 , $chat_box_message , $data , $hora   ) {
+	function createChatBoxMessage( $chat_user ,$usuario2 , $chat_box_message , $data , $hora , $id_user   ) {
 		$message = $chat_box_message;
-		$messageArray = array('message'=>$message,'usuario'=> $chat_user , 'usuario2'=> $usuario2 ,  'data'=> $data , 'hora'=> $hora  );
+		$messageArray = array('message'=>$message,'usuario'=> $chat_user , 'usuario2'=> $usuario2 ,  'data'=> $data , 'hora'=> $hora  , 'id_user'=>$id_user );
 		$chatMessage = $this->seal(json_encode($messageArray));
 		return $chatMessage;
 	}
