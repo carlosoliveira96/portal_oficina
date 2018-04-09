@@ -67,7 +67,7 @@ include 'menu.php';
             </div>
             <hr>
             <div class="div-veiculos" id="container" style="width: 100%; overflow-x: auto; background-color: #fff;">
-                <div class="row" id="row" style="overflow: auto;  width: 141rem;">
+                <div class="row" id="row" style="overflow: auto;  width: 181rem;">
                     <div class="" style="padding-right: 0; padding-left: 15px;">
                     <table class="table table-dark table-bordered table-striped table-hover" id="desmontagem">
                             <thead>
@@ -296,6 +296,8 @@ include 'menu.php';
                 </div>
             </div>
         </div>
+        <div id="teste">
+        </div>
         <!-- Modal ver mais -->
         <div class="modal fade" id="verificaCarro" tabindex="-1" role="dialog" aria-labelledby="adicionaServicos" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
@@ -396,6 +398,8 @@ include 'menu.php';
         busca_seguradoras();
         busca_corretores();
 
+        var id_os = 0;
+
         //Função datepicker
         $( function() {
             $('#data_inicio').datepicker();
@@ -474,9 +478,29 @@ include 'menu.php';
         });
     }
 
-    var id_os = 0;
+    busca_pendencias();
+    function busca_pendencias(){
+        var corretor = $('#corretor').val();
+        var seguradora = $('#seguradora').val();
+        var pesquisa = $('#pesquisa_os').val();
+        var data_inicio = $('#data_inicio').val();
+        var data_fim = $('#data_fim').val();
+
+        var data = {funcao: 'busca_pendencias_inicio' , corretor : corretor , seguradora : seguradora , pesquisa : pesquisa , data_inicio : data_inicio , data_fim : data_fim };
+
+        $.ajax({
+            url: '../../controller/os.php',
+            method: "post",
+            data: data ,
+            success: function(data){
+                
+               // $('#teste').append(data);
+            }
+        });
+    }
+    
     function busca_os(){ 
-        //$('#preloader').show();
+        $('#preloader').show();
         var corretor = $('#corretor').val();
         var seguradora = $('#seguradora').val();
         var pesquisa = $('#pesquisa_os').val();
@@ -507,7 +531,7 @@ include 'menu.php';
             url: '../../controller/os.php',
             method: "post",
             data: data ,
-            success: function(data){   
+            success: function(data){  
                 if(data){
                     var retorno = $.parseJSON(data);
                     if(retorno.length > 0 ){
