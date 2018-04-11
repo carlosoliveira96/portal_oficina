@@ -103,6 +103,20 @@ include "controle.php";
             <div class="modal-dialog modal-elg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
+                        <div class="btn-group " role="group" aria-label="Button group with nested dropdown">
+                            <button type="button" id="btn_conversa" class="btn btn-dark active" onclick="seleciona_chat(this)">Conversas</button>
+                            <button type="button" id="btn_grupo" class="btn btn-dark" onclick="seleciona_chat(this)">Grupos</button>
+
+                            <div class="btn-group" role="group">
+                                <button id="btnGroupDrop1" type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span>Criar</span>    
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                    <a class="dropdown-item" id="nova_conversa" href="#" onclick="criar(this)">Nova Conversa</a>
+                                    <a class="dropdown-item" id="novo_grupo" href="#" onclick="criar(this)">Novo Grupo</a>
+                                </div>
+                            </div>
+                        </div>
                         <h5 class="modal-title">Comunicador</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -110,43 +124,135 @@ include "controle.php";
                     </div>
                     <div class="modal-body" id="comunicador-body" >
                         <div class="row">
-                            <div class="col-4 border-right">
-                                <div class="input-group ">
-                                    <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-search"></i></span>
-                                    <input type="text" id="pesquisa" onkeyup="busca_usuarios()" class="form-control" placeholder="Pesquisar funcionarios" maxlength="200" name="">
-                                </div>
-                                <hr>
-                                <div id="col-4" style="overflow-y: auto ; overflow-x : hidden" >
-                                    <div id="chat_usuarios">
-                                    
+                            <div class="col-4 ">
+                                <div id="conversas">
+                                    <div class="input-group">
+                                        <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-search"></i></span>
+                                        <input type="text" id="pesquisa_conversas" onkeyup="busca_usuarios()" class="form-control" placeholder="Pesquisar funcionarios" maxlength="200" name="">
+                                    </div>
+                                    <hr>
+                                    <div id="col-4" style="overflow-y: auto ; overflow-x : hidden" >
+                                        <div id="chat_usuarios">
+                                        
+                                        </div>
                                     </div>
                                 </div>
-                                 
-                                <div class="card  border-dark ">
-                                    <div class="body"  style="margin-top:0.5rem ; margin-bottom : 0.5rem">
-                                       <!--
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="row">
-                                                    <div class="col-3"  >
-                                                        <img src="../static/img/user.png"  style="margin-left:0.5rem" class="rounded-circle" height="50" width="50">
+
+                                <div id="grupos">
+                                    <div class="input-group " >
+                                        <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-search"></i></span>
+                                        <input type="text" id="pesquisa_grupos" onkeyup="busca_usuarios()" class="form-control" placeholder="Pesquisar grupos" maxlength="200" name="">
+                                    </div>
+                                    <hr>
+                                    <div id="col-4" style="overflow-y: auto ; overflow-x : hidden" >
+                                        <div id="chat_grupos">
+                                                <h1>Grupos</h1>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
+                            </div>
+                            <div class="col-8">
+                                <div id="criar_grupo">
+                                    <div class="row">
+                                        <div class="col-7">
+                                            <h6 ><i>Nome do Grupo</i></h6>	
+                                            <div class="input-group ">
+                                                <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-search"></i></span>
+                                                <input type="text" id="nome_grupo" class="form-control" placeholder="Ex.: Exemplo exemplo">
+                                            </div>
+                                            <div class="text-danger"></div>
+                                        </div>
+                                        <div class="col-5">
+                                            <button  class="btn btn-dark btn-block" onclick="salvar_grupo()" style="margin-top: 1.5rem;">
+                                                <i class="fa fa-check float-left" style="margin-top: 0.3rem;"></i> Salvar
+                                            </button>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="row">
+                                            <div class="col-7">
+                                                <h6  style="margin-top:1rem"><i>Funcionários</i></h6> 
+                                                <div class="card" style="margin-top:1rem;height:22rem;">
+                                                    <div class="card-head">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="input-group ">
+                                                                    <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-search"></i></span>
+                                                                    <input type="text" id="pesquisa_funcionarios" onkeyup="busca_participantes()" class="form-control" placeholder="Pesquisar funcionários" maxlength="200" name="">
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-7">
-                                                        <div style="margin-top:0.8rem"><strong>Usuário</strong></div>
-                                                    </div>
-                                                    <div class="col-2"  id="badge">
-                                                        <span class="badge badge-dark" style="margin-top:1rem">
-                                                            <i class="fa fa-envelope"></i>
-                                                        </span>
+                                                    <div class="card-body" style="height:18rem; overflow-y: auto; overflow-x: hidden">
+                                                        <div class="row">
+                                                            <div class="col-12" id="adicionar_funcionario">
+                                                                <!--
+                                                                <div class="card  border-dark ">
+                                                                    <div class="body"  style="margin-top:0.5rem ; margin-bottom : 0.5rem">
+                                                                        <div class="row">
+                                                                            <div class="col-12">
+                                                                                <div class="row">
+                                                                                    <div class="col-2"  >
+                                                                                        <img src="../static/img/user.png"  style="margin-left:0.5rem" class="rounded-circle" height="50" width="50">
+                                                                                    </div>
+                                                                                    <div class="col-7">
+                                                                                        <div style="margin-top:0.4rem"><strong>Usuário Usuário </strong></div>
+                                                                                    </div>
+                                                                                    <div class="col-3"  id="badge">
+                                                                                        <button class="btn btn-dark"  style="margin-top:0.5rem" type="button"><i class="fa fa-plus"></i></button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                -->
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="col-5">
+                                                <h6 style="margin-top:1rem;"><i>Participantes do grupo</i></h6> 
+                                                <div class="card" style="margin-top:1rem; height:22rem;">
+                                                    <div class="card-body" style="height:18rem; overflow-y: auto ; overflow-x: hidden">
+                                                        <div class="row">
+                                                            <div class="col-12" id="participantes_grupo">
+                                                                <!--
+                                                                <div class="input-group" style="margin-top:0.5rem">
+                                                                    <input type="text" class="form-control" disabled placeholder="Serviço serviço" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                                    <div class="input-group-append">
+                                                                        <button class="btn btn-dark" type="button"><i class="fa fa-trash"></i></button>
+                                                                    </div>
+                                                                </div>
+                                                                -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                            </div>
                                         </div>
-                                      -->
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-8">
+                                </div>
+                                <div id="criar_conversa">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="input-group ">
+                                                <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-search"></i></span>
+                                                <input type="text" id="pesquisa_nova_conversa" onkeyup="busca_nova_conversa()" class="form-control" placeholder="Pesquisar funcionários" maxlength="200" name="">
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="container-fluid" >
+                                            <div class="row" id="lista_funcionarios">
+                                            
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div  class="card" id="card_msg">
                                     <div class="card-head">
                                         <div class="row" style="margin-top: 0.5rem ; margin-bottom : 0.5rem">
@@ -163,7 +269,7 @@ include "controle.php";
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="chat-box" class="cadr-body" style="overflow-x: hidden">
+                                    <div id="chat-box" class="card-body" style="overflow-x: hidden">
                                         <!--
                                         <div class="row" style="margin-top: 1rem">
                                             <div class="col-10" style="margin-left:0.5rem">
@@ -217,6 +323,149 @@ include "controle.php";
     <script src="../static/js/mascaraMoeda.js"></script> 
     <script src="../static/js/auxilio.js"></script> 
     <script>
+
+
+    $('#grupos').hide();
+
+    function seleciona_chat(elm){
+        if(elm.id == "btn_conversa"){
+            $('#grupos').hide();
+            $('#conversas').show();
+        }else if(elm.id == "btn_grupo"){
+            $('#grupos').show();
+            $('#conversas').hide();
+        }
+    }
+
+    function criar(elm){
+        if(elm.id == "nova_conversa"){
+            busca_nova_conversa();
+            $('#card_msg').hide();
+            $('#criar_conversa').show();
+            $('#criar_grupo').hide();
+        }else if(elm.id == "novo_grupo"){
+            busca_participantes();
+            $('#card_msg').hide();
+            $('#criar_conversa').hide();
+            $('#criar_grupo').show();
+        }
+    }
+
+    lista_id = [];
+    lista_nome = [];
+    lista_funcionarios = [];
+    function busca_participantes(){
+        $('#preloader').show();
+        var pesquisa = $('#pesquisa_funcionarios').val();
+        var data = {funcao: 'busca_usuarios' , pesquisa : pesquisa };
+        var html ;
+        $.ajax({
+            url: '../../controller/funcionarioListar.php',
+            method: "post",
+            data: data ,
+            success: function(data){
+                if(data){
+                    var lista = $.parseJSON(data);
+                    lista_funcionarios = lista;
+                    var html = "";
+                    if(lista.length > 0){
+                        for(var i = 0; i < lista.length ; i++){
+
+                            if(lista[i].id != meu_id){
+                                html += '<div class="card border-dark " style="margin-top:0.2rem">'+
+                                        '<div class="body"  style="margin-top:0.5rem ; margin-bottom : 0.5rem">'+
+                                        '<div class="row">'+
+                                        '<div class="col-12">'+
+                                        '<div class="row">'+
+                                        '<div class="col-2">';
+                                if(lista[i].url_imagem == null){
+                                    html += '<img src="../static/img/user.png"  style="margin-left:0.5rem" class="rounded-circle" height="50" width="50">';
+                                }else{
+                                    html += '<img src="../'+lista[i].url_imagem+'"  style="margin-left:0.5rem" class="rounded-circle" height="50" width="50">';
+                                }       
+                                html += '</div>'+
+                                        '<div class="col-7">'+
+                                        '<div style="margin-top:0.8rem"><strong>'+lista[i].nome+'</strong></div>'+
+                                        '</div>'+
+                                        '<div class="col-3"  id="badge">'+
+                                        '<button class="btn btn-dark"  style="margin-top:0.5rem" type="button" onclick="adiciona_participante('+i+')"><i class="fa fa-plus"></i></button>'+
+                                        '</div>'+
+                                        '</div>'+
+                                        '</div>'+
+                                        '</div>'+
+                                        '</div>'+
+                                        '</div>';
+                            }
+
+                        }
+                        $('#adicionar_funcionario').html(html);
+                    }
+                }
+                $('#preloader').hide();
+            }
+        })
+    }
+
+    function adiciona_participante(posicao){
+        
+
+        var id = lista_funcionarios[posicao].id;
+        var confere = true;
+
+        for(var i = 0 ; i < lista_id.length ; i++){
+            if( id == lista_id[i] ){
+                confere = false;
+            }
+        }
+
+        if(confere){
+            lista_id.push(lista_funcionarios[posicao].id);
+            lista_nome.push(lista_funcionarios[posicao].nome);
+            atualiza_participantes();
+        }
+    }
+
+    function atualiza_participantes(){
+        var html = "";
+        for(var i = 0; i < lista_id.length ; i++ ){
+            html += '<div class="input-group" id="'+lista_id[i]+'input" style="margin-top:0.5rem">'+
+                    '<input type="text" class="form-control" disabled  value="'+lista_nome[i]+'"  aria-describedby="basic-addon2">'+
+                    '<div class="input-group-append">'+
+                    '<button class="btn btn-dark" type="button" onclick="remove_participante('+lista_id[i]+')"><i class="fa fa-trash"></i></button>'+
+                    '</div>'+
+                    '</div>';
+        }
+        $('#participantes_grupo').html(html);
+    }
+
+    function remove_participante(id){
+        var nova_lista = lista_id;
+        var nova_lista_nomes = lista_nome;
+        lista_id = [];
+        lista_nome = [];
+        for(var i = 0; i < nova_lista.length ; i++ ){
+            if ( nova_lista[i] != id ){
+                lista_id.push(nova_lista[i]);
+                lista_nome.push(nova_lista_nomes[i]);
+            }
+        }
+        $('#'+id+'input').remove();
+
+    }
+
+    function salvar_grupo(){
+        var validacao_ok = true;
+        var nome_grupo = $('#nome_grupo').val();
+
+        if(nome_grupo.length == 0 ){
+            add_erro_input($('#nome_grupo') , "Por favor preencha o campo Nome do Grupo");
+            validacao_ok = false;
+        }else{
+            remove_erro_input($('#nome_grupo'));
+        }
+
+    }
+
     var usuario = $('#usuario').val();
     var meu_id = $('#meu_id').val();
     //Mensagem
@@ -227,6 +476,8 @@ include "controle.php";
     var altura = $('#chat-box').height();
 
     $('#card_msg').hide();
+    $('#criar_grupo').hide();
+    $('#criar_conversa').hide();
 
     $(document).ready(function(){
         var websocket = new WebSocket("ws://localhost:8090/php-socket.php"); 
@@ -235,7 +486,6 @@ include "controle.php";
         }
         websocket.onmessage = function(event) {
             var Data = JSON.parse(event.data);
-            alert(JSON.stringify(Data));
             if(Data.usuario != null){
                 if (usuario == Data.usuario){
                     var html = '<div class="row justify-content-end" style="margin-top: 1rem">';
@@ -392,21 +642,32 @@ include "controle.php";
     busca_usuarios();
     var lista_usuarios = [];
     function busca_usuarios(){  
-        var pesquisa = $('#pesquisa').val();
-        var data = {funcao: 'busca_usuarios' , pesquisa : pesquisa };
+        var pesquisa = $('#pesquisa_conversas').val();
+        var data = {funcao: 'busca_conversas' , pesquisa : pesquisa , meu_id : meu_id };
         var html ;
         $.ajax({
-            url: '../../controller/funcionarioListar.php',
+            url: '../../controller/chat.php',
             method: "post",
             data: data ,
             success: function(data){
                 if(data){
                     var lista = $.parseJSON(data);
                     lista_usuarios = lista;
+                    var lista_verificacao = [];
+                    var lista_ids = [];
+
+                    for(var i = 0; i < lista.length ; i++){
+                        if(!lista_ids.includes(lista[i].id)){
+                            lista_ids.push(lista[i].id);
+                            lista_verificacao.push(lista[i]);
+                        }
+                    } 
+
+                    lista = lista_verificacao;
+
                     var html = "";
                     if(lista.length > 0){
                         for(var i = 0; i < lista.length ; i++){
-
                             if(lista[i].id != meu_id){
                                 html += '<div class="card border-dark " onclick="seleciona_funcionario('+i+')" style="margin-top:0.2rem">'+
                                         '<div class="body"  style="margin-top:0.5rem ; margin-bottom : 0.5rem">'+
@@ -438,8 +699,61 @@ include "controle.php";
         })
     }
 
-    function seleciona_funcionario(i){
+    var lista_usuarios2 = [];
+    function busca_nova_conversa(){  
+        var pesquisa = $('#pesquisa_nova_conversa').val();
+        var data = {funcao: 'busca_usuarios' , pesquisa : pesquisa  };
+        var html ;
+        $.ajax({
+            url: '../../controller/funcionarioListar.php',
+            method: "post",
+            data: data ,
+            success: function(data){ 
+                if(data){
+                    var lista = $.parseJSON(data);
+                    lista_usuarios2 = lista;
 
+                    var html = "";
+                    if(lista.length > 0){
+                        for(var i = 0; i < lista.length ; i++){
+                            if(lista[i].id != meu_id){
+                                html += '<div class="col-6">'+
+                                        '<div class="card border-dark " onclick="seleciona_funcionario2('+i+')" style="margin-top:0.2rem">'+
+                                        '<div class="body"  style="margin-top:0.5rem ; margin-bottom : 0.5rem">'+
+                                        '<div class="row">'+
+                                        '<div class="col-12">'+
+                                        '<div class="row">'+
+                                        '<div class="col-3">';
+                                if(lista[i].url_imagem == null){
+                                    html += '<img src="../static/img/user.png"  style="margin-left:0.5rem" class="rounded-circle" height="50" width="50">';
+                                }else{
+                                    html += '<img src="../'+lista[i].url_imagem+'"  style="margin-left:0.5rem" class="rounded-circle" height="50" width="50">';
+                                }       
+                                html += '</div>'+
+                                        '<div class="col-9">'+
+                                        '<div style="margin-top:0.8rem"><strong>'+lista[i].nome+'</strong></div>'+
+                                        '</div>'+
+                                        '</div>'+
+                                        '</div>'+
+                                        '</div>'+
+                                        '</div>'+
+                                        '</div>'+
+                                        '</div>';
+                            }
+
+                        }
+                        $('#lista_funcionarios').html(html);
+                    }
+                }
+            }
+        })
+    }
+
+    function seleciona_funcionario(i){
+        $('#comunicacao').hide();
+        $('#preloader').show();
+        $('#criar_conversa').hide();
+        $('#criar_grupo').hide();
         var html = ""
         if(lista_usuarios[i].url_imagem == null){
             html += '<img src="../static/img/user.png"  style="margin-left:0.5rem" class="rounded-circle" height="50" width="50">';
@@ -455,6 +769,28 @@ include "controle.php";
         $('#nome_contato').html(lista_usuarios[i].nome);
         $('#id_contato').val(lista_usuarios[i].id);
         busca_mensagem(lista_usuarios[i].id);
+    }
+
+    function seleciona_funcionario2(i){
+        $('#comunicacao').hide();
+        $('#preloader').show();
+        $('#criar_conversa').hide();
+        $('#criar_grupo').hide();
+        var html = ""
+        if(lista_usuarios2[i].url_imagem == null){
+            html += '<img src="../static/img/user.png"  style="margin-left:0.5rem" class="rounded-circle" height="50" width="50">';
+        }else{
+            html += '<img src="../'+lista_usuarios2[i].url_imagem+'"  style="margin-left:0.5rem" class="rounded-circle" height="50" width="50">';
+        }
+        
+        nome_funcionario = lista_usuario2s[i].nome;
+
+        altura = $('#chat-box').height();
+
+        $('#img_contato').html(html);
+        $('#nome_contato').html(lista_usuarios2[i].nome);
+        $('#id_contato').val(lista_usuarios2[i].id);
+        busca_mensagem(lista_usuarios2[i].id);
     }
 
     var nome_funcionario = "";
@@ -510,8 +846,10 @@ include "controle.php";
                 
                  $('#chat-box').animate({
                     scrollTop: altura
-                }, 500);
+                }, 5);
 
+                $('#comunicacao').show();
+                $('#preloader').hide();
                 $('#card_msg').show();
             }
         })

@@ -59,6 +59,20 @@ switch ($funcao){
         }
 
         break;
+    case 'busca_conversas':
+        $pesquisa = $_POST['pesquisa'];
+        $meu_id = $_POST['meu_id'];
+
+        $funcionarios = busca_detalhada_varios($conexao, "a.funcionario_id = '{$meu_id}' and a.funcionario_id1 = b.id  and b.nome LIKE '%$pesquisa%' group by  a.funcionario_id1 " , "comunicador a , funcionario b ", "b.id , b.nome , b.url_imagem");
+        $funcionarios1 = busca_detalhada_varios($conexao, "a.funcionario_id1 = '{$meu_id}' and a.funcionario_id = b.id  and b.nome LIKE '%$pesquisa%' group by  a.funcionario_id " , "comunicador a , funcionario b ", "b.id , b.nome , b.url_imagem");
+
+
+        $result = array_merge($funcionarios , $funcionarios1);
+
+        if($result != null ){
+            print json_encode($result);
+        }
+        break;
     default:
         break;
 }
