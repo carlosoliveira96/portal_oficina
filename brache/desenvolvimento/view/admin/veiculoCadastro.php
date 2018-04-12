@@ -155,7 +155,7 @@ include "menu.php";
                     <h6  style="margin-top:1rem"><i>Data de entrada</i></h6>	
                     <div class="input-group ">
                         <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-calendar"></i></span>
-                        <input type="text" id="dt_entrada"  class="form-control" placeholder="Ex.: 99/99/9999">
+                        <input type="text" id="dt_entrada" data-mask="99/99/9999"  class="form-control" placeholder="Ex.: 99/99/9999">
                     </div>
                     <div class="text-danger"></div>
                 </div>
@@ -186,18 +186,16 @@ include "menu.php";
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script type="text/javascript" src="../static/js/popper.js"></script>
-    <script type="text/javascript" src="../static/js/bootstrap.js"></script>   
-    <script src="../static/js/bootstrap-datepicker.js"></script>
-    <script src="../static/js/bootstrap-datepicker.pt-BR.min.js"></script> 
+    <script type="text/javascript" src="../static/js/bootstrap.js"></script>
     <script>
 
         var validacao_ok = true ;
         var validacao_placa = true;
 
-        $('#dt_entrada').datepicker({
-            format: 'dd/mm/yyyy',
-            language : 'pt-BR'
-        });
+        //Função datepicker
+	    $( function() {
+            $('#dt_entrada').datepicker();
+         });
 
         $('#dados').hide();
         var query = location.search.slice(1);

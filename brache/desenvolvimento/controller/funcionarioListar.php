@@ -26,20 +26,14 @@ switch ($funcao){
                         
             $funcionario = busca_detalhada_varios($conexao, $condicao, "funcionario");
 
-            if ($funcionario != null ) {
-                print json_encode($funcionario);
-            } else {
-                print 0;
-            }
-
-        }else {                        
-            $funcionario = busca_todos($conexao, "funcionario");
-
-            if ($funcionario != null ) {
-                print json_encode($funcionario);
-            } else {
-                print 0;
-            }
+        }else {                  
+            $condicao = "situacao = 1";
+                        
+            $funcionario = busca_detalhada_varios($conexao, $condicao, "funcionario");
+        }
+        
+        if ($funcionario != null ) {
+            print json_encode($funcionario);
         }
         break;
 

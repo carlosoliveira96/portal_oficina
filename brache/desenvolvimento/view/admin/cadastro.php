@@ -60,7 +60,7 @@ include 'menu.php';
 				<h6  style="margin-top:1rem"><i>Nascimento</i></h6>	
 				<div class="input-group ">
 					<span class="input-group-addon " id="sizing-addon1"><i class="fa fa-calendar"></i></span>
-					<input class="form-control" placeholder="Ex.: 99/99/9999"  id="nascimento" name="event_date" id="event_date" type="text" >
+					<input class="form-control" placeholder="Ex.: 99/99/9999" data-mask="99/99/9999"  id="nascimento" name="event_date" id="event_date" type="text" >
 				</div>
 				<div class="text-danger"></div>
 			</div>
@@ -245,14 +245,12 @@ include 'menu.php';
 	</body>
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script type="text/javascript" src="../static/js/popper.js"></script>	
-	<script src="../static/js/bootstrap-datepicker.js"></script>
-	<script src="../static/js/bootstrap-datepicker.pt-BR.min.js"></script>	
 
 	<script type="text/javascript">
 
-	$('#nascimento').datepicker({
-    	format: 'dd/mm/yyyy',
-    	language : 'pt-BR'
+	 //Função datepicker
+	 $( function() {
+        $('#nascimento').datepicker();
     });
 
 	var controle_cep = true;

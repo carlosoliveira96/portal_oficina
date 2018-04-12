@@ -3,25 +3,21 @@ include 'menu.php';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br" style="min-height:100%; position: relative;">
-
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Portal da Oficina</title>
-
         <!-- Arquivos CSS -->
         <link href="../static/css/jasny-bootstrap.css" rel="stylesheet">
-
     </head>
-
     <body style="background-color: #F8F9FA;" onload="busca_funcionario()">
        <div class="container" id="container" style=" background-color: #fff;">
             <h2>
                 <p class="text-center" style="color: #000"><i><b>Lista de funcionários</b></i></p>
             </h2>
             <hr>
-            <div id="msg"></div>
+            <div id="msg_funcionario"></div>
             <table class="table table-secondary table-bordered table-striped table-hover" id="funcionario">
                 <thead>
                     <tr>
@@ -54,129 +50,103 @@ include 'menu.php';
                 </ul>
             </nav>
        </div>
-        <div class="modal fade" id="modal_funcionario" tabindex="-1" role="dialog" aria-labelledby="modal_funcionario" aria-hidden="true">
+        <div class="modal fade" data-backdrop="static" id="modal_funcionario" tabindex="-1" role="dialog" aria-labelledby="modal_funcionario" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <div class="row">
-                            <div class="col-8">
-                                <h5 class="" id="titulo_funcionario">Modal title</h5>
-                            </div>
-                            <div class="col-1">
-                                <button class="btn btn-dark " onclick="alterar()">
-                                    <i class="fa fa-edit float-left" ></i>
+                        <h5 class="" id="titulo_funcionario">Modal title</h5>
+                        <div class="row" style="margin-right: 15%;">
+                            <div class="col-6" id="cancelar" hidden>
+                                <button class="btn btn-dark btn-sm btn-block" onclick="cancela_alteracao()">
+                                    <i class="fa fa-times float-left" style="margin-top: 0.2rem; margin-right: 0.3rem"></i> Cancelar
                                 </button>
                             </div>
-                            <div class="col-1">
-                                <button class="btn btn-dark " onclick="alterar()">
-                                    <i class="fa fa-trash float-left" ></i>
+                            <div class="col-6" id="alterar">
+                                <button class="btn btn-dark btn-sm btn-block" onclick="alterar()">
+                                    <i class="fa fa-edit float-left" style="margin-top: 0.2rem; margin-right: 0.3rem"></i> Alterar
                                 </button>
                             </div>
-                            <div class="col-1">
-                                <button type="button" class="close" data-dismiss="modal" >
-                                     <span aria-hidden="true">&times;</span>
+                            <div class="col-6" id="deletar">
+                                <button class="btn btn-dark btn-sm btn-block" onclick="alterar()">
+                                    <i class="fa fa-trash float-left" style="margin-top: 0.2rem; margin-right: 0.3rem"></i> Deletar
                                 </button>
                             </div>
                         </div>
+                        <button type="button" onclick="cancela_alteracao()" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <div class="modal-body">
-                        <div class="row" id="button">
-                            <div class="col-6" id="button">
-                                <button style="margin-top: 1rem;margin-bottom: 2rem" class="btn btn-dark btn-sm btn-block" onclick="alterar()">
-                                    <i class="fa fa-edit float-left" style="margin-top: 0.3rem;"></i> Alterar
-                                </button>
-                            </div>
-                            <div class="col-6" id="button">
-                                <button style="margin-top: 1rem;margin-bottom: 2rem" class="btn btn-dark btn-sm btn-block" onclick="alterar()">
-                                    <i class="fa fa-trash float-left" style="margin-top: 0.3rem;"></i> Deletar
-                                </button>
-                            </div>
-                        </div>
                         <div class="row justify-content-md-center" id="dados">
                             <div class="col-6" id="img_funconario">
-                                <!--
-                                <div class="fileinput fileinput-new " data-provides="fileinput" style="margin-left: 1rem">
-                                    <div class="fileinput-preview thumbnail img-thumbnail"  data-trigger="fileinput" style="width: 20rem;  height: 17.5rem">
-                                    </div>
-                                    <div>
-                                        <span class="btn btn-dark btn-file col-12">
-                                            <span class="fileinput-new ">Selecione a imagem</span>
-                                            <span class="fileinput-exists" data-dismiss="fileinput">Alterar</span>
-                                            <input type="file" id="arquivo" name="arquivo" accept="image/*">
-                                        </span>
-                                        <a href="#" class="btn btn-dark fileinput-exists col-12" data-dismiss="fileinput" style="margin-top: 0.5rem">Remover</a>
-                                    </div>
-                                </div>
-                                -->
+
                             </div>
                         </div>
-                        <div>
-                            <div class="col-12">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <h6  style="margin-top:1rem"><i>Nome</i></h6>   
-                                        <div class="input-group ">
-                                            <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-address-book"></i></span>
-                                            <input type="text" id="nome" class="form-control" disabled placeholder="Ex.:  Exemplo exemplo " maxlength="200" >
-                                        </div>
-                                        <div class="text-danger"></div>
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h6  style="margin-top:1rem"><i>Nome</i></h6>   
+                                    <div class="input-group ">
+                                        <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-address-book"></i></span>
+                                        <input type="text" id="nome" class="form-control" disabled placeholder="Ex.:  Exemplo exemplo " maxlength="200" >
                                     </div>
-                                    <div class="col-6">
-                                        <h6  style="margin-top:1rem"><i>CPF</i></h6>    
-                                        <div class="input-group ">
-                                            <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-address-book"></i></span>
-                                            <input type="text" id="cpf"  onkeyup="verifica_cpf()" disabled class="form-control" placeholder="Ex.: 999.999.999-99" data-mask="999.999.999-99" >
-                                        </div>
-                                        <div class="text-danger"></div>
+                                    <div class="text-danger"></div>
+                                </div>
+                                <div class="col-6">
+                                    <h6  style="margin-top:1rem"><i>CPF</i></h6>    
+                                    <div class="input-group ">
+                                        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-address-book"></i></span>
+                                        <input type="text" id="cpf"  onkeyup="verifica_cpf()" disabled class="form-control" placeholder="Ex.: 999.999.999-99" data-mask="999.999.999-99" >
                                     </div>
-                                    <div class="col-6">
-                                        <h6  style="margin-top:1rem"><i>Nascimento</i></h6> 
-                                        <div class="input-group ">
-                                            <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-calendar"></i></span>
-                                            <input class="form-control" placeholder="Ex.: 99/99/9999" disabled  id="nascimento"   type="text" >
-                                        </div>
-                                        <div class="text-danger"></div>
+                                    <div class="text-danger"></div>
+                                </div>
+                                <div class="col-6">
+                                    <h6  style="margin-top:1rem"><i>Nascimento</i></h6> 
+                                    <div class="input-group ">
+                                        <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-calendar"></i></span>
+                                        <input class="form-control" placeholder="Ex.: 99/99/9999" disabled  id="nascimento"   type="text" >
                                     </div>
-                                    <div class="col-6">
-                                        <h6  style="margin-top:1rem"><i>RG</i></h6> 
-                                        <div class="input-group ">
-                                            <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-address-book"></i></span>
-                                            <input type="text" id="rg" class="form-control" disabled placeholder="Ex.: 9999999" >
-                                        </div>
-                                        <div class="text-danger"></div>
+                                    <div class="text-danger"></div>
+                                </div>
+                                <div class="col-6">
+                                    <h6  style="margin-top:1rem"><i>RG</i></h6> 
+                                    <div class="input-group ">
+                                        <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-address-book"></i></span>
+                                        <input type="text" id="rg" class="form-control" disabled placeholder="Ex.: 9999999" >
                                     </div>
-                                    <div class="col-6">
-                                        <h6  style="margin-top:1rem"><i>Orgão Emissor</i></h6>  
-                                        <div class="input-group ">
-                                            <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-building"></i></span>
-                                            <input type="text" id="orgao_emissor" class="form-control" disabled placeholder="Ex.: SSP-DF" maxlength="50" >
-                                        </div>
-                                        <div class="text-danger"></div>
+                                    <div class="text-danger"></div>
+                                </div>
+                                <div class="col-6">
+                                    <h6  style="margin-top:1rem"><i>Orgão Emissor</i></h6>  
+                                    <div class="input-group ">
+                                        <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-building"></i></span>
+                                        <input type="text" id="orgao_emissor" class="form-control" disabled placeholder="Ex.: SSP-DF" maxlength="50" >
                                     </div>
-                                    <div class="col-12">
-                                        <h6  style="margin-top:1rem"><i>E-Mail</i></h6> 
-                                        <div class="input-group ">
-                                            <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-envelope"></i></span>
-                                            <input type="email" id="email" onkeyup="valida_email()" disabled class="form-control" placeholder="Ex.: exemplo@exemplo.com"  >
-                                        </div>
-                                        <div class="text-danger"></div>
+                                    <div class="text-danger"></div>
+                                </div>
+                                <div class="col-12">
+                                    <h6  style="margin-top:1rem"><i>E-Mail</i></h6> 
+                                    <div class="input-group ">
+                                        <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-envelope"></i></span>
+                                        <input type="email" id="email" onkeyup="valida_email()" disabled class="form-control" placeholder="Ex.: exemplo@exemplo.com"  >
                                     </div>
-                                    <div class="col-6">
-                                        <h6  style="margin-top:1rem"><i>Telefone</i></h6>   
-                                        <div class="input-group ">
-                                            <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-phone"></i></span>
-                                            <input type="text" id="telefone" class="form-control" disabled placeholder="Ex.: (99) 9999-9999" data-mask="(99) 9999-9999" >
-                                        </div>
-                                        <div class="text-danger"></div>
+                                    <div class="text-danger"></div>
+                                </div>
+                                <div class="col-6">
+                                    <h6  style="margin-top:1rem"><i>Telefone</i></h6>   
+                                    <div class="input-group ">
+                                        <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-phone"></i></span>
+                                        <input type="text" id="telefone" class="form-control" disabled placeholder="Ex.: (99) 9999-9999" data-mask="(99) 9999-9999" >
                                     </div>
-                                    <div class="col-6">
-                                        <h6  style="margin-top:1rem"><i>Celular</i></h6>    
-                                        <div class="input-group ">
-                                            <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-mobile"></i></span>
-                                            <input type="text" id="celular" class="form-control" disabled placeholder="Ex.: (99) 99999-9999" data-mask="(99) 99999-9999" >
-                                        </div>
-                                        <div class="text-danger"></div>
+                                    <div class="text-danger"></div>
+                                </div>
+                                <div class="col-6">
+                                    <h6  style="margin-top:1rem"><i>Celular</i></h6>    
+                                    <div class="input-group ">
+                                        <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-mobile"></i></span>
+                                        <input type="text" id="celular" class="form-control" disabled placeholder="Ex.: (99) 99999-9999" data-mask="(99) 99999-9999" >
                                     </div>
+                                    <div class="text-danger"></div>
                                 </div>
                             </div>
                         </div>
@@ -195,10 +165,6 @@ include 'menu.php';
                                     </select>
                                 </div>
                                 <div class="text-danger"></div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
                             </div>
                         </div>
                         <hr>
@@ -270,14 +236,21 @@ include 'menu.php';
                                 <div class="text-danger"></div>
                             </div>
                         </div>
+                        <div id="botao_salvar" hidden>
+                            <hr>
+                            <div class="row">
+                                <div class="col-12">
+                                    <button type="button" class="btn btn-dark col-12">
+                                        <i class="fa fa-check float-left" style="margin-top: 0.3rem;"></i> Salvar alterações
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </body>
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script type="text/javascript" src="../static/js/popper.js"></script>
-    <script type="text/javascript" src="../static/js/bootstrap.js"></script>
     <script>
 
         var nr_pag = 1;
@@ -306,13 +279,14 @@ include 'menu.php';
                 method: "post",
                 data: data ,
                 success: function(data){
-                    if (data == "0"){
+                    if (!data){
                         $('#preloader').hide();
-                        monta_msg_alerta_permanente(" Você não possui funcionarios cadastros.")
+                        monta_msg_alerta_permanente("Você não possui funcionarios cadastros.")
                     }else {
                         var lista = $.parseJSON(data);
                         lista_registros = lista;
                         monta_lista(lista_registros);          
+                        remove_msg_alerta_permanente();
                     }
                 }
             });
@@ -407,16 +381,31 @@ include 'menu.php';
             $('#uf').val(lista_registros[posicao].uf);
 
             $('#titulo_funcionario').html(lista_registros[posicao].nome);
-
-            var html = '<img class="img-thumbnail" src="../'+lista_registros[posicao].url_imagem+'" style="width: 20rem;  height: 17.5rem">'; 
-
+            var html = "";
+            if (lista_registros[posicao].url_imagem == null){
+                html = '<img class="img-thumbnail" src="../static/img/user.png" style="width: 21rem;  height: 17.5rem">'+
+                        '<span class="btn btn-dark btn-file col-11" id="botao_altera_img" hidden>'+
+                        '<span class="fileinput-exists" data-dismiss="fileinput">Alterar imagem</span>'+
+                        '<input type="file" id="arquivo" name="arquivo" accept="image/*">'+
+                        '</span>';
+            }else{
+                html =  '<img class="img-thumbnail" src="../'+lista_registros[posicao].url_imagem+'" style="width: 21rem;  height: 17.5rem">'+
+                        '<span class="btn btn-dark btn-file col-11" id="botao_altera_img" hidden>'+
+                        '<span class="fileinput-exists" data-dismiss="fileinput">Alterar imagem</span>'+
+                        '<input type="file" id="arquivo" name="arquivo" accept="image/*">'+
+                        '</span>';
+            }
             $('#img_funconario').html(html);
 
             $('#modal_funcionario').modal('show'); 
         }
 
+        //Função para habilitar os campos e realizar a alteração
         function alterar(){
-
+            $('#botao_salvar').removeAttr("hidden");
+            $('#cancelar').removeAttr("hidden");
+            $('#botao_altera_img').removeAttr("hidden");
+            $('#alterar').attr("hidden", true);
             $('#nome').removeAttr("disabled");  
             $('#cpf').removeAttr("disabled");   
             $('#nascimento').removeAttr("disabled");   
@@ -425,8 +414,7 @@ include 'menu.php';
             $('#celular').removeAttr("disabled");   
             $('#cargo').removeAttr("disabled");  
             $('#rg').removeAttr("disabled");   
-            $('#orgao_emissor').removeAttr("disabled");   
-
+            $('#orgao_emissor').removeAttr("disabled");
             $('#cep').removeAttr("disabled");  
             $('#endereco').removeAttr("disabled");  
             $('#numero').removeAttr("disabled");  
@@ -435,36 +423,39 @@ include 'menu.php';
             $('#cidade').removeAttr("disabled");  
             $('#uf').removeAttr("disabled");  
 
-            $('#img_funconario').html("");
-            $('#button').html("");
-
-            var html = '<div class="fileinput fileinput-new " data-provides="fileinput" style="margin-left: 1rem">'+
-                        '<div class="fileinput-preview thumbnail img-thumbnail"  data-trigger="fileinput" style="width: 20rem;  height: 17.5rem">'+
-                        '</div>'+
-                        '<div>'+
-                        '<span class="btn btn-dark btn-file col-12">'+
-                        '<span class="fileinput-new ">Selecione a imagem</span>'+
-                        '<span class="fileinput-exists" data-dismiss="fileinput">Alterar</span>'+
-                        '<input type="file" id="arquivo" name="arquivo" accept="image/*">'+
-                        '</span>'+
-                        '<a href="#" class="btn btn-dark fileinput-exists col-12" data-dismiss="fileinput" style="margin-top: 0.5rem">Remover</a>'+
-                        '</div>'+
-                        '</div>';
-
-             $('#img_funconario').html(html);
-
-             html = '<div class="col-12" id="button">'+
-                    '<button style="margin-top: 1rem;margin-bottom: 2rem" class="btn btn-dark btn-lg btn-block" >'+
-                    '<i class="fa fa-check float-left" style="margin-top: 0.3rem;"></i> Salvar'+
-                    '</button>'+
-                    '</div>';
-
+        }
+        
+        //Função que cancela ao clicar em alterar e retorna para campos bloqueados
+        function cancela_alteracao(){
+            $('#botao_salvar').attr("hidden", true);
+            $('#cancelar').attr("hidden", true);
+            $('#botao_altera_img').attr("hidden", true);
+            $('#alterar').removeAttr("hidden");
+            $('#nome').attr("disabled", true);  
+            $('#cpf').attr("disabled", true);   
+            $('#nascimento').attr("disabled", true);   
+            $('#email').attr("disabled", true);   
+            $('#telefone').attr("disabled", true);   
+            $('#celular').attr("disabled", true);   
+            $('#cargo').attr("disabled", true);  
+            $('#rg').attr("disabled", true);   
+            $('#orgao_emissor').attr("disabled", true);
+            $('#cep').attr("disabled", true);  
+            $('#endereco').attr("disabled", true);  
+            $('#numero').attr("disabled", true);  
+            $('#complemento').attr("disabled", true);  
+            $('#bairro').attr("disabled", true);  
+            $('#cidade').attr("disabled", true);  
+            $('#uf').attr("disabled", true); 
         }
 
-        //Monta mensagem de quando não existem registros
         function monta_msg_alerta_permanente(msg){
             html = '<div class="alert alert-warning"><i class="fas fa-exclamation-triangle"></i><strong>'+ msg +'</strong></div>';
-            $('#msg').html(html);
+            $('#msg_funcionario').html(html);
+        }
+
+        function remove_msg_alerta_permanente(){
+            $('#msg_funcionario').html('');
         }
 
         //Função para atualizar tamanho do container

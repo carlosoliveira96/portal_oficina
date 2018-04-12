@@ -21,7 +21,7 @@ if(isset($_POST['funcao'])){
             break;
         case 'buscar_os':
             $id = $_POST['id'];
-            $os =  busca_detalhada_um($conexao, "a.cliente_id = '$id' AND a.cliente_id = b.id AND a.veiculo_placa = c.placa AND a.corretor_id = b1.id AND a.seguradora_id = b2.id" , 'os a, cadastro b, veiculo c, cadastro b1, cadastro b2', 'a.*, b.*, c.*, b.nome as nome_cliente, b1.nome as nome_corretor_f, b1.nome_fantasia as nome_corretor_j, b2.nome as nome_seguradora_f, b2.nome_fantasia as nome_seguradora_j');
+            $os =  busca_detalhada_um($conexao, "a.id = '$id' AND a.cliente_id = b.id AND a.veiculo_placa = c.placa AND (a.corretor_id is null or a.corretor_id = b1.id) AND (a.seguradora_id is null or a.seguradora_id = b2.id) GROUP BY a.id" , 'os a, cadastro b, veiculo c, cadastro b1, cadastro b2', 'a.*, a.id as id_os, b.*, c.*, b.nome as nome_cliente, b1.nome as nome_corretor_f, b1.nome_fantasia as nome_corretor_j, b2.nome as nome_seguradora_f, b2.nome_fantasia as nome_seguradora_j');
 
             if($os != null){
                 print json_encode($os);
@@ -53,13 +53,13 @@ if(isset($_POST['funcao'])){
 
             $os ="";
             if (strlen($corretor) > 0 && strlen($seguradora) > 0 ){
-                $os = busca_detalhada_varios($conexao, "a.cliente_id = c.id AND a.veiculo_placa = b.placa AND (b.placa like '%{$pesquisa}%' OR a.sinistro  LIKE '%{$pesquisa}%' OR c.nome  OR '%{$pesquisa}%' OR b.modelo LIKE '%{$pesquisa}%') AND a.corretor_id = '{$corretor}' AND a.seguradora_id = '{$seguradora} ' AND STR_TO_DATE( a.data_cadastro , '%d/%m/%Y' ) BETWEEN '{$data_inicio}' AND '{$data_fim}' " , "os a , veiculo b , cadastro c " , "a.* , b.placa , b.modelo");
+                $os = busca_detalhada_varios($conexao, "a.cliente_id = c.id AND a.veiculo_placa = b.placa AND (b.placa like '%{$pesquisa}%' OR a.sinistro  LIKE '%{$pesquisa}%' OR c.nome  OR '%{$pesquisa}%' OR b.modelo LIKE '%{$pesquisa}%') AND a.corretor_id = '{$corretor}' AND a.seguradora_id = '{$seguradora} ' AND STR_TO_DATE( a.data_cadastro , '%d/%m/%Y' ) BETWEEN '{$data_inicio}' AND '{$data_fim}' " , "os a , veiculo b , cadastro c " , "a.*, a.id as id_os, c.*, b.placa, b.modelo");
             }else if (strlen($corretor) <= 0 && strlen($seguradora) <= 0){
-                $os = busca_detalhada_varios($conexao, "a.cliente_id = c.id AND a.veiculo_placa = b.placa AND (b.placa like '%{$pesquisa}%' OR a.sinistro  LIKE '%{$pesquisa}%' OR c.nome  OR '%{$pesquisa}%' OR b.modelo LIKE '%{$pesquisa}%') AND STR_TO_DATE( a.data_cadastro , '%d/%m/%Y' ) BETWEEN '{$data_inicio}' AND '{$data_fim}'" , "os a , veiculo b , cadastro c ", "a.* , b.placa , b.modelo");                
+                $os = busca_detalhada_varios($conexao, "a.cliente_id = c.id AND a.veiculo_placa = b.placa AND (b.placa like '%{$pesquisa}%' OR a.sinistro  LIKE '%{$pesquisa}%' OR c.nome  OR '%{$pesquisa}%' OR b.modelo LIKE '%{$pesquisa}%') AND STR_TO_DATE( a.data_cadastro , '%d/%m/%Y' ) BETWEEN '{$data_inicio}' AND '{$data_fim}'" , "os a , veiculo b , cadastro c ", "a.*, a.id as id_os, c.*, b.placa, b.modelo");                
             }else if(strlen($seguradora) <= 0){
-                $os = busca_detalhada_varios($conexao, "a.cliente_id = c.id AND a.veiculo_placa = b.placa AND (b.placa like '%{$pesquisa}%' OR a.sinistro  LIKE '%{$pesquisa}%' OR c.nome  OR '%{$pesquisa}%' OR b.modelo LIKE '%{$pesquisa}%') AND a.corretor_id = '{$corretor}' AND STR_TO_DATE( a.data_cadastro , '%d/%m/%Y' ) BETWEEN '{$data_inicio}' AND '{$data_fim}'" , "os a , veiculo b , cadastro c ", "a.* , b.placa , b.modelo");
+                $os = busca_detalhada_varios($conexao, "a.cliente_id = c.id AND a.veiculo_placa = b.placa AND (b.placa like '%{$pesquisa}%' OR a.sinistro  LIKE '%{$pesquisa}%' OR c.nome  OR '%{$pesquisa}%' OR b.modelo LIKE '%{$pesquisa}%') AND a.corretor_id = '{$corretor}' AND STR_TO_DATE( a.data_cadastro , '%d/%m/%Y' ) BETWEEN '{$data_inicio}' AND '{$data_fim}'" , "os a , veiculo b , cadastro c ", "a.*, a.id as id_os, c.*, b.placa, b.modelo");
             }else if(strlen($corretor) <= 0){
-                $os = busca_detalhada_varios($conexao, "a.cliente_id = c.id AND a.veiculo_placa = b.placa AND (b.placa like '%{$pesquisa}%' OR a.sinistro  LIKE '%{$pesquisa}%' OR c.nome  OR '%{$pesquisa}%' OR b.modelo LIKE '%{$pesquisa}%')  AND a.seguradora_id = '{$seguradora}' AND STR_TO_DATE( a.data_cadastro , '%d/%m/%Y' ) BETWEEN '{$data_inicio}' AND '{$data_fim}'" , "os a , veiculo b , cadastro c ", "a.* , b.placa , b.modelo");
+                $os = busca_detalhada_varios($conexao, "a.cliente_id = c.id AND a.veiculo_placa = b.placa AND (b.placa like '%{$pesquisa}%' OR a.sinistro  LIKE '%{$pesquisa}%' OR c.nome  OR '%{$pesquisa}%' OR b.modelo LIKE '%{$pesquisa}%')  AND a.seguradora_id = '{$seguradora}' AND STR_TO_DATE( a.data_cadastro , '%d/%m/%Y' ) BETWEEN '{$data_inicio}' AND '{$data_fim}'" , "os a , veiculo b , cadastro c ", "a.*, a.id as id_os, c.*, b.placa, b.modelo");
             }
            // $os = busca_detalhada_varios($conexao, "a.cliente_id = c.id AND a.veiculo_placa = b.placa AND (b.placa like '%{$pesquisa}%' OR a.sinistro  LIKE '%{$pesquisa}%' OR c.nome  OR '%{$pesquisa}%' OR b.modelo LIKE '%{$pesquisa}%') AND a.corretor_id = '{$corretor}' AND a.seguradora_id = '{$seguradora} ' " , "os a , veiculo b , cadastro c ");
 
@@ -90,17 +90,21 @@ if(isset($_POST['funcao'])){
             //$data2 = new DateTime($data_final );
             //$data_fim = date_format($data2, 'Y/m/d');   
 
-            $os ="";
+            /*$os ="";
             if (strlen($corretor) > 0 && strlen($seguradora) > 0 ){
                 $os = busca_detalhada_varios($conexao, "d.os_id = a.id and d.pendencias_id = e.id  AND e.funcionario_id = f.id AND (b.placa like '%{$pesquisa}%' OR a.sinistro  LIKE '%{$pesquisa}%' OR c.nome  OR '%{$pesquisa}%' OR b.modelo LIKE '%{$pesquisa}%') AND a.corretor_id = '{$corretor}' AND a.seguradora_id = '{$seguradora} ' AND STR_TO_DATE( a.data_cadastro , '%d/%m/%Y' ) BETWEEN '{$data_inicio}' AND '{$data_fim}' " , "os a , veiculo b , cadastro c, os_pendencias d , pendencias e , funcionario f " , "*,  group_concat(e.servico) AS servicos, group_concat(f.nome) AS funcionarios");
             }else if (strlen($corretor) <= 0 && strlen($seguradora) <= 0){
-                $os = busca_detalhada_varios($conexao, "d.os_id = a.id and d.pendencias_id = e.id  AND e.funcionario_id = f.id AND (b.placa like '%{$pesquisa}%' OR a.sinistro  LIKE '%{$pesquisa}%' OR c.nome  OR '%{$pesquisa}%' OR b.modelo LIKE '%{$pesquisa}%') AND STR_TO_DATE( a.data_cadastro , '%d/%m/%Y' ) BETWEEN '{$data_inicio}' AND '{$data_fim}'" , "os a , veiculo b , cadastro c, os_pendencias d , pendencias e , funcionario f ", "*,  group_concat(e.servico) AS servicos, group_concat(f.nome) AS funcionarios");                
+                $condicao = "d.os_id = a.id and d.pendencias_id = e.id  AND e.funcionario_id = f.id AND (b.placa like '%{$pesquisa}%' OR a.sinistro  LIKE '%{$pesquisa}%' OR c.nome  LIKE '%{$pesquisa}%' OR b.modelo LIKE '%{$pesquisa}%') AND STR_TO_DATE( a.data_cadastro , '%d/%m/%Y' ) BETWEEN '".$data_inicio."' AND '".$data_fim."' group by d.pendencias_id";
+                $os = busca_detalhada_varios($conexao, $condicao , "os a , veiculo b , cadastro c, os_pendencias d , pendencias e , funcionario f", "a.*, b.*, c.*, d.*,  e.servico as servicos, f.nome as funcionarios");                
             }else if(strlen($seguradora) <= 0){
                 $os = busca_detalhada_varios($conexao, "d.os_id = a.id and d.pendencias_id = e.id  AND e.funcionario_id = f.id AND (b.placa like '%{$pesquisa}%' OR a.sinistro  LIKE '%{$pesquisa}%' OR c.nome  OR '%{$pesquisa}%' OR b.modelo LIKE '%{$pesquisa}%') AND a.corretor_id = '{$corretor}' AND STR_TO_DATE( a.data_cadastro , '%d/%m/%Y' ) BETWEEN '{$data_inicio}' AND '{$data_fim}'" ,"os a , veiculo b , cadastro c, os_pendencias d , pendencias e , funcionario f ", "*,  group_concat(e.servico) AS servicos, group_concat(f.nome) AS funcionarios");
             }else if(strlen($corretor) <= 0){
                 $os = busca_detalhada_varios($conexao, "d.os_id = a.id and d.pendencias_id = e.id  AND e.funcionario_id = f.id AND (b.placa like '%{$pesquisa}%' OR a.sinistro  LIKE '%{$pesquisa}%' OR c.nome  OR '%{$pesquisa}%' OR b.modelo LIKE '%{$pesquisa}%')  AND a.seguradora_id = '{$seguradora}' AND STR_TO_DATE( a.data_cadastro , '%d/%m/%Y' ) BETWEEN '{$data_inicio}' AND '{$data_fim}'" , "os a , veiculo b , cadastro c, os_pendencias d , pendencias e , funcionario f ", "*,  group_concat(e.servico) AS servicos, group_concat(f.nome) AS funcionarios");
-            }
-        // $os = busca_detalhada_varios($conexao, "a.cliente_id = c.id AND a.veiculo_placa = b.placa AND (b.placa like '%{$pesquisa}%' OR a.sinistro  LIKE '%{$pesquisa}%' OR c.nome  OR '%{$pesquisa}%' OR b.modelo LIKE '%{$pesquisa}%') AND a.corretor_id = '{$corretor}' AND a.seguradora_id = '{$seguradora} ' " , "os a , veiculo b , cadastro c ");
+            }*/
+            // $os = busca_detalhada_varios($conexao, "a.cliente_id = c.id AND a.veiculo_placa = b.placa AND (b.placa like '%{$pesquisa}%' OR a.sinistro  LIKE '%{$pesquisa}%' OR c.nome  OR '%{$pesquisa}%' OR b.modelo LIKE '%{$pesquisa}%') AND a.corretor_id = '{$corretor}' AND a.seguradora_id = '{$seguradora} ' " , "os a , veiculo b , cadastro c ");
+            //$condicao = "d.os_id = a.id and d.pendencias_id = e.id  AND e.funcionario_id = f.id AND (b.placa like '%{$pesquisa}%' OR a.sinistro  LIKE '%{$pesquisa}%' OR c.nome  LIKE '%{$pesquisa}%' OR b.modelo LIKE '%{$pesquisa}%') AND STR_TO_DATE( a.data_cadastro , '%d/%m/%Y' ) BETWEEN '".$data_inicio."' AND '".$data_fim."' group by d.pendencias_id";
+            $condicao = "d.os_id = a.id and d.pendencias_id = e.id  AND e.funcionario_id = f.id AND (b.placa like '%{$pesquisa}%' OR a.sinistro  LIKE '%{$pesquisa}%' OR c.nome  LIKE '%{$pesquisa}%' OR b.modelo LIKE '%{$pesquisa}%') AND (c.razao_social LIKE '%{$corretor}%' or c.nome_fantasia LIKE '%{$corretor}%') AND (c.razao_social LIKE '%{$seguradora}%' or c.nome_fantasia LIKE '%{$seguradora}%') AND STR_TO_DATE( a.data_cadastro , '%d/%m/%Y' ) BETWEEN '".$data_inicio."' AND '".$data_fim."' group by d.pendencias_id";
+            $os = busca_detalhada_varios($conexao, $condicao, "os a, veiculo b, cadastro c, os_pendencias d, pendencias e, funcionario f", "a.*, b.*, c.*, d.*, e.servico as servicos, f.nome as funcionarios");
 
             if($os != null){
                 print json_encode($os);

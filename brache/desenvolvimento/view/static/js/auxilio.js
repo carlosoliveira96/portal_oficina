@@ -1,3 +1,9 @@
+//Monta mensagem de confirmação
+function monta_msg_confirma(msg){
+    html = '<div class="alert alert-dark"><i class="fas fa-exclamation-triangle"></i><strong>'+ msg +'</strong></div>';
+    $('#msg').html(html);
+}
+
 function add_erro_input(input , msg){
     input.addClass("is-invalid");
     input.parent().next().html(msg);

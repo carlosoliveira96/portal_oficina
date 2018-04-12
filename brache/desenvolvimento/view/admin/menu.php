@@ -35,7 +35,7 @@ include "controle.php";
                 </div>
                 <div class="sidebar-header">
                     <img src="../static/img/user.png" class="rounded-circle" height="156" width="156">
-                    <p>Usuário logado</p>
+                    <p><?php echo $_SESSION['usuario'] ?></p>
                     <p>Cargo</p>
                 </div>
                 <hr style="border-color: #5E636B">
@@ -58,6 +58,9 @@ include "controle.php";
                             <li><a href="funcionarioCadastro.php">Cadastro</a></li>
                             <li><a href="funcionarioListar.php">Listagem</a></li>
                          </ul>
+                    </li>
+                    <li>
+                        <a href="expedienteCadastro.php">Expedientes</a>
                     </li>
                     <li>
                         <a href="funcionarioCadastroServico.php">Cadastro de Serviços para Funcionários</a>

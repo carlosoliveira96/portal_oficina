@@ -42,9 +42,10 @@ function busca_detalhada_varios($conexao, $condicao , $tabela , $campos = null){
     if ($campos){
         $query = "select {$campos} FROM {$tabela} where {$condicao} ";
     } else {
-        $query = "select * FROM {$tabela} where {$condicao} ";
+        $query = "SELECT * FROM {$tabela} WHERE {$condicao}";
     }
-
+    
+    //var_dump($query);
     $result = mysqli_query($conexao, $query);
 
     if ($result == true) {
@@ -62,6 +63,7 @@ function busca_todos($conexao,  $tabela){
     $query = "select * FROM {$tabela} ";
     $result = mysqli_query($conexao, $query);
 
+    
     if ($result == true) {
         while ($resultado = mysqli_fetch_assoc($result)) {
             array_push($resultados, $resultado);
