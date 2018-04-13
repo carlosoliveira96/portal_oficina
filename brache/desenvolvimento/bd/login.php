@@ -12,10 +12,14 @@ function login($conexao,$login, $senha) {
 
 
 function logaUsuario($usuario) {
+    var_dum($usuario);
+    die();
    $_SESSION["usuarioLogado"] = true;
    $_SESSION["perfilUsuario"] = $usuario['perfil_id'];
    $_SESSION["usuario"] = $usuario['login'];
    $_SESSION["meu_id_funcionario"] = $usuario['id'];
+   $_SESSION['img_usurio'] = $usuario['url_imagem'];
+   $_SESSION['cargo'] = $usuario['cargo'];
 }
 
 function logout() {

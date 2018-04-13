@@ -34,9 +34,23 @@ include "controle.php";
                     <i class="fas fa-chevron-circle-left"></i>
                 </div>
                 <div class="sidebar-header">
-                    <img src="../static/img/user.png" class="rounded-circle" height="156" width="156">
-                    <p><?php echo $_SESSION['usuario'] ?></p>
-                    <p>Cargo</p>
+
+                    <?php if(isset($_SESSION['img_usurio'])){ ?>
+                        <img src="../<?=$_SESSION['img_usurio']?>" class="rounded-circle" height="156" width="156">                    
+                    <?php  } else{ ?>
+                        <img src="../static/img/user.png" class="rounded-circle" height="156" width="156">
+                    <?php  } ?>
+
+                    <div class="row">
+                        <div class="col-8">  
+                            <strong><?php echo $_SESSION['usuario'] ?></strong>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <small><?php echo $_SESSION['cargo'] ?></small>
+                        </div>
+                    </div>
                 </div>
                 <hr style="border-color: #5E636B">
                 <ul class="list-unstyled components">
@@ -60,12 +74,13 @@ include "controle.php";
                          </ul>
                     </li>
                     <li>
-                        <a href="expedienteCadastro.php">Expedientes</a>
+                        <a href="expedientes.php">Expedientes</a>
                     </li>
+                     <!--
                     <li>
                         <a href="funcionarioCadastroServico.php">Cadastro de Serviços para Funcionários</a>
                     </li>
-                    <!--
+                  
                     <li>
                         <a href="pecas.php">Peças</a>
                     </li>
@@ -560,7 +575,7 @@ include "controle.php";
                     lista_nome = [];
 
                     busca_grupos();
-                    
+
                     $('#pesquisa_funcionarios').val('');
                     $('#nome_grupo').val('');
                     $('#participantes_grupo').html('');
@@ -635,18 +650,6 @@ include "controle.php";
                         html += '</div>';
                         html += '</div>';
                         html += '</div>';
-                        html += '</div>';
-                    showMessage(html);
-                }else if( $('#id_contato').val() == Data.usuario2 && usuario == Data.usuario ) {
-                    var html = '<div class="row" style="margin-top: 1rem">';
-                        html += '<div class="col-10" style="margin-left:0.5rem">';
-                        html += '<div class="card text-white bg-primary ">';
-                        html += '<div class="body" style="margin-top:0.5rem ; margin-bottom : 0.5rem">';
-                        html += '<div style="margin-left:0.5rem"><strong>'+Data.usuario+'</strong><small> &nbsp;&nbsp;'+Data.data+' - '+Data.hora+'</small></div>';
-                        html += '<div style="margin-left:1rem">'+Data.message+'</div>';
-                        html += '</div>';
-                        html += '</div>';
-                        html += '</div>';    
                         html += '</div>';
                     showMessage(html);
                 }else if(meu_id == Data.usuario2 && Data.id_user ==  $('#id_contato').val()  ){

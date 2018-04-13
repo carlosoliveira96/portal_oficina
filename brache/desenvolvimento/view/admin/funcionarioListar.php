@@ -54,24 +54,45 @@ include 'menu.php';
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="" id="titulo_funcionario">Modal title</h5>
+                        <div class="btn-group " role="group" aria-label="Button group with nested dropdown">
+                            <button class="btn btn-dark " id="cancelar" onclick="cancela_alteracao()">
+                                <i class="fa fa-times float-left" style="margin-top: 0.2rem; margin-right: 0.3rem"></i> Cancelar
+                            </button>
+                            <button class="btn btn-dark " id="alterar" onclick="alterar()">
+                                <i class="fa fa-edit float-left" style="margin-top: 0.2rem; margin-right: 0.3rem"></i> Alterar
+                            </button>
+                            <button class="btn btn-dark " id="deletar" onclick="alterar()">
+                                <i class="fa fa-trash float-left" style="margin-top: 0.2rem; margin-right: 0.3rem"></i> Deletar
+                            </button>
+                            <button class="btn btn-dark " id="vizualizar"  onclick="vizualizar()">
+                                <i class="fa fa-external-link-alt float-left" style="margin-top: 0.2rem; margin-right: 0.3rem"></i> Serviços
+                            </button>
+                        </div>
+                        <!--
                         <div class="row" style="margin-right: 15%;">
                             <div class="col-6" id="cancelar" hidden>
                                 <button class="btn btn-dark btn-sm btn-block" onclick="cancela_alteracao()">
                                     <i class="fa fa-times float-left" style="margin-top: 0.2rem; margin-right: 0.3rem"></i> Cancelar
                                 </button>
                             </div>
-                            <div class="col-6" id="alterar">
+                            <div class="col-4" id="alterar">
                                 <button class="btn btn-dark btn-sm btn-block" onclick="alterar()">
                                     <i class="fa fa-edit float-left" style="margin-top: 0.2rem; margin-right: 0.3rem"></i> Alterar
                                 </button>
                             </div>
-                            <div class="col-6" id="deletar">
+                            <div class="col-4" id="deletar">
                                 <button class="btn btn-dark btn-sm btn-block" onclick="alterar()">
                                     <i class="fa fa-trash float-left" style="margin-top: 0.2rem; margin-right: 0.3rem"></i> Deletar
                                 </button>
                             </div>
+                            <div class="col-4" id="vizualizar">
+                                <button class="btn btn-dark btn-sm btn-block" onclick="vizualizar()">
+                                    <i class="fa fa-external-link-alt float-left" style="margin-top: 0.2rem; margin-right: 0.3rem"></i> Serviços
+                                </button>
+                            </div>
                         </div>
+                        -->
+                        <h5 class="" style="margin-right: 5rem;" id="titulo_funcionario">Modal title</h5>
                         <button type="button" onclick="cancela_alteracao()" class="close" data-dismiss="modal">
                                 <span aria-hidden="true">&times;</span>
                         </button>
@@ -358,10 +379,17 @@ include 'menu.php';
             }
         }
 
+        function vizualizar(){
+            window.location.href='funcionarioCadastroServico.php?codFun='+id_funcionario;
+        }
+
+        $('#cancelar').attr("hidden", true);
+        var id_funcionario = 0;
+
         function funcionario(posicao){
 
             var sem_cep = $('#sem_cep');
-
+            id_funcionario = lista_registros[posicao].id;
             $('#nome').val(lista_registros[posicao].nome);  
             $('#cpf').val(lista_registros[posicao].cpf);  
             $('#nascimento').val(lista_registros[posicao].nascimento);  

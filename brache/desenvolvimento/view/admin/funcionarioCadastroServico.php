@@ -172,7 +172,15 @@ include 'menu.php';
                     $('#nascimento').val(resultado.data_nascimento);
                     $('#cargo').val(resultado.cargo);
                     $('#img').html('');
-                    var html='<img src="../'+resultado.url_imagem+'" id="img" alt="..." class="img-thumbnail" style="width:13rem; height : 10rem">';
+                    var html = "";
+                    if(resultado.url_imagem == null){
+                        html += '<img src="../static/img/user.png" class="img-thumbnail" style="width:13rem; height : 10rem">';
+                    }else{
+                        html += '<img src="../'+resultado.url_imagem+'" class="img-thumbnail" style="width:13rem; height : 10rem">';
+                    }   
+
+                    //var html='<img src="../'+resultado.url_imagem+'" id="img" alt="..." class="img-thumbnail" style="width:13rem; height : 10rem">';
+                    
                     $('#img').html(html);
                     busca_servicos();
                     busca_servicos_funcionario();
