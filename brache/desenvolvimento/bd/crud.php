@@ -74,13 +74,12 @@ function busca_todos($conexao,  $tabela){
 }
 
 function busca_detalhada_um($conexao, $condicao , $tabela , $campos = null){
-
     $query = "";
 
     if ($campos){
         $query = "select {$campos}  FROM {$tabela} where {$condicao} ";
     }else{
-        $query = "select *  FROM {$tabela} where {$condicao} ";
+        $query = "select * FROM {$tabela} where {$condicao} ";
     }
 
     $result = mysqli_query($conexao, $query);

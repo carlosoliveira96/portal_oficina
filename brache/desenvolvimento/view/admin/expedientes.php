@@ -23,6 +23,9 @@ include 'menu.php';
                 <p class="text-center" style="color: #000"><i><b>Expedientes</b></i></p>
             </h2>
             <hr>
+            <div id="msg_expediente">
+			
+		    </div>
             <div id="msg">
 			
 		    </div>
@@ -33,7 +36,7 @@ include 'menu.php';
                             <input type="text" class="form-control" style="font-family: FontAwesome; font-size: 1.05rem" placeholder="&#xF002; Pesquise pelo nome do expediemte">
                         </th>
                         <th class="col-3">
-                            <a href="#" class="btn btn-dark col-12" data-toggle="modal" data-target="#incluiExpediente">
+                            <a href="#" class="btn btn-dark col-12" onclick="monta_cadastro()" data-toggle="modal" data-target="#incluiExpediente">
                                 <i class="fas fa-plus" style="margin-top: 0.1rem; margin-right: 0.5rem"></i> Cadastrar expediente
                             </a>
                         </th>
@@ -63,28 +66,30 @@ include 'menu.php';
             </nav>
        </div>
        <!-- Modal incluir expediente -->
-       <div class="modal fade" id="incluiExpediente" tabindex="-1" role="dialog" aria-labelledby="adicionaExpediente" aria-hidden="true">
+       <div class="modal fade" data-backdrop="static" id="incluiExpediente" tabindex="-1" role="dialog" aria-labelledby="adicionaExpediente" aria-hidden="true">
             <div id="preloader_modal" class="carregando" style="display: none">
                 <img src="../static/gif/loading.gif" style="position: fixed; margin-top: 25%; margin-left: 45%;">
             </div>
             <div class="modal-dialog modal-md" id="modal_expedientes" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Cadastro de expedientes</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <h5 class="modal-title" id="titulo_modal">Cadastro de expedientes</h5>
+                        <button type="button" class="close" onclick="listar();" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body" id="adicionaPeca-body" style="overflow-y: auto">
-                    <div id="msg">
+                    <div id="msg_sucesso">
                     </div>
                         <div class="row">
                             <div class="col-12">
                                 <h6  style="margin-top:1rem"><i>Título do expediente</i></h6>
                                 <div class="input-group ">
+                                    <input type="text" hidden id="id_expediente">
                                     <span class="input-group-addon" id="sizing-addon1"><i class="fas fa-calendar"></i></span>
                                     <input type="text" id="titulo_expediente" class="form-control" placeholder="Ex.: Exemplo">
                                 </div>
+                                <div class="text-danger"></div>
                             </div>
                         </div>
                         <div class="row">
@@ -94,6 +99,17 @@ include 'menu.php';
                                     <span class="input-group-addon" id="sizing-addon1"><i class="fas fa-sticky-note"></i></span>
                                     <textarea id="descricao_expediente" class="form-control"  placeholder="Ex.: Exemplo"></textarea>
                                 </div>
+                                <div class="text-danger"></div>
+                            </div>
+                        </div>
+                        <div class="row" id="data_criacao" hidden>
+                            <div class="col-12">
+                                <h6  style="margin-top:1rem"><i>Data da criação</i></h6>
+                                <div class="input-group ">
+                                    <span class="input-group-addon" id="sizing-addon1"><i class="fas fa-calendar"></i></span>
+                                    <input type="text" id="data_expediente" class="form-control" placeholder="Ex.: Exemplo">
+                                </div>
+                                <div class="text-danger"></div>
                             </div>
                         </div>
                         <div class="row">
@@ -107,7 +123,10 @@ include 'menu.php';
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" onclick="cadastro()" class="btn btn-dark btn-block">
+                        <button id="botao_cadastrar" type="button" onclick="cadastro()" class="btn btn-dark btn-block">
+                            <i class="fa fa-check float-left" style="margin-top: 0.3rem;"></i> Salvar
+                        </button>
+                        <button id="botao_alterar" hidden type="button" onclick="salva_alteracao()" class="btn btn-dark btn-block">
                             <i class="fa fa-check float-left" style="margin-top: 0.3rem;"></i> Salvar
                         </button>
                     </div>
@@ -116,39 +135,70 @@ include 'menu.php';
         </div>
     </body>	
     <script>
+        //Funções de cadastro de registro
+        function monta_cadastro(){
+            $('#msg_sucesso').html('');
+            //Limpa campos
+            $('#titulo_expediente').attr('value', '');
+            document.getElementById('descricao_expediente').value = '';
+            document.getElementById('observacao_expediente').value = '';
+            //Remove atributos
+            $('#botao_cadastrar').removeAttr('hidden'); 
+            $('#botao_alterar').attr('hidden', true); 
+            $('#titulo_modal').html('Cadastrar expediente'); 
+            $('#data_criacao').attr('hidden', true);
+            $('#titulo_expediente').removeAttr('disabled');
+            $('#descricao_expediente').removeAttr('disabled');
+            $('#observacao_expediente').removeAttr('disabled');
+        }
+
         function cadastro(){
             //Recupera valores dos campos
             var titulo = $('#titulo_expediente').val();
             var descricao = $('#descricao_expediente').val();
             var observacoes = $('#observacao_expediente').val();
-            //Mostra a div de loading no carregamento da pagina
-            $('#preloader_modal').show();
-            //alert(desc_servico);
-            var data = {
-                titulo: titulo,
-                descricao: descricao,
-                observacoes: observacoes,
-                funcao: "cadastrar"
-            };
-            $.ajax({
-                url: '../../controller/expedientes.php',
-                method: "post",
-                data: data ,
-                success: function(data){
-                    if (data){
-                        $('#preloader_modal').hide();
-                        monta_msg_sucesso(" Cadastro realizado com sucesso.")
-                        $('#titulo_expediente').val("");
-                        $('#descricao_expediente').val("");
-                        $('#observacao_expediente').val("");
+            var validacao = true;
+            if (titulo.length <= 0){
+                add_erro_input($('#titulo_expediente'), "Título do expediente inválido ou não informado.");
+                validacao = false;
+            } else {
+                remove_erro_input($('#titulo_expediente'));
+            }
+            if (descricao.length <= 0){
+                add_erro_input($('#descricao_expediente'), "Descrição do expediente inválido ou não informado.");
+                validacao = false;
+            } else {
+                remove_erro_input($('#descricao_expediente'));
+            }
+            if (validacao){
+                //Mostra a div de loading no carregamento da pagina
+                $('#preloader_modal').show();
+                //alert(desc_servico);
+                var data = {
+                    titulo: titulo,
+                    descricao: descricao,
+                    observacoes: observacoes,
+                    funcao: "cadastrar"
+                };
+                $.ajax({
+                    url: '../../controller/expedientes.php',
+                    method: "post",
+                    data: data ,
+                    success: function(data){
+                        if (data){
+                            $('#preloader_modal').hide();
+                            monta_msg_sucesso_modal(" Cadastro realizado com sucesso.")
+                            $('#titulo_expediente').val("");
+                            $('#descricao_expediente').val("");
+                            $('#observacao_expediente').val("");
 
+                        }
                     }
-                }
-            });
+                });
+            }
         }
 
         //Lista os expedientes cadastrados
-
         var nr_pag = 1;
         var lista_registros ;
 
@@ -177,7 +227,7 @@ include 'menu.php';
                         $('#preloader').hide();
                         monta_msg_alerta_permanente(" Você não possui expedientes. Clique em <b>cadastrar expediente</b> para iniciar uma inclusão.")
                     }else {
-                        remove_msg();
+                        remove_msg_expediente();
                         var lista = $.parseJSON(data);
                         lista_registros = lista;
                         monta_lista(lista_registros);          
@@ -236,10 +286,10 @@ include 'menu.php';
                 html += '<tr>'+
                             '<td scope="row">'+lista[inicio].titulo+'</td>'+
                             '<td scope="row" class="text-center">'+
-                                '<button type="button" class="btn btn-dark btn-sm" title="Visualizar">'+
+                                '<button type="button" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#incluiExpediente" onclick="visualizar('+lista[inicio].id+', \''+lista[inicio].titulo+'\', \''+lista[inicio].conteudo+'\', \''+lista[inicio].data_criacao+'\', \''+lista[inicio].observacao+'\')" title="Visualizar">'+
                                     '<i class="fas fa-eye "></i>'+
                                 '</button>'+
-                                '<button type="button" class="btn btn-dark btn-sm" style="margin-left: 0.2rem" title="Alterar">'+
+                                '<button type="button" data-toggle="modal" data-target="#incluiExpediente" class="btn btn-dark btn-sm" style="margin-left: 0.2rem" onclick="alterar('+lista[inicio].id+', \''+lista[inicio].titulo+'\', \''+lista[inicio].conteudo+'\', \''+lista[inicio].data_criacao+'\', \''+lista[inicio].observacao+'\')" title="Alterar">'+
                                     '<i class="fas fa-edit "></i>'+
                                 '</button>'+
                                 '<button type="button" class="btn btn-dark btn-sm" style="margin-left: 0.2rem" onclick="confirma_exclusao('+lista[inicio].id+')" title="Remover">'+
@@ -255,10 +305,10 @@ include 'menu.php';
                     html += '<tr>'+
                                 '<td scope="row">'+lista[inicio].titulo+'</td>'+
                                 '<td scope="row" class="text-center">'+
-                                    '<button type="button" class="btn btn-dark btn-sm" title="Visualizar">'+
+                                    '<button type="button" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#incluiExpediente" onclick="visualizar('+lista[inicio].id+', \''+lista[inicio].titulo+'\', \''+lista[inicio].conteudo+'\', \''+lista[inicio].data_criacao+'\', \''+lista[inicio].observacao+'\')" title="Visualizar">'+
                                         '<i class="fas fa-eye "></i>'+
                                     '</button>'+
-                                    '<button type="button" class="btn btn-dark btn-sm" style="margin-left: 0.2rem" title="Alterar">'+
+                                    '<button type="button" data-toggle="modal" data-target="#incluiExpediente" class="btn btn-dark btn-sm" style="margin-left: 0.2rem" onclick="alterar('+lista[inicio].id+', \''+lista[inicio].titulo+'\', \''+lista[inicio].conteudo+'\', \''+lista[inicio].data_criacao+'\', \''+lista[inicio].observacao+'\')" title="Alterar">'+
                                         '<i class="fas fa-edit "></i>'+
                                     '</button>'+
                                     '<button type="button" class="btn btn-dark btn-sm" style="margin-left: 0.2rem" onclick="confirma_exclusao('+lista[inicio].id+')" title="Remover">'+
@@ -272,26 +322,120 @@ include 'menu.php';
             }
         }
 
+        //Função para visualizar registro
+        function visualizar(id, titulo, conteudo, data_criacao, observacao){
+            $('#msg_sucesso').html('');
+            //Movimenta valores
+            $('#id_expediente').attr('value', id);
+            $('#titulo_expediente').attr('value', titulo);
+            document.getElementById('descricao_expediente').value = conteudo;
+            $('#data_criacao').removeAttr('hidden');
+            $('#data_expediente').attr('value', data_criacao);
+            if (observacao == 'null'){
+                document.getElementById('observacao_expediente').value = '';
+            }else {
+                document.getElementById('observacao_expediente').value = observacao;
+            }
+            //Bloqueia campos
+            $('#titulo_expediente').attr('disabled', true);
+            $('#descricao_expediente').attr('disabled', true);
+            $('#data_expediente').attr('disabled', true);
+            $('#observacao_expediente').attr('disabled', true);
+            //Esconde botão
+            $('#botao_alterar').removeAttr('hidden');
+            $('#botao_cadastrar').attr('hidden', true);
+            $('#botao_alterar').attr('hidden', true);
+            $('#titulo_modal').html('Visualizar expediente');
+
+        }
+
+        //Funções para alterar registro
+        function alterar(id, titulo, conteudo, data_criacao, observacao){
+            $('#msg_sucesso').html('');
+            $('#id_expediente').attr('value', id);
+            $('#titulo_expediente').attr('value', titulo);
+            document.getElementById('descricao_expediente').value = conteudo;
+            $('#data_criacao').removeAttr('hidden');
+            $('#data_expediente').attr('value', data_criacao);
+            $('#data_expediente').attr('disabled', true);
+            if (observacao == 'null'){
+                document.getElementById('observacao_expediente').value = '';
+            }else {
+                document.getElementById('observacao_expediente').value = observacao;
+            }
+            $('#botao_alterar').removeAttr('hidden');
+            $('#botao_cadastrar').attr('hidden', true);
+            $('#titulo_modal').html('Alterar expediente');
+            //Desbloqueia campos caso entre em visualizar
+            $('#titulo_expediente').removeAttr('disabled');
+            $('#descricao_expediente').removeAttr('disabled');
+            $('#observacao_expediente').removeAttr('disabled');
+        }
+        
+        function salva_alteracao(){
+            //Recupera valores dos campos
+            var id = $('#id_expediente').val();
+            var titulo = $('#titulo_expediente').val();
+            var descricao = $('#descricao_expediente').val();
+            var observacoes = $('#observacao_expediente').val();
+            var validacao = true;
+            if (titulo.length <= 0){
+                add_erro_input($('#titulo_expediente'), "Título do expediente inválido ou não informado.");
+                validacao = false;
+            } else {
+                remove_erro_input($('#titulo_expediente'));
+            }
+            if (descricao.length <= 0){
+                add_erro_input($('#descricao_expediente'), "Descrição do expediente inválido ou não informado.");
+                validacao = false;
+            } else {
+                remove_erro_input($('#descricao_expediente'));
+            }
+            if (validacao){
+                //Mostra a div de loading no carregamento da pagina
+                $('#preloader_modal').show();
+                //alert(desc_servico);
+                var data = {
+                    id: id,
+                    titulo: titulo,
+                    descricao: descricao,
+                    observacoes: observacoes,
+                    funcao: "alterar"
+                };
+                $.ajax({
+                    url: '../../controller/expedientes.php',
+                    method: "post",
+                    data: data ,
+                    success: function(data){
+                        if (data){
+                            $('#preloader_modal').hide();
+                            monta_msg_sucesso_modal(" Alteração realizada com sucesso.")
+                        }
+                    }
+                });
+            }
+        }
+
         //Funções para excluir registro
         function confirma_exclusao(id){
             //Mensagem de confirmação
-            monta_msg_confirma(' Confirma exclusão do serviço? <a href="#" id="confirma" class="btn btn-dark btn-sm" onclick="excluir('+id+', this)">Sim</a> <a href="#" id="cancela" class="btn btn-secondary btn-sm" onclick="excluir(0, this)">Não</a> ');
-        }  
+            monta_msg_confirma(' Confirma exclusão do expediente? <a href="#" id="confirma" class="btn btn-dark btn-sm" onclick="excluir('+id+', this)">Sim</a> <a href="#" id="cancela" class="btn btn-secondary btn-sm" onclick="excluir(0, this)">Não</a> ');
+        }
 
         function excluir(id, id_button){
             if (id_button.id == "confirma"){
                 var desc_servico = $('#input_cadastro').val();
                 var data = {
-                    id_servico: id,
+                    id_expediente: id,
                     funcao: "excluir"
                 };
                 $.ajax({
-                    url: '../../controller/servico.php',
+                    url: '../../controller/expedientes.php',
                     method: "post",
                     data: data ,
                     success: function(data){
-                        busca_servico();
-                        monta_msg_alerta(" Serviço inativado! Caso deseje ativá-lo novamente, entre em contato com o administrador.");
+                        listar();
+                        monta_msg_sucesso(" Expediente excluído com sucesso!");
                     }
                 });
             }else {

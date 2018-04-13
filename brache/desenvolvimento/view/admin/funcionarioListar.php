@@ -400,7 +400,7 @@ include 'menu.php';
             $('#modal_funcionario').modal('show'); 
         }
 
-        //Função para habilitar os campos e realizar a alteração
+        //Função para habilitar os campos e realizar a alteraçãoo
         function alterar(){
             $('#botao_salvar').removeAttr("hidden");
             $('#cancelar').removeAttr("hidden");

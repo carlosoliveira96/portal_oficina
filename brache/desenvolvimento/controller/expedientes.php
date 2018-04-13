@@ -35,17 +35,48 @@ switch ($funcao){
         $campos = "titulo, conteudo, data_criacao, observacao";
         $valores= "'$titulo', '$descricao', '$data_cadastro', $observacoes";
         
-        $servico = insere($conexao, $campos, $valores, "expediente");
+        $expediente = insere($conexao, $campos, $valores, "expediente");
 
-        if (strlen($servico['id']) <= 0 ) {
-			print json_encode($servico);
+        if (strlen($expediente['id']) <= 0 ) {
+			print json_encode($expediente);
         }
     break;
     case 'consultar':
-        $servico = busca_todos($conexao,  'expediente');
+        $expediente = busca_todos($conexao,  'expediente');
 
-        if($servico != null){
-            print json_encode($servico);
+        if($expediente != null){
+            print json_encode($expediente);
+        }
+    break;
+    case 'excluir':
+        //Pega o valor do ID para montar a condição
+        $id = $_POST['id_expediente'];
+        $condicao = "id = $id";
+        $expediente = deleta($conexao , 'expediente' , $condicao);
+
+        if (strlen($expediente['id']) <= 0 ) {
+            print json_encode($expediente);
+        }
+        break;
+    case 'alterar':
+        //Pega o valor da entrada no input passado pelo javascript
+        $id = $_POST["id"];
+        $titulo = $_POST["titulo"];
+        $descricao = $_POST["descricao"];
+
+        if (strlen($_POST["observacoes"]) <= 0){
+            $observacoes = 'NULL';
+        }else{
+            $observacoes = "'".$_POST['observacoes']."'";
         }
 
+        $campos_valores = "titulo = '$titulo', conteudo = '$descricao', 
+        observacao = $observacoes";
+        $condicao = "id = $id";
+        
+        $expediente = altera($conexao, $campos_valores, $condicao, "expediente");
+
+        if (strlen($expediente['id']) <= 0 ) {
+            print json_encode($expediente);
+        }
     }

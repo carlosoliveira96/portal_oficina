@@ -20,7 +20,7 @@ $hora_atual = date('H:i:s');
         <script type="text/javascript" src="../static/js/jasny-bootstrap.1.js"></script>
 
     </head>
-    <body style="background-color: #F8F9FA;" onload="busca_os(); verifica_entrega(); busca_registro_interno(); busca_mensagem_comunicador(); busca_pendencias(); busca_funcionario_select();">
+    <body style="background-color: #F8F9FA;" onload="busca_os(); busca_expediente(); verifica_entrega(); busca_registro_interno(); busca_mensagem_comunicador(); busca_pendencias(); busca_funcionario_select();">
         <div class="container" style=" background-color: #fff">
             <h2>
                 <p class="text-center" style="color: #000"><i><b>Processo Eletrônico </b></i></p>
@@ -194,7 +194,6 @@ $hora_atual = date('H:i:s');
                                             <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-search"></i></span>
                                             <input type="text" id="placa" class="form-control" placeholder="Ex.: AAA-9999" disabled name="">
                                         </div>
-                                        <div class="text-danger"></div>
                                     </div>
                                     <div class="col-8">
                                         <h6  style="margin-top:1rem"><i>Modelo</i></h6> 
@@ -202,7 +201,6 @@ $hora_atual = date('H:i:s');
                                             <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-car"></i></span>
                                             <input type="text" id="modelo" class="form-control" disabled placeholder="Ex.: Exemplo Exemplo"  maxlength="100" name="">
                                         </div>
-                                        <div class="text-danger"></div>
                                     </div>
                                     <div class="col-3">
                                         <h6  style="margin-top:1rem"><i>Ano Modelo</i></h6> 
@@ -210,7 +208,6 @@ $hora_atual = date('H:i:s');
                                             <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-calendar"></i></span>
                                             <input type="text" id="ano_modelo" class="form-control" disabled placeholder="Ex.: Exemplo Exemplo" maxlength="100" name="">
                                         </div>
-                                        <div class="text-danger"></div>
                                     </div>
                                     <div class="col-3">
                                         <h6  style="margin-top:1rem"><i>Ano Fabricação</i></h6> 
@@ -218,7 +215,6 @@ $hora_atual = date('H:i:s');
                                             <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-calendar"></i></span>
                                             <input type="text" id="ano_fabricacao" class="form-control" disabled placeholder="Ex.: Exemplo Exemplo" maxlength="100" name="">
                                         </div>
-                                        <div class="text-danger"></div>
                                     </div>
                                     <div class="col-6">
                                         <h6  style="margin-top:1rem"><i>Fabricante</i></h6> 
@@ -228,7 +224,6 @@ $hora_atual = date('H:i:s');
                                                 
                                             </select>
                                         </div>
-                                        <div class="text-danger"></div>
                                     </div>
                                     <div class="col-4">
                                         <h6  style="margin-top:1rem"><i>Cor</i></h6>    
@@ -236,7 +231,6 @@ $hora_atual = date('H:i:s');
                                             <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-paint-brush"></i></span>
                                             <input type="text" id="cor" class="form-control" disabled placeholder="Ex.: Exemplo "   maxlength="50" name="">
                                         </div>
-                                        <div class="text-danger"></div>
                                     </div>
                                     <div class="col-8">
                                         <h6  style="margin-top:1rem"><i>Chassi</i></h6> 
@@ -244,7 +238,6 @@ $hora_atual = date('H:i:s');
                                             <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-car"></i></span>
                                             <input type="text" id="chassi" class="form-control" placeholder="Ex.: Exemplo" disabled maxlength="50" name="">
                                         </div>
-                                        <div class="text-danger"></div>
                                     </div>                  
                                 </div>
                                 <div class="row " id="cadastro_cliente">
@@ -256,7 +249,6 @@ $hora_atual = date('H:i:s');
                                                 
                                             </select>
                                         </div>
-                                        <div class="text-danger"></div>
                                     </div>
                                     <div class="col-6">
                                         <h6  style="margin-top:1rem"><i>Corretor</i></h6>   
@@ -266,7 +258,15 @@ $hora_atual = date('H:i:s');
                                                 
                                             </select>
                                         </div>
-                                        <div class="text-danger"></div>
+                                    </div>
+                                    <div class="col-6">
+                                        <h6  style="margin-top:1rem"><i>Tipo</i></h6>   
+                                        <div class="input-group ">
+                                            <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-clipboard"></i></span>
+                                            <select class="form-control" id="tipo_cadastro" disabled>
+                                                
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -357,7 +357,7 @@ $hora_atual = date('H:i:s');
                                             <input type="text" id="entregue" onchange="verifica_entrega();" class="form-control" data-mask="99/99/9999" placeholder="Ex... 99/99/9999" name="">
                                         </div>
                                     </div>
-                                <div class="col-2" style="margin-top:3rem">
+                                    <div class="col-2" style="margin-top:3rem">
                                         <h6 class="text-left">
                                             <input type="checkbox" onclick="habilita_retorno()" id="retorno"> Retorno
                                         </h6>
@@ -369,11 +369,25 @@ $hora_atual = date('H:i:s');
                                             <input type="text" id="dtRetorno" class="form-control" data-mask="99/99/9999" disabled placeholder="Ex... 99/99/9999" name="">
                                         </div>
                                     </div>
+                                    <div class="col-12" id="check_tc" style="margin-top:1rem" hidden>
+                                        <h6 class="text-left">
+                                            <input type="checkbox" onclick="habilita_retorno_tc()" id="retorno_tc"> Retorno
+                                        </h6>
+                                    </div>
+                                    <div class="col-6" id="area_tc" hidden>
+                                        <h6 style="margin-top:1rem"><i>Termo de Compromisso</i></h6>
+                                        <div class="input-group ">
+                                            <span class="input-group-addon" id="sizing-addon1"><i class="fas fa-info-circle"></i></span>
+                                            <textarea rows="2" id="tc" placeholder="Ex.: Exemplo" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--<div class="row">
                                     <div class="col-4">
                                         <h6 style="margin-top:1rem"><i>Particular</i></h6>
                                         <div class="input-group ">
                                             <span class="input-group-addon" id="sizing-addon1"><i class="fas fa-question"></i></span>
-                                            <select class="custom-select" id="particular">
+                                            <select class="custom-select" id="particular" onchange="verifica_particular()">
                                                 <option selected>Selecione...</option>
                                                 <option value="1">Sim</option>
                                                 <option value="2">Não</option>
@@ -381,6 +395,15 @@ $hora_atual = date('H:i:s');
                                         </div>
                                     </div>
                                 </div>
+                                <br>
+                                <div class="row" id="osParticular" hidden>
+                                    <div class="col-4">
+                                        <button class="btn btn-dark" id="btnNovaOs" > 
+                                            <i class="fa fa-check float-left" style="margin-top: 0.1rem; margin-right: 0.3rem"></i> 
+                                                Criar nova OS
+                                        </button>
+                                    </div>
+                                </div>-->
                             </form>
                         </div>
                     </div>
@@ -426,8 +449,16 @@ $hora_atual = date('H:i:s');
                     <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
                         <div class="card-body">
                             <label for="modeloCarta">
-                                <h6 style="margin-top:1rem"><i>Modelo da carta padronizada</i></h6>
+                                <h6 style="margin-top:1rem"><i>Observações para impressão</i></h6>
                             </label>
+                            <div class="row">
+                                <div class="col-12">
+                                    <select class="custom-select" id="expedientes" onchange="preenche_descricao();">
+                                        
+                                    </select>
+                                </div>
+                            </div>
+                            <br>
                             <div class="row">
                                 <div class="col-12">
                                     <textarea id="carta" rows="6" class="form-control"></textarea>
@@ -665,10 +696,34 @@ $hora_atual = date('H:i:s');
         var check_retorno = document.getElementById("retorno");
         if (check_retorno.checked){
             $('#dtRetorno').removeAttr('disabled');
+            $('#check_tc').removeAttr('hidden');
         } else {
-            $('#dtRetorno').attr('disabled', 'true');
+            $('#dtRetorno').attr('disabled', true);
+            $('#check_tc').attr('hidden', true);
+            $('#area_tc').attr('hidden', true);
+            document.getElementById("retorno_tc").checked = false;
         }
     }
+
+    //função que habilida campo de retorno
+    function habilita_retorno_tc(){
+        var retorno_tc = document.getElementById("retorno_tc");
+        if (retorno_tc.checked){
+            $('#area_tc').removeAttr('hidden');
+        } else {
+            $('#area_tc').attr('hidden', true);
+        }
+    }
+
+    //Função na qual verifica se terá serviço particular
+    /*function verifica_particular(){
+        var valor = $('#particular').val();
+        if (valor == '1'){
+            $('#osParticular').removeAttr('hidden');
+        }else {
+            $('#osParticular').attr('hidden', true);
+        }
+    }*/
 
     //Função para buscar funcionários da pendencia interna
     function busca_funcionario (){
@@ -709,7 +764,6 @@ $hora_atual = date('H:i:s');
         });
     }
 
-
     //Função para adicionar funcionario a tabela
     var id_funcionarios = [];
     function adiciona_funcionario(id, nome){
@@ -725,7 +779,7 @@ $hora_atual = date('H:i:s');
                 '<th scope="col" id="'+id+'">'+nome.id+'</th>'+
                 '<th scope="col">'+
                 '<input id="id_funcionario_pend" value="'+id+'" hidden>'+
-                '<input id="servico_pendencia" class="form-control">'+       
+                '<input id="servico_pendencia" onkeyup="habilita_salvar()" class="form-control" maxlength="150">'+       
                 '</th>'+
                 '<th scope="col">'+
                 '<button class="btn btn-dark col-12" onclick="remove_funcionario('+id+');"><i class="fa fa-trash"></i> Remover</buttona>'+
@@ -779,6 +833,7 @@ $hora_atual = date('H:i:s');
 
     //Função para salvar as alterações da OS
     function salvarAlteracao(){
+        alert();
         $('#preloader').show();
         var servico_pendencia = $('#servico_pendencia').val();
         var id_funcionario = $('#id_funcionario_pend').val();
@@ -799,10 +854,20 @@ $hora_atual = date('H:i:s');
         var entregue = $('#entregue').val();
         var dtRetorno = $('#dtRetorno').val();
         var check_pt = document.getElementById("pt");
+        var check_tc = document.getElementById("retorno_tc");
+        var termo = $('#tc').val();
         if (check_pt.checked){
+            alert('1');
             var check = 1;
         }else {
+            alert('0');
             check = 0;
+        }
+
+        if (check_tc.checked){
+            var tc_check = 1;
+        }else {
+            tc_check = 0;
         }
 
         var data = {
@@ -819,6 +884,8 @@ $hora_atual = date('H:i:s');
             entregue : entregue,
             dtRetorno : dtRetorno,
             check : check,
+            check_tc: tc_check,
+            termo: termo,
             id : os_id,
             funcao : "salva_os"
         };
@@ -857,7 +924,7 @@ $hora_atual = date('H:i:s');
                                     '<th scope="col" id="'+resultado[i].id+'">'+resultado[i].nome+'</th>'+
                                     '<th scope="col">'+
                                     '<input id="id_funcionario_pend" value="'+resultado[i].id+'" hidden>'+
-                                    '<input id="servico_pendencia" class="form-control" value="'+resultado[i].servico+'">'+       
+                                    '<input id="servico_pendencia" onkeyup="habilita_salvar()" class="form-control" maxlength="150" value="'+resultado[i].servico+'">'+       
                                     '</th>'+
                                     '<th scope="col">'+
                                     '<button class="btn btn-dark col-12" onclick="remove_funcionario('+resultado[i].id+');"><i class="fa fa-trash"></i> Remover</buttona>'+
@@ -870,6 +937,11 @@ $hora_atual = date('H:i:s');
                 }
             }
         });
+    }
+
+    //Habilita botão salvar
+    function habilita_salvar(){
+        $('#btnEnviar').removeAttr('disabled');
     }
 
     //Função para buscar dados da OS
@@ -923,6 +995,7 @@ $hora_atual = date('H:i:s');
                     }else if (resultado.nome_corretor_j != null){
                         $('#corretor').append('<option>'+resultado.nome_corretor_j+'</option>');
                     }
+                    $('#tipo_cadastro').append('<option>'+resultado.tipo_cadastro+'</option>');
 
                     //Numero do sinistro
                     $('#sinistro').attr('value', resultado.sinistro);
@@ -947,6 +1020,19 @@ $hora_atual = date('H:i:s');
                         $('#previsao_entrega').attr('disabled', 'true');
                         $('#entregue').attr('disabled', 'true');
                         $('#particular').attr('disabled', 'true');
+                    }
+
+                    if (resultado.data_retorno != null){
+                        $('#retorno').attr('checked', true);
+                        $('#dtRetorno').removeAttr('disabled');
+                    }
+
+                    if (resultado.situacao_tc == 1){
+                        $('#check_tc').removeAttr('hidden');
+                        $('#retorno_tc').attr('checked', true);
+                        $('#area_tc').removeAttr('hidden');
+                        document.getElementById('tc').value = resultado.termo_comp;
+
                     }
 
                     $('#vistoria_realizada').attr('value', resultado.data_vistoria_realizada);
@@ -1136,6 +1222,43 @@ $hora_atual = date('H:i:s');
             }
         });
     }
-        
+
+    //Função para buscar expedientes
+    var lista_expedientes = [];
+    function busca_expediente(){
+        $('#preloader').show();
+        var data = {
+            funcao: "busca_expediente"
+        };
+        $.ajax({
+            url: '../../controller/os.php',
+            method: "post",
+            data: data ,
+            success: function(data){
+                var html = "";
+                if (data){
+                    var resultado = $.parseJSON(data);
+                    lista_expedientes = resultado;
+                    if (resultado.length > 0){
+                        html += '<option value="selecionado" selected>Selecione um expediente</option>';
+                        for(var i = 0; i < resultado.length ; i++){
+                            html += '<option value="'+i+'" id="'+resultado[i].id+'">'+resultado[i].titulo+'</option>';
+                        }
+                    }
+                    $('#expedientes').html(html);
+                }
+                $('#preloader').hide();
+            }
+        });
+    }
+
+    function preenche_descricao(){
+        var indice = $('#expedientes').val();
+        if(indice == 'selecionado'){
+            document.getElementById('carta').value = '';
+        }else {
+            document.getElementById('carta').value = lista_expedientes[indice].conteudo;
+        }
+    }
     </script>
 </html>
