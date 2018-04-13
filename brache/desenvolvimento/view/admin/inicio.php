@@ -776,6 +776,7 @@ include 'menu.php';
                         //$('#preloader').hide();
                     }
                 }
+                $('#preloader').hide();
             }
         });
     }

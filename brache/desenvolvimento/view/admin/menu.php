@@ -144,12 +144,11 @@ include "controle.php";
                                 <div id="grupos">
                                     <div class="input-group " >
                                         <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-search"></i></span>
-                                        <input type="text" id="pesquisa_grupos" onkeyup="busca_usuarios()" class="form-control" placeholder="Pesquisar grupos" maxlength="200" name="">
+                                        <input type="text" id="pesquisa_grupos" onkeyup="busca_grupos()" class="form-control" placeholder="Pesquisar grupos" maxlength="200" name="">
                                     </div>
                                     <hr>
-                                    <div id="col-4" style="overflow-y: auto ; overflow-x : hidden" >
+                                    <div id="col-5" style="overflow-y: auto ; overflow-x : hidden" >
                                         <div id="chat_grupos">
-                                                <h1>Grupos</h1>
                                         </div>
                                     </div>
                                 </div>
@@ -266,6 +265,7 @@ include "controle.php";
                                                     </div>
                                                     <div class="col-10">
                                                         <input type="hidden" id="id_contato">
+                                                        <input type="hidden" id="id_grupo">
                                                         <div style="margin-top:0.8rem"><strong id="nome_contato">Usuário</strong></div>
                                                     </div>
                                                 </div>
@@ -334,7 +334,12 @@ include "controle.php";
         if(elm.id == "btn_conversa"){
             $('#grupos').hide();
             $('#conversas').show();
+            $('#btn_grupo').removeClass('active');
+            $('#btn_conversa').addClass('active');
         }else if(elm.id == "btn_grupo"){
+            $('#btn_grupo').addClass('active');
+            $('#btn_conversa').removeClass('active');
+            busca_grupos();
             $('#grupos').show();
             $('#conversas').hide();
         }
@@ -346,12 +351,72 @@ include "controle.php";
             $('#card_msg').hide();
             $('#criar_conversa').show();
             $('#criar_grupo').hide();
+            qtd_msg = 0 ; 
         }else if(elm.id == "novo_grupo"){
             busca_participantes();
             $('#card_msg').hide();
             $('#criar_conversa').hide();
             $('#criar_grupo').show();
         }
+    }
+
+    var lista_grupos = [];
+    function busca_grupos(){
+        var pesquisa = $('#pesquisa_grupos').val();
+        var data = {funcao : 'busca_grupos', id : meu_id , pesquisa : pesquisa};
+
+        $.ajax({
+            url: '../../controller/chat.php',
+            method: "post",
+            data: data ,
+            success: function(data){
+                if(data){
+                    var lista = $.parseJSON(data);
+                    lista_grupos = lista;
+                    if(lista.length > 0){
+                        var html="";
+                        for(var i = 0; i < lista.length ; i++){
+                            html += '<div class="card border-dark " style="margin-top:0.2rem" onclick="seleciona_grupo('+i+')">'+
+                                        '<div class="body"  style="margin-top:0.5rem ; margin-bottom : 0.5rem">'+
+                                        '<div class="row">'+
+                                        '<div class="col-12">'+
+                                        '<div class="row">'+
+                                        '<div class="col-3">'+
+                                        '<img src="../static/img/users.png"  style="margin-left:0.5rem" class="rounded-circle" height="50" width="50">'+
+                                        '</div>'+
+                                        '<div class="col-9">'+
+                                        '<div style="margin-top:0.8rem"><strong>'+lista[i].nome+'</strong></div>'+
+                                        '</div>'+
+                                        '</div>'+
+                                        '</div>'+
+                                        '</div>'+
+                                        '</div>'+
+                                        '</div>';
+                        }
+                        $('#chat_grupos').html(html);
+                    }
+                }
+            }
+        })
+    }
+
+    function seleciona_grupo(i){
+
+        $('#comunicacao').hide();
+        $('#preloader').show();
+        $('#criar_conversa').hide();
+        $('#criar_grupo').hide();
+        var html = '<img src="../static/img/users.png"  style="margin-left:0.5rem" class="rounded-circle" height="50" width="50">';
+        nome_funcionario = lista_grupos[i].nome;
+
+        altura = $('#chat-box').height();
+
+        $('#img_contato').html(html);
+        $('#nome_contato').html(lista_grupos[i].nome);
+        $('#id_contato').val('');
+        $('#id_grupo').val(lista_grupos[i].id);
+        busca_mensagem(lista_grupos[i].id , true);
+        $('#card_msg').show();
     }
 
     lista_id = [];
@@ -467,6 +532,76 @@ include "controle.php";
             remove_erro_input($('#nome_grupo'));
         }
 
+        if(lista_id.length == 0){
+            $('#participantes_grupo').html("<div class='text-danger'>Adicione pelo menos um participante ao grupo</div>");
+            validacao_ok = false;
+        }else{
+            $('#erro').html('');
+        }
+        
+        if (validacao_ok){
+
+            var data = {
+                funcao : 'salva_grupo',
+                nome : nome_grupo , 
+                id : meu_id
+            }
+
+            $.ajax({
+            url: '../../controller/chat.php',
+            method: "post",
+            data: data ,
+            success: function(data){
+                if(data){
+                    for(var i = 0 ; i < lista_id.length; i++  ){
+                        salva_participantes(data , lista_id[i]);
+                    }
+                    lista_id = [];
+                    lista_nome = [];
+
+                    busca_grupos();
+                    
+                    $('#pesquisa_funcionarios').val('');
+                    $('#nome_grupo').val('');
+                    $('#participantes_grupo').html('');
+                    $('#comunicacao').hide();
+                    $('#preloader').show();
+                    $('#criar_conversa').hide();
+                    $('#criar_grupo').hide();
+                    
+                    nome_funcionario = nome_grupo;
+
+                    altura = $('#chat-box').height();
+                    var html = '<img src="../static/img/users.png"  style="margin-left:0.5rem" class="rounded-circle" height="50" width="50">';
+                    $('#img_contato').html(html);
+                    $('#nome_contato').html(nome_grupo);
+                    $('#id_contato').val('');
+                    $('#id_grupo').val(data);
+                    $('#card_msg').show();
+                    busca_mensagem(data , true);
+
+                }
+            }
+            })
+        }
+
+    }
+
+    function salva_participantes(id_grupo , id_funcionario){
+
+        var data = {
+            funcao : 'salva_participantes',
+            id_grupo : id_grupo , 
+            id_funcionario : id_funcionario
+        }
+
+        $.ajax({
+        url: '../../controller/chat.php',
+        method: "post",
+        data: data ,
+        success: function(data){
+            }
+        })
     }
 
     var usuario = $('#usuario').val();
@@ -526,6 +661,18 @@ include "controle.php";
                         html += '</div>';    
                         html += '</div>';
                     showMessage(html);
+                }else if(Data.grupo_id == $('#id_grupo').val()){
+                    var html = '<div class="row" style="margin-top: 1rem">';
+                        html += '<div class="col-10" style="margin-left:0.5rem">';
+                        html += '<div class="card text-white bg-primary ">';
+                        html += '<div class="body" style="margin-top:0.5rem ; margin-bottom : 0.5rem">';
+                        html += '<div style="margin-left:0.5rem"><strong>'+Data.usuario+'</strong><small> &nbsp;&nbsp;'+Data.data+' - '+Data.hora+'</small></div>';
+                        html += '<div style="margin-left:1rem">'+Data.message+'</div>';
+                        html += '</div>';
+                        html += '</div>';
+                        html += '</div>';    
+                        html += '</div>';
+                    showMessage(html);
                 }
             }
 
@@ -564,37 +711,70 @@ include "controle.php";
                 min = "0"+ min;
             }
 
+            if (hora < 10){
+                hora = "0"+ hora;
+            }
+
             var str_hora = hora +':'+min;
             var str_data = dia + '/' + m1 + '/' + ano4;
 
 
             event.preventDefault(); 
-            var messageJSON = {
-                chat_user : usuario , 
-                usuario2 : $('#id_contato').val() , 
-                chat_message: $('#chat-message').val(),
-                hora : str_hora,
-                data : str_data,
-                id_user : meu_id
-            };
+            
+            var id_grupo = $('#id_grupo').val();
+            var id_contato = $('#id_contato').val();
+
+            var messageJSON = {};
+            
+            if(id_contato.length == 0){
+                 messageJSON = {
+                    chat_user : usuario , 
+                    usuario2 : null , 
+                    id_grupo : $('#id_grupo').val(),
+                    chat_message: $('#chat-message').val(),
+                    hora : str_hora,
+                    data : str_data,
+                    id_user : meu_id
+                };
+            }else{
+
+                 messageJSON = {
+                    chat_user : usuario , 
+                    usuario2 : $('#id_contato').val() , 
+                    id_grupo : null,
+                    chat_message: $('#chat-message').val(),
+                    hora : str_hora,
+                    data : str_data,
+                    id_user : meu_id
+                };
+                
+            }
 
             var texto = $('#chat-message').val();
             if (texto.length > 0){
 
                 msg = messageJSON;
-                salva_mensagem();
+                if(id_contato.length == 0){               
+                    salva_mensagem(true);
+                }else{               
+                    salva_mensagem(false);
+                }
 
             }else{
 
-                var messageJSON = {
+                 messageJSON = {
                     chat_user : null , 
                     usuario2 : null, 
+                    id_grupo : null ,
                     chat_message: null ,
                     hora : null,
                     data : null 
                 };
             }
+            $('#chat-message').val('');
+
             
+
             websocket.send(JSON.stringify(messageJSON));
         });
         $('#chat-box').append(messageHTML);
@@ -652,7 +832,7 @@ include "controle.php";
             url: '../../controller/chat.php',
             method: "post",
             data: data ,
-            success: function(data){
+            success: function(data){ 
                 if(data){
                     var lista = $.parseJSON(data);
                     lista_usuarios = lista;
@@ -771,7 +951,8 @@ include "controle.php";
         $('#img_contato').html(html);
         $('#nome_contato').html(lista_usuarios[i].nome);
         $('#id_contato').val(lista_usuarios[i].id);
-        busca_mensagem(lista_usuarios[i].id);
+        $('#id_grupo').val('');
+        busca_mensagem(lista_usuarios[i].id , false);
     }
 
     function seleciona_funcionario2(i){
@@ -786,27 +967,39 @@ include "controle.php";
             html += '<img src="../'+lista_usuarios2[i].url_imagem+'"  style="margin-left:0.5rem" class="rounded-circle" height="50" width="50">';
         }
         
-        nome_funcionario = lista_usuario2s[i].nome;
+        nome_funcionario = lista_usuarios2[i].nome;
 
         altura = $('#chat-box').height();
 
         $('#img_contato').html(html);
         $('#nome_contato').html(lista_usuarios2[i].nome);
         $('#id_contato').val(lista_usuarios2[i].id);
-        busca_mensagem(lista_usuarios2[i].id);
+        $('#id_grupo').val('');
+        busca_mensagem(lista_usuarios2[i].id , false);
     }
 
     var nome_funcionario = "";
+    var qtd_msg = 0;
 
-    function busca_mensagem(funcionario_id){
+    function busca_mensagem(funcionario_id , is_grupo){
 
         $('#chat-box').html('');
-
-        var data = {
-            funcao : 'busca_mensagem',
-            login : usuario , 
-            funcionario : funcionario_id,
-        };
+        var data = {};
+        if(is_grupo){
+            var data = {
+                funcao : 'busca_mensagem',
+                id_grupo : funcionario_id ,
+                login : "" , 
+                funcionario : "",
+            };
+        }else{
+            var data = {
+                funcao : 'busca_mensagem',
+                id_grupo : "",
+                login : usuario , 
+                funcionario : funcionario_id,
+            };
+        }
 
          $.ajax({
             url: '../../controller/chat.php',
@@ -818,28 +1011,55 @@ include "controle.php";
                     var html = "";
                     if(lista.length > 0){
                         for(var i = 0; i < lista.length ; i++){   
-                            if (meu_id == lista[i].funcionario_id){
-                                    html += '<div class="row justify-content-end" style="margin-top: 1rem">';
-                                    html += '<div class="col-10 " style="margin-right:0.5rem">';
-                                    html += '<div class="card text-white bg-success ">';
-                                    html += '<div class="body" style="margin-top:0.5rem ; margin-bottom : 0.5rem">';
-                                    html += '<div style="margin-right:0.5rem"  class="text-right"><small>'+lista[i].data+' - '+lista[i].hora+' &nbsp;&nbsp; </small><strong> Eu </strong></div>';
-                                    html += '<div style="margin-right:1rem" class="text-right">'+lista[i].mensagem+'</div>';
-                                    html += '</div>';
-                                    html += '</div>';
-                                    html += '</div>';
-                                    html += '</div>';
-                            }else  {
-                                    html += '<div class="row" style="margin-top: 1rem">';
-                                    html += '<div class="col-10" style="margin-left:0.5rem">';
-                                    html += '<div class="card text-white bg-primary ">';
-                                    html += '<div class="body" style="margin-top:0.5rem ; margin-bottom : 0.5rem">';
-                                    html += '<div style="margin-left:0.5rem"><strong>'+nome_funcionario+'</strong><small> &nbsp;&nbsp;'+lista[i].data+' - '+lista[i].hora+'</small></div>';
-                                    html += '<div style="margin-left:1rem">'+lista[i].mensagem+'</div>';
-                                    html += '</div>';
-                                    html += '</div>';
-                                    html += '</div>';    
-                                    html += '</div>';
+                            if(is_grupo){
+                                if (meu_id == lista[i].funcionario_id){
+                                        html += '<div class="row justify-content-end" style="margin-top: 1rem">';
+                                        html += '<div class="col-10 " style="margin-right:0.5rem">';
+                                        html += '<div class="card text-white bg-success ">';
+                                        html += '<div class="body" style="margin-top:0.5rem ; margin-bottom : 0.5rem">';
+                                        html += '<div style="margin-right:0.5rem"  class="text-right"><small>'+lista[i].data_envio+' - '+lista[i].hora_envio+' &nbsp;&nbsp; </small><strong> Eu </strong></div>';
+                                        html += '<div style="margin-right:1rem" class="text-right">'+lista[i].mensagem+'</div>';
+                                        html += '</div>';
+                                        html += '</div>';
+                                        html += '</div>';
+                                        html += '</div>';
+                                }else  {
+                                        html += '<div class="row" style="margin-top: 1rem">';
+                                        html += '<div class="col-10" style="margin-left:0.5rem">';
+                                        html += '<div class="card text-white bg-primary ">';
+                                        html += '<div class="body" style="margin-top:0.5rem ; margin-bottom : 0.5rem">';
+                                        html += '<div style="margin-left:0.5rem"><strong>'+lista[i].nome+'</strong><small> &nbsp;&nbsp;'+lista[i].data_envio+' - '+lista[i].hora_envio+'</small></div>';
+                                        html += '<div style="margin-left:1rem">'+lista[i].mensagem+'</div>';
+                                        html += '</div>';
+                                        html += '</div>';
+                                        html += '</div>';    
+                                        html += '</div>';
+                                }
+                            }else{
+                                qtd_msg = lista.length;
+                                if (meu_id == lista[i].funcionario_id){
+                                        html += '<div class="row justify-content-end" style="margin-top: 1rem">';
+                                        html += '<div class="col-10 " style="margin-right:0.5rem">';
+                                        html += '<div class="card text-white bg-success ">';
+                                        html += '<div class="body" style="margin-top:0.5rem ; margin-bottom : 0.5rem">';
+                                        html += '<div style="margin-right:0.5rem"  class="text-right"><small>'+lista[i].data+' - '+lista[i].hora+' &nbsp;&nbsp; </small><strong> Eu </strong></div>';
+                                        html += '<div style="margin-right:1rem" class="text-right">'+lista[i].mensagem+'</div>';
+                                        html += '</div>';
+                                        html += '</div>';
+                                        html += '</div>';
+                                        html += '</div>';
+                                }else  {
+                                        html += '<div class="row" style="margin-top: 1rem">';
+                                        html += '<div class="col-10" style="margin-left:0.5rem">';
+                                        html += '<div class="card text-white bg-primary ">';
+                                        html += '<div class="body" style="margin-top:0.5rem ; margin-bottom : 0.5rem">';
+                                        html += '<div style="margin-left:0.5rem"><strong>'+nome_funcionario+'</strong><small> &nbsp;&nbsp;'+lista[i].data+' - '+lista[i].hora+'</small></div>';
+                                        html += '<div style="margin-left:1rem">'+lista[i].mensagem+'</div>';
+                                        html += '</div>';
+                                        html += '</div>';
+                                        html += '</div>';    
+                                        html += '</div>';
+                                }
                             }
                             altura += 90;
                         }
@@ -859,22 +1079,44 @@ include "controle.php";
 
     }
 
-    function salva_mensagem(){
-        var data = {
-            funcao : 'salva_mensagem',
-            login : usuario , 
-            funcionario_id1 : $('#id_contato').val() ,
-            data : msg.data , 
-            hora : msg.hora , 
-            mensagem : msg.chat_message
-        };
+    function salva_mensagem(is_grupo){
+
+        var data = {};
+        if(is_grupo){
+             data = {
+                funcao : 'salva_mensagem',
+                login : "" , 
+                funcionario_id1 : meu_id ,
+                id_grupo : $('#id_grupo').val() , 
+                data : msg.data , 
+                hora : msg.hora , 
+                mensagem : msg.chat_message
+            };
+
+        }else{
+             data = {
+                funcao : 'salva_mensagem',
+                login : usuario , 
+                funcionario_id1 : $('#id_contato').val() ,
+                id_grupo : "" , 
+                data : msg.data , 
+                hora : msg.hora , 
+                mensagem : msg.chat_message
+            };
+
+        }
 
          $.ajax({
             url: '../../controller/chat.php',
             method: "post",
             data: data ,
             success: function(data){
-              
+                if(!is_grupo){
+                    if(qtd_msg == 0){
+                        busca_usuarios();
+                        qtd_msg == 1;
+                    }
+                }
             }
         })
     }
@@ -893,6 +1135,7 @@ include "controle.php";
         $('#container').css("height", tamanho_container);
         $('#comunicador-body').css("height", tamanho_div_modal);
         $('#col-4').css("height", tamanho_div_usuario);
+        $('#col-5').css("height", tamanho_div_usuario);
         $('#chat-box').css("height", tamanho_div_msg);
     }
 
