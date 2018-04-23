@@ -12,7 +12,6 @@ function login($conexao,$login, $senha) {
 
 
 function logaUsuario($usuario) {
-
    $_SESSION["usuarioLogado"] = true;
    $_SESSION["perfilUsuario"] = $usuario['perfil_id'];
    $_SESSION["usuario"] = $usuario['login'];
