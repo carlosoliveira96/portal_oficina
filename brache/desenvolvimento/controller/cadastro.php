@@ -265,12 +265,130 @@ switch ($funcao) {
         break;
     case 'consultar':
         $tipo = $_POST['tipo'];
+        $pesquisa = $_POST['pesquisa'];
 
-        $condicao = "tipo = '$tipo'";
+        $condicao = "tipo = '$tipo' AND (nome LIKE '%$pesquisa%' OR nome_fantasia LIKE '%$pesquisa%')";
 
         $cadastro = busca_detalhada_varios($conexao, $condicao, 'cadastro', '*');
 
         if ($cadastro != null){
+            print json_encode($cadastro);
+        }
+    break;
+    case 'alterar':
+        if (strlen($_POST['nome']) <= 0){
+            $nome = 'NULL';
+        }else{
+            $nome = "'".$_POST['nome']."'";
+        }
+        if (strlen($_POST['cpf']) <= 0){
+            $cpf = 'NULL';
+        }else{
+            $cpf = "'".$_POST['cpf']."'";
+        }
+        if (strlen($_POST['rg']) <= 0){
+            $rg = 'NULL';
+        }else{
+            $rg = "'".$_POST['rg']."'";
+        }
+        if (strlen($_POST['orgao_emissor']) <= 0){
+            $orgao_emissor = 'NULL';
+        }else{
+            $orgao_emissor = "'".$_POST['orgao_emissor']."'";
+        }
+        if (strlen($_POST['telefone']) <= 0){
+            $telefone = 'NULL';
+        }else{
+            $telefone = "'".$_POST['telefone']."'";
+        }
+        if (strlen($_POST['celular']) <= 0){
+            $celular = 'NULL';
+        }else{
+            $celular = "'".$_POST['celular']."'";
+        }
+        if (strlen($_POST['email']) <= 0){
+            $email = 'NULL';
+        }else{
+            $email = "'".$_POST['email']."'";
+        }
+        if (strlen($_POST['cep']) <= 0){
+            $cep = 'NULL';
+        }else{
+            $cep = "'".$_POST['cep']."'";
+        }
+        if (strlen($_POST['endereco']) <= 0){
+            $endereco = 'NULL';
+        }else{
+            $endereco = "'".$_POST['endereco']."'";
+        }
+        if (strlen($_POST['bairro']) <= 0){
+            $bairro = 'NULL';
+        }else{
+            $bairro = "'".$_POST['bairro']."'";
+        }
+        if (strlen($_POST['cidade']) <= 0){
+            $cidade = 'NULL';
+        }else{
+            $cidade = "'".$_POST['cidade']."'";
+        }
+        if (strlen($_POST['uf']) <= 0){
+            $uf = 'NULL';
+        }else{
+            $uf = "'".$_POST['uf']."'";
+        }
+        if (strlen($_POST['numero']) <= 0){
+            $numero = 'NULL';
+        }else{
+            $numero = "'".$_POST['numero']."'";
+        }
+        if (strlen($_POST['complemento']) <= 0){
+            $complemento = 'NULL';
+        }else{
+            $complemento = "'".$_POST['complemento']."'";
+        }
+        if (strlen($_POST['observacao']) <= 0){
+            $observacao = 'NULL';
+        }else{
+            $observacao = "'".$_POST['observacao']."'";
+        }
+
+        $id = $_POST['id'];
+        $verifica = $_POST['verifica'];
+
+        if($verifica == 1){
+            $campos_valores = "nome_fantasia = $nome, cnpj = $cpf, rg = $rg, orgao_emissor = $orgao_emissor,
+            telefone = $telefone, celular = $celular, email = $email, cep = $cep, 
+            endereco = $endereco, bairro = $bairro, cidade = $cidade, uf = $uf, 
+            numero = $numero, complemento = $complemento, observacao = $observacao";
+        }else{
+            $campos_valores = "nome = $nome, cpf = $cpf, rg = $rg, orgao_emissor = $orgao_emissor,
+            telefone = $telefone, celular = $celular, email = $email, cep = $cep, 
+            endereco = $endereco, bairro = $bairro, cidade = $cidade, uf = $uf, 
+            numero = $numero, complemento = $complemento, observacao = $observacao";
+        }
+        $condicao = "id = $id";
+        
+        $cadastro = altera($conexao, $campos_valores, $condicao, "cadastro");
+
+        if (strlen($cadastro['id']) <= 0 ) {
+            print json_encode($cadastro);
+        }
+    break;
+
+    case 'excluir':
+        $id = $_POST['id'];
+        $verifica = $_POST['verifica'];
+
+        if($verifica == 1){
+            $campos_valores = "situacao = 0";
+        }else {
+            $campos_valores = "situacao = 1";
+        }
+        $condicao = "id = $id";
+        
+        $cadastro = altera($conexao, $campos_valores, $condicao, "cadastro");
+
+        if (strlen($cadastro['id']) <= 0 ) {
             print json_encode($cadastro);
         }
     break;

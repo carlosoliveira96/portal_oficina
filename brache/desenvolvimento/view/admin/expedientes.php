@@ -442,6 +442,18 @@ include 'menu.php';
                 remove_msg();
             }
         }
+
+        //Função para atualizar tamanho do container
+        atualiza_tamanho();
+        function atualiza_tamanho(){
+            var tamanho_container = $(window).height();
+            tamanho_container -= 66;
+            $('#container').css("height", tamanho_container);
+        }
+        
+        window.addEventListener('resize', function(){
+            atualiza_tamanho();
+        });
     </script>
     
 </html>

@@ -674,17 +674,37 @@ include 'menu.php';
                                 html_saida += '<tr>'+
                                     '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os(\''+retorno[i].id_os+'\', \''+retorno[i].modelo+'\', \''+retorno[i].data_liberacao+'\', \''+retorno[i].placa+'\', \''+retorno[i].sinistro+'\', \''+retorno[i].nome+'\', \''+retorno[i].telefone+'\', \''+retorno[i].email+'\'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                     '</tr>';
+                                    if (retorno[i].situacao_tc == 1){
+                                        html_tc += '<tr>'+
+                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os(\''+retorno[i].id_os+'\', \''+retorno[i].modelo+'\', \''+retorno[i].data_liberacao+'\', \''+retorno[i].placa+'\', \''+retorno[i].sinistro+'\', \''+retorno[i].nome+'\', \''+retorno[i].telefone+'\', \''+retorno[i].email+'\'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                        '</tr>';
+                                    }
                             }else if(retorno[i].data_agendamento != null){
                                 html_agendamento += '<tr>'+
                                     '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os(\''+retorno[i].id_os+'\', \''+retorno[i].modelo+'\', \''+retorno[i].data_liberacao+'\', \''+retorno[i].placa+'\', \''+retorno[i].sinistro+'\', \''+retorno[i].nome+'\', \''+retorno[i].telefone+'\', \''+retorno[i].email+'\'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                     '</tr>';
+                                    if (retorno[i].situacao_tc == 1){
+                                        html_tc += '<tr>'+
+                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os(\''+retorno[i].id_os+'\', \''+retorno[i].modelo+'\', \''+retorno[i].data_liberacao+'\', \''+retorno[i].placa+'\', \''+retorno[i].sinistro+'\', \''+retorno[i].nome+'\', \''+retorno[i].telefone+'\', \''+retorno[i].email+'\'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                        '</tr>';
+                                    }
                             }else if(retorno[i].data_previsao_entrega != null){
                                 html_previsao_entrega += '<tr>'+
                                 '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os(\''+retorno[i].id_os+'\', \''+retorno[i].modelo+'\', \''+retorno[i].data_liberacao+'\', \''+retorno[i].placa+'\', \''+retorno[i].sinistro+'\', \''+retorno[i].nome+'\', \''+retorno[i].telefone+'\', \''+retorno[i].email+'\'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                     '</tr>';
+                                    if (retorno[i].situacao_tc == 1){
+                                        html_tc += '<tr>'+
+                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os(\''+retorno[i].id_os+'\', \''+retorno[i].modelo+'\', \''+retorno[i].data_liberacao+'\', \''+retorno[i].placa+'\', \''+retorno[i].sinistro+'\', \''+retorno[i].nome+'\', \''+retorno[i].telefone+'\', \''+retorno[i].email+'\'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                        '</tr>';
+                                    }
                                 html_triagem += '<tr>'+
                                     '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os(\''+retorno[i].id_os+'\', \''+retorno[i].modelo+'\', \''+retorno[i].data_liberacao+'\', \''+retorno[i].placa+'\', \''+retorno[i].sinistro+'\', \''+retorno[i].nome+'\', \''+retorno[i].telefone+'\', \''+retorno[i].email+'\'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                     '</tr>';
+                                    if (retorno[i].situacao_tc == 1){
+                                        html_tc += '<tr>'+
+                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os(\''+retorno[i].id_os+'\', \''+retorno[i].modelo+'\', \''+retorno[i].data_liberacao+'\', \''+retorno[i].placa+'\', \''+retorno[i].sinistro+'\', \''+retorno[i].nome+'\', \''+retorno[i].telefone+'\', \''+retorno[i].email+'\'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                        '</tr>';
+                                    }
                             }else if(retorno[i].data_retorno != null){
                                 html_retorno += '<tr>'+
                                     '<td><b class="text-success"><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os(\''+retorno[i].id_os+'\', \''+retorno[i].modelo+'\', \''+retorno[i].data_liberacao+'\', \''+retorno[i].placa+'\', \''+retorno[i].sinistro+'\', \''+retorno[i].nome+'\', \''+retorno[i].telefone+'\', \''+retorno[i].email+'\'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
@@ -704,10 +724,20 @@ include 'menu.php';
                                 html_servico += '<tr>'+
                                 '<td><b class="text-success"><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os(\''+retorno[i].id_os+'\', \''+retorno[i].modelo+'\', \''+retorno[i].data_liberacao+'\', \''+retorno[i].placa+'\', \''+retorno[i].sinistro+'\', \''+retorno[i].nome+'\', \''+retorno[i].telefone+'\', \''+retorno[i].email+'\'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                 '</tr>';
+                                    if (retorno[i].situacao_tc == 1){
+                                        html_tc += '<tr>'+
+                                        '<td><b class="text-success"><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os(\''+retorno[i].id_os+'\', \''+retorno[i].modelo+'\', \''+retorno[i].data_liberacao+'\', \''+retorno[i].placa+'\', \''+retorno[i].sinistro+'\', \''+retorno[i].nome+'\', \''+retorno[i].telefone+'\', \''+retorno[i].email+'\'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                        '</tr>';
+                                    }
                             }else if(retorno[i].data_vistoria_realizada != null){
                                 html_registro += '<tr>'+
                                 '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os(\''+retorno[i].id_os+'\', \''+retorno[i].modelo+'\', \''+retorno[i].data_liberacao+'\', \''+retorno[i].placa+'\', \''+retorno[i].sinistro+'\', \''+retorno[i].nome+'\', \''+retorno[i].telefone+'\', \''+retorno[i].email+'\'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                 '</tr>';
+                                if (retorno[i].situacao_tc == 1){
+                                    html_tc += '<tr>'+
+                                    '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os(\''+retorno[i].id_os+'\', \''+retorno[i].modelo+'\', \''+retorno[i].data_liberacao+'\', \''+retorno[i].placa+'\', \''+retorno[i].sinistro+'\', \''+retorno[i].nome+'\', \''+retorno[i].telefone+'\', \''+retorno[i].email+'\'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                    '</tr>';
+                                }
 
                                 if(retorno[i].data_autorizacao != null ){
 
@@ -727,20 +757,40 @@ include 'menu.php';
                                         html_servico += '<tr>'+
                                             '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os(\''+retorno[i].id_os+'\', \''+retorno[i].modelo+'\', \''+retorno[i].data_liberacao+'\', \''+retorno[i].placa+'\', \''+retorno[i].sinistro+'\', \''+retorno[i].nome+'\', \''+retorno[i].telefone+'\', \''+retorno[i].email+'\'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                             '</tr>';
+                                        if (retorno[i].situacao_tc == 1){
+                                            html_tc += '<tr>'+
+                                            '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os(\''+retorno[i].id_os+'\', \''+retorno[i].modelo+'\', \''+retorno[i].data_liberacao+'\', \''+retorno[i].placa+'\', \''+retorno[i].sinistro+'\', \''+retorno[i].nome+'\', \''+retorno[i].telefone+'\', \''+retorno[i].email+'\'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                            '</tr>';
+                                        }
                                     }else{
                                         html_autorizado_cliente += '<tr>'+
                                         '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os(\''+retorno[i].id_os+'\', \''+retorno[i].modelo+'\', \''+retorno[i].data_liberacao+'\', \''+retorno[i].placa+'\', \''+retorno[i].sinistro+'\', \''+retorno[i].nome+'\', \''+retorno[i].telefone+'\', \''+retorno[i].email+'\'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                         '</tr>';
+                                        if (retorno[i].situacao_tc == 1){
+                                            html_tc += '<tr>'+
+                                            '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os(\''+retorno[i].id_os+'\', \''+retorno[i].modelo+'\', \''+retorno[i].data_liberacao+'\', \''+retorno[i].placa+'\', \''+retorno[i].sinistro+'\', \''+retorno[i].nome+'\', \''+retorno[i].telefone+'\', \''+retorno[i].email+'\'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                            '</tr>';
+                                        }
                                     }
                                 }else {
                                     html_pendencia_pecas += '<tr>'+
                                     '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os(\''+retorno[i].id_os+'\', \''+retorno[i].modelo+'\', \''+retorno[i].data_liberacao+'\', \''+retorno[i].placa+'\', \''+retorno[i].sinistro+'\', \''+retorno[i].nome+'\', \''+retorno[i].telefone+'\', \''+retorno[i].email+'\'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                     '</tr>';
+                                    if (retorno[i].situacao_tc == 1){
+                                        html_tc += '<tr>'+
+                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os(\''+retorno[i].id_os+'\', \''+retorno[i].modelo+'\', \''+retorno[i].data_liberacao+'\', \''+retorno[i].placa+'\', \''+retorno[i].sinistro+'\', \''+retorno[i].nome+'\', \''+retorno[i].telefone+'\', \''+retorno[i].email+'\'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                        '</tr>';
+                                    }
                                 }
                             }else{
                                 html_registro += '<tr>'+
                                     '<td><b class="text-danger"><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os(\''+retorno[i].id_os+'\', \''+retorno[i].modelo+'\', \''+retorno[i].data_liberacao+'\', \''+retorno[i].placa+'\', \''+retorno[i].sinistro+'\', \''+retorno[i].nome+'\', \''+retorno[i].telefone+'\', \''+retorno[i].email+'\'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                     '</tr>'; 
+                                    if (retorno[i].situacao_tc == 1){
+                                        html_tc += '<tr>'+
+                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os(\''+retorno[i].id_os+'\', \''+retorno[i].modelo+'\', \''+retorno[i].data_liberacao+'\', \''+retorno[i].placa+'\', \''+retorno[i].sinistro+'\', \''+retorno[i].nome+'\', \''+retorno[i].telefone+'\', \''+retorno[i].email+'\'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                        '</tr>';
+                                    }
                             } 
                             
 
@@ -754,10 +804,20 @@ include 'menu.php';
                                     html_saida += '<tr>'+
                                         '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os(\''+retorno[i].id_os+'\', \''+retorno[i].modelo+'\', \''+retorno[i].data_liberacao+'\', \''+retorno[i].placa+'\', \''+retorno[i].sinistro+'\', \''+retorno[i].nome+'\', \''+retorno[i].telefone+'\', \''+retorno[i].email+'\'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                         '</tr>';
+                                    if (retorno[i].situacao_tc == 1){
+                                        html_tc += '<tr>'+
+                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os(\''+retorno[i].id_os+'\', \''+retorno[i].modelo+'\', \''+retorno[i].data_liberacao+'\', \''+retorno[i].placa+'\', \''+retorno[i].sinistro+'\', \''+retorno[i].nome+'\', \''+retorno[i].telefone+'\', \''+retorno[i].email+'\'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                        '</tr>';
+                                    }
                                 }else if(retorno[i].data_agendamento != null){
                                     html_agendamento += '<tr>'+
                                         '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os(\''+retorno[i].id_os+'\', \''+retorno[i].modelo+'\', \''+retorno[i].data_liberacao+'\', \''+retorno[i].placa+'\', \''+retorno[i].sinistro+'\', \''+retorno[i].nome+'\', \''+retorno[i].telefone+'\', \''+retorno[i].email+'\'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                         '</tr>';
+                                    if (retorno[i].situacao_tc == 1){
+                                        html_tc += '<tr>'+
+                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os(\''+retorno[i].id_os+'\', \''+retorno[i].modelo+'\', \''+retorno[i].data_liberacao+'\', \''+retorno[i].placa+'\', \''+retorno[i].sinistro+'\', \''+retorno[i].nome+'\', \''+retorno[i].telefone+'\', \''+retorno[i].email+'\'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                        '</tr>';
+                                    }
                                 }else if(retorno[i].data_previsao_entrega != null){
                                     html_previsao_entrega += '<tr>'+
                                     '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os(\''+retorno[i].id_os+'\', \''+retorno[i].modelo+'\', \''+retorno[i].data_liberacao+'\', \''+retorno[i].placa+'\', \''+retorno[i].sinistro+'\', \''+retorno[i].nome+'\', \''+retorno[i].telefone+'\', \''+retorno[i].email+'\'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
@@ -765,6 +825,11 @@ include 'menu.php';
                                     html_triagem += '<tr>'+
                                         '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os(\''+retorno[i].id_os+'\', \''+retorno[i].modelo+'\', \''+retorno[i].data_liberacao+'\', \''+retorno[i].placa+'\', \''+retorno[i].sinistro+'\', \''+retorno[i].nome+'\', \''+retorno[i].telefone+'\', \''+retorno[i].email+'\'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                         '</tr>';
+                                    if (retorno[i].situacao_tc == 1){
+                                        html_tc += '<tr>'+
+                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os(\''+retorno[i].id_os+'\', \''+retorno[i].modelo+'\', \''+retorno[i].data_liberacao+'\', \''+retorno[i].placa+'\', \''+retorno[i].sinistro+'\', \''+retorno[i].nome+'\', \''+retorno[i].telefone+'\', \''+retorno[i].email+'\'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                        '</tr>';
+                                    }
                                 }else if(retorno[i].data_retorno != null){
                                     html_retorno += '<tr>'+
                                         '<td><b class="text-success"><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os(\''+retorno[i].id_os+'\', \''+retorno[i].modelo+'\', \''+retorno[i].data_liberacao+'\', \''+retorno[i].placa+'\', \''+retorno[i].sinistro+'\', \''+retorno[i].nome+'\', \''+retorno[i].telefone+'\', \''+retorno[i].email+'\'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
@@ -784,10 +849,20 @@ include 'menu.php';
                                     html_servico += '<tr>'+
                                     '<td><b class="text-success"><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os(\''+retorno[i].id_os+'\', \''+retorno[i].modelo+'\', \''+retorno[i].data_liberacao+'\', \''+retorno[i].placa+'\', \''+retorno[i].sinistro+'\', \''+retorno[i].nome+'\', \''+retorno[i].telefone+'\', \''+retorno[i].email+'\'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                     '</tr>';
+                                    if (retorno[i].situacao_tc == 1){
+                                        html_tc += '<tr>'+
+                                        '<td><b class="text-success"><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os(\''+retorno[i].id_os+'\', \''+retorno[i].modelo+'\', \''+retorno[i].data_liberacao+'\', \''+retorno[i].placa+'\', \''+retorno[i].sinistro+'\', \''+retorno[i].nome+'\', \''+retorno[i].telefone+'\', \''+retorno[i].email+'\'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                        '</tr>';
+                                    }
                                 }else if(retorno[i].data_vistoria_realizada != null){
                                     html_registro += '<tr>'+
                                     '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os(\''+retorno[i].id_os+'\', \''+retorno[i].modelo+'\', \''+retorno[i].data_liberacao+'\', \''+retorno[i].placa+'\', \''+retorno[i].sinistro+'\', \''+retorno[i].nome+'\', \''+retorno[i].telefone+'\', \''+retorno[i].email+'\'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                     '</tr>';
+                                    if (retorno[i].situacao_tc == 1){
+                                        html_tc += '<tr>'+
+                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os(\''+retorno[i].id_os+'\', \''+retorno[i].modelo+'\', \''+retorno[i].data_liberacao+'\', \''+retorno[i].placa+'\', \''+retorno[i].sinistro+'\', \''+retorno[i].nome+'\', \''+retorno[i].telefone+'\', \''+retorno[i].email+'\'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                        '</tr>';
+                                    }
 
                                     if(retorno[i].data_autorizacao != null ){
 
@@ -807,20 +882,40 @@ include 'menu.php';
                                             html_servico += '<tr>'+
                                                 '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os(\''+retorno[i].id_os+'\', \''+retorno[i].modelo+'\', \''+retorno[i].data_liberacao+'\', \''+retorno[i].placa+'\', \''+retorno[i].sinistro+'\', \''+retorno[i].nome+'\', \''+retorno[i].telefone+'\', \''+retorno[i].email+'\'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                                 '</tr>';
+                                            if (retorno[i].situacao_tc == 1){
+                                                html_tc += '<tr>'+
+                                                '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os(\''+retorno[i].id_os+'\', \''+retorno[i].modelo+'\', \''+retorno[i].data_liberacao+'\', \''+retorno[i].placa+'\', \''+retorno[i].sinistro+'\', \''+retorno[i].nome+'\', \''+retorno[i].telefone+'\', \''+retorno[i].email+'\'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                                '</tr>';
+                                            }
                                         }else{
                                             html_autorizado_cliente += '<tr>'+
                                             '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os(\''+retorno[i].id_os+'\', \''+retorno[i].modelo+'\', \''+retorno[i].data_liberacao+'\', \''+retorno[i].placa+'\', \''+retorno[i].sinistro+'\', \''+retorno[i].nome+'\', \''+retorno[i].telefone+'\', \''+retorno[i].email+'\'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                             '</tr>';
+                                        if (retorno[i].situacao_tc == 1){
+                                            html_tc += '<tr>'+
+                                            '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os(\''+retorno[i].id_os+'\', \''+retorno[i].modelo+'\', \''+retorno[i].data_liberacao+'\', \''+retorno[i].placa+'\', \''+retorno[i].sinistro+'\', \''+retorno[i].nome+'\', \''+retorno[i].telefone+'\', \''+retorno[i].email+'\'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                            '</tr>';
+                                         }
                                         }
                                     }else {
                                         html_pendencia_pecas += '<tr>'+
                                         '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os(\''+retorno[i].id_os+'\', \''+retorno[i].modelo+'\', \''+retorno[i].data_liberacao+'\', \''+retorno[i].placa+'\', \''+retorno[i].sinistro+'\', \''+retorno[i].nome+'\', \''+retorno[i].telefone+'\', \''+retorno[i].email+'\'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                         '</tr>';
+                                    if (retorno[i].situacao_tc == 1){
+                                        html_tc += '<tr>'+
+                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os(\''+retorno[i].id_os+'\', \''+retorno[i].modelo+'\', \''+retorno[i].data_liberacao+'\', \''+retorno[i].placa+'\', \''+retorno[i].sinistro+'\', \''+retorno[i].nome+'\', \''+retorno[i].telefone+'\', \''+retorno[i].email+'\'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                        '</tr>';
+                                    }
                                     }
                                 }else{
                                     html_registro += '<tr>'+
                                         '<td><b class="text-danger"><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os(\''+retorno[i].id_os+'\', \''+retorno[i].modelo+'\', \''+retorno[i].data_liberacao+'\', \''+retorno[i].placa+'\', \''+retorno[i].sinistro+'\', \''+retorno[i].nome+'\', \''+retorno[i].telefone+'\', \''+retorno[i].email+'\'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
                                         '</tr>'; 
+                                    if (retorno[i].situacao_tc == 1){
+                                        html_tc += '<tr>'+
+                                        '<td><b><a href="#" data-toggle="modal" data-target="#verificaCarro" onclick="detalha_os(\''+retorno[i].id_os+'\', \''+retorno[i].modelo+'\', \''+retorno[i].data_liberacao+'\', \''+retorno[i].placa+'\', \''+retorno[i].sinistro+'\', \''+retorno[i].nome+'\', \''+retorno[i].telefone+'\', \''+retorno[i].email+'\'); busca_servicos_os('+retorno[i].id+')">'+ retorno[i].modelo + ' - ' + retorno[i].placa + '</b></a></td>'+
+                                        '</tr>';
+                                    }
                                 }
                             }
                         

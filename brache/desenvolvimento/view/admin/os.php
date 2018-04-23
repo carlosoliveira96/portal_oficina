@@ -295,6 +295,11 @@ $hora_atual = date('H:i:s');
                                             <input type="checkbox" id="pt" onclick="verifica_pt()"> Perda Total
                                         </h6>
                                     </div>
+                                    <div class="col-6" style="margin-top:3rem">
+                                        <h6 class="text-left">
+                                            <input type="checkbox" id="pendenciaPecas"> Pendência de peças
+                                        </h6>
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-3">
@@ -317,6 +322,11 @@ $hora_atual = date('H:i:s');
                                             <span class="input-group-addon" id="sizing-addon1"><i class="fas fa-calendar"></i></span>
                                             <input type="text" id="entrada" class="form-control" data-mask="99/99/9999" placeholder="Ex... 99/99/9999" name="">
                                         </div>
+                                    </div>
+                                    <div class="col-3" style="margin-top:3rem">
+                                        <h6 class="text-left">
+                                            <input type="checkbox" id="pronto"> Pronto
+                                        </h6>
                                     </div>
                                 </div>
                                 <div class="row">

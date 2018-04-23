@@ -693,7 +693,7 @@ include 'menu.php';
                 $('#cidade').attr("disabled" , true);
                 $('#uf').attr("disabled" , true);
             }
-            }
+        }
 
         function monta_msg_alerta_permanente(msg){
             html = '<div class="alert alert-warning"><i class="fas fa-exclamation-triangle"></i><strong>'+ msg +'</strong></div>';
