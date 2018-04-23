@@ -2,7 +2,7 @@
 include 'menu.php';
 ?>
 <!DOCTYPE html>
-<html lang="pt-br" style="min-height:100%; position: relative;">
+<html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -51,6 +51,9 @@ include 'menu.php';
             </nav>
        </div>
         <div class="modal fade" data-backdrop="static" id="modal_funcionario" tabindex="-1" role="dialog" aria-labelledby="modal_funcionario" aria-hidden="true">
+            <div id="preloader_modal" class="carregando" style="display: none">
+                <img src="../static/gif/loading.gif" style="position: fixed; margin-top: 25%; margin-left: 45%;">
+            </div>
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -98,6 +101,8 @@ include 'menu.php';
                         </button>
                     </div>
                     <div class="modal-body">
+                    <div id="msg_sucesso">
+                    </div>
                         <div class="row justify-content-md-center" id="dados">
                             <div class="col-6" id="img_funconario">
 
@@ -261,7 +266,7 @@ include 'menu.php';
                             <hr>
                             <div class="row">
                                 <div class="col-12">
-                                    <button type="button" class="btn btn-dark col-12">
+                                    <button type="button" class="btn btn-dark col-12" onclick="salva_alteracao()">
                                         <i class="fa fa-check float-left" style="margin-top: 0.3rem;"></i> Salvar alterações
                                     </button>
                                 </div>
@@ -272,8 +277,9 @@ include 'menu.php';
             </div>
         </div>
     </body>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script type="text/javascript" src="../static/js/popper.js"></script>
     <script>
-
         var nr_pag = 1;
         var lista_registros ;
 
@@ -387,8 +393,7 @@ include 'menu.php';
         var id_funcionario = 0;
 
         function funcionario(posicao){
-
-            var sem_cep = $('#sem_cep');
+            var sem_cep = document.getElementById('sem_cep');
             id_funcionario = lista_registros[posicao].id;
             $('#nome').val(lista_registros[posicao].nome);  
             $('#cpf').val(lista_registros[posicao].cpf);  
@@ -411,17 +416,25 @@ include 'menu.php';
             $('#titulo_funcionario').html(lista_registros[posicao].nome);
             var html = "";
             if (lista_registros[posicao].url_imagem == null){
-                html = '<img class="img-thumbnail" src="../static/img/user.png" style="width: 21rem;  height: 17.5rem">'+
+                html =  '<div class="fileinput fileinput-exists " data-provides="fileinput" style="margin-left: 1rem">'+
+                        '<div class="fileinput-preview thumbnail img-thumbnail" data-trigger="fileinput" style="width: 20rem;  height: 17.5rem">'+
+                        '<img class="img-thumbnail" src="../static/img/user.png" style="width: 21rem;  height: 17.5rem">'+
+                        '</div>'+
                         '<span class="btn btn-dark btn-file col-11" id="botao_altera_img" hidden>'+
                         '<span class="fileinput-exists" data-dismiss="fileinput">Alterar imagem</span>'+
                         '<input type="file" id="arquivo" name="arquivo" accept="image/*">'+
-                        '</span>';
+                        '</span>'+
+                        '</div>';
             }else{
-                html =  '<img class="img-thumbnail" src="../'+lista_registros[posicao].url_imagem+'" style="width: 21rem;  height: 17.5rem">'+
+                html =  '<div class="fileinput fileinput-exists " data-provides="fileinput" style="margin-left: 1rem">'+
+                        '<div class="fileinput-preview thumbnail img-thumbnail" data-trigger="fileinput" style="width: 20rem;  height: 17.5rem">'+
+                        '<img class="img-thumbnail" src="../'+lista_registros[posicao].url_imagem+'" style="width: 21rem;  height: 17.5rem">'+
+                        '</div>'+
                         '<span class="btn btn-dark btn-file col-11" id="botao_altera_img" hidden>'+
                         '<span class="fileinput-exists" data-dismiss="fileinput">Alterar imagem</span>'+
                         '<input type="file" id="arquivo" name="arquivo" accept="image/*">'+
-                        '</span>';
+                        '</span>'+
+                        '</div>';
             }
             $('#img_funconario').html(html);
 
@@ -435,22 +448,173 @@ include 'menu.php';
             $('#botao_altera_img').removeAttr("hidden");
             $('#alterar').attr("hidden", true);
             $('#nome').removeAttr("disabled");  
-            $('#cpf').removeAttr("disabled");   
-            $('#nascimento').removeAttr("disabled");   
+            $('#cpf').removeAttr("disabled");
             $('#email').removeAttr("disabled");   
             $('#telefone').removeAttr("disabled");   
             $('#celular').removeAttr("disabled");   
             $('#cargo').removeAttr("disabled");  
             $('#rg').removeAttr("disabled");   
             $('#orgao_emissor').removeAttr("disabled");
-            $('#cep').removeAttr("disabled");  
-            $('#endereco').removeAttr("disabled");  
+            $('#cep').removeAttr("disabled");
             $('#numero').removeAttr("disabled");  
-            $('#complemento').removeAttr("disabled");  
-            $('#bairro').removeAttr("disabled");  
-            $('#cidade').removeAttr("disabled");  
-            $('#uf').removeAttr("disabled");  
+            $('#complemento').removeAttr("disabled");
+        }
 
+        //Função que salva a alteração
+        var validacao = true;
+        var controle_cep = true;
+        function salva_alteracao(){
+            validacao = true;
+            var nome = $('#nome').val();  
+            var cpf = $('#cpf').val();
+            var email = $('#email').val();  
+            var telefone = $('#telefone').val();  
+            var celular = $('#celular').val(); 
+            var cargo = $('#cargo').val();  
+            var rg = $('#rg').val();  
+            var orgao_emissor = $('#orgao_emissor').val();  
+            var cep = $('#cep').val();
+            var endereco = $('#endereco').val();
+            var numero = $('#numero').val();
+            var complemento = $('#complemento').val();
+            var bairro = $('#bairro').val();
+            var cidade = $('#cidade').val();
+            var uf = $('#uf').val();
+
+            //Valida entrada
+            if(nome.length == 0 ){
+            add_erro_input($('#nome') , "Por favor preencha o campo Nome");
+            validacao_ok = false;
+            }else{
+                remove_erro_input($('#nome'));
+            }  
+
+            if(cpf.length == 0 ){
+                add_erro_input($('#cpf') , "Por favor preencha o campo CPF");
+                validacao_ok = false;
+            }else{
+                remove_erro_input($('#cpf'));
+            }
+
+            if(email.length == 0 ){
+                add_erro_input($('#email') , "Por favor preencha o campo E-mail");
+                validacao_ok = false;
+            }else{
+                remove_erro_input($('#email'));
+            }
+
+            if(celular.length == 0 && telefone.length == 0  ){
+                add_erro_input($('#telefone') , "Por favor preencha o campo Telefone e/ou o campo Celular");
+                add_erro_input($('#celular') , "Por favor preencha o campo Telefone e/ou o campo Celular");
+                validacao_ok = false;
+            }else{
+                remove_erro_input($('#telefone'));
+                remove_erro_input($('#celular'));
+            }
+
+            if(sem_cep.checked){
+
+                if(endereco.length == 0 ){
+                    add_erro_input($('#endereco') , "Por favor preencha o campo Endereco");
+                    validacao_ok = false;
+                }else{
+                    remove_erro_input($('#endereco'));
+                }
+
+                if(numero.length == 0 ){
+                    add_erro_input($('#numero') , "Por favor preencha o campo Número");
+                    validacao_ok = false;
+                }else{
+                    remove_erro_input($('#numero'));
+                }
+
+                if(bairro.length == 0 ){
+                    add_erro_input($('#bairro') , "Por favor preencha o campo Bairro");
+                    validacao_ok = false;
+                }else{
+                    remove_erro_input($('#bairro'));
+                }
+
+                if(cidade.length == 0 ){
+                    add_erro_input($('#cidade') , "Por favor preencha o campo Cidade");
+                    validacao_ok = false;
+                }else{
+                    remove_erro_input($('#cidade'));
+                }
+
+                if(uf.length == 0 ){
+                    add_erro_input($('#uf') , "Por favor preencha o campo UF");
+                    validacao_ok = false;
+                }else{
+                    remove_erro_input($('#uf'));
+                }
+
+                if(complemento.length == 0 ){
+                    add_erro_input($('#complemento') , "Por favor preencha o campo Complemento");
+                    validacao_ok = false;
+                }else{
+                    remove_erro_input($('#complemento'));
+                }
+
+            }else{
+                if(cep.length == 0 ){
+                    add_erro_input($('#cep') , "Por favor preencha o campo CEP");
+                    validacao_ok = false;
+                }else if(controle_cep){
+                    remove_erro_input($('#cep'));
+
+                    if(numero.length == 0 ){
+                        add_erro_input($('#numero') , "Por favor preencha o campo Número");
+                        validacao_ok = false;
+                    }else{
+                        remove_erro_input($('#numero'));
+                    }
+                }
+            }
+            //Fim valida entrada
+            
+            if (validacao){
+                var data = new FormData();
+                if ($('#arquivo').length > 0) {
+                    alert();
+                }else{
+                    alert('1');
+                }
+                data.append('arquivo',$('#arquivo').prop('files')[0]);
+                data.append('funcao',"alterar");
+                data.append('id', id_funcionario);
+                data.append('nome', nome);
+                data.append('email', email);
+                data.append('cpf', cpf);
+                data.append('telefone', telefone);
+                data.append('celular', celular);
+                data.append('cargo', cargo);
+                data.append('rg', rg);
+                data.append('orgao_emissor', orgao_emissor);
+                data.append('cep', cep);
+                data.append('endereco', endereco);
+                data.append('numero', numero);
+                data.append('complemento', complemento);  
+                data.append('bairro', bairro);
+                data.append('cidade', cidade);
+                data.append('uf', uf);
+                $('#preloader_modal').show();
+                $.ajax({
+                    url: '../../controller/funcionarioListar.php',
+                    method: "post",
+                    data: data ,
+                    dataType: 'script',
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function(data){
+                        if(data){
+                            monta_msg_sucesso_modal(" Alteração realizada com sucesso.");
+                        }
+                        $('#preloader_modal').hide();
+                    }
+                });
+            }
         }
         
         //Função que cancela ao clicar em alterar e retorna para campos bloqueados
@@ -476,6 +640,60 @@ include 'menu.php';
             $('#cidade').attr("disabled", true);  
             $('#uf').attr("disabled", true); 
         }
+
+        function busca_cep(){
+
+            var cep =  $('#cep').val();
+            if(cep.length > 8 && ($.isNumeric(cep.charAt(0))) &&
+                ($.isNumeric(cep.charAt(1))) && ($.isNumeric(cep.charAt(2))) &&
+                ($.isNumeric(cep.charAt(3))) && ($.isNumeric(cep.charAt(4))) &&
+                ($.isNumeric(cep.charAt(6))) && ($.isNumeric(cep.charAt(7))) &&
+                ($.isNumeric(cep.charAt(8))) ){
+
+                $.ajax({
+                        url : '../../controller/consultar_cep.php', /* URL que será chamada */ 
+                        type : 'POST', /* Tipo da requisição */ 
+                        data: 'cep=' + $('#cep').val(), /* dado que será enviado via POST */
+                        dataType: 'json', /* Tipo de transmissão */
+                        success: function(data){
+                            if(data.sucesso == 1){
+                    
+                                $('#endereco').val(data.rua);
+                                $('#bairro').val(data.bairro);
+                                $('#cidade').val(data.cidade);
+                                $('#uf').val(data.estado);
+
+                                $('#numero').removeAttr("disabled");
+                                $('#complemento').removeAttr("disabled");
+
+                                $('#numero').focus();
+
+                                remove_erro_input($('#cep'));
+
+                                controle_cep = true;
+                            }else{
+                                validacao_ok = false;
+                                controle_cep = false;
+                                add_erro_input($('#cep') , "CEP inválido ");
+                            }
+                        }
+                }); 
+            }else{
+                $('#endereco').val('');
+                $('#numero').val('');
+                $('#complemento').val('');
+                $('#bairro').val('');
+                $('#cidade').val('');
+                $('#uf').val('');	
+
+                $('#endereco').attr("disabled" , true);
+                $('#numero').attr("disabled" , true);
+                $('#complemento').attr("disabled" , true);
+                $('#bairro').attr("disabled" , true);
+                $('#cidade').attr("disabled" , true);
+                $('#uf').attr("disabled" , true);
+            }
+            }
 
         function monta_msg_alerta_permanente(msg){
             html = '<div class="alert alert-warning"><i class="fas fa-exclamation-triangle"></i><strong>'+ msg +'</strong></div>';

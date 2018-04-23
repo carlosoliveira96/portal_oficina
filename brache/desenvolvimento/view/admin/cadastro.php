@@ -7,10 +7,6 @@ include 'menu.php';
 	<meta charset="UTF-8">
 	<title>Portal Oficina</title>
 
-	<!-- Arquivos CSS -->
-	<link href="../static/css/jasny-bootstrap.css" rel="stylesheet">
-	<link href="../static/css/bootstrap-datepicker.css" rel="stylesheet">
-	<link  href="../static/css/fontawesome-all.min.css" rel="stylesheet">
 	<!-- Arquivos JS -->
 	<script type="text/javascript" src="../static/js/jasny-bootstrap.js"></script>
 

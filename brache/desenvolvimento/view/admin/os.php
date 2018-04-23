@@ -371,7 +371,7 @@ $hora_atual = date('H:i:s');
                                     </div>
                                     <div class="col-12" id="check_tc" style="margin-top:1rem" hidden>
                                         <h6 class="text-left">
-                                            <input type="checkbox" onclick="habilita_retorno_tc()" id="retorno_tc"> Retorno
+                                            <input type="checkbox" onclick="habilita_retorno_tc()" id="retorno_tc"> Termo de compromisso
                                         </h6>
                                     </div>
                                     <div class="col-6" id="area_tc" hidden>
@@ -833,7 +833,6 @@ $hora_atual = date('H:i:s');
 
     //Função para salvar as alterações da OS
     function salvarAlteracao(){
-        alert();
         $('#preloader').show();
         var servico_pendencia = $('#servico_pendencia').val();
         var id_funcionario = $('#id_funcionario_pend').val();
@@ -857,10 +856,8 @@ $hora_atual = date('H:i:s');
         var check_tc = document.getElementById("retorno_tc");
         var termo = $('#tc').val();
         if (check_pt.checked){
-            alert('1');
             var check = 1;
         }else {
-            alert('0');
             check = 0;
         }
 
@@ -894,7 +891,6 @@ $hora_atual = date('H:i:s');
             method: "post",
             data: data ,
             success: function(data){
-                alert(data);
                 if(data){
                     monta_msg_sucesso("Alteração efetuada com sucesso");
                     busca_os();
@@ -1025,6 +1021,7 @@ $hora_atual = date('H:i:s');
                     if (resultado.data_retorno != null){
                         $('#retorno').attr('checked', true);
                         $('#dtRetorno').removeAttr('disabled');
+                        $('#check_tc').removeAttr('hidden');
                     }
 
                     if (resultado.situacao_tc == 1){

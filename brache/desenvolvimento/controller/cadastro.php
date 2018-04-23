@@ -263,6 +263,17 @@ switch ($funcao) {
         }
 
         break;
+    case 'consultar':
+        $tipo = $_POST['tipo'];
+
+        $condicao = "tipo = '$tipo'";
+
+        $cadastro = busca_detalhada_varios($conexao, $condicao, 'cadastro', '*');
+
+        if ($cadastro != null){
+            print json_encode($cadastro);
+        }
+    break;
     default:
 		break;
 }

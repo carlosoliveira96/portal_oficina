@@ -20,6 +20,7 @@ include "controle.php";
         <script src="../static/js/jquery.js"></script>
         <script src="../static/js/customScrollbat.js"></script>
         <script src="../static/js/fontawesome-all.js"></script>
+        <script src="../static/js/jasny-bootstrap.js"></script>
     </head>
     <body>
         <input type="hidden" id="usuario" value="<?=$_SESSION['usuario']?>">
@@ -58,8 +59,13 @@ include "controle.php";
                         <a href="inicio.php">Início</a>
                     </li>
                     <li>
-                        <a href="cadastro.php">Atendimentos</a>
+                        <a href="#atendimentoSubmenu" data-toggle="collapse" aria-expanded="false">Atendimentos</a>
+                        <ul class="collapse list-unstyled" id="atendimentoSubmenu">
+                            <li><a href="cadastro.php">Cadastro</a></li>
+                            <li><a href="listarAtendimento.php">Listagem</a></li>
+                         </ul>
                     </li>
+                    <li>
                     <li>
                         <a href="veiculoCadastro.php">Veículo</a>
                     </li>

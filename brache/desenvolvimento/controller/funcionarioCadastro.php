@@ -145,17 +145,17 @@ if (isset($_POST['funcao'])){
 
             break;
         case 'verifica_cpf':
-                $cpf = $_POST['cpf'];
-                
-                $cliente = busca_detalhada_um($conexao, " cpf = '{$cpf}' " , "funcionario" );
+            $cpf = $_POST['cpf'];
+            
+            $cliente = busca_detalhada_um($conexao, " cpf = '{$cpf}' " , "funcionario" );
+    
+            if (strlen($cliente['id']) > 0 ) {
+                print json_encode($cliente);
+            }
         
-                if (strlen($cliente['id']) > 0 ) {
-                    print json_encode($cliente);
-                }
-        
-                break;
+        break;
         default:
-            break;
+        break;
     }
 }
 ?>

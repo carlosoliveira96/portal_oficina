@@ -51,8 +51,9 @@ if(isset($_POST['funcao'])){
             //$data1 = new DateTime($data_inicio);
             //$data_inicio = date_format($data1, 'Y/m/d');
             //$data2 = new DateTime($data_final );
-            //$data_fim = date_format($data2, 'Y/m/d');   
-
+            //$data_fim = date_format($data2, 'Y/m/d');  
+            
+            
             $os ="";
             if (strlen($corretor) > 0 && strlen($seguradora) > 0 ){
                 $os = busca_detalhada_varios($conexao, "a.cliente_id = c.id AND a.veiculo_placa = b.placa AND (b.placa like '%{$pesquisa}%' OR a.sinistro  LIKE '%{$pesquisa}%' OR c.nome  OR '%{$pesquisa}%' OR b.modelo LIKE '%{$pesquisa}%') AND a.corretor_id = '{$corretor}' AND a.seguradora_id = '{$seguradora} ' AND STR_TO_DATE( a.data_cadastro , '%d/%m/%Y' ) BETWEEN '{$data_inicio}' AND '{$data_fim}' " , "os a , veiculo b , cadastro c " , "a.*, a.id as id_os, c.*, b.placa, b.modelo");
@@ -63,13 +64,24 @@ if(isset($_POST['funcao'])){
             }else if(strlen($corretor) <= 0){
                 $os = busca_detalhada_varios($conexao, "a.cliente_id = c.id AND a.veiculo_placa = b.placa AND (b.placa like '%{$pesquisa}%' OR a.sinistro  LIKE '%{$pesquisa}%' OR c.nome  OR '%{$pesquisa}%' OR b.modelo LIKE '%{$pesquisa}%')  AND a.seguradora_id = '{$seguradora}' AND STR_TO_DATE( a.data_cadastro , '%d/%m/%Y' ) BETWEEN '{$data_inicio}' AND '{$data_fim}'" , "os a , veiculo b , cadastro c ", "a.*, a.id as id_os, c.*, b.placa, b.modelo");
             }
-           // $os = busca_detalhada_varios($conexao, "a.cliente_id = c.id AND a.veiculo_placa = b.placa AND (b.placa like '%{$pesquisa}%' OR a.sinistro  LIKE '%{$pesquisa}%' OR c.nome  OR '%{$pesquisa}%' OR b.modelo LIKE '%{$pesquisa}%') AND a.corretor_id = '{$corretor}' AND a.seguradora_id = '{$seguradora} ' " , "os a , veiculo b , cadastro c ");
+            // $os = busca_detalhada_varios($conexao, "a.cliente_id = c.id AND a.veiculo_placa = b.placa AND (b.placa like '%{$pesquisa}%' OR a.sinistro  LIKE '%{$pesquisa}%' OR c.nome  OR '%{$pesquisa}%' OR b.modelo LIKE '%{$pesquisa}%') AND a.corretor_id = '{$corretor}' AND a.seguradora_id = '{$seguradora} ' " , "os a , veiculo b , cadastro c ");
 
             if($os != null){
                 print json_encode($os);
             }
 
             break;
+        case 'busca_carros':
+            $condicao = 'a.placa not in (select b.veiculo_placa from os b) and a.situacao = 1';
+            $tabela = 'veiculo a';
+            $campos = '*';
+            
+            $carros = busca_detalhada_varios($conexao, $condicao, $tabela, $campos);
+
+            if($carros != null){
+                print json_encode($carros);
+            }
+        break;
         case 'busca_pendencias_inicio':
             $pesquisa = $_POST['pesquisa'];
             $corretor = $_POST['corretor'];

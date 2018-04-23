@@ -21,8 +21,7 @@ include "menu.php";
     <body  style="background-color: #F8F9FA;" id="body">
         <div class="container" id="container" style=" background-color: #fff;">
             <h2>
-                <p class="text-center"  id="nome_vinculo"><i><b>Víncular Veículo para Cliente</b></i></p>
-
+                <p class="text-center"  id="nome_vinculo" style="color: #000"><i><b>Vincular Veículo para Cliente</b></i></p>
             </h2>
             <hr>
             <div id="msg"></div>
