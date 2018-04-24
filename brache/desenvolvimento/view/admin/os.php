@@ -52,6 +52,7 @@ $hora_atual = date('H:i:s');
                                     <div class="input-group ">
                                         <span class="input-group-addon " id="sizing-addon1"><i class="fa fa-address-book"></i></span>
                                         <input type="text" id="nome" class="form-control" disabled placeholder="Ex.:  Exemplo exemplo " maxlength="200" name="">
+                                        <input type="text" id="id_empresa" hidden>
                                     </div>
                                     <div class="text-danger"></div>
                                 </div>
@@ -473,11 +474,12 @@ $hora_atual = date('H:i:s');
                                 <div class="col-12">
                                     <textarea id="carta" rows="6" class="form-control"></textarea>
                                 </div>
+                                <div class="text-danger"></div>
                             </div>
                             <br>
                             <div class="row">
                                 <div class="col-12">
-                                    <a href="emitirRelatorio.php" class="btn btn-dark float-right" id="btnImprimir"> 
+                                    <a href="#" class="btn btn-dark float-right" id="btnImprimir" onclick="imprimirExpediente()"> 
                                         <i class="fa fa-print float-left" style="margin-top: 0.1rem; margin-right: 0.3rem"></i> 
                                         Imprimir
                                     </a>
@@ -967,6 +969,7 @@ $hora_atual = date('H:i:s');
                     var resultado = $.parseJSON(data);
                     //Dados do cliente
                     $('#nome').attr('value', resultado.nome_cliente);
+                    $('#id_empresa').attr('value', resultado.empresa_id);
                     $('#nome').attr('value', resultado.nome);
                     $('#nascimento').attr('value', resultado.data_nascimento);
                     $('#cpf').attr('value', resultado.cpf);
@@ -1266,6 +1269,86 @@ $hora_atual = date('H:i:s');
         }else {
             document.getElementById('carta').value = lista_expedientes[indice].conteudo;
         }
+    }
+
+    var valida = true;
+    function imprimirExpediente(){
+        var expediente = $('#expedientes').val();
+        var carta = $('#carta').val();
+
+        if(carta.length <= 0){
+            add_erro_input($('#carta') , "Deve ser selecionado um expediente e preencher o campo de cartas");
+            valida = false;
+        }else if(expediente == 'selecionado'){
+            add_erro_input($('#carta') , "Deve ser selecionado um expediente e preencher o campo de cartas");
+            valida = false;
+        }else{
+            remove_erro_input($('#carta'));
+            valida = true;
+        }
+
+        if (valida){
+            var nome = $('#nome').val();
+            var id_empresa = $('#id_empresa').val();
+            var nascimento = $('#nascimento').val();
+            var cpf = $('#cpf').val();
+            var email = $('#email').val();
+            var telefone = $('#telefone').val();
+            var celular = $('#celular').val();
+            var cep = $('#cep').val();
+            var endereco = $('#endereco').val();
+            var cidade = $('#cidade').val();
+            var uf = $('#uf').val();
+
+            var placa = $('#placa').val();
+            var modelo = $('#modelo').val();
+            var fabricante = $('#fabricante').val();
+            var seguradora = $('#seguradora').val();
+            var corretor = $('#corretor').val();
+            var expediente_formato = lista_expedientes[expediente].conteudo;
+
+            var data = {
+                nome: nome,
+                id_empresa: id_empresa,
+                nascimento: nascimento,
+                cpf: cpf,
+                email: email,
+                telefone: telefone,
+                celular: celular,
+                cep: cep,
+                endereco: endereco,
+                cidade: cidade,
+                uf: uf,
+                placa: placa,
+                modelo: modelo,
+                fabricante: fabricante,
+                seguradora: seguradora,
+                corretor: corretor,
+                expediente: expediente_formato,
+                carta: carta
+            }
+            $.ajax({
+                url: '../../controller/emitirExpediente.php',
+                method: "post",
+                data: data ,
+                success: function(data){
+                    if(data == 'sucesso'){
+                        var html =  '<div class="alert alert-success alert-dismissible" role="alert">'+
+                                    '<strong>Sucesso!</strong> Expediente foi gerado em formato PDF. <a href="../../expedientes/expediente.pdf" target="_blank" class="alert-link">Para acessá-lo basta clicar aqui.</a>'+
+                                    '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+                                    '<span aria-hidden="true">&times;</span>'+
+                                    '</button>'+
+                                    '</div>';
+                    }else{
+                        monta_msg_erro("Ocorreu um erro ao tentar gerar o PDF. Tente em alguns instantes novamente.");
+                    }
+                    $('#msg').html(html);
+                }
+            });
+        }
+        
+
+
     }
     </script>
 </html>
